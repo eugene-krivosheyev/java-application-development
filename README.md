@@ -35,10 +35,10 @@
 ## Java Code
 - Build tools: mvn
 - Class
+- Object
 - Method
 - Call Stack
 - Design
-- Object
 - Simple App demo
 
 ## Exceptions in Java
