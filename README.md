@@ -20,6 +20,7 @@
 - Practice: JDK installation
 - JDK structure demo
 - JDK tools overview
+
 ## Java Application Structure
 - App overview and structure
 - Class
