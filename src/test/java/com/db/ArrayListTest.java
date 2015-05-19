@@ -19,6 +19,6 @@ public class ArrayListTest {
         arrayList.add(dummy);
 
         //Then
-        assertEquals(2, arrayList.size());
+        assertEquals(1, arrayList.size());
     }
 }
