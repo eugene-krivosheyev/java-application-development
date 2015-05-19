@@ -33,9 +33,11 @@
 - Типовые граничные условия (для тестов)
 
 ## Java Code
+- Build tools: mvn
 - Class
 - Method
 - Call Stack
+- Design
 - Object
 - Simple App demo
 
