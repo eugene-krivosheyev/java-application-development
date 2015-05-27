@@ -9,13 +9,14 @@ import java.sql.SQLException;
 
 public class Controller {
     private TickerDAO tickerDAO = new TickerDAO();
-    private StockDAO stock = new StockDAO();
+    private StockDAO stockDAO;
 
     public double buy(String tickerId, int amount) throws BuyOperationException, SQLException {
         final int BUY_OPERATION = 1;
         Ticker tickerObject = null;
 
         try {
+            stockDAO = new StockDAO();
             tickerDAO.openConnection("jdbc:oracle:myhost");
             tickerObject = tickerDAO.getTicker(tickerId);
         } catch (TickerNotFoundException e) {
@@ -24,7 +25,7 @@ public class Controller {
             tickerDAO.close();
         }
 
-        return stock.placeOrder(tickerObject.toString(), amount, BUY_OPERATION);
+        return stockDAO.placeOrder(tickerObject.toString(), amount, BUY_OPERATION);
     }
 
     public double sell(String tickerId, int amount) throws SellOperationException, SQLException {
@@ -34,12 +35,13 @@ public class Controller {
         try {
             tickerDAO.openConnection("jdbc:oracle:myhost");
             tickerObject = tickerDAO.getTicker(tickerId);
+            stockDAO = new StockDAO();
         } catch (TickerNotFoundException e) {
             throw new SellOperationException(e, "");
         } finally {
             tickerDAO.close();
         }
 
-        return stock.placeOrder(tickerId, amount, SELL_OPERATION);
+        return stockDAO.placeOrder(tickerObject.toString(), amount, SELL_OPERATION);
     }
 }
