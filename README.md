@@ -64,10 +64,10 @@
 
 ## GC and Heap Architecture
 - Garbage
-- Heap architecture
-- Types of GC
-- GC and Heap tuning
-- JVM options for GC tuning
+- [Heap architecture] (http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html)
+- [Types of GC] (http://www.slideshare.net/akirakoyasu/garbage-collection-for-dummies)
+- [GC and Heap tuning] (http://blog.ragozin.info/2011/12/garbage-collection-in-hotspot-jvm.html)
+- [JVM options for GC tuning] (http://blog.ragozin.info/2013/11/hotspot-jvm-garbage-collection-options.html)
 - GC console demo
 - Типовые граничные условия для тестов
 
