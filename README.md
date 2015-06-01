@@ -73,6 +73,8 @@
 
 ## Heap and Stack Monitoring
 - *Sampling vs Profiling*
+- [CPU Time vs Wall Time] (http://stackoverflow.com/questions/14626475/visualvm-and-self-time)
+- [Safepoints] (http://stackoverflow.com/questions/17839933/what-are-safe-points-and-safe-point-polling-in-context-of-profiling)
 - Heap and GC monitoring with JVisualVM demo
 - Stack and threads monitoring with JVisualVM demo
 - Heap and Stack Dumps with JVisualVM demo
