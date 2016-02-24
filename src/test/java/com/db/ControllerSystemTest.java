@@ -3,6 +3,7 @@ package com.db;
 import com.db.service.BuyOperationException;
 import com.db.service.Controller;
 import com.db.service.SellOperationException;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -11,6 +12,11 @@ import static org.junit.Assert.assertEquals;
 
 public class ControllerSystemTest {
     private Controller controller = new Controller();
+
+    @Before
+    public void setUp() {
+
+    }
 
     @Test
     public void shouldDoBuyForOneLotOfExistTicker() throws SQLException, BuyOperationException {
