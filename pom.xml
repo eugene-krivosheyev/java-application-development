@@ -7,6 +7,42 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+
+  <build>
+  <plugins>
+    <plugin>
+      <groupId>org.pitest</groupId>
+      <artifactId>pitest-maven</artifactId>
+      <version>1.1.8</version>
+      <configuration>
+        <targetClasses>
+          <param>com.db.*</param>
+        </targetClasses>
+        <targetTests>
+          <param>com.db.*</param>
+        </targetTests>
+        <mutators>
+          <mutator>ALL</mutator>
+        </mutators>
+        <outputFormats>
+          <outputFormat>HTML</outputFormat>
+          <outputFormat>XML</outputFormat>
+        </outputFormats>
+        <timestampedReports>false</timestampedReports>
+      </configuration>
+      <executions>
+          <execution>
+              <id>pit-execute-mutation-coverage</id>
+              <phase>verify</phase>
+              <goals>
+                  <goal>mutationCoverage</goal>
+              </goals>
+          </execution>
+      </executions>
+    </plugin>
+  </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
