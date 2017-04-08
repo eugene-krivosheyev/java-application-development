@@ -2,16 +2,10 @@ package demo;
 
 public class Demo {
     public static void main(String[] args) {
-        Printer printer; //local, temp, stack, auto
+        Printer printer; //CNFE, OOME: (perm/meta space)
 
-        m();
-
-        printer = new Printer();
-        printer.print("HW!!");
-    }
-
-    private static void m() {
-        System.out.println("hhh");
+        printer = new Printer(); //OOME: (object space)
+        printer.print("HW!!"); //SOFE
     }
 }
 
