@@ -2,15 +2,21 @@ package demo;
 
 public class Demo {
     public static void main(String[] args) {
-        Printer printer; //CNFE, OOME: (perm/meta space)
+        Printer printer;
 
-        printer = new Printer(); //OOME: (object space)
-        printer.print("HW!!"); //SOFE
+        printer = new Printer("HW!");
+        printer.print();
     }
 }
 
 class Printer {
-    public void print(String message) {
+    private String message; //Introduce object state with field/property
+
+    Printer(String message) {
+        this.message = message;
+    }
+
+    public void print() {
         System.out.println(message);
     }
 }
