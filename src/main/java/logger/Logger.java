@@ -10,7 +10,21 @@ public class Logger {
 
     public void log(String message) {
         if(filter.filter(message)) {
-            saver.save(message);
+            try {
+                saver.save(message);
+            } catch (RuntimeException e) {
+//                e.printStackTrace();
+                throw new LogOperationException(e);
+            }
+            System.out.println("2");
         }
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Logger logger = new Logger(new FileLoggerSaver());
+        logger.log("test");
+        System.out.println("3");
     }
 }

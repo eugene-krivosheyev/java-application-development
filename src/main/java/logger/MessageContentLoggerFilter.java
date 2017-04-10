@@ -5,6 +5,6 @@ package logger;
  */
 public class MessageContentLoggerFilter implements LoggerFilter{
     public boolean filter(String message) {
-        return false;
+        return true;
     }
 }
