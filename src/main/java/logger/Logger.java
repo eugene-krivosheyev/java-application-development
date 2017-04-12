@@ -13,10 +13,16 @@ public class Logger {
             try {
                 saver.save(message);
             } catch (RuntimeException e) {
-//                e.printStackTrace();
                 throw new LogOperationException(e);
+            } finally { //Replaced by t-w-r
+                if(saver != null) {
+                    try {
+                        saver.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            System.out.println("2");
         }
     }
 }

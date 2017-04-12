@@ -7,4 +7,8 @@ public class DbLoggerSaver implements LoggerSaver{
     public void save(String message) {
 
     }
+
+    public void close() {
+
+    }
 }

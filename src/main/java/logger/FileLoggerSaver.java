@@ -5,4 +5,8 @@ public class FileLoggerSaver implements LoggerSaver {
         if(true) throw new RuntimeException("Can't open file");
         System.out.println("1");
     }
+
+    public void close() {
+
+    }
 }
