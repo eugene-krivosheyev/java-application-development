@@ -10,18 +10,16 @@ public class Logger {
 
     public void log(String message) {
         if(filter.filter(message)) {
-            RuntimeException mainFlowException = null;
+            LoggerMessageFormatter formatter = null;
             try {
-                saver.save(message);
+                formatter = new LoggerMessageFormatter();
+                saver.save(formatter.format(message));
             } catch (RuntimeException e) {
-                mainFlowException = new LogOperationException(e);
-                throw mainFlowException;
+                throw new LogOperationException(e);
             } finally { //Replaced by t-w-r
                 try {
-                    saver.close();
+                    if(formatter != null) formatter.close();
                 } catch (RuntimeException e) {
-                    e.addSuppressed(null);
-                    throw e;
                 }
             }
         }
@@ -30,7 +28,7 @@ public class Logger {
 
 class Main {
     public static void main(String[] args) {
-        Logger logger = new Logger(null);
+        Logger logger = new Logger(new FileLoggerSaver());
         logger.log("test");
         System.out.println("3");
     }
