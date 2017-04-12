@@ -20,7 +20,7 @@ public class Logger {
                 try {
                     saver.close();
                 } catch (RuntimeException e) {
-                    e.addSuppressed(mainFlowException);
+                    e.addSuppressed(null);
                     throw e;
                 }
             }
