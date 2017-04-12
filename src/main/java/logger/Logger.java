@@ -8,7 +8,7 @@ public class Logger {
         this.saver = saver;
     }
 
-    public void log(String message) {
+    public void log(String message) throws LogOperationException {
         if(filter.filter(message)) {
             try (LoggerMessageFormatter formatter = new LoggerMessageFormatter()) {
                 saver.save(formatter.format(message));
@@ -22,7 +22,11 @@ public class Logger {
 class Main {
     public static void main(String[] args) {
         Logger logger = new Logger(new FileLoggerSaver());
-        logger.log("test");
+        try {
+            logger.log("test");
+        } catch (LogOperationException e) {
+            e.printStackTrace();
+        }
         System.out.println("3");
     }
 }
