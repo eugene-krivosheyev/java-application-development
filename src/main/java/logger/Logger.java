@@ -10,17 +10,10 @@ public class Logger {
 
     public void log(String message) {
         if(filter.filter(message)) {
-            LoggerMessageFormatter formatter = null;
-            try {
-                formatter = new LoggerMessageFormatter();
+            try (LoggerMessageFormatter formatter = new LoggerMessageFormatter()) {
                 saver.save(formatter.format(message));
             } catch (RuntimeException e) {
                 throw new LogOperationException(e);
-            } finally { //Replaced by t-w-r
-                try {
-                    if(formatter != null) formatter.close();
-                } catch (RuntimeException e) {
-                }
             }
         }
     }
