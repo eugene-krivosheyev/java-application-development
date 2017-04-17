@@ -22,7 +22,7 @@ public class Controller {
         } catch (TickerNotFoundException e) {
             throw new BuyOperationException(e, "");
         } finally {
-            tickerDAO.close();
+            tickerDAO.close(); //ISTE
         }
 
         return stockDAO.placeOrder(tickerObject.toString(), amount, BUY_OPERATION);
