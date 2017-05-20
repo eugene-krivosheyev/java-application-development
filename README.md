@@ -59,6 +59,7 @@
 - Heap
 - GC overview
 - JVM options for heap and stack tuning
+- *nix limits for threads per process
 - JVisualVM demo
 - Типовые граничные условия для тестов
 
