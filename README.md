@@ -27,7 +27,7 @@
 - Classpath
 - Package
 - JAR
-- Practice: Java App compiling 
+- Practice: Java App compiling
 - Practice: Java App launching
 - JVM options and App parameters
 - Compiling and Running old version Apps
@@ -65,17 +65,17 @@
 
 ## GC and Heap Architecture
 - Garbage
-- [Heap architecture] (http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html)
-- [Types of GC] (http://www.slideshare.net/akirakoyasu/garbage-collection-for-dummies)
-- [GC and Heap tuning] (http://blog.ragozin.info/2011/12/garbage-collection-in-hotspot-jvm.html)
-- [JVM options for GC tuning] (http://blog.ragozin.info/2013/11/hotspot-jvm-garbage-collection-options.html)
+- [Heap architecture](http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html)
+- [Types of GC](http://www.slideshare.net/akirakoyasu/garbage-collection-for-dummies)
+- [GC and Heap tuning](http://blog.ragozin.info/2011/12/garbage-collection-in-hotspot-jvm.html)
+- [JVM options for GC tuning](http://blog.ragozin.info/2013/11/hotspot-jvm-garbage-collection-options.html)
 - GC console demo
 - Типовые граничные условия для тестов
 
 ## Heap and Stack Monitoring
 - *Sampling vs Profiling*
-- [CPU Time vs Wall Time] (http://stackoverflow.com/questions/14626475/visualvm-and-self-time)
-- [Safepoints] (http://stackoverflow.com/questions/17839933/what-are-safe-points-and-safe-point-polling-in-context-of-profiling)
+- [CPU Time vs Wall Time](http://stackoverflow.com/questions/14626475/visualvm-and-self-time)
+- [Safepoints](http://stackoverflow.com/questions/17839933/what-are-safe-points-and-safe-point-polling-in-context-of-profiling)
 - Heap and GC monitoring with JVisualVM demo
 - Stack and threads monitoring with JVisualVM demo
 - Heap and Stack Dumps with JVisualVM demo
