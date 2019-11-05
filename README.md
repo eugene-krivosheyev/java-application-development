@@ -1,10 +1,10 @@
 Java Application Development
 ================
 
-_2. Java Application as a White Box: designing, coding, debugging and using._ 50hrs.
+_2. Java Application as a White Box: designing, coding, debugging and using._ 51hrs.
 
 # Attendee prerequisites
-- [ ] 1. Java Application Building
+- [ ] Training «1. Java Application Building» completion
 
 # Training Objectives
 - [ ] Hands-on skill of localizing and fixing deep build-time errors
@@ -20,11 +20,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 - [ ] Understanding Java networking architecture
 - [ ] Hands-on skill of developing distributed applications
 - [ ] Understanding Java IO architecture
-- [ ] Understanding JDBC architecture
-- [ ] Hands-on skill of developing data-persistent applications
-- [ ] Understanding Java dynamic class-loading architecture
-- [ ] Hands-on skill of developing high-uptime applications
-- [ ] Hands-on skill of developing applications with i16n and l18n 
+- [ ] Hands-on skill of developing file-persistent applications
 - [ ] Hands-on skill of IDE productive using
 
 # Prerequisites
@@ -53,9 +49,12 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 - [ ] Topics focus demand from attendees
 - [ ] Additional topics demand form attendees
 
-## Sound-check (1)
+## Sound-check (0.5)
 ### Hands-on
-- [ ] Training repo fork and clone
+- [ ] Fork training repo and clone this fork
+```bash
+git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-development
+```
 - [ ] Open project with IDEA
 - [ ] Project JDK set
 - [ ] Sourcepath and classpathes
@@ -83,7 +82,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 - [ ] What we should describe with comments?
 - [ ] Comments Quality Gate
 
-## Java Syntax for Procedure Style (2)
+## Procedure style (2.5)
 ### Key concepts
 - [ ] Package
 - [ ] "Class"
@@ -123,7 +122,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 ### Hands-on
 - [ ] Developing maintainable overloaded Facade API throught TDD with test stubs supplied
 
-## Java primitive types system (2)
+## Java syntax for procedure style: primitive types system (2.5)
 ### Variable declaration
 - [ ] Variable declaration scopes
 - [ ] Declaration
@@ -151,7 +150,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 ### Hands-on
 - [ ] Implement application state with class variables
 
-## Java operators for data processing (2)
+## Java syntax for procedure style: operators for data processing (2.5)
 ### Type operators
 - [ ] type casting
 - [ ] instanceof
@@ -175,7 +174,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 ### Hands-on
 - [ ] Implement application typed accumulating state 
 
-## Controlling execution flow (2)
+## Java syntax for procedure style: controlling execution flow (2.5)
 ### Switching
 - [ ] if
 - [ ] switch and limitations
@@ -197,10 +196,10 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 ### Hands-on
 - [ ] Implement application typed accumulating state with Overflow and Presicion loss handling
 
-## Java reference types (2)
+## Java reference types (2.5)
 ### References
 - [ ] Reference + referenced object
-- [ ] Memory structure revisited: Heap object space
+- [ ] JVM memory structure revisited: Heap object space
 - [ ] Object structure and its defining class
 ### Demo
 - [ ] Where reference can be placed?
@@ -230,6 +229,8 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 - [ ] Passing
 - [ ] Using
 - [ ] Limitations
+### Demo
+- [ ] Analyzing program arguments as main(string vararg)
 ### Strings
 - [ ] Declaration
 - [ ] Initialization with literal and constructor
@@ -243,86 +244,333 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 50
 ### Hands-on
 - [ ] Enrich application API with Strings and Varargs
 
----
+## OOAD style (1)
+### Demo
+- [ ] Procedure-oriented application design stub
+- [ ] Maintainability issues: ~~SRP~~, ~~OCP~~
+- [ ] Refatoring Extract Enum
+- [ ] Clear code and readability values
+- [ ] Refactoring Extract Method
+- [ ] Encapsulation concept and values
+- [ ] Refactoring Extract class / Move method
+- [ ] Polymorphism concept and values
+- [ ] Refactoring Extract Interface
+- [ ] Inheritance concept and values
+- [ ] Refactoring Extract Superclass
+### Dealing with state
+- [ ] Stateful vs Stateless components
+### Demo
+- [ ] Creational problem
+- [ ] Creator pattern
+- [ ] Factory Method pattern and cases
+- [ ] Abstract Factory pattern and cases
+- [ ] Registry pattern and cases
+- [ ] DI pattern and cases: field, constructor, setter, method injections
+- [ ] Final full UML picture
 
-## Java Installation
-- Installation process demo
-- Practice: JDK installation
-- JDK structure demo
-- JDK tools overview
+## Enumerated types in Java (1)
+### Final keyword
+- [ ] 3 modifier semantics
+### Enums
+- [ ] Enumerated type concept: why?
+- [ ] API
+- [ ] Referencing and == vs equals()
+- [ ] Using with switch 
+- [ ] Smart Enum anti/pattern
+### Demo
+- [ ] Implementing enum without built-in enum type
+- [ ] Check if static concept understood well
+- [ ] Implementing Singleton anti/pattern
+### Hands-on
+- [ ] Refactor state switching with enums introduced
 
-## Java Application Structure
-- App overview and structure
-- Class
-- Classpath
-- Package
-- JAR
-- Practice: Java App compiling
-- Practice: Java App launching
-- JVM options and App parameters
-- Compiling and Running old version Apps
-- Типовые граничные условия (для тестов)
+## Java syntax for OOAD: Encapsulation (2.5)
+### Data and Behavior encapsulation
+- [ ] Why?
+- [ ] Packages and classes as Encapsulation units
+- [ ] Access modifiers and their order
+- [ ] Encapsulating state: data hiding with accessors/mutators as OCP implementation for flexibility
+- [ ] Setters/getters is not encapsulation in general case
+### Object instatiation 
+- [ ] Constructor сoncept
+- [ ] Differences with methods
+- [ ] Default constructor
+- [ ] Variable shading within constructor
+- [ ] Overloaded constructors and its reuse
+### Demo
+- [ ] Factory Method Pattern as constructor alternative: OCP implementation for flexibility
+- [ ] Builder Pattern as constructor alternative: OCP implementation for flexibility
+### Hands-on
+- [ ] Refactor application to class design
 
-## Java Code
-- Build tools: mvn
-- Class
-- Object
-- Method
-- Call Stack
-- Design
-- Simple App demo
+## Java syntax for OOAD: Polymorphism (2.5)
+### Polymorphism concept
+- [ ] Type system with "IS-A" relationship: introducing _abstract type_
+- [ ] Polymorphic/dynamic/virtual method call: 
+```java
+AbstractType object = new ImplementationType();
+```
+- [ ] Limitations of visible features
+- [ ] Static methods shading and its "polymorphic" call
+### Type-switching
+- [ ] Type casting operator
+- [ ] instanceof operator
+- [ ] Why is it anti-pattern?
+### Interfaces as a case of Abstract Type 
+- [ ] Interface declaration
+- [ ] Default modifiers for methods and "variables"
+- [ ] Interface inheritance
+- [ ] Interface implementation
+- [ ] Multiple implementations
+- [ ] Defender methods: static and default, diamond problem
+### Demo
+- [ ] Polymorphic arrays
+- [ ] Polymorphic methods arguments
+- [ ] Strategy Design Pattern
+- [ ] State Design Pattern
+### Hands-on
+- [ ] Refactor application to polymorphic design
 
-## Exceptions in Java
-- Call stack recap
-- try/catch/finally
-- Exceptions hierarchy
-- Mostly used exceptions
-- Stacktrace in log demo
+## Java syntax for OOAD: Inheritance (2.5)
+### Polymorphism with subclassing
+- [ ] Abstract modifier
+- [ ] Abstract class as a case of Abstract Type
+- [ ] Show-case for interface-like substituting
+### Code Reuse with subclassing
+- [ ] Extending abstract class with subclass
+- [ ] Limitation on parents count
+- [ ] Limitation on parents member visibility
+- [ ] Out-of-box reusing all inherited members
+- [ ] Overriding parents behavior
+- [ ] Reusing some behavior with super()
+- [ ] Overriding methods constraints and LSP
+### Constructors issue with subclassing
+- [ ] Constructor ~~inheritance~~ and why? (interfaces)
+- [ ] Ok google, so how I can call super constructor?
+- [ ] Constructors call wave for hierarchy: compiler's _default_ super() call
+- [ ] super() vs this() and its position within constructor
+- [ ] Object Initialization section
+### Demo
+- [ ] Implementing Template Method Pattern with abstract superclass
+### Hands-on
+- [ ] Refactor application to more code reuse with Template Method pattern
 
-## Typical Server App Design
-- threads
-- sockets
+## OOAD Principles and Patterns: Revisiting (2)
+### OOAD Principles: SOLID
+- [ ] SRP
+- [ ] OCP
+- [ ] LSP
+- [ ] ISP
+- [ ] DIP
+### Creation Patterns
+- [ ] ~~Singleton~~
+- [ ] Creator
+- [ ] Factory Method
+- [ ] Builder
+- [ ] Abstract Factory
+- [ ] Registry
+- [ ] DI: field, constructor, setter, method
+### Structural Patterns
+- [ ] Adapter
+- [ ] Decorator
+- [ ] Facade
+- [ ] Proxy
+- [ ] Composite
+### Behavioral Patterns
+- [ ] State/Strategy
+- [ ] Command
+- [ ] Mediator (our Controller)
+- [ ] Observer/Listener
+- [ ] Visitor
+### Demo
+- [ ] Typical enterprise application architecture overview with patterns spotted
+- [ ] Visitor implementation for Expression Problem statement
+### Hands-on
+- [ ] Application architecture and design review
+- [ ] Technical debt fixed in backlog
 
-## JVM Architecture
-- Threads
-- Stack
-- Heap
-- GC overview
-- JVM options for heap and stack tuning
-- *nix limits for threads per process
-- JVisualVM demo
-- Типовые граничные условия для тестов
+## Error handlig in Java (2.5)
+### Exception concept
+- [ ] Type information
+- [ ] Object data information
+- [ ] Methods call stack information
+### Trowing and handling exceptions
+- [ ] creating exception instance
+- [ ] throw operator
+- [ ] Methods call stack tracing
+- [ ] try section
+- [ ] catch section
+- [ ] Where in call stack we should handle for typical architecture?
+- [ ] How we should handle? Log/Retry/Rethow patterns.
+- [ ] finally section
+- [ ] Suppression bug
+### Syntax sugar
+- [ ] multi-catch
+- [ ] try-with-resources
+### Demo
+- [ ] Typical layered architecture
+- [ ] Rising exception in deep layer
+- [ ] Rethrow example
+- [ ] Exception from main() example
+- [ ] Suppression example
+### Exceptions type system
+- [ ] Built-in types
+- [ ] Errors vs Exceptions
+- [ ] Checked vs Runtime exceptions
+- [ ] Exceptions type system architecture styles: old-school and hipsta
+### Demo
+- [ ] Add custom business exception type
+- [ ] Add handling within application architecture
+### Hands-on
+- [ ] Make application ~~great~~ fail-over and user-friendly in corner cases
 
-## GC and Heap Architecture
-- Garbage
-- [Heap architecture](http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html)
-- [Types of GC](http://www.slideshare.net/akirakoyasu/garbage-collection-for-dummies)
-- [GC and Heap tuning](http://blog.ragozin.info/2011/12/garbage-collection-in-hotspot-jvm.html)
-- [JVM options for GC tuning](http://blog.ragozin.info/2013/11/hotspot-jvm-garbage-collection-options.html)
-- GC console demo
-- Типовые граничные условия для тестов
+## Unit testing overview (2)
+### Test scopes
+- [ ] Mapping test scopes to typical architecture
+- [ ] Testing pyramid with testability base
+### Test structure with JUnit
+- [ ] AAA & GWT
+- [ ] Fixtures
+- [ ] Assertions
+### Isolating tests with Mockito test doublers
+- [ ] State-based test scenario
+- [ ] Interaction-based test scenario
+### Coverage reporting
+- [ ] Running JaCoCo with Maven build
+- [ ] Analyzing reporting
+### Demo
+- [ ] What to cover?
+- [ ] Test case with test doublers and coverage analysis
+### Hands-on
+- [ ] Cover application with auto tests according to Quality Gate
+- [ ] State your coverage decisions
 
-## Heap and Stack Monitoring
-- *Sampling vs Profiling*
-- [CPU Time vs Wall Time](http://stackoverflow.com/questions/14626475/visualvm-and-self-time)
-- [Safepoints](http://stackoverflow.com/questions/17839933/what-are-safe-points-and-safe-point-polling-in-context-of-profiling)
-- Heap and GC monitoring with JVisualVM demo
-- Stack and threads monitoring with JVisualVM demo
-- Heap and Stack Dumps with JVisualVM demo
+## Java syntax for Generic Programming style (1)
+### Problem statement
+- [ ] Given type-generic algorithm/data structure: e.g. Optional
+- [ ] Choosing Object as data type
+- [ ] Issues with type checks and downcasting
+### Type safety with generic programming
+- [ ] Type parameters for methods
+- [ ] Type parameters for class 
+- [ ] Instatiating type-parameterized class
+- [ ] Type erasure :(
+### Demo
+- [ ] Type parameters for interface
+- [ ] Issue with type parameter invariance and complex type parameter patterns
+- [ ] Patterns for implementing type-parameterized interface
 
-## Java App Troubleshooting
-- Main trouble reasons
-- *Logging frameworks*
-- Exceptions in logs
-- JVM crash dumps
-- GC collection pauses
-- Типовые граничные условия для тестов
+## Functional style (0.5)
+### Main features
+- [ ] Infinite data
+- [ ] Immutable data
+- [ ] Composing functions around data
+- [ ] Functions as arguments and return types
+- [ ] Computation lazyness
+### Demo for High-order function
+- [ ] Passing function as parameter as alternative for TM and ST
+- [ ] Passing Comparator to sort()
 
-## Typical Enterprise App Architecture
-- Layers: UI, BL, DAL
-- Frameworks overview (Spring, EJB)
-- JDBC
-- AppServer architecture
-- ThreadPools
-- ConnectionPools
-- Типовые граничные условия enterprise java app для тестов
+## Java syntax for functional style (2.5)
+### Nested classes
+- [ ] Static nested classes
+- [ ] Inner (non-static nested) classes
+- [ ] Local inner classes
+- [ ] Anonymous inner classes
+### Local classes as closures
+- [ ] Auto passing by name / capturing outer variables
+- [ ] Captured variable limitations
+### Lambda syntax for anonymous inner classes
+- [ ] Declaring lambdas
+- [ ] Compiler types inference
+- [ ] Functional interface
+- [ ] Method reference
+### Demo for lambda use-cases
+- [ ] Alternative implementation for Template Method, Strategy/State, Listener
+- [ ] Optional API
+- [ ] Collection API: sorting with Comparator
+- [ ] Java8 Stream API
+- [ ] Runnable and Executors API
+- [ ] CompletableFuture API
+
+## System library core classes overview (2)
+- [ ] System
+- [ ] System properties acessing and setting
+- [ ] Runtime
+- [ ] Math: issue with FP types presicion loss 
+- [ ] String: immutable and interned
+- [ ] StringBuffer & StringBuilder: mutable, thread safe/unsafe + String concat JVM optimization with SB
+- [ ] Wrapper classes for primitives: immutable and interned, autoboxed/unboxed
+- [ ] Objects: utility tasks
+- [ ] Arrays: utility tasks
+### Object
+- [ ] finalize()
+- [ ] toString()
+- [ ] clone()
+- [ ] equals() and hashCode() contract
+### Demo
+- [ ] Implementing cloneable ability
+- [ ] Implementing equals() and hashCode() for entity class
+### Hands-on
+- [ ] Implementing equals() and hashCode() for entity class
+
+## Collections API (2)
+### Built-in types overview
+- [ ] Collection API overview: iterating
+- [ ] Iterator: why?
+- [ ] Set vs List API overview: unique? ordered? sorted?
+- [ ] Map API overview
+- [ ] Queue and Dequeue API overview
+- [ ] Collections: utility class
+### Sets
+- [ ] Set API
+- [ ] SortedSet
+- [ ] NavigableSet
+#### HashSet implementation
+- [ ] Buckets
+- [ ] Load factor
+- [ ] Rehashing when?
+- [ ] Treefying
+- [ ] Performave issue with not setting initial size
+#### LinkedHashSet implementation
+- [ ] Ordering
+#### TreeSet implementation
+- [ ] R/B balanced tree
+- [ ] Comparable objects or Comparator needed
+- [ ] Rebalancing when?
+#### Demo 
+- [ ] Set constraint violation issue with mutable object and equals/hashCode set
+### Lists
+- [ ] List API
+#### ArrayList implementation
+- [ ] Array rebuilding
+- [ ] RandomAccess
+#### LinkedList implementation
+- [ ] Double-ended linked list
+### Maps
+- [ ] Map API
+- [ ] nulls?
+#### Implementations
+- [ ] HashMap vs TreeMap: the same 
+- [ ] WeakHashMap
+### Queues
+- [ ] Queue API
+- [ ] Dequeue API
+#### Implementations
+- [ ] LinkedList
+- [ ] PriorityQueue
+- [ ] ArrayDequeue
+
+## Annotations and Reflection API (2)
+class loading / unloading
+
+## Blocking IO (2.5)
++ demo of NIO2
+
+## Parallelism (2)
+
+## Concurrency (3)
++ concurrent collections
+
+## Buffer (2.5)
+- [ ] Daily retrospectives
