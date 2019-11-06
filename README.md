@@ -516,12 +516,13 @@ AbstractType object = new ImplementationType();
 
 ## Collections API (2)
 ### Built-in types overview
-- [ ] Collection API overview: iterating
+- [ ] "Old" collection classes: why replaced?
+- [ ] Modern Collection API overview: iterating
 - [ ] Iterator: why?
 - [ ] Set vs List API overview: unique? ordered? sorted?
 - [ ] Map API overview
 - [ ] Queue and Dequeue API overview
-- [ ] Collections: utility class
+- [ ] Collections: utility class and basic operations
 ### Sets
 - [ ] Set API
 - [ ] SortedSet
@@ -562,15 +563,112 @@ AbstractType object = new ImplementationType();
 - [ ] ArrayDequeue
 
 ## Annotations and Reflection API (2)
-class loading / unloading
+### Annotations
+- [ ] Annotation concept
+- [ ] Compiler annotations
+- [ ] Annotation processing
+- [ ] Developing custom annotation
+### Reflection API: introspection
+- [ ] Class API
+- [ ] FEST-reflect library
+### Reflection API: class loading/unloading
+- [ ] Class loading API
+- [ ] JVM Agent concept
 
 ## Blocking IO (2.5)
-+ demo of NIO2
+### IO Stream API overview
+- [ ] Streams and Readers/Writers
+- [ ] Buffering
+- [ ] Encoding
+### File IO
+- [ ] File and Path
+- [ ] File IO with Stream API
+- [ ] Simple file operations with utility class Files
+- [ ] RandomAccessFile
+### Serialization
+- [ ] ObjectInput/OutputStream
+- [ ] Serializable
+### Networking with TCP/IP
+- [ ] Socket abstraction
+- [ ] ServerSocket listener
+### NIO2 intro demo
+- [ ] Architecture
+- [ ] API
+### Distributed systems issue
+- [ ] CAP requirements
 
 ## Parallelism (2)
+### Miltithreading in Java
+- [ ] Thread definition
+- [ ] Scheduler
+- [ ] Scheduling overhead
+- [ ] Green vs Native threads
+### Thread API
+- [ ] Thread start
+- [ ] Thread management
+- [ ] Thread states
+- [ ] Priorities
+- [ ] Daemons
+- [ ] Blocking operations and states
+### Thread pool API
+- [ ] Executor and ExecutorService API
+- [ ] Callable and Future API
+- [ ] ExecutionException container
+### JMH intro
+- [ ] Microbenchmarking common issues
+- [ ] JMH API
+### Demo
+- [ ] JMH benchmarking collection operations
+
 
 ## Concurrency (3)
-+ concurrent collections
+### Data Race issue
+- [ ] Preemptive parallelism trade-off for atomicity
+- [ ] Data race concept
+- [ ] Thread-safety concept
+- [ ] synchronized method
+- [ ] New thread state
+- [ ] Monitor Object
+- [ ] synchronized() section
+- [ ] Monitor granularity patterns
+- [ ] Lock and ReadWriteLock as improved monitors
+### Visibility and Reordering issues
+- [ ] JVM optimizations
+- [ ] CPU core cache syncronization protocol and defult strategy
+- [ ] Visibility issue
+- [ ] Reordering issue
+- [ ] Known synchronized and lock tools
+- [ ] New volatile keyword
+- [ ] volatile limitations
+### JMM intro
+- [ ] Happens-before relation
+- [ ] Core happens-before events
+### Non-blocking concurrency
+- [ ] Trade-offs for blocking monitor synchronization
+- [ ] CAS operation and hardware support
+- [ ] Atomic data types and reference
+- [ ] Algorithm patterns on Atomics
+### Thread syncronization
+- [ ] join() and sleep() and new thread state
+- [ ] Blocking IO and new thread state
+- [ ] Waiting and new thread state
+- [ ] Dealing with InterruptedException
+- [ ] Waiting for event with ~~polling~~
+- [ ] Waiting for event with monitor.wait()
+- [ ] Waking up with monitor.notify[All]()
+- [ ] Double-checked waking up pattern
+### Concurrent collections
+- [ ] Collections.synronizedXXX _is not_ concurrent collections
+- [ ] java.util.concurrent Collections overview
+- [ ] Profits and trade-offs
+#### Implementations
+- [ ] ConcurrentSkipListSet
+- [ ] CopyOnWriteArraySet
+- [ ] CopyOnWriteArrayList
+- [ ] ConcurrentHashMap
+- [ ] ConcurrentSkipListMap
+- [ ] ArrayBlockingQueue / LinkedBlockingQueue
+- [ ] ConcurrentLinkedQueue
 
 ## Buffer (2.5)
 - [ ] Daily retrospectives
