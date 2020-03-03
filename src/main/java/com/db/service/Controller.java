@@ -7,19 +7,36 @@ import com.db.domain.Ticker;
 
 import java.sql.SQLException;
 
+/**
+ * ????
+ */
 public class Controller {
     private TickerDAO tickerDAO = new TickerDAO();
     private StockDAO stockDAO;
 
+    /**
+     * 1. Side effects
+     * 2. Pre-conditions
+     * 3. Post-conditions
+     *
+     * @param tickerId
+     * @param amount
+     * @return ????
+     * @throws BuyOperationException
+     * @throws SQLException
+     */
     public double buy(String tickerId, int amount) throws BuyOperationException, SQLException {
         final int BUY_OPERATION = 1;
         Ticker tickerObject = null;
 
+        //HOW?
+        //do smth...
         try {
             stockDAO = new StockDAO();
             tickerDAO.openConnection("jdbc:oracle:myhost");
             tickerObject = tickerDAO.getTicker(tickerId);
         } catch (TickerNotFoundException e) {
+            //because....
             throw new BuyOperationException(e, "");
         } finally {
             tickerDAO.close();
