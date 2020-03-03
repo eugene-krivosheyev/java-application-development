@@ -620,6 +620,9 @@ AbstractType object = new ImplementationType();
 ### Demo
 - [ ] JMH benchmarking collection operations
 
+## Parallel API (?)
+### CompletableFuture
+### ForkJoinPool
 
 ## Concurrency (3)
 ### Data Race issue
