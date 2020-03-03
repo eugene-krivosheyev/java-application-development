@@ -676,3 +676,8 @@ AbstractType object = new ImplementationType();
 
 ## Buffer (2.5)
 - [ ] Daily retrospectives
+
+---
+
+# Reading list
+- [Reading List](http://tinyurl.com/skilltrekreadinglist)
