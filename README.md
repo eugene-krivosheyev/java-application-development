@@ -39,48 +39,48 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 51
 
 # Agenda
 ## Training introducing and focusing (1 hrs)
-- [ ] Schedule
-- [ ] Trainer
-- [ ] Training overview
-- [ ] Rules
+- [x] Schedule
+- [x] Trainer
+- [x] Training overview
+- [x] Rules
 ### Hands-on: teams and their demand
-- [ ] Pairs forming and introduction
-- [ ] Attendees prerequisites check
-- [ ] Topics focus demand from attendees
-- [ ] Additional topics demand form attendees
+- [x] Pairs forming and introduction
+- [x] Attendees prerequisites check
+- [x] Topics focus demand from attendees
+- [x] Additional topics demand form attendees
 
 ## Sound-check (0.5)
 ### Hands-on
-- [ ] Fork training repo and clone this fork
+- [x] Fork training repo and clone this fork
 ```bash
 git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-development
 ```
-- [ ] Open project with IDEA
-- [ ] Project JDK set
-- [ ] Sourcepath and classpathes
-- [ ] Maven full build
+- [x] Open project with IDEA
+- [x] Project JDK set
+- [x] Sourcepath and classpathes
+- [x] Maven full build
 ### Demo
-- [ ] Application requirements overview
-- [ ] Application architecture overview
-- [ ] DevOps pipeline overview
+- [x] Application requirements overview
+- [x] Application architecture overview
+- [x] DevOps pipeline overview
 
 ## Java application documenting (1)
 ### Java application structure recap
-- [ ] Methods: why?
-- [ ] Classes: why?
-- [ ] Packages: why?
+- [x] Methods: why?
+- [x] Classes: why?
+- [x] Packages: why?
 ### Documenting
-- [ ] Single-line comments
-- [ ] Multi-line comments
+- [x] Single-line comments
+- [x] Multi-line comments
 ### JavaDoc comments demo
-- [ ] Syntax for documenting methods and classes
-- [ ] Documenting packages
-- [ ] Maven download dependencies sources and javadocs
-- [ ] Using javadocs with IDE
+- [x] Syntax for documenting methods and classes
+- [x] Documenting packages
+- [x] Maven download dependencies sources and javadocs
+- [x] Using javadocs with IDE
 ### Maintainability with documentation
-- [ ] What entities we should comment?
-- [ ] What we should describe with comments?
-- [ ] Comments Quality Gate
+- [x] What entities we should comment?
+- [x] What we should describe with comments?
+- [x] Comments Quality Gate
 
 ## Procedure style (2.5)
 ### Key concepts

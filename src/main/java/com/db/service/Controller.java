@@ -29,7 +29,7 @@ public class Controller {
         final int BUY_OPERATION = 1;
         Ticker tickerObject = null;
 
-        //HOW?
+        //HOW?w
         //do smth...
         try {
             stockDAO = new StockDAO();
