@@ -670,5 +670,9 @@ AbstractType object = new ImplementationType();
 - [ ] ArrayBlockingQueue / LinkedBlockingQueue
 - [ ] ConcurrentLinkedQueue
 
+## Database access (?)
+### JDBC intro
+### JPA intro
+
 ## Buffer (2.5)
 - [ ] Daily retrospectives
