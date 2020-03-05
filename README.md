@@ -39,48 +39,48 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 51
 
 # Agenda
 ## Training introducing and focusing (1 hrs)
-- [ ] Schedule
-- [ ] Trainer
-- [ ] Training overview
-- [ ] Rules
+- [x] Schedule
+- [x] Trainer
+- [x] Training overview
+- [x] Rules
 ### Hands-on: teams and their demand
-- [ ] Pairs forming and introduction
-- [ ] Attendees prerequisites check
-- [ ] Topics focus demand from attendees
-- [ ] Additional topics demand form attendees
+- [x] Pairs forming and introduction
+- [x] Attendees prerequisites check
+- [x] Topics focus demand from attendees
+- [x] Additional topics demand form attendees
 
 ## Sound-check (0.5)
 ### Hands-on
-- [ ] Fork training repo and clone this fork
+- [x] Fork training repo and clone this fork
 ```bash
 git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-development
 ```
-- [ ] Open project with IDEA
-- [ ] Project JDK set
-- [ ] Sourcepath and classpathes
-- [ ] Maven full build
+- [x] Open project with IDEA
+- [x] Project JDK set
+- [x] Sourcepath and classpathes
+- [x] Maven full build
 ### Demo
-- [ ] Application requirements overview
-- [ ] Application architecture overview
-- [ ] DevOps pipeline overview
+- [x] Application requirements overview
+- [x] Application architecture overview
+- [x] DevOps pipeline overview
 
 ## Java application documenting (1)
 ### Java application structure recap
-- [ ] Methods: why?
-- [ ] Classes: why?
-- [ ] Packages: why?
+- [x] Methods: why?
+- [x] Classes: why?
+- [x] Packages: why?
 ### Documenting
-- [ ] Single-line comments
-- [ ] Multi-line comments
+- [x] Single-line comments
+- [x] Multi-line comments
 ### JavaDoc comments demo
-- [ ] Syntax for documenting methods and classes
-- [ ] Documenting packages
-- [ ] Maven download dependencies sources and javadocs
-- [ ] Using javadocs with IDE
+- [x] Syntax for documenting methods and classes
+- [x] Documenting packages
+- [x] Maven download dependencies sources and javadocs
+- [x] Using javadocs with IDE
 ### Maintainability with documentation
-- [ ] What entities we should comment?
-- [ ] What we should describe with comments?
-- [ ] Comments Quality Gate
+- [x] What entities we should comment?
+- [x] What we should describe with comments?
+- [x] Comments Quality Gate
 
 ## Procedure style (2.5)
 ### Key concepts
@@ -119,8 +119,13 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 - [ ] Overloading concept
 - [ ] Why?
 - [ ] Overloading operators and "+" operator
-### Hands-on
-- [ ] Developing maintainable overloaded Facade API throught TDD with test stubs supplied
+
+## Hand-on Iteration 00: The rise of Transaction Logger
+- [ ] Read and analyse specification as tests for this iteration in *src/test*
+- [ ] Full Maven Build
+- [ ] Run tests from IDEA 
+### DoD
+- [ ] All given specifications runs are green
 
 ## Java syntax for procedure style: primitive types system (2.5)
 ### Variable declaration
@@ -147,8 +152,15 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 - [ ] Wrapper types and main features: referenced, constants, string parsing
 - [ ] Why?
 - [ ] Autoboxing/unboxing and performance issue
-### Hands-on
-- [ ] Implement application state with class variables
+
+## Hand-on Iteration 01: Decorating Transaction Logger
+- [ ] Read and analyse specification as tests for this iteration in *src/test*
+- [ ] Uncomment specification cases
+- [ ] Implement features needed
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java syntax for procedure style: operators for data processing (2.5)
 ### Type operators
@@ -171,8 +183,6 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 - [ ] ==, !=, <, <=, >, >=
 - [ ] Reference types issue: absence of === and .equals()
 - [ ] Ternary operator
-### Hands-on
-- [ ] Implement application typed accumulating state 
 
 ## Java syntax for procedure style: controlling execution flow (2.5)
 ### Switching
@@ -193,8 +203,15 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 ### Design considerations
 - [ ] Procedure Metrics: CC
 - [ ] Readability and high CC: Extract Method refactoring
-### Hands-on
-- [ ] Implement application typed accumulating state with Overflow and Presicion loss handling
+
+## Hand-on Iteration 02: Stateful decorating Transaction Logger
+- [ ] Read and analyse specification as tests for this iteration in *src/test*
+- [ ] Uncomment specification cases
+- [ ] Implement features needed
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java reference types (2.5)
 ### References
@@ -241,14 +258,21 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 ### Demo
 - [ ] Strings interning
 - [ ] Wrappers interning and limitations
-### Hands-on
-- [ ] Enrich application API with Strings and Varargs
+
+## Hand-on Iteration 03: Type-safe stateful decorating logger
+- [ ] Read and analyse specification as tests for this iteration in *src/test*
+- [ ] Uncomment specification cases
+- [ ] Implement features needed
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## OOAD style (1)
 ### Demo
 - [ ] Procedure-oriented application design stub
 - [ ] Maintainability issues: ~~SRP~~, ~~OCP~~
-- [ ] Refatoring Extract Enum
+- [ ] Refactoring Extract Enum
 - [ ] Clear code and readability values
 - [ ] Refactoring Extract Method
 - [ ] Encapsulation concept and values
@@ -281,8 +305,13 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 - [ ] Implementing enum without built-in enum type
 - [ ] Check if static concept understood well
 - [ ] Implementing Singleton anti/pattern
-### Hands-on
-- [ ] Refactor state switching with enums introduced
+
+## Hand-on Iteration 04: Refactor towards OOAD through enums 
+- [ ] Refactor to Enums: Dumb Commands
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java syntax for OOAD: Encapsulation (2.5)
 ### Data and Behavior encapsulation
@@ -300,8 +329,15 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 ### Demo
 - [ ] Factory Method Pattern as constructor alternative: OCP implementation for flexibility
 - [ ] Builder Pattern as constructor alternative: OCP implementation for flexibility
-### Hands-on
-- [ ] Refactor application to class design
+
+## Hand-on Iteration 05: Refactor towards OOAD through encapsulation 
+- [ ] FR: presentation changes
+- [ ] Refactor to code reuse with Smart Commands
+- [ ] Refactor to code reuse with Factory Method pattern
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java syntax for OOAD: Polymorphism (2.5)
 ### Polymorphism concept
@@ -328,8 +364,14 @@ AbstractType object = new ImplementationType();
 - [ ] Polymorphic methods arguments
 - [ ] Strategy Design Pattern
 - [ ] State Design Pattern
-### Hands-on
-- [ ] Refactor application to polymorphic design
+
+## Hand-on Iteration 06: Refactor towards OOAD through polymorphism 
+- [ ] FR: presentation changes and sink changes
+- [ ] Refactor to Polymorphic Commands and Appenders
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java syntax for OOAD: Inheritance (2.5)
 ### Polymorphism with subclassing
@@ -352,8 +394,14 @@ AbstractType object = new ImplementationType();
 - [ ] Object Initialization section
 ### Demo
 - [ ] Implementing Template Method Pattern with abstract superclass
-### Hands-on
-- [ ] Refactor application to more code reuse with Template Method pattern
+
+## Hand-on Iteration 07: Refactor towards OOAD through inheritance 
+- [ ] FR: decoration changes
+- [ ] Refactor to code reuse with Template Method pattern
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## OOAD Principles and Patterns: Revisiting (2)
 ### OOAD Principles: SOLID
@@ -385,11 +433,19 @@ AbstractType object = new ImplementationType();
 ### Demo
 - [ ] Typical enterprise application architecture overview with patterns spotted
 - [ ] Visitor implementation for Expression Problem statement
-### Hands-on
+
+## Hand-on Iteration 08: Technical debt towards modern application design 
 - [ ] Application architecture and design review
 - [ ] Technical debt fixed in backlog
+- [ ] Refactor to DI pattern
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+### Debrief
+- [ ] Cross-review of technical backlog
 
-## Error handlig in Java (2.5)
+## Error handling in Java (2.5)
 ### Exception concept
 - [ ] Type information
 - [ ] Object data information
@@ -421,8 +477,14 @@ AbstractType object = new ImplementationType();
 ### Demo
 - [ ] Add custom business exception type
 - [ ] Add handling within application architecture
-### Hands-on
-- [ ] Make application ~~great~~ fail-over and user-friendly in corner cases
+
+## Hand-on Iteration 09: Make application ~~great again~~ fail-over and user-friendly in corner cases 
+- [ ] Introduce business exception type system
+- [ ] Implement exception handling
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Unit testing overview (2)
 ### Test scopes
@@ -441,9 +503,15 @@ AbstractType object = new ImplementationType();
 ### Demo
 - [ ] What to cover?
 - [ ] Test case with test doublers and coverage analysis
-### Hands-on
-- [ ] Cover application with auto tests according to Quality Gate
-- [ ] State your coverage decisions
+
+## Hand-on Iteration 10: Make developers sleep at nights 
+- [ ] Decide what to cover and state your coverage decisions
+- [ ] Cover application with _unit_ auto tests 
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
 
 ## Java syntax for Generic Programming style (1)
 ### Problem statement
@@ -493,6 +561,16 @@ AbstractType object = new ImplementationType();
 - [ ] Runnable and Executors API
 - [ ] CompletableFuture API
 
+## Hand-on Iteration 11: Refactor to functional style
+- [ ] Refactor to ƛ-style: introduce HOFs for main responsibilities
+- [ ] Introduce data immutability
+- [ ] Introduce Optional type  
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
+
 ## System library core classes overview (2)
 - [ ] System
 - [ ] System properties acessing and setting
@@ -511,8 +589,14 @@ AbstractType object = new ImplementationType();
 ### Demo
 - [ ] Implementing cloneable ability
 - [ ] Implementing equals() and hashCode() for entity class
-### Hands-on
+
+## Hands-on Iteration 12: Readiness for Collection API
 - [ ] Implementing equals() and hashCode() for entity class
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
 
 ## Collections API (2)
 ### Built-in types overview
@@ -562,18 +646,16 @@ AbstractType object = new ImplementationType();
 - [ ] PriorityQueue
 - [ ] ArrayDequeue
 
-## Annotations and Reflection API (2)
-### Annotations
-- [ ] Annotation concept
-- [ ] Compiler annotations
-- [ ] Annotation processing
-- [ ] Developing custom annotation
-### Reflection API: introspection
-- [ ] Class API
-- [ ] FEST-reflect library
-### Reflection API: class loading/unloading
-- [ ] Class loading API
-- [ ] JVM Agent concept
+## Hands-on Iteration 13: Refactor to memory-intensive design
+- [ ] Decide and state decision for Collection class for application state handling
+- [ ] Introduce implementation
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
+### Debrief
+- [ ] State for implementation chosen
 
 ## Blocking IO (2.5)
 ### IO Stream API overview
@@ -588,7 +670,17 @@ AbstractType object = new ImplementationType();
 ### Serialization
 - [ ] ObjectInput/OutputStream
 - [ ] Serializable
-### Networking with TCP/IP
+
+## Hands-on Iteration 14: Logging to file... finally
+- [ ] Saving log data to file
+- [ ] Rotating files
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
+
+## Networking with TCP/IP (2)
 - [ ] Socket abstraction
 - [ ] ServerSocket listener
 ### NIO2 intro demo
@@ -596,6 +688,35 @@ AbstractType object = new ImplementationType();
 - [ ] API
 ### Distributed systems issue
 - [ ] CAP requirements
+
+## Hands-on Iteration 15: Distributed logging
+- [ ] Remote logging for one client
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
+
+## Annotations and Reflection API (2)
+### Annotations
+- [ ] Annotation concept
+- [ ] Compiler annotations
+- [ ] Annotation processing
+- [ ] Developing custom annotation
+### Reflection API: introspection
+- [ ] Class API
+- [ ] FEST-reflect library
+### Reflection API: class loading/unloading
+- [ ] Class loading API
+- [ ] JVM Agent concept
+
+## Hands-on Iteration 16: Refactor to custom Enterprise Framework
+- [ ] Ops need to configure business logic components with configuration file
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
 
 ## Parallelism (2)
 ### Miltithreading in Java
@@ -623,6 +744,14 @@ AbstractType object = new ImplementationType();
 ## Parallel API (?)
 ### CompletableFuture
 ### ForkJoinPool
+
+## Hands-on Iteration 17: Multi-client remote logging
+- [ ] Remote logging for up to 1k clients
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
 
 ## Concurrency (3)
 ### Data Race issue
@@ -658,9 +787,18 @@ AbstractType object = new ImplementationType();
 - [ ] Dealing with InterruptedException
 - [ ] Waiting for event with ~~polling~~
 - [ ] Waiting for event with monitor.wait()
-- [ ] Waking up with monitor.notify[All]()
+- [ ] Waking up with monitor.notify()
 - [ ] Double-checked waking up pattern
-### Concurrent collections
+
+## Hands-on Iteration 18: Concurrent multi-client remote logging
+- [ ] Remote logging for up to 1k clients with correctness prove
+### DoD
+- [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
+- [ ] Unit test coverage metric achieved
+
+## Concurrent collections (1)
 - [ ] Collections.synronizedXXX _is not_ concurrent collections
 - [ ] java.util.concurrent Collections overview
 - [ ] Profits and trade-offs
@@ -672,6 +810,10 @@ AbstractType object = new ImplementationType();
 - [ ] ConcurrentSkipListMap
 - [ ] ArrayBlockingQueue / LinkedBlockingQueue
 - [ ] ConcurrentLinkedQueue
+
+## Database access (?)
+### JDBC intro
+### JPA intro
 
 ## Buffer (2.5)
 - [ ] Daily retrospectives
