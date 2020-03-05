@@ -6,7 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
+
+import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -32,7 +35,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0\r\nprimitive: -1\r\n");
+//        Apache Jakarta Commons Lang | IO | collections;
+//        Goolge Guava
+
+        //i18n
         //endregion
     }
 
