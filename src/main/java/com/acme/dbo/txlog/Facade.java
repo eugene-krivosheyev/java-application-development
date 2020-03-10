@@ -1,27 +1,37 @@
 package com.acme.dbo.txlog;
 
+import java.io.PrintStream;
+
 public class Facade {
-    public static void log(int message) {
-        System.out.println("primitive: " + message);
+    private static void print(String message, PrintStream os) {
+        if (os == null) {
+            System.out.println(message);
+        } else {
+            os.println(message);
+        }
     }
 
-    public static void log(char message) {
-        System.out.println("char: " + message);
+    private static String decorate(Object message) {
+        if (message instanceof Integer) {
+            return "primitive: " + message.toString();
+        } else if (message instanceof Character) {
+            return "char: " + message.toString();
+        } else if (message instanceof String) {
+            return "string: " + message.toString();
+        } else if (message instanceof Boolean) {
+            return "primitive: " + message.toString();
+        } else if (message instanceof Byte) {
+            return "primitive: " + message.toString();
+        } else
+            return "reference: " + message.toString();
     }
 
-    public static void log(String message) {
-        System.out.println("string: " + message);
-    }
-
-    public static void log(boolean message) {
-        System.out.println("boolean: " + message);
+    public static void log(Object message, PrintStream os) {
+        print(decorate(message), os);
     }
 
     public static void log(Object message) {
-        System.out.println("reference: " + message);
+        print(decorate(message), null);
     }
 
-    public static void log(byte message) {
-        System.out.println("primitive: " + message);
-    }
 }
