@@ -1,0 +1,28 @@
+String s1, s2 => comparing via s1.equals(s2) could lead to NPE
+use java.utils.Objects.equals(s1, s2)
+
+================================================================
+
+Wrapers iterned in defined range of 1 byte (-127..128).
+Integer i1 = 1000
+Integer i2 = 1000
+i1 == i2 < this is false
+
+Integer i3 = 127
+Integer i4 = 127
+i3 == i4 < this is true, because values in 1 byte range are cached
+
+Byte Short Integer and Long are all cached
+Float and Double - are not interned (cached)
+Character - only English alphabet (and some symbols)
+
+! All Wrappers are immutable
+Integer++ is not working as wrapper doesnt have arithmetic actions inside, only boxing to prim and back to new wrapper
+
+
+sout("a" + "b" + "c" + "d") - Stringpool filled with new() objects as: a,b,ab,c,abc,d,abcd
+if there are more than 5 concats in one row - compiler will change creation of new() Strings to .appending (like with mutable strings)
+Mutable Strings - StringBuffer and StringBuilder
+
+============================
+
