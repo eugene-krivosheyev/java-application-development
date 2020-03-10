@@ -1,27 +1,35 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
+    private static void print(String type, String message) {
+        System.out.println(format(type, message));
+    }
+
+    private static String format(String ...input) {
+        return String.format("%s: %s", input[0], input[1]);
+    }
+
     public static void log(int message) {
-        System.out.println("primitive: " + message);
+        print("primitive", String.valueOf(message));
     }
 
     public static void log(byte message) {
-        System.out.println("primitive: " + message);
+        print("primitive", String.valueOf(message));
     }
 
     public static void log(char message) {
-        System.out.println(String.format("char: %s", message));
+        print("char", String.valueOf(message));
     }
 
     public static void log(String message) {
-        System.out.println(String.format("string: %s", message));
+        print("string", String.valueOf(message));
     }
 
     public static void log(Boolean message) {
-        System.out.println(String.format("primitive: %s", message));
+        print("primitive", String.valueOf(message));
     }
 
     public static void log(Object message) {
-        System.out.println(String.format("reference: @"));
+        print("reference", String.valueOf(message));
     }
 }
