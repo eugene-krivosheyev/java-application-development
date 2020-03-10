@@ -24,14 +24,14 @@ public class Facade {
     }
 
     public static void log(Object message) {
-        logMessage("reference: ", message.toString());
+        logMessage("reference: ", message);
     }
 
-    private static void logPrimitive(String message) {
+    private static void logPrimitive(Object message) {
         logMessage("primitive: ", message);
     }
 
-    private static void logMessage(String prefix, String message) {
+    private static void logMessage(String prefix, Object message) {
         System.out.println(prefix + message);
     }
 }
