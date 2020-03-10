@@ -2,20 +2,33 @@ package com.acme.dbo.txlog;
 
 public class Facade {
 
-    private static void primitiveLogger(Object o) {
-        System.out.println("primitive: " + o.toString());
+    private static final String PRIMITIVE_PREFIX = "primitive";
+    private static final String CHAR_PREFIX      = "char";
+    private static final String STRING_PREFIX    = "string";
+    private static final String REFERENCE_PREFIX = "reference";
+
+    private static void writer(String message) {
+        System.out.println(message);
     }
 
-    private static void referenceLogger(Object o) {
-        System.out.println("reference: " + o.toString());
+    private static String logFormatter(String prefix, String message) {
+        return prefix + ": " + message;
     }
 
-    private static void charLogger(char c) {
-        System.out.println("char: " + c);
+    private static void primitiveLogger(Object message) {
+        writer(logFormatter(PRIMITIVE_PREFIX, message.toString()));
     }
 
-    private static void stringLogger(String s) {
-        System.out.println("string: " + s);
+    private static void referenceLogger(Object message) {
+        writer(logFormatter(REFERENCE_PREFIX, message.toString()));
+    }
+
+    private static void charLogger(Character message) {
+        writer(logFormatter(CHAR_PREFIX, message.toString()));
+    }
+
+    private static void stringLogger(String message) {
+        writer(logFormatter(STRING_PREFIX, message));
     }
 
     public static void log(int message) {
