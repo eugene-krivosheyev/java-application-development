@@ -41,5 +41,18 @@ public class PrimitivesDemo {
 
         System.out.println(MAX_VALUE);
         //endregion
+
+        //region *Auto* boxing/unboxing
+        final Integer wrappedInt = new Integer(1);
+        final int unwrappedInt = wrappedInt.intValue();
+
+        Byte wrappedByte = 1; //new Byte(!)
+        byte uwrappedByte = wrappedByte; //.byteValue()
+
+        Integer accumulator = 0;
+        for (int counter = 0; counter < 1_000_000; counter++) {
+            accumulator++; //new Integer(acc.intValue() + 1)
+        }
+        //endregion
     }
 }
