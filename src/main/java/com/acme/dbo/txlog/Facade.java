@@ -30,17 +30,16 @@ public class Facade {
         primitiveLogger(message);
     }
 
-    public static void log(Object o) {
-        referenceLogger(o);
+    public static void log(Object message) {
+        referenceLogger(message);
     }
 
-    public static void log(char c) {
-        charLogger(c);
+    public static void log(char message) {
+        charLogger(message);
     }
 
-    public static void log(String s) {
-        stringLogger(s);
+    public static void log(String message) {
+        stringLogger(message);
     }
-
 
 }
