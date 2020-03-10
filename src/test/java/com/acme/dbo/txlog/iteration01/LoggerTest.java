@@ -11,6 +11,10 @@ import java.io.IOException;
 import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+
+    public static final char CHAR_FROMAT_PREFIX = 'a';
+    public static final char FREFIX_ = 'b';
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -61,28 +65,26 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
-    TODO: implement Logger solution to match specification as tests
-
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        Facade.log('a');
-        Facade.log('b');
+        Facade.log(CHAR_FROMAT_PREFIX);
+        Facade.log(FREFIX_);
         //endregion
+//        printA( formatB(pr,mess) )
 
         //region then
         assertSysoutContains("char: ");
         assertSysoutContains("a");
-        assertSysoutContains("b");
+        assertSysoutContains("a");
         //endregion
     }
 
     @Test
     public void shouldLogString() throws IOException {
         //region when
-        Facade.log("test string 1");
-        Facade.log("other str");
+//        Facade.log("test string 1");
+//        Facade.log("other str");
         //endregion
 
         //region then
@@ -95,8 +97,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-        Facade.log(true);
-        Facade.log(false);
+//        Facade.log(true);
+//        Facade.log(false);
         //endregion
 
         //region then
@@ -109,7 +111,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        Facade.log(new Object());
+//        Facade.log(new Object());
         //endregion
 
         //region then
@@ -117,6 +119,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("@");
         //endregion
     }
-
-    */
 }
