@@ -1,6 +1,7 @@
 package demo;
 
 import com.sun.xml.internal.xsom.XSUnionSimpleType;
+import sun.awt.image.ImageAccessException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -86,7 +87,52 @@ public strictfp class OperatorDemo {
         Object mood = isaBoolean(t, 10) ? "HAPPY" : isaBoolean(t, 0) ? "HAPP?" : "UNhappy";
         //endregion
 
+        //region Controlling flow
+        if (false) {
+            System.out.println("1");
+        } else if (false) {
 
+        }
+
+        String param = "null";
+        switch (param) {
+            case "a": System.out.println("1"); break;
+            case "b": System.out.println("2"); break;
+            default: System.out.println("any");
+        }
+
+        while (m()) {
+            break;
+        }
+
+        do {
+            break;
+        } while (m());
+
+        for (int ii = 0, jj = 0; ii < 10 && jj > 0; ii++, jj--) {
+            if (jj >= 0) break;
+        }
+
+        System.out.println("===");
+        for (String current : args) {
+            System.out.println(current);
+            if (???) break;
+        }
+
+        left: do {} while (m());
+
+        outer: while (true) {
+            //...
+            inner: do {
+                if (???) continue outer;
+            } while (true);
+            //...
+        }
+        //endregion
+    }
+
+    private static boolean m() {
+        return true;
     }
 
     private static boolean isaBoolean(int i, int i2) {
