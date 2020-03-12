@@ -1,10 +1,13 @@
 package demo;
 
+import com.sun.xml.internal.xsom.XSUnionSimpleType;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.function.DoubleToIntFunction;
 import java.util.stream.IntStream;
 
+import static java.lang.Integer.toBinaryString;
 import static java.util.stream.IntStream.range;
 
 public strictfp class OperatorDemo {
@@ -42,6 +45,21 @@ public strictfp class OperatorDemo {
         System.out.println(.1 + .2);
 
         BigDecimal bd;
+        //endregion
+
+        //region Bitwise
+        int op1 = 12, op2 = 1;
+        System.out.println(op1 | op2);
+        System.out.println(op1 & op2);
+        System.out.println(op1 ^ op2); //
+        System.out.println(~op1);
+
+        System.out.println();
+        System.out.println(toBinaryString(12 >> 1));
+        System.out.println(toBinaryString(12 >>> 1));
+        System.out.println((12 << 34));
+//        System.out.println(op1 >> 3);
+//        System.out.println(op1 << 1);
         //endregion
     }
 }
