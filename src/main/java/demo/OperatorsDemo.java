@@ -76,6 +76,30 @@ public class OperatorsDemo {
         );
         //endregion
 
+        //region Switching
+        if (true) {
+
+        } else if (false) {
+
+        } else {
+
+        }
+
+        System.out.println();
+        String sw = null;
+        switch (sw) {
+            case "R": todo("!!!"); break;
+            case "G": todo("???"); break;
+            case "B": todo("???"); break;
+            default: todo("default"); break;
+        }
+        //endregion
+
+    }
+
+    private static void todo(String s) {
+        System.out.println(s);
+        System.out.println(s);
     }
 
     private static boolean bb2() {
@@ -85,4 +109,8 @@ public class OperatorsDemo {
     private static boolean bb1() {
         return false;
     }
+}
+
+enum Color {
+    R, G, B
 }
