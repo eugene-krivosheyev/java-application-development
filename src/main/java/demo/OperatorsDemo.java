@@ -1,5 +1,7 @@
 package demo;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.stream.IntStream;
 
 import static java.util.stream.IntStream.range;
@@ -7,7 +9,7 @@ import static java.util.stream.IntStream.range;
 public class OperatorsDemo {
     static byte counter = Byte.MIN_VALUE;
 
-    public static void main(String[] args) {
+    public strictfp static void main(String[] args) {
         //region Arithmetics
         System.out.println(1./0);
 
@@ -29,5 +31,27 @@ public class OperatorsDemo {
         range(1, 260).forEach( p -> counter++ );
         System.out.println(counter);
         //endregion
+
+        //region Precision Loss
+        double dd = 1/3.; //IEEE 754
+        System.out.println(.1 + .2);
+
+        BigInteger bi; //overflow killer
+        BigDecimal bd; //precision loss killer
+        //endregion
+
+        //region Bitwise
+        int iii1 = 12, iii2 = 1;
+        System.out.println(iii1 & iii2);
+        System.out.println(iii1 | iii2);
+        System.out.println(iii1 ^ iii2);
+        System.out.println(~iii2);
+
+        System.out.println(iii1 >> 34);
+        System.out.println(iii1 >>> 2);
+        System.out.println(iii1 << 2);
+        //endregion
+
+
     }
 }
