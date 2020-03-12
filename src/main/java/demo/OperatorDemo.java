@@ -4,6 +4,7 @@ import com.sun.xml.internal.xsom.XSUnionSimpleType;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.function.DoubleToIntFunction;
 import java.util.stream.IntStream;
 
@@ -61,5 +62,42 @@ public strictfp class OperatorDemo {
 //        System.out.println(op1 >> 3);
 //        System.out.println(op1 << 1);
         //endregion
+
+        //region Logical
+        boolean bb1 = false, bb2 = true;
+        System.out.println(bb1() && bb2());
+        System.out.println(bb1() || bb2());
+        System.out.println(!bb2);
+//        fopen('f.txt') or die();
+
+        System.out.println( 1 == 1 ); //= =
+        System.out.println( 1.0 == 1.0);
+        System.out.println( "o1" == "o1" );
+//        System.out.println( 1 === 1 ); //= = =
+        System.out.println( "o1".equals("o1"));
+        System.out.println( Objects.equals("o1", "o1"));
+
+        System.out.println( 1 != 1 ); //! =
+        System.out.println( 2 >= 1 ); //Comaparable.compare | Comparator.comapareTo
+
+        String result = isaBoolean(1, 2) ? "OK" : "notOk";
+
+        int t = 12;
+        Object mood = isaBoolean(t, 10) ? "HAPPY" : isaBoolean(t, 0) ? "HAPP?" : "UNhappy";
+        //endregion
+
+
+    }
+
+    private static boolean isaBoolean(int i, int i2) {
+        return i > i2;
+    }
+
+    private static boolean bb2() {
+        return false;
+    }
+
+    private static boolean bb1() {
+        return false;
     }
 }
