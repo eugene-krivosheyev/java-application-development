@@ -2,6 +2,7 @@ package demo;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static java.util.stream.IntStream.range;
@@ -52,6 +53,36 @@ public class OperatorsDemo {
         System.out.println(iii1 << 2);
         //endregion
 
+        //region Logical
+        boolean bb1 = false, bb2 = false;
+        System.out.println( bb1() && bb2() );
+        System.out.println( bb1 || bb2 );
+        System.out.println( !bb2 );
+        Objects.equals("", "");
+//        fopen('ddd') or die();
 
+        System.out.println(1 == 1); //= =
+        System.out.println(1 != 1); //! =
+        System.out.println(1 >= 1); //> =
+        System.out.println(new Integer(1).equals(1));
+        System.out.println(Objects.equals("a", "a"));
+        //a === b; //= = =
+
+        Object toResult = 1 > 2 ? "lazha" :  1 == 3 ? "O" : 0;
+
+        String pogoda = "Arghhhh :(";
+        System.out.println(
+                pogoda.equals("Ok") ? 10 : 0
+        );
+        //endregion
+
+    }
+
+    private static boolean bb2() {
+        return false;
+    }
+
+    private static boolean bb1() {
+        return false;
     }
 }
