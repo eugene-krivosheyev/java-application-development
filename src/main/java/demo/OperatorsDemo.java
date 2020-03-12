@@ -86,7 +86,7 @@ public class OperatorsDemo {
         }
 
         System.out.println();
-        String sw = null;
+        String sw = "null";
         switch (sw) {
             case "R": todo("!!!"); break;
             case "G": todo("???"); break;
@@ -95,6 +95,25 @@ public class OperatorsDemo {
         }
         //endregion
 
+        //region Loops
+        while (m()) {
+
+        }
+
+
+
+        outer: for(String current : args) {
+            for (int c = 0, j = 1; c < 10_000; c++, j++) {
+                do {
+                    //++++
+                    if (m()) continue outer;
+                    //-----
+                } while (m());
+            }
+            System.out.println(current);
+
+        }
+        //endregion
     }
 
     private static void todo(String s) {
@@ -107,6 +126,10 @@ public class OperatorsDemo {
     }
 
     private static boolean bb1() {
+        return false;
+    }
+
+    private static boolean m() {
         return false;
     }
 }
