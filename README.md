@@ -1,6 +1,7 @@
-[Java Application Development](https://zoom.us/j/971007964)
+Java Application Development
 ================
 
+[Zoom](https://zoom.us/j/971007964)
 _2. Java Application as a White Box: designing, coding, debugging and using._ 51hrs.
 
 # Attendee prerequisites
