@@ -81,8 +81,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogString() throws IOException {
         //region when
         String.valueOf(1);
-//        Facade.log(STRING_PREFIX);
-//        Facade.log("other str");
+        Facade.log(STRING_PREFIX);
+        Facade.log("other str");
         //endregion
 
         //region then
@@ -95,8 +95,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-//        Facade.log(true);
-//        Facade.log(false);
+        Facade.log(true);
+        Facade.log(false);
         //endregion
 
         //region then
@@ -109,7 +109,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-//        Facade.log(new Object());
+        Facade.log(new Object());
         //endregion
 
         //region then
