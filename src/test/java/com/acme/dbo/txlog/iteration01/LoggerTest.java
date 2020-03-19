@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
@@ -27,14 +26,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         int[] mas = {1, 0, -1};
-        for (int value : mas) Facade.log(value);
+        for (int i = 0; i < mas.length; i++)
+            Facade.log(mas[i]);
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        StringBuilder expectedString = new StringBuilder();
-        for (int ma : mas) expectedString.append("primitive: ").append(ma).append(System.lineSeparator());
-        assertSysoutEquals(expectedString.toString());
+        String expectedString = "";
+        for (int i = 0; i < mas.length; i++)
+            expectedString += "primitive: " + mas[i] + System.lineSeparator();
+        assertSysoutEquals(expectedString);
         //endregion
     }
 
@@ -54,8 +55,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
-    TODO: implement Logger solution to match specification as tests
+    // TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogChar() throws IOException {
@@ -110,6 +110,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("@");
         //endregion
     }
-
-    */
 }
