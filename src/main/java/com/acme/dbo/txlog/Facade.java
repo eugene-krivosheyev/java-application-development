@@ -1,9 +1,14 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
+    public static boolean isDecorated;
 
     private static void decorateLogPrimitive(String message) {
-        System.out.println("primitive: " + message);
+        if (Facade.isDecorated) {
+            System.out.println("primitive: " + message);
+        } else {
+            System.out.println(message);
+        }
     }
 
     public static void log(int message) {
@@ -15,11 +20,19 @@ public class Facade {
     }
 
     public static void log(char message) {
-        System.out.println("char: " + message);
+        if (Facade.isDecorated) {
+            System.out.println("char: " + message);
+        } else {
+            System.out.println(message);
+        }
     }
 
     public static void log(String message) {
-        System.out.println("string: " + message);
+        if (Facade.isDecorated) {
+            System.out.println("string: " + message);
+        } else {
+            System.out.println(message);
+        }
     }
 
     public static void log(Object message) {

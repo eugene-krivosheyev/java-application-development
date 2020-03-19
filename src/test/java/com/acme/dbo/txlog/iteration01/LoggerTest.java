@@ -14,6 +14,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
+        Facade.isDecorated=true;
     }
 
     @After
