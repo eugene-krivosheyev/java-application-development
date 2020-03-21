@@ -1,8 +1,10 @@
 package com.acme.dbo.txlog.iteration02;
 
+import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -21,25 +23,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
-    /*
-    TODO: implement Logger solution to match specification as tests
-
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
         Facade.log("str 1");
-        Facade.log(1);
-        Facade.log(2);
+        Facade.log(1+2);
         Facade.log("str 2");
         Facade.log(0);
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "3\n" +
-            "str 2\n" +
-            "0\n"
+            "string: str 1\r\n" +
+            "primitive: 3\r\n" +
+            "string: str 2\r\n" +
+            "primitive: 0\r\n"
         );
         //endregion
     }
@@ -48,23 +46,22 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
         Facade.log("str 1");
-        Facade.log(10);
-        Facade.log(Integer.MAX_VALUE);
+        Facade.log(10+Integer.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Integer.MAX_VALUE + "\n" +
+            "string: str 1\r\n" +
+            "10\r\n" +
+            "primitive: " + Integer.MAX_VALUE + "\r\n" +
             "str 2\n" +
             "0\n"
         );
         //endregion
     }
-
+/*
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
