@@ -14,7 +14,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        Facade.isDecorated = true;
     }
 
     @After
@@ -26,12 +25,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        Facade.log(1);
-        Facade.flush();
-        Facade.log(0);
-        Facade.flush();
-        Facade.log(-1);
-        Facade.flush();
+        Facade.log(1,true);
+        Facade.flush(true);
+        Facade.log(0,true);
+        Facade.flush(true);
+        Facade.log(-1,true);
+        Facade.flush(true);
         //endregion
 
         //region then
@@ -43,12 +42,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte) 1);
-        Facade.flush();
-        Facade.log((byte) 0);
-        Facade.flush();
-        Facade.log((byte) -1);
-        Facade.flush();
+        Facade.log((byte) 1,true);
+        Facade.flush(true);
+        Facade.log((byte) 0,true);
+        Facade.flush(true);
+        Facade.log((byte) -1,true);
+        Facade.flush(true);
         //endregion
 
         //region then
@@ -63,10 +62,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        Facade.log('a');
-        Facade.flush();
-        Facade.log('b');
-        Facade.flush();
+        Facade.log('a',true);
+        Facade.flush(true);
+        Facade.log('b',true);
+        Facade.flush(true);
         //endregion
 
         //region then
@@ -79,10 +78,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogString() throws IOException {
         //region when
-        Facade.log("test string 1");
-        Facade.flush();
-        Facade.log("other str");
-        Facade.flush();
+        Facade.log("test string 1",true);
+        Facade.flush(true);
+        Facade.log("other str",true);
+        Facade.flush(true);
         //endregion
 
         //region then
@@ -95,10 +94,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-        Facade.log(true);
-        Facade.flush();
-        Facade.log(false);
-        Facade.flush();
+        Facade.log(true,true);
+        Facade.flush(true);
+        Facade.log(false,true);
+        Facade.flush(true);
         //endregion
 
         //region then
@@ -111,8 +110,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        Facade.log(new Object());
-        Facade.flush();
+        Facade.log(new Object(),true);
+        Facade.flush(true);
         //endregion
 
         //region then
