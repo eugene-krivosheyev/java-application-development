@@ -1,28 +1,35 @@
 package com.acme.dbo.txlog;
 
+import static java.lang.Math.abs;
+
 public class Facade {
     public static boolean isDecorated;
     private static Integer lastSum = 0;
-    private static boolean isLastInteger;
+    private static boolean isLastInteger = false;
     private static String INTEGER_DECOR = "primitive: ";
     private static String PRIMITIVE_DECOR = "primitive: ";
+    private static String BYTE_DECOR = PRIMITIVE_DECOR;
     private static String CHAR_DECOR = "char: ";
     private static String STRING_DECOR = "string: ";
     private static String REFERENCE_DECOR = "reference: ";
 
-//    public static Integer numberOfSeqDuplStrings=0;
-//    public static String lastString;
 
 
     public static void log(int message) {
-        if (Facade.isDecorated) {
-            String msg = String.valueOf(message);
-            Facade.writeLog(Facade.INTEGER_DECOR, msg);
+        if (Facade.checkIntegerValueIsOutBound(message)) {
+            writeLogWhenOutBound(String.valueOf(message),"Integer");
         } else {
-            lastSum = lastSum + message;
-            Facade.isLastInteger = true;
+            String msg = String.valueOf(message);
+            if (Facade.isDecorated) {
+                msg = String.valueOf(message);
+                Facade.writeLog(Facade.INTEGER_DECOR, msg);
+            } else {
+                lastSum = lastSum + message;
+                Facade.isLastInteger = true;
+            }
         }
     }
+
 
     public static void log(boolean message) {
         String msg = String.valueOf(message);
@@ -31,9 +38,14 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        String msg = String.valueOf(message);
-        Facade.writeLog(Facade.PRIMITIVE_DECOR, msg);
-        flushLastIntegerState();
+        if (Facade.checkByteValueIsOutBound(message)) {
+            writeLogWhenOutBound(String.valueOf(message),"Byte");
+        }
+        else {
+            String msg = String.valueOf(message);
+            Facade.writeLog(Facade.BYTE_DECOR, msg);
+            flushLastIntegerState();
+        }
     }
 
     public static void log(char message) {
@@ -89,6 +101,17 @@ public class Facade {
         }
     }
 
+    private static void writeLogWhenOutBound (String message, String type){
+        if (type.equals("Integer")) {
+            String msg = String.valueOf(Integer.MAX_VALUE);
+        }
+        if (type.equals("Byte")) {
+            String msg = String.valueOf(Byte.MAX_VALUE);
+        }
+        flush();
+        Facade.writeLog(Facade.INTEGER_DECOR, message);
+    }
+
     private static void writeOutput(Object msg) {
         System.out.println(msg);
     }
@@ -97,4 +120,40 @@ public class Facade {
         Facade.lastSum = 0;
         Facade.isLastInteger = false;
     }
+
+    private static boolean checkIntegerValueIsOutBound(Integer number) {
+        long longValue = (long) number;
+        if (abs(longValue) >= Integer.MAX_VALUE) {
+            return true;
+        } else return false;
+    }
+
+    private static boolean checkByteValueIsOutBound(Byte number) {
+        short shortValue = (short) number;
+        if (abs(shortValue) >= Byte.MAX_VALUE) {
+            return true;
+        } else return false;
+    }
+
+//    private static boolean checkValueIsOutBound(Object number, String type) {
+//
+//        switch (type) {
+//            case ("Integer"):
+//                long maxValue;
+//                maxValue = Integer.MAX_VALUE;
+//                long longValue = (long) number;
+//                break;
+//            case ("Byte"):
+//                Integer longValue = (Integer) number;
+//                maxValue = Byte.MAX_VALUE;
+//                break;
+//            default:
+//                maxValue = Long.MAX_VALUE;
+//                long longValue = (long) number;
+//                break;
+//        }
+//        if (abs(longValue) >= maxValue) {
+//            return true;
+//        } else return false;
+//    }
 }

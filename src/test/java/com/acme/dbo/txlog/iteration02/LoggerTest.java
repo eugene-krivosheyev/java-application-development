@@ -46,48 +46,49 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-//    @Test
-//    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
-//        //region when
-//        Facade.log("str 1");
-//        Facade.log(10);
-//        Facade.log(Integer.MAX_VALUE);
-//        Facade.log("str 2");
-//        Facade.log(0);
-//        Facade.flush();
-//        //endregion
-//
-//        //region then
-//        assertSysoutEquals(
-//                "str 1\n" +
-//                        "10\n" +
-//                        Integer.MAX_VALUE + "\n" +
-//                        "str 2\n" +
-//                        "0\n"
-//        );
-//        //endregion
-//    }
+    @Test
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+        //region when
+        Facade.log("str 1");
+        Facade.log(10);
+        Facade.log(Integer.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
+        //endregion
 
-//    @Test
-//    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
-//        //region when
-//        Facade.log("str 1");
-//        Facade.log((byte)10);
-//        Facade.log((byte)Byte.MAX_VALUE);
-//        Facade.log("str 2");
-//        Facade.log(0);
-//        //endregion
-//
-//        //region then
-//        assertSysoutEquals(
-//            "str 1\n" +
-//            "10\n" +
-//            Byte.MAX_VALUE + "\n" +
-//            "str 2\n" +
-//            "0\n"
-//        );
-//        //endregion
-//    }
+        //region then
+        assertSysoutEquals(
+                "str 1\n" +
+                        "10\n" +
+                        Integer.MAX_VALUE + "\n" +
+                        "str 2\n" +
+                        "0\n"
+        );
+        //endregion
+    }
+
+    @Test
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+        //region when
+        Facade.log("str 1");
+        Facade.log((byte)10);
+        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
+        //endregion
+
+        //region then
+        assertSysoutEquals(
+            "str 1\n" +
+            "10\n" +
+            Byte.MAX_VALUE + "\n" +
+            "str 2\n" +
+            "0\n"
+        );
+        //endregion
+    }
 
 //    @Test
 //    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
