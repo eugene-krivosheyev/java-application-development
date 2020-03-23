@@ -14,7 +14,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        Facade.isDecorated=false;
+        Facade.isDecorated = false;
     }
 
     @After
@@ -24,26 +24,27 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
+    @Test
+    public void shouldLogSequentIntegersAsSum() throws IOException {
+        //region when
+        Facade.log("str 1");
+        Facade.log(1);
+        Facade.log(2);
+        Facade.log("str 2");
+        Facade.flush();
+        Facade.log(0);
+        Facade.flush();
+        //endregion
 
-//    @Test
-//    public void shouldLogSequentIntegersAsSum() throws IOException {
-//        //region when
-//        Facade.log("str 1");
-//        Facade.log(1);
-//        Facade.log(2);
-//        Facade.log("str 2");
-//        Facade.log(0);
-//        //endregion
-//
-//        //region then
-//        assertSysoutEquals(
-//            "str 1\n" +
-//            "3\n" +
-//            "str 2\n" +
-//            "0\n"
-//        );
-//        //endregion
-//    }
+        //region then
+        assertSysoutEquals(
+                "str 1\n" +
+                        "3\n" +
+                        "str 2\n" +
+                        "0\n"
+        );
+        //endregion
+    }
 
 //    @Test
 //    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
@@ -53,15 +54,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //        Facade.log(Integer.MAX_VALUE);
 //        Facade.log("str 2");
 //        Facade.log(0);
+//        Facade.flush();
 //        //endregion
 //
 //        //region then
 //        assertSysoutEquals(
-//            "str 1\n" +
-//            "10\n" +
-//            Integer.MAX_VALUE + "\n" +
-//            "str 2\n" +
-//            "0\n"
+//                "str 1\n" +
+//                        "10\n" +
+//                        Integer.MAX_VALUE + "\n" +
+//                        "str 2\n" +
+//                        "0\n"
 //        );
 //        //endregion
 //    }
