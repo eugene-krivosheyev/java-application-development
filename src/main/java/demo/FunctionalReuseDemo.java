@@ -12,12 +12,12 @@ public class FunctionalReuseDemo {
 
     public static void log(int message) {
         flushByteAccumulator();
-        handleAccumulator(message, integerAccumulator, () -> { integerAccumulator = message; });
+//        handleAccumulator(message, integerAccumulator, () -> { integerAccumulator = message; });
     }
 
     public static void log(byte message) {
         flushIntAccumulator();
-        handleAccumulator(message, byteAccumulator,  () -> { byteAccumulator = message; });
+//        handleAccumulator(message, byteAccumulator,  () -> { byteAccumulator = message; });
     }
 
     private static void handleAccumulator(int message, Number checkAccumulator, Consumer<Integer> todo) {
