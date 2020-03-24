@@ -22,18 +22,23 @@ public class ArraysDemo {
         int[] hardCodedArray = {1, 2, 3, 4};
         int[][] hcMatrix = {{}, {1}, {1, 2}};
 
-        my(new int[]{1, 2, 3});
 
         for (Object current : getObjectsFromDb()) {
 
         }
 
+        my(1, 2); //1
+        my(new int[] { 1, 2, 3, 4, 6});
     }
 
-    private static void my(int[] args) {
+    private static void my(int... args) {
         for (int current : args) {
             System.out.println(current);
         }
+    }
+
+    private static void my(int args) {
+
     }
 
     private static Object[] getObjectsFromDb() {
