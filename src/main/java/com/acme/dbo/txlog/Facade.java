@@ -17,12 +17,12 @@ public class Facade {
 
 
     public static void log(int message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Byte", "String");
+        flushLastState(integerAccumulator, isDecorated, "Byte", "String");
 
         if (Facade.checkIntegerValueIsOutBound(message)) {
-            flushLastState(Facade.integerAccumulator, isDecorated, "Integer");
+            flushLastState(integerAccumulator, isDecorated, "Integer");
             integerAccumulator = Integer.MAX_VALUE;
-            flushLastState(Facade.integerAccumulator, isDecorated, "Integer");
+            flushLastState(integerAccumulator, isDecorated, "Integer");
         } else {
             if (integerAccumulator == null) {
                 integerAccumulator = message;
@@ -34,37 +34,37 @@ public class Facade {
     }
 
     public static void log(boolean message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "Byte", "String");
 
         String msg = String.valueOf(message);
-        Facade.writeFormattedLog(Facade.PRIMITIVE_DECOR, msg, isDecorated);
+        writeFormattedLog(PRIMITIVE_DECOR, msg, isDecorated);
 
     }
 
     public static void log(byte message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "String");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "String");
 
-        if (Facade.checkByteValueIsOutBound(message)) {
-            flushLastState(Facade.integerAccumulator, isDecorated, "Byte");
+        if (checkByteValueIsOutBound(message)) {
+            flushLastState(integerAccumulator, isDecorated, "Byte");
             byteAccumulator = Byte.MAX_VALUE;
-            flushLastState(Facade.integerAccumulator, isDecorated, "Byte");
+            flushLastState(integerAccumulator, isDecorated, "Byte");
         } else {
             String msg = String.valueOf(message);
-            Facade.writeFormattedLog(Facade.BYTE_DECOR, msg, isDecorated);
+            writeFormattedLog(BYTE_DECOR, msg, isDecorated);
         }
 
     }
 
     public static void log(char message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "Byte", "String");
 
         String msg = String.valueOf(message);
-        Facade.writeFormattedLog(CHAR_DECOR, msg, isDecorated);
+        writeFormattedLog(CHAR_DECOR, msg, isDecorated);
 
     }
 
     public static void log(String message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "Byte");
 
         if (stringAccumulator == null) {
             stringAccumulator = message;
@@ -86,20 +86,20 @@ public class Facade {
 
 
     public static void log(Object message, boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "Byte", "String");
 
         System.out.println(REFERENCE_DECOR + message);
     }
 
     public static void flush(boolean isDecorated) {
-        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
+        flushLastState(integerAccumulator, isDecorated, "Integer", "Byte", "String");
     }
 
     private static void writeFormattedLog(String decoration, Object message, boolean isDecorated) {
         if (isDecorated) {
-            Facade.writeOutput(decoration + message);
+            writeOutput(decoration + message);
         } else {
-            Facade.writeOutput(message);
+            writeOutput(message);
         }
     }
 
@@ -123,14 +123,14 @@ public class Facade {
 
     private static void flushLastIntegerState(boolean isDecorated) {
         if (integerAccumulator != null) {
-            Facade.writeFormattedLog(INTEGER_DECOR, Facade.integerAccumulator, isDecorated);
+            writeFormattedLog(INTEGER_DECOR, integerAccumulator, isDecorated);
         }
         integerAccumulator = null;
     }
 
     private static void flushLastByteState(boolean isDecorated) {
         if (byteAccumulator != null) {
-            Facade.writeFormattedLog(BYTE_DECOR, Facade.byteAccumulator, isDecorated);
+            writeFormattedLog(BYTE_DECOR, byteAccumulator, isDecorated);
         }
         byteAccumulator = null;
     }
@@ -140,7 +140,7 @@ public class Facade {
             if (duplicateStringCount >= 2) {
                 stringAccumulator = stringAccumulator + " (x" + duplicateStringCount + ")";
             }
-            Facade.writeFormattedLog(STRING_DECOR, Facade.stringAccumulator, isDecorated);
+            writeFormattedLog(STRING_DECOR, stringAccumulator, isDecorated);
         }
         stringAccumulator = null;
     }
