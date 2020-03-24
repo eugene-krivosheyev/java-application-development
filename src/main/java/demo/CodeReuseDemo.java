@@ -5,27 +5,22 @@ public class CodeReuseDemo {
     private static Integer intAccumulator;
 
     public static void main(String[] args) {
-        logNumberAccums(intAccumulator);
+        logByteAccums();
     }
 
-    private static void logNumberAccums(Number accumulator) {
+    private static void logNumberAccums(Number accumulator, Runnable todo) {
         if (accumulator != null) {
             logPrimitive(accumulator);
-
-            if (accumulator instanceof Byte) {
-                byteAccumulator = null;
-            } else if (accumulator instanceof Integer) {
-                intAccumulator = null;
-            }
+            todo.run();
         }
     }
 
     private static void logByteAccums() {
-        logNumberAccums(byteAccumulator);
+        logNumberAccums(byteAccumulator, () -> byteAccumulator = null);
     }
 
     private static void logIntAccums() {
-        logNumberAccums(intAccumulator);
+        logNumberAccums(intAccumulator, () -> intAccumulator = null);
     }
 
     private static void logPrimitive(Number intAccumulator) {
