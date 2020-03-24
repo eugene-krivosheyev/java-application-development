@@ -116,7 +116,7 @@ public strictfp class OperatorDemo {
         System.out.println("===");
         for (String current : args) {
             System.out.println(current);
-            if (???) break;
+//            if (???) break;
         }
 
         left: do {} while (m());
@@ -124,7 +124,7 @@ public strictfp class OperatorDemo {
         outer: while (true) {
             //...
             inner: do {
-                if (???) continue outer;
+//                if (???) continue outer;
             } while (true);
             //...
         }
