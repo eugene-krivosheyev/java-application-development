@@ -38,7 +38,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0\r\nprimitive: -1\r\n");
+        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0" + lineSeparator() + "primitive: -1" + lineSeparator());
 //        Apache Jakarta Commons Lang | IO | collections;
 //        Goolge Guava
 
@@ -61,8 +61,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("-1");
         //endregion
     }
-
-
+//
+//
     @Test
     public void shouldLogChar() throws IOException {
         //region when
@@ -81,8 +81,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogString() throws IOException {
         //region when
         String.valueOf(1);
-//        Facade.log(STRING_PREFIX);
-//        Facade.log("other str");
+        Facade.log(STRING_PREFIX);
+        Facade.log("other str");
         //endregion
 
         //region then
@@ -95,8 +95,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-//        Facade.log(true);
-//        Facade.log(false);
+        Facade.log(true);
+        Facade.log(false);
         //endregion
 
         //region then
@@ -109,7 +109,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-//        Facade.log(new Object());
+        Facade.log(new Object());
         //endregion
 
         //region then
