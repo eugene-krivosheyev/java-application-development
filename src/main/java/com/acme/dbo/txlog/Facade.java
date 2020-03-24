@@ -6,6 +6,8 @@ public class Facade {
     private static Integer integerAccumulator;
     private static Byte byteAccumulator;
     private static String stringAccumulator;
+    private static String lastString;
+    private static Integer duplicateStringCount;
     private static String PRIMITIVE_DECOR = "primitive: ";
     private static String INTEGER_DECOR = PRIMITIVE_DECOR;
     private static String BYTE_DECOR = PRIMITIVE_DECOR;
@@ -65,12 +67,21 @@ public class Facade {
         flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte");
 
         if (stringAccumulator == null) {
-            stringAccumulator = message + System.lineSeparator();
             stringAccumulator = message;
+            duplicateStringCount = 1;
         } else {
-            stringAccumulator = stringAccumulator + message + System.lineSeparator();
-            stringAccumulator = stringAccumulator + message;
+            if (message.equals(lastString)) {
+                duplicateStringCount++;
+            } else {
+                if (duplicateStringCount >= 2) {
+                    stringAccumulator = stringAccumulator + " (x" + duplicateStringCount + ")";
+                }
+                stringAccumulator = stringAccumulator + System.lineSeparator() + message;
+                duplicateStringCount = 1;
+            }
+
         }
+        lastString = message;
     }
 
 
@@ -126,6 +137,9 @@ public class Facade {
 
     private static void flushLastStringState(boolean isDecorated) {
         if (stringAccumulator != null) {
+            if (duplicateStringCount >= 2) {
+                stringAccumulator = stringAccumulator + " (x" + duplicateStringCount + ")";
+            }
             Facade.writeFormattedLog(STRING_DECOR, Facade.stringAccumulator, isDecorated);
         }
         stringAccumulator = null;

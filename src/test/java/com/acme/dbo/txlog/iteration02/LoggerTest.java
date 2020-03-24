@@ -89,28 +89,29 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-//    @Test
-//    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
-//        //region when
-//        Facade.log("str 1");
-//        Facade.log("str 2");
-//        Facade.log("str 2");
-//        Facade.log(0);
-//        Facade.log("str 2");
-//        Facade.log("str 3");
-//        Facade.log("str 3");
-//        Facade.log("str 3");
-//        //endregion
-//
-//        //region then
-//        assertSysoutEquals(
-//            "str 1\n" +
-//            "str 2 (x2)\n" +
-//            "0\n" +
-//            "str 2\n" +
-//            "str 3 (x3)\n"
-//        );
-//        //endregion
-//    }
+    @Test
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
+        //region when
+        Facade.log("str 1",false);
+        Facade.log("str 2",false);
+        Facade.log("str 2",false);
+        Facade.log(0,false);
+        Facade.log("str 2",false);
+        Facade.log("str 3",false);
+        Facade.log("str 3",false);
+        Facade.log("str 3",false);
+        Facade.flush(false);
+        //endregion
+
+        //region then
+        assertSysoutEquals(
+            "str 1\n" +
+            "str 2 (x2)\n" +
+            "0\n" +
+            "str 2\n" +
+            "str 3 (x3)\n"
+        );
+        //endregion
+    }
 
 }
