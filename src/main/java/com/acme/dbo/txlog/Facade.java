@@ -3,122 +3,132 @@ package com.acme.dbo.txlog;
 import static java.lang.Math.abs;
 
 public class Facade {
-    public static boolean isDecorated;
-    private static Integer lastSum = 0;
-    private static boolean isLastInteger = false;
-    private static String INTEGER_DECOR = "primitive: ";
+    private static Integer integerAccumulator;
+    private static Byte byteAccumulator;
+    private static String stringAccumulator;
     private static String PRIMITIVE_DECOR = "primitive: ";
+    private static String INTEGER_DECOR = PRIMITIVE_DECOR;
     private static String BYTE_DECOR = PRIMITIVE_DECOR;
     private static String CHAR_DECOR = "char: ";
     private static String STRING_DECOR = "string: ";
     private static String REFERENCE_DECOR = "reference: ";
 
 
+    public static void log(int message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Byte", "String");
 
-    public static void log(int message) {
         if (Facade.checkIntegerValueIsOutBound(message)) {
-            writeLogWhenOutBound(String.valueOf(message),"Integer");
+            flushLastState(Facade.integerAccumulator, isDecorated, "Integer");
+            integerAccumulator = Integer.MAX_VALUE;
+            flushLastState(Facade.integerAccumulator, isDecorated, "Integer");
         } else {
-            String msg = String.valueOf(message);
-            if (Facade.isDecorated) {
-                msg = String.valueOf(message);
-                Facade.writeLog(Facade.INTEGER_DECOR, msg);
+            if (integerAccumulator == null) {
+                integerAccumulator = message;
             } else {
-                lastSum = lastSum + message;
-                Facade.isLastInteger = true;
+                integerAccumulator = integerAccumulator + message;
             }
+
         }
     }
 
+    public static void log(boolean message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
 
-    public static void log(boolean message) {
         String msg = String.valueOf(message);
-        Facade.writeLog(Facade.PRIMITIVE_DECOR, msg);
-        flushLastIntegerState();
+        Facade.writeFormattedLog(Facade.PRIMITIVE_DECOR, msg, isDecorated);
+
     }
 
-    public static void log(byte message) {
+    public static void log(byte message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "String");
+
         if (Facade.checkByteValueIsOutBound(message)) {
-            writeLogWhenOutBound(String.valueOf(message),"Byte");
-        }
-        else {
+            flushLastState(Facade.integerAccumulator, isDecorated, "Byte");
+            byteAccumulator = Byte.MAX_VALUE;
+            flushLastState(Facade.integerAccumulator, isDecorated, "Byte");
+        } else {
             String msg = String.valueOf(message);
-            Facade.writeLog(Facade.BYTE_DECOR, msg);
-            flushLastIntegerState();
+            Facade.writeFormattedLog(Facade.BYTE_DECOR, msg, isDecorated);
+        }
+
+    }
+
+    public static void log(char message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
+
+        String msg = String.valueOf(message);
+        Facade.writeFormattedLog(CHAR_DECOR, msg, isDecorated);
+
+    }
+
+    public static void log(String message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte");
+
+        if (stringAccumulator == null) {
+            stringAccumulator = message + System.lineSeparator();
+            stringAccumulator = message;
+        } else {
+            stringAccumulator = stringAccumulator + message + System.lineSeparator();
+            stringAccumulator = stringAccumulator + message;
         }
     }
 
-    public static void log(char message) {
-        String msg = String.valueOf(message);
-        Facade.writeLog(CHAR_DECOR, msg);
-        flushLastIntegerState();
-    }
 
-    public static void log(String message) {
-        String msg = String.valueOf(message);
-        Facade.writeLog(STRING_DECOR, msg);
-        flushLastIntegerState();
-    }
+    public static void log(Object message, boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
 
-    public static void log(Object message) {
         System.out.println(REFERENCE_DECOR + message);
-        flushLastIntegerState();
     }
 
-    public static void flush() {
-        String msg = String.valueOf(Facade.lastSum);
-        Facade.writeFlushedLog(INTEGER_DECOR);
-
-        flushLastIntegerState();
+    public static void flush(boolean isDecorated) {
+        flushLastState(Facade.integerAccumulator, isDecorated, "Integer", "Byte", "String");
     }
 
-    private static void writeLog(String decoration, String message) {
-        if (Facade.isLastInteger) {
-            Facade.writeFormattedLog(decoration, Facade.lastSum);
-        }
-        Facade.writeFormattedLog(decoration, message);
-    }
-
-    private static void writeFormattedLog(String decoration, Object message) {
-        if (Facade.isDecorated) {
+    private static void writeFormattedLog(String decoration, Object message, boolean isDecorated) {
+        if (isDecorated) {
             Facade.writeOutput(decoration + message);
         } else {
             Facade.writeOutput(message);
         }
-    }
-
-    private static void writeFlushedLog(String decoration) {
-        if (Facade.isLastInteger) {
-            writeFormattedFlushedLog(decoration, Facade.lastSum);
-        }
-    }
-
-    private static void writeFormattedFlushedLog(String decoration, Object message) {
-        if (Facade.isDecorated) {
-            Facade.writeOutput(decoration + message);
-        } else {
-            Facade.writeOutput(message);
-        }
-    }
-
-    private static void writeLogWhenOutBound (String message, String type){
-        if (type.equals("Integer")) {
-            String msg = String.valueOf(Integer.MAX_VALUE);
-        }
-        if (type.equals("Byte")) {
-            String msg = String.valueOf(Byte.MAX_VALUE);
-        }
-        flush();
-        Facade.writeLog(Facade.INTEGER_DECOR, message);
     }
 
     private static void writeOutput(Object msg) {
         System.out.println(msg);
     }
 
-    private static void flushLastIntegerState() {
-        Facade.lastSum = 0;
-        Facade.isLastInteger = false;
+    public static void flushLastState(Object accumulator, boolean isDecorated, String... types) {
+        for (String current : types) {
+            if (current.equals("Integer")) {
+                flushLastIntegerState(isDecorated);
+            }
+            if (current.equals("Byte")) {
+                flushLastByteState(isDecorated);
+            }
+            if (current.equals("String")) {
+                flushLastStringState(isDecorated);
+            }
+        }
+    }
+
+    private static void flushLastIntegerState(boolean isDecorated) {
+        if (integerAccumulator != null) {
+            Facade.writeFormattedLog(INTEGER_DECOR, Facade.integerAccumulator, isDecorated);
+        }
+        integerAccumulator = null;
+    }
+
+    private static void flushLastByteState(boolean isDecorated) {
+        if (byteAccumulator != null) {
+            Facade.writeFormattedLog(BYTE_DECOR, Facade.byteAccumulator, isDecorated);
+        }
+        byteAccumulator = null;
+    }
+
+    private static void flushLastStringState(boolean isDecorated) {
+        if (stringAccumulator != null) {
+            Facade.writeFormattedLog(STRING_DECOR, Facade.stringAccumulator, isDecorated);
+        }
+        stringAccumulator = null;
     }
 
     private static boolean checkIntegerValueIsOutBound(Integer number) {
@@ -134,26 +144,4 @@ public class Facade {
             return true;
         } else return false;
     }
-
-//    private static boolean checkValueIsOutBound(Object number, String type) {
-//
-//        switch (type) {
-//            case ("Integer"):
-//                long maxValue;
-//                maxValue = Integer.MAX_VALUE;
-//                long longValue = (long) number;
-//                break;
-//            case ("Byte"):
-//                Integer longValue = (Integer) number;
-//                maxValue = Byte.MAX_VALUE;
-//                break;
-//            default:
-//                maxValue = Long.MAX_VALUE;
-//                long longValue = (long) number;
-//                break;
-//        }
-//        if (abs(longValue) >= maxValue) {
-//            return true;
-//        } else return false;
-//    }
 }
