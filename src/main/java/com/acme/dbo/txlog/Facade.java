@@ -1,128 +1,75 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
+    private static Byte byteAccumulator;
+    private static Integer intAccumulator;
+    private static String stringAccumulator;
+    private static int stringCounter;
 
-    private static Byte s_byteAccum;
-    private static Integer s_intAccum;
-    private static String s_stringAccum;
-    private static int s_stringCounter;
-
-    public static void logPrint(String msg) {System.out.println(msg); }
-    private static void logSimple(String message){
-        logPrint("" + message);
-    }
-
-    public static void clear(){
-        logStringAccums();
-        logByteAccums();
-        logIntAccums();
-    }
-
-
-    private static void logByteAccums() {
-        if (s_byteAccum != null) {
-            logSimple(s_byteAccum);
-            s_byteAccum = null;
+    public static void flush() {
+        if (stringAccumulator != null) {
+            String message = stringAccumulator + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
+            logPrint("string: " + message);
+            stringAccumulator = null;
+        } else if (byteAccumulator != null) {
+            logPrint("primitive: " + (byte) byteAccumulator);
+            byteAccumulator = null;
+        } else if (intAccumulator != null) {
+            logPrint("primitive: " + (int) intAccumulator);
+            intAccumulator = null;
         }
     }
-    private static void logIntAccums() {
-
-        if (s_intAccum != null) {
-            logSimple(s_intAccum);
-            s_intAccum = null;
-        }
-    }
-    private static void logStringAccums(){
-        if(s_stringAccum!=null){
-            logSimple(s_stringAccum+(s_stringCounter>1?(" (x"+s_stringCounter+")"):""));
-            s_stringAccum=null;
-        }
-    }
-
 
     public static void log(int message) {
-        logByteAccums();
-        logStringAccums();
-
-        if (s_intAccum==null){
-            s_intAccum=message;
-        }else{
-            int sum=s_intAccum+message;
-            if(message>0 && sum>s_intAccum || message<0 && sum<s_intAccum){
-                s_intAccum=sum;
-            }
-            else{
-                logIntAccums();
-                logSimple(message);
-            }
+        if (intAccumulator != null && checkOverflow(message + intAccumulator, message, intAccumulator)) {
+            intAccumulator += message;
+        } else {
+            flush();
+            intAccumulator = message;
         }
-
-
     }
 
-    private static void logSimple(int message){
-        logPrint(""+message);
-    }
 
     public static void log(byte message) {
-        logStringAccums();
-        logIntAccums();
-        if (s_byteAccum == null) {
-            s_byteAccum = message;
-
+        if (byteAccumulator != null && checkOverflow((byte) (message + byteAccumulator), message, byteAccumulator)) {
+            byteAccumulator = (byte)(message+byteAccumulator);
         } else {
-            byte sum=(byte)(s_byteAccum+message);
-            if(message>0 && sum>s_byteAccum || message<0 && sum<s_byteAccum){
-                s_byteAccum=sum;
-            }
-            else{
-                logByteAccums();
-                logSimple(message);
-            }
+            flush();
+            byteAccumulator = message;
         }
     }
-
-     private static void logSimple(byte message){
-        logPrint("" + message);
-    }
-
 
 
     public static void log(String message) {
-        logByteAccums();
-        logIntAccums();
-
-        if (s_stringAccum == null) {
-            s_stringAccum = message;
-            s_stringCounter = 1;
-
-        } else if (!s_stringAccum.equals(message)) {
-            logStringAccums();
-            s_stringAccum = message;
-            s_stringCounter = 1;
+        if (stringAccumulator == null || !stringAccumulator.equals(message)) {
+            flush();
+            stringAccumulator = message;
+            stringCounter = 1;
         } else {
-            s_stringCounter++;
+            stringCounter++;
         }
     }
 
-
     public static void log(Object o) {
-        logByteAccums();
-        logIntAccums();
-        logStringAccums();
-        logPrint("" + o.toString());
+        flush();
+        logPrint("reference: " + o.toString());
     }
+
     public static void log(boolean message) {
-        logByteAccums();
-        logIntAccums();
-        logStringAccums();
-        logPrint("" + message);
+        flush();
+        logPrint("primitive: " + message);
     }
 
     public static void log(char message) {
-        logByteAccums();
-        logIntAccums();
-        logStringAccums();
-        logPrint("" + message);
+        flush();
+        logPrint("char: " + message);
+    }
+
+    private static void logPrint(String msg) {
+        System.out.println(msg);
+    }
+
+    private static boolean checkOverflow(int sum, int a, int b) {
+        return (a > 0 && sum > b || a < 0 && sum < b);
     }
 }
