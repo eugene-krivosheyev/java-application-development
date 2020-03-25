@@ -8,9 +8,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static java.lang.String.join;
-import static java.lang.System.lineSeparator;
-
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before

@@ -1,8 +1,10 @@
 package com.acme.dbo.txlog;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static java.lang.String.valueOf;
+import static java.lang.System.lineSeparator;
 
 public class Facade {
 
@@ -10,6 +12,9 @@ public class Facade {
     private static final String CHAR = "char";
     private static final String REFERENCE = "reference";
     private static final String STRING = "string";
+    private static final String PRIMITIVES_ARRAY = "primitives array";
+    private static final String PRIMITIVES_MATRIX = "primitives matrix";
+    private static final String PRIMITIVES_MULTIMATRIX = "primitives multimatrix";
 
     private static final int OTHER_MESSAGE = 0;
     private static final int INT_MESSAGE = 1;
@@ -20,30 +25,45 @@ public class Facade {
     private static byte byteSum = 0;
     private static int stringCount = 0;
     private static String lastString;
-    private static StringBuilder stringBuilder = new StringBuilder();
+
+    public static void flush() {
+        clearIntCount();
+        clearByteCount();
+        clearLastString();
+    }
+
+    public static void log(int... message) {
+        logMessage(decorateMessage(message), getStringFromIntArrayString(Arrays.toString(message)));
+    }
 
     public static void log(int message) {
-
         try {
             intSum = Math.addExact(intSum, message);
-            logMessage(decorateMessage(intSum), intSum);
         } catch (ArithmeticException e) {
-            logMessage(decorateMessage(intSum), intSum);
             logMessage(decorateMessage(message), message);
             intSum = message;
+        } finally {
+            logMessage(decorateMessage(intSum), intSum);
         }
         clearByMessageType(INT_MESSAGE);
     }
 
-    public static void log(byte message) {
+    public static void log(int[][] message) {
+        logMessage(decorateMessage(message), getStringFromIntArrayString(Arrays.deepToString(message)));
+    }
 
-        if ((int)message + byteSum >= Byte.MAX_VALUE) {
-            byteSum = 0;
+    public static void log(int[][][][] message) {
+        logMessage(decorateMessage(message), getStringFromIntArrayString(Arrays.deepToString(message)));
+    }
+
+    public static void log(byte message) {
+        if ((int) message + byteSum >= Byte.MAX_VALUE) {
+            byteSum = message;
+            logMessage(decorateMessage(message), message);
         } else {
             byteSum += message;
         }
         logMessage(decorateMessage(byteSum), byteSum);
-        logMessage(decorateMessage(message), message);
         clearByMessageType(BYTE_MESSAGE);
     }
 
@@ -52,11 +72,20 @@ public class Facade {
         clearByMessageType(OTHER_MESSAGE);
     }
 
+    public static void log(String... messages) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String message : messages) {
+            stringBuilder.append(message).append(lineSeparator());
+        }
+        logMessage(decorateMessage(stringBuilder), stringBuilder.toString());
+    }
+
     public static void log(String message) {
         if (Objects.equals(message, lastString)) {
             stringCount++;
         } else {
             stringCount = 0;
+            flush();
         }
         logMessage(decorateMessage(message), message);
         lastString = message;
@@ -74,75 +103,102 @@ public class Facade {
     }
 
     private static void logMessage(String prefix, Object message) {
-        stringBuilder.append(prefix).append(": ").append(message).append(System.lineSeparator());
+        System.out.println(prefix + ": " + message);
     }
 
     private static void logMessage(String prefix, String message) {
         if (stringCount == 0) {
-            stringBuilder.append(prefix).append(": ").append(message).append(System.lineSeparator());
+            System.out.println(prefix + ": " + message);
         } else {
-            String substring = prefix + ": " + message;
-            int index = stringBuilder.lastIndexOf(substring) + substring.length();
-            stringBuilder.delete(index, stringBuilder.length());
-            stringBuilder.append(" (x").append(stringCount + 1).append(")").append(System.lineSeparator());
+            System.out.println(prefix + ": " + message + " (x" + (stringCount + 1) + ")");
         }
     }
 
-    public static String decorateMessage(int message) {
+    private static String decorateMessage(int message) {
         return PRIMITIVE;
     }
 
-    public static String decorateMessage(byte message) {
+    private static String decorateMessage(byte message) {
         return PRIMITIVE;
     }
 
-    public static String decorateMessage(char message) {
+    private static String decorateMessage(char message) {
         return CHAR;
     }
 
-    public static String decorateMessage(boolean message) {
+    private static String decorateMessage(boolean message) {
         return PRIMITIVE;
     }
 
-    public static String decorateMessage(String message) {
+    private static String decorateMessage(String message) {
         return STRING;
     }
 
-    public static String decorateMessage(Object message) {
+    private static String decorateMessage(Object message) {
         return REFERENCE;
     }
 
-    public static void flush() {
-        System.out.print(stringBuilder);
-        stringBuilder = new StringBuilder();
-        clearByMessageType(OTHER_MESSAGE);
+    private static String decorateMessage(int[] message) {
+        return PRIMITIVES_ARRAY;
     }
 
-    public static void clearByMessageType(int type) {
-        switch (type) {
+    private static String decorateMessage(int[][] message) {
+        return PRIMITIVES_MATRIX;
+    }
+
+    private static String decorateMessage(int[][][][] message) {
+        return PRIMITIVES_MULTIMATRIX;
+    }
+
+    private static String getStringFromIntArrayString(String arrayString) {
+        String resultString = arrayString
+                .replace("[", "{")
+                .replace("]", "}")
+                .replace("}, {", "}" + lineSeparator() + "{");
+
+        while (resultString.contains("{{") || resultString.contains("}}")) {
+            resultString = resultString.replace("{{", "{" + lineSeparator() + "{")
+                    .replace("}}", "}" + lineSeparator() + "}");
+        }
+
+        resultString = resultString.replaceAll("\\{(\\d+)}", "{" + lineSeparator() + "$1" + lineSeparator() + "}");
+
+        return resultString;
+    }
+
+    private static void clearByMessageType(int messageType) {
+        switch (messageType) {
             case INT_MESSAGE: {
-                byteSum = 0;
-                lastString = null;
-                stringCount = 0;
+                clearByteCount();
+                clearLastString();
                 break;
             }
             case BYTE_MESSAGE: {
-                intSum = 0;
-                lastString = null;
-                stringCount = 0;
+                clearIntCount();
+                clearLastString();
                 break;
             }
             case STRING_MESSAGE: {
-                intSum = 0;
-                byteSum = 0;
+                clearIntCount();
+                clearByteCount();
                 break;
             }
             default: {
-                intSum = 0;
-                byteSum = 0;
-                stringCount = 0;
-                lastString = null;
+                flush();
             }
         }
+    }
+
+    private static void clearIntCount() {
+        intSum = 0;
+    }
+
+    private static void clearByteCount() {
+        byteSum = 0;
+    }
+
+    private static void clearLastString() {
+        lastString = null;
+        stringCount = 0;
     }
 }
