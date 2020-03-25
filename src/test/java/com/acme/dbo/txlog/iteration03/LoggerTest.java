@@ -79,7 +79,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains(join(lineSeparator(), "str1", "string 2", "str 3"));
+        assertSysoutContains("str1");
+        assertSysoutContains("string 2");
+        assertSysoutContains("str 3");
         //endregion
     }
 

@@ -50,10 +50,12 @@ public class Facade {
 
     public static void log(int[][] message) {
         logMessage(decorateMessage(message), getStringFromIntArrayString(Arrays.deepToString(message)));
+        clearByMessageType(OTHER_MESSAGE);
     }
 
     public static void log(int[][][][] message) {
         logMessage(decorateMessage(message), getStringFromIntArrayString(Arrays.deepToString(message)));
+        clearByMessageType(OTHER_MESSAGE);
     }
 
     public static void log(byte message) {
@@ -73,11 +75,9 @@ public class Facade {
     }
 
     public static void log(String... messages) {
-        StringBuilder stringBuilder = new StringBuilder();
         for (String message : messages) {
-            stringBuilder.append(message).append(lineSeparator());
+            log(message);
         }
-        logMessage(decorateMessage(stringBuilder), stringBuilder.toString());
     }
 
     public static void log(String message) {
