@@ -1,94 +1,85 @@
 package com.acme.dbo.txlog;
 
-import java.util.concurrent.ExecutionException;
-
 public class Facade {
-    private static String PREVIOUS_TYPE = new String("first");
-    private static String PREFIX = null;
-    private static Object VALUE = null;
-    private static int STRING_COUNTER = 0;
-
-    private static void print() {
-        if (VALUE != null) {
-            if (STRING_COUNTER > 1)
-                VALUE = VALUE.toString() + " (x" + STRING_COUNTER + ")";
-            System.out.println(PREFIX + ": " + VALUE);
-            VALUE = null;
-            PREFIX = null;
-            STRING_COUNTER = 0;
-        }
-    }
-
-    private static boolean tryToPrintThePreviousValue(String currentType) {
-        if (currentType.equals(PREVIOUS_TYPE))
-            return false;
-        print();
-        PREVIOUS_TYPE = currentType;
-        return true;
-    }
-
+    private static String PreviousType = "first";
+    private static String Prefix;
+    private static Object Value;
+    private static int StringCounter;
 
     public static void log(int message) {
-        if (!tryToPrintThePreviousValue("int"))
-            if (Integer.MAX_VALUE - message > (Integer) VALUE)
-                VALUE = (Integer) VALUE + message;
+        if (tryToPrintThePreviousValue("int"))
+            if (Integer.MAX_VALUE - message > (Integer) Value)
+                Value = (Integer) Value + message;
             else {
                 print();
-                VALUE = message;
-                PREFIX = "primitive";
+                Value = message;
+                Prefix = "primitive";
             }
         else {
-            VALUE = message;
-            PREFIX = "primitive";
+            Value = message;
+            Prefix = "primitive";
         }
     }
 
     public static void log(char message) {
-        if (!tryToPrintThePreviousValue("char"))
-            print();
-        VALUE = message;
-        PREFIX = "char";
+        if (tryToPrintThePreviousValue("char")) print();
+        Value = message;
+        Prefix = "char";
     }
 
     public static void log(String message) {
-        if (!tryToPrintThePreviousValue("string") && !message.equals(VALUE))
-            print();
-        VALUE = message;
-        PREFIX = "string";
-        STRING_COUNTER++;
+        if (tryToPrintThePreviousValue("string") && !message.equals(Value)) print();
+        Value = message;
+        Prefix = "string";
+        StringCounter++;
     }
 
     public static void log(boolean message) {
-        if (!tryToPrintThePreviousValue("boolean"))
-            print();
-        VALUE = message;
-        PREFIX = "primitive";
+        if (tryToPrintThePreviousValue("boolean")) print();
+        Value = message;
+        Prefix = "primitive";
     }
 
     public static void log(Object message) {
-        if (!tryToPrintThePreviousValue("Object"))
-            print();
-        VALUE = message;
-        PREFIX = "reference";
+        if (tryToPrintThePreviousValue("Object")) print();
+        Value = message;
+        Prefix = "reference";
     }
 
     public static void log(byte message) {
-        if (!tryToPrintThePreviousValue("byte"))
-            if (Byte.MAX_VALUE - message > (Byte) VALUE)
-                VALUE = (Byte) VALUE + message;
+        if (tryToPrintThePreviousValue("byte"))
+            if (Byte.MAX_VALUE - message > (Byte) Value)
+                Value = (Byte) Value + message;
             else {
                 print();
-                VALUE = message;
-                PREFIX = "primitive";
+                Value = message;
+                Prefix = "primitive";
             }
         else {
-            VALUE = message;
-            PREFIX = "primitive";
+            Value = message;
+            Prefix = "primitive";
         }
     }
 
     public static void stop() {
         print();
-        PREVIOUS_TYPE = "stop";
+        PreviousType = "stop";
+    }
+
+    private static void print() {
+        if (Value != null) {
+            if (StringCounter > 1) Value = Value.toString() + " (x" + StringCounter + ")";
+            System.out.println(Prefix + ": " + Value);
+            Value = null;
+            Prefix = null;
+            StringCounter = 0;
+        }
+    }
+
+    private static boolean tryToPrintThePreviousValue(String currentType) {
+        if (currentType.equals(PreviousType)) return true;
+        print();
+        PreviousType = currentType;
+        return false;
     }
 }
