@@ -1,30 +1,12 @@
 package ooaddemo;
 
 public class Logger {
-    public static String message;
+    private LogFilter filter = new LogFilter(5);
+    private LogWriter writer = new LogWriter(0);
 
-    public void log(String message, int severityLevel, int writeMode) {
-        if (filter(message, severityLevel)) {
-            write(message, writeMode);
+    public void log(String message) {
+        if (filter.filter(message)) {
+            writer.write(message);
         }
-    }
-
-    private boolean filter(String message, int severityLevel) {
-        return severityLevel < 3;
-    }
-
-    private void write(String message, int writeMode) {
-        switch (writeMode) {
-            case 0: consoleWrite(message); break;
-            case 1: fileWrite(message); break;
-        }
-    }
-
-    private void fileWrite(String message) {
-
-    }
-
-    private void consoleWrite(String message) {
-        System.out.println(message);
     }
 }
