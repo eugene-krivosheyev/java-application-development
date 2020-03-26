@@ -1,6 +1,6 @@
 package ooaddemo;
 
-public class LogFilterFactory {
+public class XmlConfigLogFilterFactory {
     public static LogFilter create() {
         return new MessageLengthLogFilter(10);
     }
