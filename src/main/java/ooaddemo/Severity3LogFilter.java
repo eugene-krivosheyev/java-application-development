@@ -1,9 +1,9 @@
 package ooaddemo;
 
-public class LogFilter {
+public class Severity3LogFilter {
     private int severityLevel;
 
-    public LogFilter(int severityLevel) {
+    public Severity3LogFilter(int severityLevel) {
         this.severityLevel = severityLevel;
     }
 
