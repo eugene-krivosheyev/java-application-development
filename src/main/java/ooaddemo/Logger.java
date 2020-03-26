@@ -4,8 +4,8 @@ package ooaddemo;
  * Mediator -> Controller
  */
 public class Logger {
-    private MessageLengthLogFilter filter = new MessageLengthLogFilter(10);
-    private ConsoleLogWriter writer = new ConsoleLogWriter();
+    private LogFilter filter = new MessageSeverityLogFilter(3);
+    private LogWriter writer = new ConsoleLogWriter(); //Creator
 
     public void log(String message, int messageSeverity) {
         if (filter.filter(message, messageSeverity)) {
