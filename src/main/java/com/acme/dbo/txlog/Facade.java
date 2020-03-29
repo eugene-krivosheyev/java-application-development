@@ -1,73 +1,89 @@
 package com.acme.dbo.txlog;
 
+
 public class Facade {
 
-    private static int FINAL_MESSAGE = 0;
-    private static boolean SUM_TRIGGER = false;
-    private static boolean FINAL_INT = false;
+    private static String stringAccum;
+    private static int sequenceCounter = 0;
+
+    private static int intAccum;
+    private static boolean intSequenceStart = false;
+
+    private static byte byteAccum;
+    private static boolean byteSequenceStart = false;
+
+    public static void log(int message, boolean decorator) {
+        if (decorator) {log(message);}
+        else {
+            if (!intSequenceStart) {
+                clearStringAccum();
+                clearByteAccum();
+                intAccum = message;
+                intSequenceStart = true;
+            }
+            else if (intSequenceStart) {
+                try {
+                    intAccum = Math.addExact(intAccum, message);
+                }
+                catch(ArithmeticException e) {
+                    clearIntAccum();
+                    log(message, false);
+                }
+            }
+        }
+    }
 
     public static void log(int message) {
-        if (SUM_TRIGGER) {
-            try {
-                FINAL_MESSAGE = Math.addExact(FINAL_MESSAGE, message);
-            }
-            catch (ArithmeticException e) {
-                System.out.println(FINAL_MESSAGE);
-                System.out.println(message);
-                FINAL_MESSAGE = 0;
-            }
-        }
-        else if (FINAL_INT) {
-            System.out.println(message);
-            FINAL_INT = false;
-        }
+        System.out.println("primitive: " + message);
+    }
+
+    public static void log(byte message, boolean decorator) {
+        if (decorator) {log(message);}
         else {
-            System.out.println("primitive: " + message);
+            if (!byteSequenceStart) {
+                clearStringAccum();
+                clearIntAccum();
+                byteAccum = message;
+                byteSequenceStart = true;
+            }
+            else if (byteSequenceStart) {
+                if (byteAccum + message > Byte.MAX_VALUE) {
+                    clearByteAccum();
+                    log(message, false);
+                }
+                else {byteAccum += message;}
+            }
         }
     }
 
     public static void log(byte message) {
-        if (SUM_TRIGGER) {
-            if ((Math.addExact((byte)FINAL_MESSAGE, (byte)message)) < Byte.MAX_VALUE) {
-                FINAL_MESSAGE = Math.addExact((byte)FINAL_MESSAGE, (byte)message);
-            }
-            else {
-                System.out.println(FINAL_MESSAGE);
-                System.out.println(message);
-                FINAL_MESSAGE = 0;
-            }
-        }
-        else {
-            System.out.println("primitive: " + message);
-        }
+        System.out.println("primitive: " + message);
     }
 
     public static void log(char message) {
         System.out.println("char: " + message);
     }
 
-    public static void log(String message) {
-
-        switch (message) {
-            case ("str 1"):
-                System.out.println(message);
-                SUM_TRIGGER = true;
-                break;
-            case ("str 2"):
-                if (FINAL_MESSAGE != 0) {
-                    System.out.println(FINAL_MESSAGE);
-                    FINAL_MESSAGE = 0;
-                }
-                SUM_TRIGGER = false;
-                FINAL_INT = true;
-                System.out.println(message);
-                break;
-            case ("str 3"):
-
-            default: System.out.println("string: " + message);
-                SUM_TRIGGER = false;
-                break;
+    public static void log(String message, boolean decorator) {
+        if (decorator) {log(message);}
+        else {
+            if (stringAccum == null) {
+                clearIntAccum();
+                clearByteAccum();
+                stringAccum = message;
+                sequenceCounter++;
+            }
+            else if (stringAccum.equals(message)) {
+                sequenceCounter++;
+            }
+            else if (!stringAccum.equals(message) && sequenceCounter > 0) {
+                clearStringAccum(message);
+            }
         }
+    }
+
+    public static void log(String message) {
+        System.out.println("string: " + message);
     }
 
     public static void log(boolean message) {
@@ -78,5 +94,40 @@ public class Facade {
         System.out.println("reference: " + message);
     }
 
+    public static void clear() {
+        clearStringAccum();
+        clearIntAccum();
+        clearByteAccum();
+    }
+
+    private static void clearStringAccum(String message) {
+        String postfix = "";
+        if (sequenceCounter > 1) {postfix = " (x" + sequenceCounter + ")";}
+        System.out.println(stringAccum + postfix);
+        sequenceCounter = 1;
+        stringAccum = message;
+    }
+
+    private static void clearStringAccum() {
+        if (stringAccum != null) {
+            String postfix = "";
+            if (sequenceCounter > 1) {postfix = " (x" + sequenceCounter + ")";}
+            System.out.println(stringAccum + postfix);
+        }
+        sequenceCounter = 0;
+        stringAccum = null;
+    }
+
+    private static void clearIntAccum() {
+        if (intSequenceStart) {System.out.println(intAccum);}
+        intAccum = 0;
+        intSequenceStart = false;
+    }
+
+    private static void clearByteAccum() {
+        if (byteSequenceStart) {System.out.println(byteAccum);}
+        byteAccum = 0;
+        byteSequenceStart = false;
+    }
 
 }

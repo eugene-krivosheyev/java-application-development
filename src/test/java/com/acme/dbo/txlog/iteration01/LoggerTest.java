@@ -29,6 +29,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(1);
         Facade.log(0);
         Facade.log(-1);
+        Facade.clear();
         //endregion
 
         //region then
@@ -43,6 +44,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log((byte)1);
         Facade.log((byte)0);
         Facade.log((byte)-1);
+        Facade.clear();
         //endregion
 
         //region then
@@ -75,6 +77,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log("test string 1");
         Facade.log("other str");
+        Facade.clear();
         //endregion
 
         //region then
