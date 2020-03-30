@@ -8,10 +8,12 @@ public class Facade {
     private static final String PREFIX_CHAR = "char";
     private static String msgType = "Blank";
     private static Integer intAccum;
+
     private static String stringAccum;
 
 
     public static String stringBuilder(String message, String prefix) {
+
         return String.format("%s: %s", prefix, message);
     }
 
@@ -27,13 +29,19 @@ public class Facade {
     }
 
     public static void log(int message) {
-        if (intAccum != null) {
+
+        if ((intAccum != null) && checkNotOverMaxInt(message, intAccum)) {
             intAccum = intAccum + message;
         } else {
             flush();
             intAccum = message;
         }
     }
+
+    private static boolean checkNotOverMaxInt(int a, int b) {
+        return (a >= 0 && a + b >= b || a < 0 && a + b < b);
+    }
+
 
     public static void log(String message) {
         flush();
