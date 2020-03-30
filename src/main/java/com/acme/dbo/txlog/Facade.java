@@ -8,6 +8,7 @@ public class Facade {
     private static final String PREFIX_CHAR = "char";
     private static String msgType = "Blank";
     private static Integer intAccum;
+    private static Byte byteAccum;
 
     private static String stringAccum;
 
@@ -21,6 +22,9 @@ public class Facade {
         if (stringAccum != null) {
             System.out.println(stringAccum);
             stringAccum = null;
+        } else if (byteAccum != null) {
+            System.out.println(byteAccum);
+            byteAccum = null;
         } else if (intAccum != null) {
             System.out.println(intAccum);
             intAccum = null;
@@ -51,7 +55,17 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        System.out.println(stringBuilder(Byte.toString(message), PREFIX_PRIMITIVE));
+        if ((byteAccum != null) && (checkNotOverMaxByte(message, byteAccum))) {
+            byteAccum = (byte) (byteAccum + message);
+        } else {
+            flush();
+            byteAccum = message;
+        }
+    }
+
+
+    private static boolean checkNotOverMaxByte(byte a, byte b) {
+        return (a >= 0 && (byte) (a + b) >= b || a < 0 && (byte) (a + b) < b);
     }
 
 
