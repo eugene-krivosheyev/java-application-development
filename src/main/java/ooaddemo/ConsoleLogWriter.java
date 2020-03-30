@@ -5,3 +5,4 @@ public class ConsoleLogWriter implements LogWriter {
         System.out.println(message);
     }
 }
+
