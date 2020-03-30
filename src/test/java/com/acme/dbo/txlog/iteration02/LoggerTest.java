@@ -97,16 +97,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log("str 3");
         Facade.log("str 3");
         Facade.log("str 3");
+        flush();
         //endregion
 
         //region then
-        assertSysoutEquals(
-                "str 1\n" +
-                        "str 2 (x2)\n" +
-                        "0\n" +
-                        "str 2\n" +
-                        "str 3 (x3)\n"
-        );
+        assertSysoutContains("str 1");
+        assertSysoutContains("str 2 (x2)");
+        assertSysoutContains("str 2");
+        assertSysoutContains("str 3 (x3)");
         //endregion
     }
 

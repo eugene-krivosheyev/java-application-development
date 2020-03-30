@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 
 import static java.lang.System.lineSeparator;
@@ -32,8 +31,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         Facade.log(1);
+        Facade.flush();
         Facade.log(0);
+        Facade.flush();
         Facade.log(-1);
+        Facade.flush();
         //endregion
 
         //region then
@@ -49,9 +51,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte)1);
-        Facade.log((byte)0);
-        Facade.log((byte)-1);
+        Facade.log((byte) 1);
+        Facade.flush();
+        Facade.log((byte) 0);
+        Facade.flush();
+        Facade.log((byte) -1);
+        Facade.flush();
         //endregion
 
         //region then
@@ -87,8 +92,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("string: ");
+        Facade.flush();
         assertSysoutContains("test string 1");
+        Facade.flush();
         assertSysoutContains("other str");
+        Facade.flush();
         //endregion
     }
 

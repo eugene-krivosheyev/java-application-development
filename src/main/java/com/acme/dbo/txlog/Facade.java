@@ -2,39 +2,49 @@ package com.acme.dbo.txlog;
 
 
 public class Facade {
-    private static final String PREFIX_PRIMITIVE = "primitive";
-    private static final String PREFIX_PREFERNCE = "reference";
-    private static final String PREFIX_STRING = "string";
-    private static final String PREFIX_CHAR = "char";
+    private static final String PREFIX_PRIMITIVE = "primitive: ";
+    private static final String PREFIX_PREFERNCE = "reference: ";
+    private static final String PREFIX_STRING = "string: ";
+    private static final String PREFIX_CHAR = "char: ";
     private static String msgType = "Blank";
     private static Integer intAccum;
     private static Byte byteAccum;
-
+    private static int stringCounter = 1;
     private static String stringAccum;
 
 
-    public static String stringBuilder(String message, String prefix) {
-
-        return String.format("%s: %s", prefix, message);
-    }
-
     public static void flush() {
         if (stringAccum != null) {
-            System.out.println(stringAccum);
+
+            String message = stringAccum + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
+            System.out.println(PREFIX_STRING + message);
+            stringCounter = 1;
             stringAccum = null;
         } else if (byteAccum != null) {
-            System.out.println(byteAccum);
+            System.out.println(PREFIX_PRIMITIVE + (byte) byteAccum);
             byteAccum = null;
         } else if (intAccum != null) {
-            System.out.println(intAccum);
+            System.out.println(PREFIX_PRIMITIVE + (int) intAccum);
             intAccum = null;
         }
 
     }
 
+    public static void log(String message) {
+
+        if (!message.equals(stringAccum)) {
+            flush();
+        } else {
+            stringCounter++;
+        }
+
+        stringAccum = message;
+    }
+
     public static void log(int message) {
 
-        if ((intAccum != null) && checkNotOverMaxInt(message, intAccum)) {
+        if ((intAccum != null) &&
+                checkNotOverMaxInt(message, intAccum)) {
             intAccum = intAccum + message;
         } else {
             flush();
@@ -46,13 +56,6 @@ public class Facade {
         return (a >= 0 && a + b >= b || a < 0 && a + b < b);
     }
 
-
-    public static void log(String message) {
-        flush();
-        stringAccum = message;
-
-
-    }
 
     public static void log(byte message) {
         if ((byteAccum != null) && (checkNotOverMaxByte(message, byteAccum))) {
@@ -70,15 +73,15 @@ public class Facade {
 
 
     public static void log(boolean message) {
-        System.out.println(stringBuilder(Boolean.toString(message), PREFIX_PRIMITIVE));
+        System.out.println(PREFIX_PRIMITIVE + message);
     }
 
     public static void log(char message) {
-        System.out.println(stringBuilder(String.valueOf(message), PREFIX_CHAR));
+        System.out.println(PREFIX_CHAR + message);
     }
 
     public static void log(Object message) {
-        System.out.println(stringBuilder(message.toString(), PREFIX_PREFERNCE));
+        System.out.println(PREFIX_PREFERNCE + message);
     }
 
 }
