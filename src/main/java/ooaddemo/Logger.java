@@ -21,4 +21,10 @@ public class Logger {
             writer.write(message);
         }
     }
+
+    public void log(Command command, int severityLevel) {
+        if (filter.filter(command.getMessage())) {
+            writer.write(command.getDecoratedMessage());
+        }
+    }
 }

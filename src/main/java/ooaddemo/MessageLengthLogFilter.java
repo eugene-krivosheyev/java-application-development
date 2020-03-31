@@ -1,7 +1,7 @@
 package ooaddemo;
 
 public class MessageLengthLogFilter implements LogFilter {
-    private int lengthLimit;
+    private final int lengthLimit;
 
     public MessageLengthLogFilter(int lengthLimit) {
         this.lengthLimit = lengthLimit;
