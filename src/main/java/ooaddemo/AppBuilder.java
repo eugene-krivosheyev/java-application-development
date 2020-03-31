@@ -9,7 +9,7 @@ public class AppBuilder {
         );
 
         //GoF: Command
-        //Command: dumb | smart
+        //Command: dumb (DTO) | smart
         //Dumb command + Dumb entity + Stateless services = Anemic Domain Model
         //Domain Class : data + behavior + -services- = Rich Domain Model (OOP)
         logger.log(new StringCommand("message 1"), 2);
