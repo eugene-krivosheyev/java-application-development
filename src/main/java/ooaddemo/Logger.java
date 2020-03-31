@@ -19,9 +19,9 @@ public class Logger {
         this.filter = filter;
     }
 
-    public void log(String message, int messageSeverity) {
-        if (filter.filter(message, messageSeverity)) {
-            writer.write(message);
+    public void log(Command message, int messageSeverity) {
+        if (filter.filter(message.getMessage(), messageSeverity)) {
+            writer.write(message.getDecoratedMessage());
         }
     }
 }
