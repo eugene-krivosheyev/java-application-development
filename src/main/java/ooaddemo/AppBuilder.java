@@ -19,10 +19,10 @@ public class AppBuilder {
     }
 }
 
-class Facade {
-    private Controller controller = new C();
-
-    public static void log(int message) {
-        controller.log(Commands.INT_COMMAND);
-    }
-}
+//class Facade {
+//    private Controller controller = new C();
+//
+//    public static void log(int message) {
+//        controller.log(Commands.INT_COMMAND);
+//    }
+//}
