@@ -1,6 +1,5 @@
 package demo;
 
-import com.sun.xml.internal.xsom.XSUnionSimpleType;
 import sun.awt.image.ImageAccessException;
 
 import java.math.BigDecimal;
