@@ -23,8 +23,8 @@ public class Logger {
     }
 
     public void log(Command command, int severityLevel) {
-        if (filter.filter(command.getMessage())) {
-            writer.write(command.getDecoratedMessage());
-        }
+//        if (filter.filter(command.getMessage())) {
+//            writer.write(command.getDecoratedMessage());
+//        }
     }
 }

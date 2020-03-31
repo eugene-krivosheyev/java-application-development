@@ -17,5 +17,19 @@ public class Main {
         logger.log(new IntCommand(4), 2);
         logger.log(new IntCommand(5), 2);
 
+
+        Integer integerAccumulator = 0;
+        Integer message = 0;
+        if (integerAccumulator == null) {
+            integerAccumulator = message;
+        } else {
+            integerAccumulator = message + integerAccumulator;
+        }
+
+        integerAccumulator = message;
+        if (integerAccumulator != null) {
+            integerAccumulator = message + integerAccumulator;
+        }
+
     }
 }
