@@ -18,3 +18,11 @@ public class AppBuilder {
         logger.log(new IntCommand(2), 2);
     }
 }
+
+class Facade {
+    private Controller controller = new C();
+
+    public static void log(int message) {
+        controller.log(Commands.INT_COMMAND);
+    }
+}
