@@ -7,52 +7,52 @@ public class Facade {
     private static final String STRING_PREFIX    = "string";
     private static final String REFERENCE_PREFIX = "reference";
 
-    private static void writer(String message) {
+    private static void write(String message) {
         System.out.println(message);
     }
 
-    private static String logFormatter(String prefix, String message) {
+    private static String logFormat(String prefix, String message) {
         return prefix + ": " + message;
     }
 
-    private static void primitiveLogger(Object message) {
-        writer(logFormatter(PRIMITIVE_PREFIX, message.toString()));
+    private static void logPrimitive(Object message) {
+        write(logFormat(PRIMITIVE_PREFIX, message.toString()));
     }
 
-    private static void referenceLogger(Object message) {
-        writer(logFormatter(REFERENCE_PREFIX, message.toString()));
+    private static void logReference(Object message) {
+        write(logFormat(REFERENCE_PREFIX, message.toString()));
     }
 
-    private static void charLogger(Character message) {
-        writer(logFormatter(CHAR_PREFIX, message.toString()));
+    private static void logChar(Character message) {
+        write(logFormat(CHAR_PREFIX, message.toString()));
     }
 
-    private static void stringLogger(String message) {
-        writer(logFormatter(STRING_PREFIX, message));
+    private static void logString(String message) {
+        write(logFormat(STRING_PREFIX, message));
     }
 
     public static void log(int message) {
-        primitiveLogger(message);
+        logPrimitive(message);
     }
 
     public static void log(byte message) {
-        primitiveLogger(message);
+        logPrimitive(message);
     }
 
     public static void log(boolean message) {
-        primitiveLogger(message);
+        logPrimitive(message);
     }
 
     public static void log(Object message) {
-        referenceLogger(message);
+        logReference(message);
     }
 
     public static void log(char message) {
-        charLogger(message);
+        logChar(message);
     }
 
     public static void log(String message) {
-        stringLogger(message);
+        logString(message);
     }
 
 }
