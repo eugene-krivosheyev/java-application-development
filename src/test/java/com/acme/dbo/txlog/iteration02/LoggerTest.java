@@ -1,8 +1,11 @@
 package com.acme.dbo.txlog.iteration02;
 
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.Facade;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+
 
 import java.io.IOException;
 
