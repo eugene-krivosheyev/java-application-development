@@ -816,5 +816,8 @@ AbstractType object = new ImplementationType();
 
 ---
 
+# Webinar recordings
+- [02.04](https://zoom.us/rec/share/vZZJDaHq0X5ISKPXsEPnf_8GFZnYT6a803MW-_sLxE2jSkLmpIEJ95sa5WU_9uCa)
+
 # Reading list
 - [Reading List](http://tinyurl.com/skilltrekreadinglist)
