@@ -17,7 +17,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        Facade.isDecorated = true;
+        Facade.setDecorated(true);
     }
 
     @After
@@ -39,18 +39,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals(join(lineSeparator(),"primitive: 1", "primitive: 0", "primitive: -1", ""));
+        assertSysoutEquals(join(lineSeparator(), "primitive: 1", "primitive: 0", "primitive: -1", ""));
         //endregion
     }
 
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte)1);
+        Facade.log((byte) 1);
         Facade.flush();
-        Facade.log((byte)0);
+        Facade.log((byte) 0);
         Facade.flush();
-        Facade.log((byte)-1);
+        Facade.log((byte) -1);
         Facade.flush();
         //endregion
 
