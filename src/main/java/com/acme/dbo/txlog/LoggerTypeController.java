@@ -2,77 +2,74 @@ package com.acme.dbo.txlog;
 
 public class LoggerTypeController {
 
-    private Byte byteAccumulator;
-    private Integer intAccumulator;
-    private String stringAccumulator;
-    private int stringCounter;
+    LogWriter writer;
 
-    public void log(Primitives type, Object message) {
-        switch(type) {
-            case INT:
-                Integer intMessage = (Integer) message;
-                if (intAccumulator != null && checkOverflow(intMessage + intAccumulator, intMessage, intAccumulator)) {
-                    intAccumulator += intMessage;
-                } else {
-                    flush();
-                    intAccumulator = intMessage;
-                }
-                break;
-            case BYTE:
-                Byte byteMessage = (Byte) message;
+    private ByteCommand lastByteCommand;
+    private IntCommand lastIntCommand;
+    private StringCommand lastStringCommand;
 
-                if (byteAccumulator != null && checkOverflow((byte) (byteMessage + byteAccumulator), byteMessage, byteAccumulator)) {
-                    byteAccumulator = (byte)(byteMessage+byteAccumulator);
-                } else {
-                    flush();
-                    byteAccumulator = byteMessage;
-                }
-                break;
-            case CHAR:
-                flush();
-                logPrint("char: " + message);
-                break;
-            case OBJECT:
-                flush();
-                logPrint("reference: " + message.toString());
+    public LoggerTypeController(LogWriter writer) {
+        this.writer = writer;
+    }
 
-                break;
-            case STRING:
-                String stringMessage = (String) message;
-                if (stringAccumulator == null || !stringAccumulator.equals(stringMessage)) {
-                    flush();
-                    stringAccumulator = stringMessage;
-                    stringCounter = 1;
-                } else {
-                    stringCounter++;
-                }
-                break;
-            case BOOLEAN:
-                flush();
-                logPrint("primitive: " + message);
-                break;
+    public void log(IntCommand command) {
+        if(lastIntCommand==null) flush();
+        IntCommand newCommand = command.process(lastIntCommand);
+        if (newCommand == null) {
+            flush();
+            lastIntCommand = command;
+        } else {
+            lastIntCommand = newCommand;
+        }
+    }
+
+    public void log(ByteCommand command) {
+        if(lastByteCommand==null) flush();
+        ByteCommand newCommand = command.process(lastByteCommand);
+        if (newCommand == null) {
+            flush();
+            lastByteCommand = command;
+        } else {
+            lastByteCommand = newCommand;
+        }
+    }
+
+    public void log(CharCommand command) {
+        flush();
+        writer.write(command.getDecoratedMessage());
+    }
+
+    public void log(BooleanCommand command) {
+        flush();
+        writer.write(command.getDecoratedMessage());
+    }
+
+    public void log(ObjectCommand command) {
+        flush();
+        writer.write(command.getDecoratedMessage());
+    }
+
+    public void log(StringCommand command) {
+        if(lastStringCommand==null) flush();
+        StringCommand newCommand = command.process(lastStringCommand);
+        if (newCommand == null) {
+            flush();
+            lastStringCommand = command;
+        } else {
+            lastStringCommand = newCommand;
         }
     }
 
     public void flush() {
-        if (stringAccumulator != null) {
-            String message = stringAccumulator + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
-            logPrint("string: " + message);
-            stringAccumulator = null;
-        } else if (byteAccumulator != null) {
-            logPrint("primitive: " + (byte) byteAccumulator);
-            byteAccumulator = null;
-        } else if (intAccumulator != null) {
-            logPrint("primitive: " + (int) intAccumulator);
-            intAccumulator = null;
+        if (lastStringCommand != null) {
+            writer.write(lastStringCommand.getDecoratedMessage());
+            lastStringCommand = null;
+        } else if (lastByteCommand != null) {
+            writer.write(lastByteCommand.getDecoratedMessage());
+            lastByteCommand = null;
+        } else if (lastIntCommand != null) {
+            writer.write(lastIntCommand.getDecoratedMessage());
+            lastIntCommand = null;
         }
     }
-    private void logPrint(String msg) {
-        System.out.println(msg);
-    }
-
-    private boolean checkOverflow(int sum, int a, int b) {
-        return (a > 0 && sum > b || a < 0 && sum < b);
-    }
-
 }
