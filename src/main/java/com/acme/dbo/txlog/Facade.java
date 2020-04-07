@@ -1,88 +1,96 @@
 package com.acme.dbo.txlog;
 
+enum Type {
+    INT("primitive"), BOOL("primitive"), BYTE("primitive"),
+    CHAR("char"), STR("string"), OBJ("reference"),
+    ARRAY("primitives array"), MATRIX("primitives matrix"), MULTIMATRIX("primitives multimatrix"),
+    SERVICE("");
+
+    private String prefix;
+
+    Type(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+}
+
 public class Facade {
-    private static String PreviousType = "first";
-    private static String Prefix;
+    private static Type PreviousType = Type.SERVICE;
     private static Object Value;
     private static int StringCounter;
 
     public static void log(int message) {
-        if (tryToPrintThePreviousValue("int"))
+        if (tryToPrintThePreviousValue(Type.INT))
             if (Integer.MAX_VALUE - message > (Integer) Value)
                 Value = (Integer) Value + message;
             else {
                 print();
                 Value = message;
-                Prefix = "primitive";
             }
         else {
             Value = message;
-            Prefix = "primitive";
         }
     }
 
     public static void log(char message) {
-        if (tryToPrintThePreviousValue("char")) print();
+        if (tryToPrintThePreviousValue(Type.CHAR)) print();
         Value = message;
-        Prefix = "char";
     }
 
     public static void log(String message) {
-        if (tryToPrintThePreviousValue("string") && !message.equals(Value)) print();
+        if (tryToPrintThePreviousValue(Type.STR) && !message.equals(Value)) print();
         Value = message;
-        Prefix = "string";
         StringCounter++;
     }
 
     public static void log(boolean message) {
-        if (tryToPrintThePreviousValue("boolean")) print();
+        if (tryToPrintThePreviousValue(Type.BOOL)) print();
         Value = message;
-        Prefix = "primitive";
     }
 
     public static void log(Object message) {
-        if (tryToPrintThePreviousValue("Object")) print();
+        if (tryToPrintThePreviousValue(Type.OBJ)) print();
         Value = message;
-        Prefix = "reference";
     }
 
     public static void log(byte message) {
-        if (tryToPrintThePreviousValue("byte"))
+        if (tryToPrintThePreviousValue(Type.BYTE))
             if (Byte.MAX_VALUE - message > (Byte) Value)
                 Value = (Byte) Value + message;
             else {
                 print();
                 Value = message;
-                Prefix = "primitive";
             }
         else {
             Value = message;
-            Prefix = "primitive";
         }
     }
 
     public static void log(int[] message) {
-        if (tryToPrintThePreviousValue("array")) print();
+        if (tryToPrintThePreviousValue(Type.ARRAY)) print();
         Value = convertArrayToString(message);
-        Prefix = "primitives array";
     }
 
     public static void log(int[][] message) {
-        if (tryToPrintThePreviousValue("matrix")) print();
+        if (tryToPrintThePreviousValue(Type.MATRIX)) print();
         Value = convertArrayToString(message);
-        Prefix = "primitives matrix";
     }
 
     public static void log(int[][][] message) {
-        if (tryToPrintThePreviousValue("multimatrix")) print();
+        print();
+        PreviousType = Type.MULTIMATRIX;
         Value = convertArrayToString(message);
-        Prefix = "primitives multimatrix";
+        print();
     }
 
     public static void log(int[][][][] message) {
-        if (tryToPrintThePreviousValue("multimatrix2")) print();
+        print();
+        PreviousType = Type.MULTIMATRIX;
         Value = convertArrayToString(message);
-        Prefix = "primitives multimatrix";
+        print();
     }
 
     public static void log(String... message) {
@@ -91,7 +99,7 @@ public class Facade {
 
     public static void stop() {
         print();
-        PreviousType = "stop";
+        PreviousType = Type.SERVICE;
     }
 
     private static String convertArrayToString(int[] array) {
@@ -125,14 +133,13 @@ public class Facade {
     private static void print() {
         if (Value != null) {
             if (StringCounter > 1) Value = Value.toString() + " (x" + StringCounter + ")";
-            System.out.println(Prefix + ": " + Value);
+            System.out.println(PreviousType.getPrefix() + ": " + Value);
             Value = null;
-            Prefix = null;
             StringCounter = 0;
         }
     }
 
-    private static boolean tryToPrintThePreviousValue(String currentType) {
+    private static boolean tryToPrintThePreviousValue(Type currentType) {
         if (currentType.equals(PreviousType)) return true;
         print();
         PreviousType = currentType;
