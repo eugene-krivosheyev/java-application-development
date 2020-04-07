@@ -23,20 +23,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogIntegersArray() throws IOException {
-        //region when
-        Facade.log(new int[]{-1, 0, 1});
-        Facade.stop();
-        //endregion
-
-        //region then
-        assertSysoutContains(
-                "primitives array: {-1, 0, 1}"
-        );
-        //endregion
-    }
-
-    @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         Facade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
@@ -86,20 +72,17 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
-       TODO: This test contradicts shouldLogIntegersArray
-       @Test
-       public void shouldLogIntegersWithOneMethodCall() throws IOException {
-           //region when
-           Facade.log(-1, 0, 1, 3);
-           Facade.stop();
-           //endregion
+    @Test
+    public void shouldLogIntegersWithOneMethodCall() throws IOException {
+        //region when
+        Facade.log(-1, 0, 1, 3);
+        Facade.stop();
+        //endregion
 
-           //region then
-           assertSysoutContains("3");
-           //endregion
-       }
-   */
+        //region then
+        assertSysoutEquals("primitive: 3" + System.lineSeparator());
+        //endregion
+    }
 
     @Test
     public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
