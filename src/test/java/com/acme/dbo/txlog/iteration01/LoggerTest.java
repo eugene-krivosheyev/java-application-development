@@ -32,8 +32,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         Facade.log(1);
+        Facade.flush(Facade.messageType);
         Facade.log(0);
+        Facade.flush(Facade.messageType);
         Facade.log(-1);
+        Facade.flush(Facade.messageType);
+//        Facade.clearTypeAndAccum();
         //endregion
 
         //region then

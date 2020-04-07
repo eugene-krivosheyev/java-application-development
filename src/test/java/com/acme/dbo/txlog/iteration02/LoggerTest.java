@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -24,8 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
-    /*
-    TODO: implement Logger solution to match specification as tests
+//    TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
@@ -35,14 +36,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(2);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush(Facade.messageType);
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "3\n" +
-            "str 2\n" +
-            "0\n"
+                "string: str 1" + lineSeparator() +
+                        "primitive: 3" + lineSeparator() +
+                        "string: str 2" + lineSeparator() +
+                        "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -59,15 +61,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Integer.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+                "string: str 1" + lineSeparator() +
+                        "primitive: 10" + lineSeparator() +
+                        "primitive: " + Integer.MAX_VALUE + lineSeparator() +
+                        "str 2" + lineSeparator() +
+                        "primitive: 0" + lineSeparator()
         );
         //endregion
     }
-
+/*
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
