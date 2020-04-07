@@ -3,7 +3,7 @@ package ooadlogger;
 
 public class Facade {
     private static LoggerController controller
-            = new LoggerController(new ConsoleLogWriter());
+            = new LoggerController(WriterFactory.create());
 
     public static void log(int message) {
         controller.log(new IntCommand(message, new IntDecorator()));
