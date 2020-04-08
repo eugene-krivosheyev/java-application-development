@@ -7,47 +7,47 @@ import java.util.Arrays;
 import static java.lang.Math.abs;
 
 public class Facade {
-    public static void log(int message, boolean isDecorated) {
-    Controller.log(message,  isDecorated);
+    private static Boolean isDecorated=true;
+
+    public static void log(int message) {
+    Controller.logInteger(message,  isDecorated);
     }
 
-    public static void log(boolean message, boolean isDecorated) {
+    public static void log(boolean message) { Controller.logBoolean(message,  isDecorated); }
+
+    public static void log(byte message) {
+        Controller.logByte(message,  isDecorated);
+    }
+
+    public static void log(char message) {
+        Controller.logChar(message,  isDecorated);
+    }
+
+    public static void log(String message) {
         Controller.log(message,  isDecorated);
     }
 
-    public static void log(byte message, boolean isDecorated) {
-        Controller.log(message,  isDecorated);
-    }
-
-    public static void log(char message, boolean isDecorated) {
-        Controller.log(message,  isDecorated);
-    }
-
-    public static void log(String message, boolean isDecorated) {
-        Controller.log(message,  isDecorated);
-    }
-
-    public static void log(boolean isDecorated, String... strings) {
+    public static void log(String... strings) {
         Controller.log(isDecorated,  strings);
     }
 
-    public static void log(Object message, boolean isDecorated) {
+    public static void log(Object message) {
         Controller.log(message,  isDecorated);
     }
 
-    public static void log(int[] ints, boolean isDecorated) {
+    public static void log(int[] ints) {
         Controller.log(ints,  isDecorated);
     }
 
-    public static void log(int[][] ints, boolean isDecorated) {
+    public static void log(int[][] ints) {
         Controller.log(ints,  isDecorated);
     }
 
-    public static void log(int[][][][] ints, boolean isDecorated) {
+    public static void log(int[][][][] ints) {
         Controller.log(ints,  isDecorated);
     }
 
-    public static void flush(boolean isDecorated) {
+    public static void flush() {
         Controller.flush(isDecorated);
     }
 

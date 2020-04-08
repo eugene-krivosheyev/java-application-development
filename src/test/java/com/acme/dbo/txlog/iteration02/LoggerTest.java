@@ -26,21 +26,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        Facade.log("str 1",false);
-        Facade.log(1,false);
-        Facade.log(2,false);
-        Facade.log("str 2",false);
-        Facade.flush(false);
-        Facade.log(0,false);
-        Facade.flush(false);
+        Facade.log("str 1");
+        Facade.log(1);
+        Facade.log(2);
+        Facade.log("str 2");
+        Facade.flush();
+        Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-                "str 1\n" +
-                        "3\n" +
-                        "str 2\n" +
-                        "0\n"
+                "string: str 1\n" +
+                        "primitive: 3\n" +
+                        "string: str 2\n" +
+                        "primitive: 0\n"
         );
         //endregion
     }
@@ -48,21 +48,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        Facade.log("str 1",false);
-        Facade.log(10,false);
-        Facade.log(Integer.MAX_VALUE,false);
-        Facade.log("str 2",false);
-        Facade.log(0,false);
-        Facade.flush(false);
+        Facade.log("str 1");
+        Facade.log(10);
+        Facade.log(Integer.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-                "str 1\n" +
-                        "10\n" +
-                        Integer.MAX_VALUE + "\n" +
-                        "str 2\n" +
-                        "0\n"
+                "string: str 1\n" +
+                        "primitive: 10\n" +
+                        "primitive: "+Integer.MAX_VALUE + "\n" +
+                        "string: str 2\n" +
+                        "primitive: 0\n"
         );
         //endregion
     }
@@ -70,21 +70,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        Facade.log("str 1",false);
-        Facade.log((byte)10,false);
-        Facade.log((byte)Byte.MAX_VALUE,false);
-        Facade.log("str 2",false);
-        Facade.log(0,false);
-        Facade.flush(false);
+        Facade.log("str 1");
+        Facade.log((byte)10);
+        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Byte.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+            "string: str 1\n" +
+            "primitive: 10\n" +
+            "primitive: "+Byte.MAX_VALUE + "\n" +
+            "string: str 2\n" +
+            "primitive: 0\n"
         );
         //endregion
     }
@@ -92,24 +92,24 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        Facade.log("str 1",false);
-        Facade.log("str 2",false);
-        Facade.log("str 2",false);
-        Facade.log(0,false);
-        Facade.log("str 2",false);
-        Facade.log("str 3",false);
-        Facade.log("str 3",false);
-        Facade.log("str 3",false);
-        Facade.flush(false);
+        Facade.log("str 1");
+        Facade.log("str 2");
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.log("str 2");
+        Facade.log("str 3");
+        Facade.log("str 3");
+        Facade.log("str 3");
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "str 2 (x2)\n" +
-            "0\n" +
-            "str 2\n" +
-            "str 3 (x3)\n"
+            "string: str 1\n" +
+            "string: str 2 (x2)\n" +
+            "primitive: 0\n" +
+            "string: str 2\n" +
+            "string: str 3 (x3)\n"
         );
         //endregion
     }

@@ -27,8 +27,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-        Facade.log(new int[] {-1, 0, 1},true);
-        Facade.flush(true);
+        Facade.log(new int[] {-1, 0, 1});
+        Facade.flush();
         //endregion
 
         //region then
@@ -42,8 +42,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-        Facade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}},true);
-        Facade.flush(true);
+        Facade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        Facade.flush();
         //endregion
 
         //region then
@@ -60,8 +60,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when
-        Facade.log(new int[][][][] {{{{0}}}},true);
-        Facade.flush(true);
+        Facade.log(new int[][][][] {{{{0}}}});
+        Facade.flush();
         //endregion
 
         //region then
@@ -79,12 +79,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
-        Facade.log(false, "str1", "string 2", "str 3");
-        Facade.flush(false);
+        Facade.log( "str1", "string 2", "str 3");
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutContains("str1\nstring 2\nstr 3");
+        assertSysoutContains("string: str1\nstring 2\nstr 3");
         //endregion
     }
 /*

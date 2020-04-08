@@ -9,6 +9,7 @@ import static java.lang.Math.abs;
 public class Controller {
 
     private static Integer integerAccumulator;
+    private static Integer integerSum;
     private static Byte byteAccumulator;
     private static Boolean booleanAccumulator;
     private static String charAccumulator;
@@ -36,19 +37,21 @@ public class Controller {
     private static String MATRIX_DECOR = "primitives matrix: ";
     private static String MULTI_MATRIX_DECOR = "primitives multimatrix: ";
 
-
-    public static void log(int message, boolean isDecorated) {
+    public static void logInteger(int message, boolean isDecorated) {
         flushLastState(isDecorated, "Byte", "String");
 
         if (checkIntegerValueIsOutBound(message)) {
             flushLastState(isDecorated, "Integer");
             integerAccumulator = Integer.MAX_VALUE;
+            integerSum = Integer.MAX_VALUE;
             flushLastState(isDecorated, "Integer");
         } else {
             if (integerAccumulator == null) {
                 integerAccumulator = message;
+                integerSum = message;
             } else {
                 integerAccumulator = integerAccumulator + message;
+                integerSum = integerSum + message;
             }
 
         }
@@ -56,7 +59,7 @@ public class Controller {
     }
 
 
-    public static void log(boolean message, boolean isDecorated) {
+    public static void logBoolean(boolean message, boolean isDecorated) {
         flushLastState(isDecorated, "Integer", "Byte", "String");
 
         String msg = String.valueOf(message);
@@ -64,7 +67,7 @@ public class Controller {
         lastCommandType = "Boolean";
     }
 
-    public static void log(byte message, boolean isDecorated) {
+    public static void logByte(byte message, boolean isDecorated) {
         flushLastState(isDecorated, "Integer", "String");
 
         if (checkByteValueIsOutBound(message)) {
@@ -78,7 +81,7 @@ public class Controller {
         lastCommandType = "Byte";
     }
 
-    public static void log(char message, boolean isDecorated) {
+    public static void logChar(char message, boolean isDecorated) {
         flushLastState(isDecorated, "Integer", "Byte", "String");
 
         String msg = String.valueOf(message);
@@ -101,7 +104,7 @@ public class Controller {
                 if (duplicateStringCount >= 2) {
                     stringAccumulator = stringAccumulator + " (x" + duplicateStringCount + ")";
                 }
-                stringAccumulator = stringAccumulator + System.lineSeparator() + message;
+                stringAccumulator = stringAccumulator + System.lineSeparator() + STRING_DECOR + message;
                 duplicateStringCount = 1;
             }
 
@@ -180,7 +183,7 @@ public class Controller {
                 flushLastBooleanState(isDecorated);
             }
             if (current.equals("Char")) {
-                flushLastStringLikeAccumulatorState("Char",isDecorated);
+                flushLastStringLikeAccumulatorState("Char", isDecorated);
             }
             if (current.equals("String")) {
                 flushLastStringLikeAccumulatorState("String", isDecorated);
