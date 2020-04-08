@@ -10,13 +10,22 @@ public class Controller {
 
     private static Integer integerAccumulator;
     private static Byte byteAccumulator;
+    private static Boolean booleanAccumulator;
+    private static String charAccumulator;
     private static String stringAccumulator;
+    private static String objectAccumulator;
     private static String lastString;
     private static Integer duplicateStringCount;
     private static String arrayAccumulator;
-    private static String dimensionType;
+    private static String matrixAccumulator;
+    private static String multiMatrixAccumulator;
+    private static String varArgsAccumulator;
+    private static String lastCommandType;
+    private static Integer duplicateCharCount;
     private static Integer duplicateArrayCount;
     private static Integer duplicateMatrixCount;
+    private static Integer duplicateMultiMatrixCount;
+    private static Integer duplicateVarArgsCount;
     private static String PRIMITIVE_DECOR = "primitive: ";
     private static String INTEGER_DECOR = PRIMITIVE_DECOR;
     private static String BYTE_DECOR = PRIMITIVE_DECOR;
@@ -43,6 +52,7 @@ public class Controller {
             }
 
         }
+        lastCommandType = "Integer";
     }
 
 
@@ -51,7 +61,7 @@ public class Controller {
 
         String msg = String.valueOf(message);
         writeFormattedLog(PRIMITIVE_DECOR, msg, isDecorated);
-
+        lastCommandType = "Boolean";
     }
 
     public static void log(byte message, boolean isDecorated) {
@@ -65,7 +75,7 @@ public class Controller {
             String msg = String.valueOf(message);
             writeFormattedLog(BYTE_DECOR, msg, isDecorated);
         }
-
+        lastCommandType = "Byte";
     }
 
     public static void log(char message, boolean isDecorated) {
@@ -73,7 +83,7 @@ public class Controller {
 
         String msg = String.valueOf(message);
         writeFormattedLog(CHAR_DECOR, msg, isDecorated);
-
+        lastCommandType = "Char";
     }
 
     public static void log(String message, boolean isDecorated) {
@@ -97,6 +107,7 @@ public class Controller {
 
         }
         lastString = message;
+        lastCommandType = "String";
     }
 
 
@@ -104,6 +115,7 @@ public class Controller {
         flushLastState(isDecorated, "Integer", "Byte", "String");
 
         System.out.println(REFERENCE_DECOR + message);
+        lastCommandType = "Object";
     }
 
     public static void log(int[] ints, boolean isDecorated) {
@@ -111,33 +123,33 @@ public class Controller {
         Pair<String, Integer> accumulatedPair = accumulateArrays(arrayAccumulator, duplicateArrayCount, Arrays.toString(ints));
         arrayAccumulator = accumulatedPair.getKey();
         duplicateArrayCount = accumulatedPair.getValue();
-        dimensionType = "Array";
+        lastCommandType = "Array";
     }
 
     public static void log(int[][] ints, boolean isDecorated) {
         flushLastState(isDecorated, "Integer", "Byte");
-        Pair<String, Integer> accumulatedPair = accumulateArrays(arrayAccumulator, duplicateArrayCount, Arrays.deepToString(ints));
-        arrayAccumulator = accumulatedPair.getKey();
-        duplicateArrayCount = accumulatedPair.getValue();
-        dimensionType = "Matrix";
+        Pair<String, Integer> accumulatedPair = accumulateArrays(matrixAccumulator, duplicateMatrixCount, Arrays.deepToString(ints));
+        matrixAccumulator = accumulatedPair.getKey();
+        duplicateMatrixCount = accumulatedPair.getValue();
+        lastCommandType = "Matrix";
     }
 
     public static void log(int[][][][] ints, boolean isDecorated) {
         flushLastState(isDecorated, "Integer", "Byte");
-        Pair<String, Integer> accumulatedPair = accumulateArrays(arrayAccumulator, duplicateArrayCount, Arrays.deepToString(ints));
-        arrayAccumulator = accumulatedPair.getKey();
-        duplicateArrayCount = accumulatedPair.getValue();
-        dimensionType = "MultiMatrix";
+        Pair<String, Integer> accumulatedPair = accumulateArrays(multiMatrixAccumulator, duplicateMultiMatrixCount, Arrays.deepToString(ints));
+        multiMatrixAccumulator = accumulatedPair.getKey();
+        duplicateMultiMatrixCount = accumulatedPair.getValue();
+        lastCommandType = "MultiMatrix";
     }
 
     public static void log(boolean isDecorated, String... strings) {
         flushLastState(isDecorated, "Integer", "Byte");
         for (String current : strings) {
-            Pair<String, Integer> accumulatedPair = accumulateArrays(arrayAccumulator, duplicateArrayCount, current);
-            arrayAccumulator = accumulatedPair.getKey();
-            duplicateArrayCount = accumulatedPair.getValue();
+            Pair<String, Integer> accumulatedPair = accumulateArrays(varArgsAccumulator, duplicateVarArgsCount, current);
+            varArgsAccumulator = accumulatedPair.getKey();
+            duplicateVarArgsCount = accumulatedPair.getValue();
         }
-        dimensionType = "StringVarargs";
+        lastCommandType = "StringVarargs";
     }
 
     public static void flush(boolean isDecorated) {
@@ -164,22 +176,26 @@ public class Controller {
             if (current.equals("Byte")) {
                 flushLastByteState(isDecorated);
             }
-            if (current.equals("String")) {
-                flushLastObjectState("String", isDecorated);
+            if (current.equals("Boolean")) {
+                flushLastBooleanState(isDecorated);
             }
-            if (dimensionType != null) {
-                if (current.equals("Array") && (dimensionType.equals("Array"))) {
-                    flushLastObjectState("Array", isDecorated);
-                }
-                if (current.equals("Matrix") && (dimensionType.equals("Matrix"))) {
-                    flushLastObjectState("Matrix", isDecorated);
-                }
-                if (current.equals("MultiMatrix") && (dimensionType.equals("MultiMatrix"))) {
-                    flushLastObjectState("MultiMatrix", isDecorated);
-                }
-                if (current.equals("StringVarargs") && (dimensionType.equals("StringVarargs"))) {
-                    flushLastObjectState("StringVarargs", isDecorated);
-                }
+            if (current.equals("Char")) {
+                flushLastStringLikeAccumulatorState("Char",isDecorated);
+            }
+            if (current.equals("String")) {
+                flushLastStringLikeAccumulatorState("String", isDecorated);
+            }
+            if (current.equals("Array")) {
+                flushLastStringLikeAccumulatorState("Array", isDecorated);
+            }
+            if (current.equals("Matrix")) {
+                flushLastStringLikeAccumulatorState("Matrix", isDecorated);
+            }
+            if (current.equals("MultiMatrix")) {
+                flushLastStringLikeAccumulatorState("MultiMatrix", isDecorated);
+            }
+            if (current.equals("StringVarargs")) {
+                flushLastStringLikeAccumulatorState("StringVarargs", isDecorated);
             }
         }
     }
@@ -199,25 +215,41 @@ public class Controller {
         byteAccumulator = null;
     }
 
-    private static void flushLastObjectState(String objectType, boolean isDecorated) {
+    private static void flushLastBooleanState(boolean isDecorated) {
+        if (booleanAccumulator != null) {
+            writeFormattedLog(BYTE_DECOR, booleanAccumulator, isDecorated);
+        }
+        booleanAccumulator = null;
+    }
+
+    private static void flushLastStringLikeAccumulatorState(String objectType, boolean isDecorated) {
         if (objectType != null) {
             if (objectType.equals("String")) {
                 stringAccumulator = flushLastStringObjectState(stringAccumulator, duplicateStringCount, STRING_DECOR, isDecorated);
             }
+            if (objectType.equals("Char")) {
+                charAccumulator = flushLastStringObjectState(charAccumulator, duplicateCharCount, CHAR_DECOR, isDecorated);
+            }
             if (objectType.equals("Array")) {
-                arrayAccumulator = convertStraightBracketsToCurly(arrayAccumulator);
+                if (arrayAccumulator != null) {
+                    arrayAccumulator = convertStraightBracketsToCurly(arrayAccumulator);
+                }
                 arrayAccumulator = flushLastStringObjectState(arrayAccumulator, duplicateArrayCount, ARRAY_DECOR, isDecorated);
             }
             if (objectType.equals("Matrix")) {
-                arrayAccumulator = convertStraightBracketsToCurly(arrayAccumulator);
-                arrayAccumulator = flushLastStringObjectState(arrayAccumulator, duplicateArrayCount, MATRIX_DECOR, isDecorated);
+                if (matrixAccumulator != null) {
+                    matrixAccumulator = convertStraightBracketsToCurly(matrixAccumulator);
+                }
+                matrixAccumulator = flushLastStringObjectState(matrixAccumulator, duplicateMatrixCount, MATRIX_DECOR, isDecorated);
             }
             if (objectType.equals("MultiMatrix")) {
-                arrayAccumulator = arrayAccumulator.replace("[", "{\n").replace("]", "\n}");
-                arrayAccumulator = flushLastStringObjectState(arrayAccumulator, duplicateArrayCount, MULTI_MATRIX_DECOR, isDecorated);
+                if (multiMatrixAccumulator != null) {
+                    multiMatrixAccumulator = multiMatrixAccumulator.replace("[", "{\n").replace("]", "\n}");
+                }
+                multiMatrixAccumulator = flushLastStringObjectState(multiMatrixAccumulator, duplicateMultiMatrixCount, MULTI_MATRIX_DECOR, isDecorated);
             }
             if (objectType.equals("StringVarargs")) {
-                arrayAccumulator = flushLastStringObjectState(arrayAccumulator, duplicateArrayCount, STRING_DECOR, isDecorated);
+                varArgsAccumulator = flushLastStringObjectState(varArgsAccumulator, duplicateVarArgsCount, STRING_DECOR, isDecorated);
             }
         }
     }
