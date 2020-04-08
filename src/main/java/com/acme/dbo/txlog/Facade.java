@@ -1,10 +1,12 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.commands.*;
+
 public class Facade {
-    static private LoggerTypeController controller = new LoggerTypeController(new LogWriter());
+    static private LoggerTypedController controller = new LoggerTypedController(new LogWriter());
 
     public static void flush() {
-        controller.flush();
+        controller.close();
     }
 
     public static void log(int message) {
