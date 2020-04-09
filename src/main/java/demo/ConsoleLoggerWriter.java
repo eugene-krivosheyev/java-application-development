@@ -35,14 +35,14 @@ class FileSaver implements Saver {
     ///???
     }
 }
-}
+
 
 interface Saver {
     public void save();
 }
 
 class Facade {
-    public static void log(int mesage) {
-        controller.log( new IntCommand(mesage) );
-    }
+//    public static void log(int mesage) {
+//        controller.log( new IntCommand(mesage) );
+//    }
 }
