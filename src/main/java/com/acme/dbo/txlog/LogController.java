@@ -5,8 +5,7 @@ import java.util.Objects;
 public class LogController {
 
     private Command previousCommand;
-    private LogWriter logWriter = new LogWriter();
-
+    private LogWriter logWriter = new ConsoleLogWriter();
 
     public void write(Command command) {
         if (Objects.isNull(previousCommand)) {
