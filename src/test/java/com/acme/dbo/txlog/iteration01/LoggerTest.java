@@ -32,12 +32,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         Facade.log(1);
-        Facade.flush(Facade.messageType);
+        Facade.clear();
         Facade.log(0);
-        Facade.flush(Facade.messageType);
+        Facade.clear();
         Facade.log(-1);
-        Facade.flush(Facade.messageType);
-//        Facade.clearTypeAndAccum();
+        Facade.clear();
         //endregion
 
         //region then
@@ -54,15 +53,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogByte() throws IOException {
         //region when
         Facade.log((byte)1);
+        Facade.clear();
         Facade.log((byte)0);
+        Facade.clear();
         Facade.log((byte)-1);
+        Facade.clear();
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-        assertSysoutContains("0");
-        assertSysoutContains("-1");
+        assertSysoutContains("primitive: 1");
+        assertSysoutContains("primitive: 0");
+        assertSysoutContains("primitive: -1");
         //endregion
     }
 //
@@ -87,12 +89,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         String.valueOf(1);
         Facade.log(STRING_PREFIX);
         Facade.log("other str");
+        Facade.clear();
         //endregion
 
         //region then
         assertSysoutContains("string: ");
-        assertSysoutContains("test string 1");
-        assertSysoutContains("other str");
+        assertSysoutContains("string: test string 1");
+        assertSysoutContains("string: other str");
         //endregion
     }
 
