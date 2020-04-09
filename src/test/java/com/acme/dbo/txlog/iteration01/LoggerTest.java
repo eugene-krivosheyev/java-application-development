@@ -115,6 +115,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogReference() throws IOException {
         //region when
         Facade.log(new Object());
+        Facade.flush();
         //endregion
 
         //region then

@@ -19,7 +19,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @After
     public void tearDown() {
         resetOut();
-        Facade.clean();
+        Facade.flush();
     }
     //endregion
 
