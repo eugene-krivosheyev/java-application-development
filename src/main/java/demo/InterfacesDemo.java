@@ -12,6 +12,11 @@ public class InterfacesDemo {
         LogWriter writer = new ConsoleLogWriter();
         writer.write("hw!!!");
 
+        DbWriter.printDbLicense();
+        DbWriter dbWriter = writer;
+        dbWriter.writeDbUrl();
+
+
         //Logger:
         Monitorable smth = writer;
         smth.getCurrentState();
@@ -35,13 +40,22 @@ public class InterfacesDemo {
 interface Monitorable {
     String getCurrentState();
 }
-interface LogWriter extends Monitorable, Serializable {
+interface LogWriter extends DbWriter, Monitorable, Serializable {
     public static final int MY_VAR = 0;
     public void write(String message);
 }
 
 interface DbWriter {
     public void write(String message);
+    String getDbUrl();
+
+    static void printDbLicense() {
+        //.....
+    }
+
+    default void writeDbUrl() {
+        System.out.println(this.getDbUrl());
+    }
 }
 
 class ConsoleLogWriter implements LogWriter, DbWriter {
@@ -61,6 +75,11 @@ class ConsoleLogWriter implements LogWriter, DbWriter {
     @Override
     public String getCurrentState() {
         return null;
+    }
+
+    @Override
+    public String getDbUrl() {
+        return "url";
     }
 
     private void print(String message) {
