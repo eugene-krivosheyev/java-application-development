@@ -1,6 +1,7 @@
 package com.acme.dbo.txlog;
 
 
+
 public class Facade {
     private static final String PREFIX_PRIMITIVE = "primitive: ";
     private static final String PREFIX_PREFERNCE = "reference: ";
@@ -11,10 +12,12 @@ public class Facade {
     private static Byte byteAccum;
     private static int stringCounter = 1;
     private static String stringAccum;
+    static private Controller controller = new Controller(new LogWriter());
 
 
     public static void flush() {
-        if (stringAccum != null) {
+        controller.flush();
+  /*      if (stringAccum != null) {
 
             String message = stringAccum + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
             System.out.println(PREFIX_STRING + message);
@@ -27,30 +30,34 @@ public class Facade {
             System.out.println(PREFIX_PRIMITIVE + (int) intAccum);
             intAccum = null;
         }
-
+*/
     }
 
     public static void log(String message) {
+        controller.log(new CommandString(message));
 
-        if (!message.equals(stringAccum)) {
+  /*      if (!message.equals(stringAccum)) {
             flush();
         } else {
             stringCounter++;
         }
 
         stringAccum = message;
+    */
     }
-
     public static void log(int message) {
-
+controller.log(new CommandInt(message));
+        /*
         if ((intAccum != null) &&
                 checkNotOverMaxInt(message, intAccum)) {
             intAccum = intAccum + message;
         } else {
             flush();
             intAccum = message;
-        }
+        }*/
     }
+
+
 
     private static boolean checkNotOverMaxInt(int a, int b) {
         return (a >= 0 && a + b >= b || a < 0 && a + b < b);
