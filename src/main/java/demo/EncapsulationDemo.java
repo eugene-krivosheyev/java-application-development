@@ -6,22 +6,22 @@ import java.util.Optional;
 
 public class EncapsulationDemo {
     public static void main(String[] args) {
-        Message message = new Message("hello", 0);
-        new Message("mesage 2");
-        new Girl();
+//        Message message = new Message("hello", 0);
+//        new Message("mesage 2");
+//        new Girl();
 
-        coll.map(e -> new MyObj(e))
+//        coll.map(e -> new MyObj(e))
 
-        Message m = MessageFactory.create();
-        Arrays.asList(1,2,3);
-        Optional.empty();
-        Optional.of(1);
-        List.of(1,2,3);
-
-new Mess(..............)
-        new MessageBuilder()
-                .withConfigFile(xml)
-                .withSeverity();
+//        Message m = MessageFactory.create();
+//        Arrays.asList(1,2,3);
+//        Optional.empty();
+//        Optional.of(1);
+//        List.of(1,2,3);
+//
+//new Mess(..............)
+//        new MessageBuilder()
+//                .withConfigFile(xml)
+//                .withSeverity();
     }
 }
 
