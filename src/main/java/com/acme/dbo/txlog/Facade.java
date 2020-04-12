@@ -59,24 +59,25 @@ controller.log(new CommandInt(message));
 
 
 
-    private static boolean checkNotOverMaxInt(int a, int b) {
+   /* private static boolean checkNotOverMaxInt(int a, int b) {
         return (a >= 0 && a + b >= b || a < 0 && a + b < b);
-    }
+    }*/
 
 
     public static void log(byte message) {
-        if ((byteAccum != null) && (checkNotOverMaxByte(message, byteAccum))) {
-            byteAccum = (byte) (byteAccum + message);
-        } else {
-            flush();
-            byteAccum = message;
-        }
+        controller.log(new CommandByte(message));
+ //       if ((byteAccum != null) && (checkNotOverMaxByte(message, byteAccum))) {
+  //          byteAccum = (byte) (byteAccum + message);
+  //      } else {
+   //         flush();
+   //         byteAccum = message;
+     //   }
     }
 
 
-    private static boolean checkNotOverMaxByte(byte a, byte b) {
-        return (a >= 0 && (byte) (a + b) >= b || a < 0 && (byte) (a + b) < b);
-    }
+  //  private static boolean checkNotOverMaxByte(byte a, byte b) {
+   //     return (a >= 0 && (byte) (a + b) >= b || a < 0 && (byte) (a + b) < b);
+   // }
 
 
     public static void log(boolean message) {

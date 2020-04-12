@@ -11,9 +11,9 @@ public class Controller {
     }
 
     public void log(Command command) {
-        if (command.isSame(currentState)) {
+        if (command.isSame(currentState) && command.updateState(currentState) != null)
             this.currentState = command.updateState(currentState);
-        } else {
+        else {
             flush();
             this.currentState = command;
         }
@@ -23,6 +23,7 @@ public class Controller {
     public void flush() {
         if (this.currentState != null) {
             logWriter.write(this.currentState);
+            this.currentState = null;
         }
 
     }
