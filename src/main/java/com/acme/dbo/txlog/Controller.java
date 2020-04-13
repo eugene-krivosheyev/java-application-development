@@ -1,7 +1,5 @@
 package com.acme.dbo.txlog;
 
-import javafx.util.Pair;
-
 import java.util.Arrays;
 
 public class Controller {
@@ -94,7 +92,7 @@ public class Controller {
                 byteCommand.flush();
             }
         }
-        flushLastState("Array","Matrix","MultiMatrix","StringVarargs");
+        flushLastState("Array", "Matrix", "MultiMatrix", "StringVarargs");
         lastCommand = null;
         lastCommandType = null;
     }
@@ -126,24 +124,24 @@ public class Controller {
     }
 
     public static void log(int[][] ints) {
-        Pair<String, Integer> accumulatedPair = accumulateArrays(matrixAccumulator, duplicateMatrixCount, Arrays.deepToString(ints));
-        matrixAccumulator = accumulatedPair.getKey();
-        duplicateMatrixCount = accumulatedPair.getValue();
+        PairValues accumulatedPair = accumulateArray(matrixAccumulator, duplicateMatrixCount, Arrays.deepToString(ints));
+        matrixAccumulator = accumulatedPair.getString();
+        duplicateMatrixCount = accumulatedPair.getInteger();
         lastCommandType = "Matrix";
     }
 
     public static void log(int[][][][] ints) {
-        Pair<String, Integer> accumulatedPair = accumulateArrays(multiMatrixAccumulator, duplicateMultiMatrixCount, Arrays.deepToString(ints));
-        multiMatrixAccumulator = accumulatedPair.getKey();
-        duplicateMultiMatrixCount = accumulatedPair.getValue();
+        PairValues accumulatedPair = accumulateArray(multiMatrixAccumulator, duplicateMultiMatrixCount, Arrays.deepToString(ints));
+        multiMatrixAccumulator = accumulatedPair.getString();
+        duplicateMultiMatrixCount = accumulatedPair.getInteger();
         lastCommandType = "MultiMatrix";
     }
 
     public static void log(String... strings) {
         for (String current : strings) {
-            Pair<String, Integer> accumulatedPair = accumulateArrays(varArgsAccumulator, duplicateVarArgsCount, current);
-            varArgsAccumulator = accumulatedPair.getKey();
-            duplicateVarArgsCount = accumulatedPair.getValue();
+            PairValues accumulatedPair = accumulateArray(varArgsAccumulator, duplicateVarArgsCount, current);
+            varArgsAccumulator = accumulatedPair.getString();
+            duplicateVarArgsCount = accumulatedPair.getInteger();
         }
         lastCommandType = "StringVarargs";
     }
@@ -224,19 +222,6 @@ public class Controller {
             writeFormattedLog(decoration, arrayType);
         }
         return null;
-    }
-
-    public static Pair<String, Integer> accumulateArrays(String arrayAccumulator, Integer
-            duplicateObjectCount, String stringArray) {
-
-        if (arrayAccumulator == null) {
-            arrayAccumulator = stringArray;
-            duplicateObjectCount = 1;
-        } else {
-            arrayAccumulator = arrayAccumulator + System.lineSeparator() + stringArray;
-            duplicateObjectCount++;
-        }
-        return new Pair<String, Integer>(arrayAccumulator, duplicateObjectCount);
     }
 
     public static PairValues accumulateArray(String arrayAccumulator, Integer
