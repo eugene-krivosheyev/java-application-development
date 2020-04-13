@@ -29,6 +29,10 @@ public class Facade {
         Controller.log(strings);
     }
 
+    public static void log(Integer... strings) {
+        Controller.log(strings);
+    }
+
     public static void log(Object message) {
         Controller.log(message);
     }

@@ -28,12 +28,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() throws IOException {
         //region when
         Facade.log(new int[] {-1, 0, 1});
+        Facade.log(new int[] {-2, 0, 1});
         Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}\n"
+            "primitives array: [-1, 0, 1]\n"+ "primitives array: [-2, 0, 1]\n"
         );
         //endregion
     }
@@ -48,11 +49,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives matrix: {\n" +
-                "{-1, 0, 1}\n" +
-                "{1, 2, 3}\n" +
-                "{-1, -2, -3}\n" +
-            "}\n"
+            "primitives matrix: [" +
+                "[-1, 0, 1]" +
+                "[1, 2, 3]" +
+                "[-1, -2, -3]" +
+            "]\n"
         );
         //endregion
     }
@@ -66,11 +67,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
+            "primitives multimatrix: [[[[" +
+                    "0" +
+                "]]]]\n"
         );
         //endregion
     }
@@ -87,18 +86,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("string: str1\nstring 2\nstr 3");
         //endregion
     }
-/*
+
     @Test
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
         Facade.log(-1, 0, 1, 3);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutContains("3");
         //endregion
     }
-    */
 //    @Test
 //    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
 //        //region when
