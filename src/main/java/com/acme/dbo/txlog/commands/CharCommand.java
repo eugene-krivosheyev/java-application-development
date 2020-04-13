@@ -16,7 +16,12 @@ public class CharCommand implements Command {
         return CHAR_DECORATION + getMessage();
     }
 
-    public Command append(Command commandState) {
+    @Override
+    public boolean shouldAppend(Command state) {
+        return false;
+    }
+
+    public Command append(Command state) {
         return null;
     }
 

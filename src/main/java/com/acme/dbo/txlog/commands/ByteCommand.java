@@ -14,14 +14,18 @@ public class ByteCommand implements Command {
     public String getDecoratedMessage() {
         return BYTE_DECORATION + getMessage();
     }
-    public Command append(Command commandState) {
-        if(commandState instanceof ByteCommand){
-            ByteCommand byteCommand = (ByteCommand) commandState;
-            if (checkOverflow((byte) (message + byteCommand.message), message, byteCommand.message)) {
-                return new ByteCommand((byte) (message + byteCommand.message));
-            }
+
+    @Override
+    public boolean shouldAppend(Command state) {
+        if(state instanceof ByteCommand){
+            ByteCommand byteCommand = (ByteCommand) state;
+            return checkOverflow((byte) (message + byteCommand.message), message, byteCommand.message);
         }
-        return null;
+        return false;
+    }
+
+    public Command append(Command state) {
+        return new ByteCommand((byte) (message + ((ByteCommand) state).message));
     }
 
     private boolean checkOverflow(int sum, int a, int b) {

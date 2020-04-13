@@ -16,14 +16,17 @@ public class IntCommand implements Command {
         return INT_DECORATION + getMessage();
     }
 
-    public Command append(Command commandState) {
-        if(commandState instanceof IntCommand){
-            IntCommand intCommand = (IntCommand) commandState;
-            if (checkOverflow(message + intCommand.message, message, intCommand.message)) {
-                return new IntCommand(message + intCommand.message);
-            }
+    @Override
+    public boolean shouldAppend(Command state) {
+        if(state instanceof IntCommand){
+            IntCommand intCommand = (IntCommand) state;
+            return checkOverflow(message + intCommand.message, message, intCommand.message);
         }
-        return null;
+        return false;
+    }
+
+    public Command append(Command state) {
+        return new IntCommand(message + ((IntCommand) state).message);
     }
 
     private boolean checkOverflow(int sum, int a, int b) {

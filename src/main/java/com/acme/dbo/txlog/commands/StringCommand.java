@@ -22,13 +22,16 @@ public class StringCommand implements Command {
         return STRING_DECORATION + getMessage();
     }
 
-    public Command append(Command commandState) {
-        if(commandState instanceof StringCommand) {
-            StringCommand stringCommand = (StringCommand) commandState;
-            if (stringCommand.message.equals(message)) {
-                return new StringCommand(message, stringCommand.count + 1);
-            }
+    @Override
+    public boolean shouldAppend(Command state) {
+        if(state instanceof StringCommand) {
+            StringCommand stringCommand = (StringCommand) state;
+            return stringCommand.message.equals(message);
         }
-        return null;
+        return false;
+    }
+
+    public Command append(Command state) {
+        return new StringCommand(message, ((StringCommand) state).count + 1);
     }
 }
