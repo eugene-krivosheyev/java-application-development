@@ -102,11 +102,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    @Test
 //    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
 //        //region when
-//        Facade.log(1,false);
-//        Facade.log("str",false);
-//        Facade.log(Integer.MAX_VALUE - 10,false);
-//        Facade.log(11,false);
-//        Facade.flush(false);
+//        Facade.log(1);
+//        Facade.log("str");
+//        Facade.log(Integer.MAX_VALUE - 10);
+//        Facade.log(11);
+//        Facade.flush();
 //        //endregion
 //
 //        //region then

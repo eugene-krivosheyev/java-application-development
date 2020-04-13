@@ -1,54 +1,52 @@
 package com.acme.dbo.txlog;
 
-import javafx.util.Pair;
-
-import java.util.Arrays;
-
-import static java.lang.Math.abs;
-
 public class Facade {
-    private static Boolean isDecorated=true;
 
     public static void log(int message) {
-    Controller.logInteger(message,  isDecorated);
+        Controller.intCommand = new IntCommand(message);
+        Controller.log(Controller.intCommand);
     }
-
-    public static void log(boolean message) { Controller.logBoolean(message,  isDecorated); }
 
     public static void log(byte message) {
-        Controller.logByte(message,  isDecorated);
-    }
-
-    public static void log(char message) {
-        Controller.logChar(message,  isDecorated);
+        Controller.byteCommand = new ByteCommand(message);
+        Controller.log(Controller.byteCommand);
     }
 
     public static void log(String message) {
-        Controller.log(message,  isDecorated);
+        Controller.stringCommand = new StringCommand(message);
+        Controller.log(Controller.stringCommand);
+    }
+
+    public static void log(boolean message) {
+        Controller.logBoolean(message);
+    }
+
+    public static void log(char message) {
+        Controller.logChar(message);
     }
 
     public static void log(String... strings) {
-        Controller.log(isDecorated,  strings);
+        Controller.log(strings);
     }
 
     public static void log(Object message) {
-        Controller.log(message,  isDecorated);
+        Controller.log(message);
     }
 
     public static void log(int[] ints) {
-        Controller.log(ints,  isDecorated);
+        Controller.log(ints);
     }
 
     public static void log(int[][] ints) {
-        Controller.log(ints,  isDecorated);
+        Controller.log(ints);
     }
 
     public static void log(int[][][][] ints) {
-        Controller.log(ints,  isDecorated);
+        Controller.log(ints);
     }
 
     public static void flush() {
-        Controller.flush(isDecorated);
+        Controller.flush();
     }
 
 }
