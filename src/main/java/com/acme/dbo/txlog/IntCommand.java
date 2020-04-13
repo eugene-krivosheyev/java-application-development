@@ -2,15 +2,15 @@ package com.acme.dbo.txlog;
 
 import static java.lang.Math.abs;
 
-public class IntCommand {
+class IntCommand {
     private static String DECOR = "primitive: ";
 
-    public Integer currentValue;
+    private Integer currentValue;
     private static String accumulator;
     private static Integer sum;
     private static int MAX_INTEGER = Integer.MAX_VALUE;
 
-    public IntCommand(Integer message) {
+    IntCommand(Integer message) {
         currentValue = message;
         if (accumulator == null) {
             accumulator = message.toString();
@@ -18,11 +18,11 @@ public class IntCommand {
         }
     }
 
-    public static String getDecoratedState() {
+    static String getDecoratedState() {
         return DECOR + accumulator;
     }
 
-    public void accumulate() {
+    void accumulate() {
         if (accumulator == null) {
             accumulator = this.currentValue.toString();
             sum = this.currentValue;
@@ -43,15 +43,13 @@ public class IntCommand {
         }
     }
 
-    public static void flush() {
+    static void flush() {
         accumulator = null;
         sum = 0;
     }
 
     private static boolean checkIntegerValueIsOutBound(Integer number) {
         long longValue = (long) number;
-        if (abs(longValue) >= Integer.MAX_VALUE) {
-            return true;
-        } else return false;
+        return abs(longValue) >= Integer.MAX_VALUE;
     }
 }

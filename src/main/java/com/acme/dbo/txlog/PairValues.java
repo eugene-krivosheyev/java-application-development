@@ -4,16 +4,16 @@ public class PairValues {
     private Integer integer;
     private String string;
 
-    public PairValues(String string,Integer integer) {
+    PairValues(String string, Integer integer) {
         this.integer = integer;
         this.string = string;
     }
 
-    public Integer getInteger() {
+    Integer getInteger() {
         return integer;
     }
 
-    public String getString() {
+    String getString() {
         return string;
     }
 }

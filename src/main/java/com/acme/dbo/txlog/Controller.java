@@ -92,7 +92,7 @@ class Controller {
                 ByteCommand.flush();
             }
         }
-        flushLastState("Array", "Matrix", "MultiMatrix", "StringVarargs","IntegerVarargs");
+        flushLastState("Array", "Matrix", "MultiMatrix", "StringVarargs", "IntegerVarargs");
         lastCommand = null;
         lastCommandType = null;
     }
@@ -173,7 +173,7 @@ class Controller {
             flushLastState("IntegerVarargs");
         }
         Integer sumIntegerVarArgs = 0;
-        lastArray="";
+        lastArray = "";
         for (Integer current : integers) {
             sumIntegerVarArgs = sumIntegerVarArgs + current;
             lastArray = lastArray + current.toString();
