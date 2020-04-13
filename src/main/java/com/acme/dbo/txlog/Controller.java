@@ -11,7 +11,9 @@ public class Controller {
     }
 
     public void log(Command command) {
-        if (command.isSame(currentState) && command.updateState(currentState) != null)
+        if (command.isSame(currentState) &&
+                command.updateNeeded(currentState)
+        )
             this.currentState = command.updateState(currentState);
         else {
             flush();
@@ -28,28 +30,4 @@ public class Controller {
 
     }
 
-
-
- /*   static void log(Object msg, MsgType type) {
-        switch (type) {
-            case INT:
-                DecoratorInt.decorate(msg);
-                break;
-            case STR:
-                DecoratorString.decorate(msg);
-                break;
-            case BYTE:
-                DecoratorByte.decorate(msg);
-                break;
-        }
-
-    }
-
-    ;
-
-    enum MsgType {
-        INT, STR, BYTE
-    }
-*/;
-//non-static method cannot be referenced from static context
 }

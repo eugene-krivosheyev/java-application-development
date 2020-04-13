@@ -16,10 +16,15 @@ public class CommandByte implements Command {
     @Override
     public Command updateState(Command currentState) {
         Byte currentStateMessage = ((CommandByte) currentState).getMessage();
-        if (checkNotOverMaxByte(this.message, currentStateMessage))
-            return new CommandInt(this.message + currentStateMessage);
-        else return null;
+        return new CommandInt(this.message + currentStateMessage);
 
+
+    }
+
+    @Override
+    public Boolean updateNeeded(Command currentState) {
+        Byte currentStateMessage = ((CommandByte) currentState).getMessage();
+        return checkNotOverMaxByte(this.message, currentStateMessage);
     }
 
     private Byte getMessage() {

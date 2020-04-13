@@ -1,9 +1,5 @@
 package com.acme.dbo.txlog;
 
-import com.sun.org.apache.xml.internal.security.c14n.implementations.Canonicalizer11_OmitComments;
-
-import java.util.Objects;
-
 public class CommandString implements Command {
     private final String message;
     private static final String PREFIX_STRING = "string: ";
@@ -30,19 +26,17 @@ public class CommandString implements Command {
 
     @Override
     public Command updateState(Command currentState) {
+        return new CommandString(this.message, ((CommandString) currentState).stringCounter + 1);
+    }
 
-        if (this.message.equals(((CommandString) currentState).getMessage())) {
-            //  stringCounter++;
-            return new CommandString(this.message, ((CommandString) currentState).stringCounter++);
-        } else return null;
-
-        //  else return currentState;
-
+    @Override
+    public Boolean updateNeeded(Command currentState) {
+        return this.message.equals(((CommandString) currentState).getMessage());
     }
 
     @Override
     public String decorate(Command command) {
-        String message = this.message.toString() + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
+        String message = this.message + (stringCounter > 1 ? (" (x" + stringCounter + ")") : "");
         stringCounter = 1;
         return PREFIX_STRING + message;
 

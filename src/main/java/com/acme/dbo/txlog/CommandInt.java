@@ -23,11 +23,13 @@ public class CommandInt implements Command {
     public Command updateState(Command currentState) {
 
         Integer currentStateMessage = ((CommandInt) currentState).getMessage();
-        if (checkNotOverMaxInt(this.message, currentStateMessage))
-            return new CommandInt(this.message + currentStateMessage);
-        else return null;
+        return new CommandInt(this.message + currentStateMessage);
+    }
 
-        // else return currentState;
+    @Override
+    public Boolean updateNeeded(Command currentState) {
+        Integer currentStateMessage = ((CommandInt) currentState).getMessage();
+        return checkNotOverMaxInt(this.message, currentStateMessage);
     }
 
     private static boolean checkNotOverMaxInt(int a, int b) {
