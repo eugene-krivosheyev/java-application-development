@@ -8,6 +8,6 @@ public class ConsoleLogWriter implements LogWriter{
     public void write (Command command) {
         String message = command.decoratedMessage();
         if(message != null)
-            System.out.println(command.decoratedMessage());
+            System.out.println(message);
     }
 }
