@@ -1,37 +1,33 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
-    private static String PRIMITIVE_PREFIX = "primitive";
+    private static final LoggerController controller = new LoggerController(WriterFactory.create());
 
     public static void log(int i) {
-        print(formatWithPrefix(PRIMITIVE_PREFIX, String.valueOf(i)));
+        controller.log(new IntCommand(i));
     }
 
     public static void log(byte b) {
-        print(formatWithPrefix(PRIMITIVE_PREFIX, String.valueOf(b)));
+        controller.log(new ByteCommand(b));
     }
 
     public static void log(boolean b) {
-        print(formatWithPrefix(PRIMITIVE_PREFIX, String.valueOf(b)));
+        controller.log(new BooleanCommand(b));
     }
 
     public static void log(char c) {
-        print(formatWithPrefix("char", String.valueOf(c)));
+        controller.log(new CharCommand(c));
     }
 
     public static void log(String s) {
-        print(formatWithPrefix("string", s));
+        controller.log(new StringCommand(s));
     }
 
     public static void log(Object o) {
-        print(formatWithPrefix("reference", String.valueOf(o)));
+        controller.log(new ReferenceCommand(o));
     }
 
-    private static String formatWithPrefix(String prefix, String subject) {
-        return String.format("%s: %s", prefix, subject);
-    }
-
-    private static void print(String message) {
-        System.out.println(message);
+    public static void flush() {
+        controller.flush();
     }
 }
