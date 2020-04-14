@@ -1,6 +1,11 @@
 package com.acme.dbo.txlog;
 
-import java.util.Arrays;
+import com.acme.dbo.command.ByteCommand;
+import com.acme.dbo.command.IntCommand;
+import com.acme.dbo.command.NullCommand;
+import com.acme.dbo.command.StringCommand;
+import com.acme.dbo.writer.ConsoleLogWriter;
+import com.acme.dbo.controller.LoggerController;
 
 public class Facade {
 
@@ -11,7 +16,6 @@ public class Facade {
     public static final byte TYPENOTDEFINED = 0;
     public static final byte TYPEBYTE = 1;
     public static final byte TYPEINT = 2;
-//    public static final byte TYPECHAR = 3;
     public static final byte TYPESTRING = 4;
 
     private static LoggerController controller = new LoggerController(new ConsoleLogWriter());

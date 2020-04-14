@@ -1,22 +1,11 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.command;
 
-import static com.acme.dbo.txlog.Facade.TYPENOTDEFINED;
 
 public class NullCommand implements Command {
     private String message;
-    private byte messageType = TYPENOTDEFINED;
 
     public NullCommand()    {
         this.message = null;
-    }
-
-    @Override
-    public byte getMessageType () {
-        return this.messageType;
-    }
-
-    public String getMessage() {
-        return null;
     }
 
     @Override

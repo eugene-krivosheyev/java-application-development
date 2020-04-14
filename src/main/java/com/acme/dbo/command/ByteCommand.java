@@ -1,24 +1,17 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.command;
 
 import static com.acme.dbo.txlog.Facade.PRIMITIVE;
-import static com.acme.dbo.txlog.Facade.TYPEBYTE;
 
 public class ByteCommand implements Command {
     private byte message;
-    private byte messageType;
 
 
     public ByteCommand(byte message)    {
         this.message = message;
-        this.messageType = TYPEBYTE;
     }
 
-    public byte getMessageType () {
-        return this.messageType;
-    }
-
-    public String getMessage() {
-        return Byte.toString(this.message);
+    public Byte getMessage() {
+        return this.message;
     }
 
     @Override
@@ -28,16 +21,16 @@ public class ByteCommand implements Command {
 
     @Override
     public Command accumulateCommand(Command command) {
-        this.message = (byte) (this.message+ Byte.parseByte(command.getMessage()));
+        this.message = (byte) (this.message+ (((ByteCommand)command).getMessage()));
         return this;
     }
 
     public boolean isSame(Command command) {
-        return this.messageType == command.getMessageType();
+        return command instanceof ByteCommand;
     }
 
     public boolean checkOverflow(Command command) {
-        int commandMessage = Byte.parseByte(command.getMessage());
+        byte commandMessage = ((ByteCommand)command).getMessage();
         if ((this.message > 0 && commandMessage > 0) || (this.message < 0 && commandMessage < 0)) {
             return (Byte.MAX_VALUE - Math.abs(this.message) >= Math.abs(commandMessage));
         } else {

@@ -1,6 +1,7 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.controller;
 
-import com.acme.dbo.txlog.Command;
+import com.acme.dbo.command.Command;
+import com.acme.dbo.writer.LogWriter;
 
 public class LoggerController {
     private LogWriter logWriter;
@@ -11,6 +12,10 @@ public class LoggerController {
     }
 
     public void log(Command command) {
+        if(currentState == null) {
+            this.currentState = command;
+            return;
+        }
         if(sameCommand(command) && currentState.checkOverflow(command)) {
             updateState(command);
         } else {
@@ -19,11 +24,7 @@ public class LoggerController {
     }
 
     private boolean sameCommand(Command command) {
-        if(currentState != null) {
-            return currentState.isSame(command);
-        } else {
-            return false;
-        }
+        return currentState.isSame(command);
     }
 
     private void updateState(Command command) {
@@ -31,11 +32,11 @@ public class LoggerController {
     }
 
     private void flush(Command command) {
-        if(this.currentState != null) {
-            logWriter.write(this.currentState);
+        String message = currentState.decoratedMessage();
+        if (message != null) {
+            logWriter.write(message);
         }
         this.currentState = command;
-
     }
 
 }

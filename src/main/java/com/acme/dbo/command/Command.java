@@ -1,8 +1,6 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.command;
 
 public interface Command {
-    byte getMessageType ();
-    String getMessage();
     String decoratedMessage();
     Command accumulateCommand(Command command);
     boolean isSame (Command command);

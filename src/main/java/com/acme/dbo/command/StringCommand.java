@@ -1,23 +1,17 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.command;
 
 import static com.acme.dbo.txlog.Facade.STRING;
-import static com.acme.dbo.txlog.Facade.TYPESTRING;
 
 public class StringCommand implements Command {
     private String message;
-    private byte messageType;
     private int stringCounter;
 
 
     public StringCommand(String message)    {
         this.message = message;
-        this.messageType = TYPESTRING;
         this.stringCounter = 1;
     }
 
-    public byte getMessageType () {
-        return this.messageType;
-    }
 
     public String getMessage() {
         return this.message;
@@ -39,7 +33,7 @@ public class StringCommand implements Command {
     }
 
     public boolean isSame(Command command) {
-        return (this.messageType == command.getMessageType() && this.message.equals(command.getMessage()));
+        return (command instanceof StringCommand && this.message.equals(((StringCommand)command).getMessage()));
     }
 
     public boolean checkOverflow(Command command) {

@@ -1,24 +1,16 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.command;
 
 import static com.acme.dbo.txlog.Facade.PRIMITIVE;
-import static com.acme.dbo.txlog.Facade.TYPEINT;
 
 public class IntCommand implements Command {
     private int message;
-    private byte messageType;
-
 
     public IntCommand(int message)    {
         this.message = message;
-        this.messageType = TYPEINT;
     }
 
-    public byte getMessageType () {
-        return this.messageType;
-    }
-
-    public String getMessage() {
-        return Integer.toString(this.message);
+    public int getMessage() {
+        return this.message;
     }
 
     @Override
@@ -28,16 +20,16 @@ public class IntCommand implements Command {
 
     @Override
     public Command accumulateCommand(Command command) {
-        this.message = this.message+ Integer.parseInt(command.getMessage());
+        this.message += ((IntCommand)command).getMessage();
         return this;
     }
 
     public boolean isSame(Command command) {
-        return this.messageType == command.getMessageType();
+        return command instanceof IntCommand;
     }
 
     public boolean checkOverflow(Command command) {
-        int commandMessage = Integer.parseInt(command.getMessage());
+        int commandMessage = ((IntCommand)command).getMessage();
         if ((this.message > 0 && commandMessage > 0) || (this.message < 0 && commandMessage < 0)) {
             return (Integer.MAX_VALUE - Math.abs(this.message) >= Math.abs(commandMessage));
         } else {
