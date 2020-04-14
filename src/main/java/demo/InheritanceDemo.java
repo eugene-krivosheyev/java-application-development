@@ -14,7 +14,7 @@ public class InheritanceDemo {
             //...
         }
 
-        System.out.println(result.toUpperCase());
+//        System.out.println(result.toUpperCase());
         //1M sloc: result = String
         //result <-> ????
     }
@@ -38,14 +38,15 @@ class EmptyMessageCheckLoggerWriter { // implements LoggerWriter {
 //    @Override
     String write(String message) throws IOException {
         if (message == null || message.equals("")) throw new IllegalArgumentException();
+        return null;
     }
 }
 
 class ConsoleWriter extends EmptyMessageCheckLoggerWriter {
 //    @Override
-    public String write(String message) throws CustomIOException {
-        super.write(message);
-        this.setDestination("filename");
-        System.out.println(message + " to destination: " + this.getDestination());
-    }
+//    public String write(String message) throws CustomIOException {
+//        super.write(message);
+//        this.setDestination("filename");
+//        System.out.println(message + " to destination: " + this.getDestination());
+//    }
 }
