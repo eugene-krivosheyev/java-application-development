@@ -30,7 +30,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(1);
         Facade.log(2);
         Facade.log("str 2");
-        Facade.flush();
+//        Facade.flush();
         Facade.log(0);
         Facade.flush();
         //endregion

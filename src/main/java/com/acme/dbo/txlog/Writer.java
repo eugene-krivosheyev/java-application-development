@@ -1,8 +1,8 @@
 package com.acme.dbo.txlog;
 
-class WriterFactory {
+class Writer {
 
-    static void write(String message) {
+    void write(String message) {
         System.out.println(message);
     }
 }

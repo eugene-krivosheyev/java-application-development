@@ -3,13 +3,14 @@ package com.acme.dbo.txlog;
 import java.util.Arrays;
 
 class Controller {
-    static IntCommand intCommand;
-    static StringCommand stringCommand;
-    static ByteCommand byteCommand;
+    private IntCommand intCommand;
+    private StringCommand stringCommand;
+    private ByteCommand byteCommand;
 
-    private static Object lastCommand;
+    private Object lastCommand;
+    private Writer writer = new Writer();
 
-    private static String lastCommandType;
+        private static String lastCommandType;
     private static String lastArray;
 
     private static Boolean booleanAccumulator;
@@ -18,7 +19,7 @@ class Controller {
     private static String multiMatrixAccumulator;
     private static String stringVarArgsAccumulator;
     private static String integerVarArgsAccumulator;
-    private static Integer duplicateStringCount = 0;
+    private Integer duplicateStringCount = 0;
     private static Integer duplicateArrayCount;
     private static Integer duplicateMatrixCount;
     private static Integer duplicateMultiMatrixCount;
@@ -33,10 +34,11 @@ class Controller {
     private static String MULTI_MATRIX_DECOR = "primitives multimatrix: ";
 
 
-    static void log(IntCommand command) {
+    void log(IntCommand command) {
+        intCommand = command;
         if (lastCommand != null) {
             if (lastCommand.getClass().equals(command.getClass())) {
-                command.accumulate();
+                command = command.accumulate(this, (IntCommand) lastCommand);
             } else {
                 flush();
             }
@@ -44,10 +46,11 @@ class Controller {
         lastCommand = command;
     }
 
-    static void log(ByteCommand command) {
+    void log(ByteCommand command) {
+        byteCommand = command;
         if (lastCommand != null) {
             if (lastCommand.getClass().equals(command.getClass())) {
-                command.accumulate();
+                command = command.accumulate(this, (ByteCommand) lastCommand);
             } else {
                 flush();
             }
@@ -55,15 +58,17 @@ class Controller {
         lastCommand = command;
     }
 
-    static void log(StringCommand command) {
+    void log(StringCommand command) {
+        stringCommand = command;
         if (lastCommand != null) {
             if (lastCommand.getClass().equals(command.getClass())) {
                 StringCommand lastStringCommand = (StringCommand) lastCommand;
                 if (lastStringCommand.currentValue.equals(command.currentValue)) {
                     duplicateStringCount++;
+                    command = lastStringCommand;
                 } else {
-                    command.accumulate();
-                    duplicateStringCount = 1;
+                    command = command.accumulate(this, lastStringCommand);
+                    duplicateStringCount = 0;
                 }
             } else {
                 flush();
@@ -72,29 +77,32 @@ class Controller {
         lastCommand = command;
     }
 
-    static void flush() {
+    void flush() {
         if (lastCommand != null) {
             if ((intCommand != null) && lastCommand.getClass().equals(intCommand.getClass())) {
-                WriterFactory.write(IntCommand.getDecoratedState());
-                IntCommand.flush();
+                IntCommand downCastedLastCommand = (IntCommand) lastCommand;
+                writer.write(downCastedLastCommand.getDecoratedState());
+                downCastedLastCommand.flush();
             }
             if ((stringCommand != null) && lastCommand.getClass().equals(stringCommand.getClass())) {
-                if (duplicateStringCount >= 2) {
-                    WriterFactory.write(StringCommand.getDecoratedState() + " (x" + duplicateStringCount + ")");
+                StringCommand downCastedLastCommand = (StringCommand) lastCommand;
+                if (duplicateStringCount >= 1) {
+                    writer.write(downCastedLastCommand.getDecoratedState() + " (x" + (duplicateStringCount + 1) + ")");
                 } else {
-                    WriterFactory.write(StringCommand.getDecoratedState());
+                    writer.write(downCastedLastCommand.getDecoratedState());
                 }
-                StringCommand.flush();
+                downCastedLastCommand.flush();
                 duplicateStringCount = 0;
             }
             if ((byteCommand != null) && lastCommand.getClass().equals(byteCommand.getClass())) {
-                WriterFactory.write(ByteCommand.getDecoratedState());
-                ByteCommand.flush();
+                ByteCommand downCastedLastCommand = (ByteCommand) lastCommand;
+                writer.write(downCastedLastCommand.getDecoratedState());
+                downCastedLastCommand.flush();
             }
         }
         flushLastState("Array", "Matrix", "MultiMatrix", "StringVarargs", "IntegerVarargs");
         lastCommand = null;
-        lastCommandType = null;
+               lastCommandType = null;
     }
 
     static void logBoolean(boolean message) {
@@ -222,7 +230,6 @@ class Controller {
                 duplicateStringVarArgsCount = flushedPair.getInteger();
             }
             if ((current.equals("IntegerVarargs") && (integerVarArgsAccumulator != null))) {
-//                integerVarArgsAccumulator = integerVarArgsAccumulator.replace("], ", "]");
                 PairValues flushedPair = flushLastStringObjectState(integerVarArgsAccumulator, duplicateIntegerVarArgsCount, PRIMITIVE_DECOR);
                 integerVarArgsAccumulator = flushedPair.getString();
                 duplicateIntegerVarArgsCount = flushedPair.getInteger();

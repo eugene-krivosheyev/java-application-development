@@ -3,51 +3,50 @@ package com.acme.dbo.txlog;
 import static java.lang.Math.abs;
 
 class ByteCommand {
-    private static String DECOR = "primitive: ";
+    private String DECOR = "primitive: ";
 
     private Byte currentValue;
-    private static String accumulator;
-    private static Byte sum;
-    private static Byte MAX_BYTE = Byte.MAX_VALUE;
+    private String accumulator;
+    private Byte sum;
+    private Byte MAX_BYTE = Byte.MAX_VALUE;
 
     ByteCommand(Byte message) {
         currentValue = message;
-        if (accumulator == null) {
-            accumulator = message.toString();
-            sum = message;
-        }
+        accumulator = message.toString();
+        sum = message;
     }
 
-    static String getDecoratedState() {
+    String getDecoratedState() {
         return DECOR + accumulator;
     }
 
-    void accumulate() {
-        if (accumulator == null) {
+    ByteCommand accumulate(Controller controller, ByteCommand command) {
+        if (command.accumulator == null) {
             accumulator = this.currentValue.toString();
             sum = this.currentValue;
         } else {
-            if (checkByteValueIsOutBound((byte) (this.currentValue))) {
-                Controller.flush();
+            if (checkByteValueIsOutBound(this.currentValue)) {
+                controller.flush();
                 accumulator = MAX_BYTE + "";
                 sum = MAX_BYTE;
-                Controller.flush();
+                controller.flush();
             } else {
-                sum = (byte) (sum + this.currentValue);
-                if (accumulator.contains(System.lineSeparator())) {
-                    accumulator = accumulator + sum + System.lineSeparator();
+                sum = (byte) (command.sum + this.currentValue);
+                if (command.accumulator.contains(System.lineSeparator())) {
+                    accumulator = command.accumulator + sum + System.lineSeparator();
                 }
                 accumulator = sum.toString();
             }
         }
+        return this;
     }
 
-    static void flush() {
+    void flush() {
         accumulator = null;
         sum = 0;
     }
 
-    private static boolean checkByteValueIsOutBound(Byte number) {
+    private boolean checkByteValueIsOutBound(Byte number) {
         short shortValue = (short) number;
         return abs(shortValue) >= MAX_BYTE;
     }

@@ -1,56 +1,54 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
+    private static Controller controller = new Controller();
 
     public static void log(int message) {
-        Controller.intCommand = new IntCommand(message);
-        Controller.log(Controller.intCommand);
+        controller.log(new IntCommand(message));
     }
 
     public static void log(byte message) {
-        Controller.byteCommand = new ByteCommand(message);
-        Controller.log(Controller.byteCommand);
+        controller.log(new ByteCommand(message));
     }
 
     public static void log(String message) {
-        Controller.stringCommand = new StringCommand(message);
-        Controller.log(Controller.stringCommand);
+        controller.log(new StringCommand(message));
     }
 
     public static void log(boolean message) {
-        Controller.logBoolean(message);
+        controller.logBoolean(message);
     }
 
     public static void log(char message) {
-        Controller.logChar(message);
+        controller.logChar(message);
     }
 
     public static void log(String... strings) {
-        Controller.log(strings);
+        controller.log(strings);
     }
 
     public static void log(Integer... strings) {
-        Controller.log(strings);
+        controller.log(strings);
     }
 
     public static void log(Object message) {
-        Controller.log(message);
+        controller.log(message);
     }
 
     public static void log(int[] ints) {
-        Controller.log(ints);
+        controller.log(ints);
     }
 
     public static void log(int[][] ints) {
-        Controller.log(ints);
+        controller.log(ints);
     }
 
     public static void log(int[][][][] ints) {
-        Controller.log(ints);
+        controller.log(ints);
     }
 
     public static void flush() {
-        Controller.flush();
+        controller.flush();
     }
 
 }

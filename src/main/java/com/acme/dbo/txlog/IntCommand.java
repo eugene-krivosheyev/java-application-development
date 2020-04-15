@@ -3,52 +3,51 @@ package com.acme.dbo.txlog;
 import static java.lang.Math.abs;
 
 class IntCommand {
-    private static String DECOR = "primitive: ";
+    private String DECOR = "primitive: ";
 
     private Integer currentValue;
-    private static String accumulator;
-    private static Integer sum;
-    private static int MAX_INTEGER = Integer.MAX_VALUE;
+    private String accumulator;
+    private Integer sum;
+    private int MAX_INTEGER = Integer.MAX_VALUE;
 
     IntCommand(Integer message) {
         currentValue = message;
-        if (accumulator == null) {
-            accumulator = message.toString();
-            sum = message;
-        }
+        accumulator = message.toString();
+        sum = message;
     }
 
-    static String getDecoratedState() {
+    String getDecoratedState() {
         return DECOR + accumulator;
     }
 
-    void accumulate() {
-        if (accumulator == null) {
+    IntCommand accumulate(Controller controller, IntCommand command) {
+        if (command.accumulator == null) {
             accumulator = this.currentValue.toString();
             sum = this.currentValue;
         } else {
             if (checkIntegerValueIsOutBound(this.currentValue)) {
-                Controller.flush();
+                controller.flush();
                 accumulator = MAX_INTEGER + "";
                 sum = MAX_INTEGER;
-                Controller.flush();
+                controller.flush();
             } else {
-                sum = sum + this.currentValue;
-                if (accumulator.contains(System.lineSeparator())) {
-                    accumulator = accumulator + sum + System.lineSeparator();
+                sum = command.sum + this.currentValue;
+                if (command.accumulator.contains(System.lineSeparator())) {
+                    accumulator = command.accumulator + sum + System.lineSeparator();
                 } else {
                     accumulator = sum.toString();
                 }
             }
         }
+        return this;
     }
 
-    static void flush() {
+    void flush() {
         accumulator = null;
         sum = 0;
     }
 
-    private static boolean checkIntegerValueIsOutBound(Integer number) {
+    private boolean checkIntegerValueIsOutBound(Integer number) {
         long longValue = (long) number;
         return abs(longValue) >= Integer.MAX_VALUE;
     }

@@ -2,36 +2,34 @@ package com.acme.dbo.txlog;
 
 class StringCommand {
 
-    private static String DECOR = "string: ";
+    private String DECOR = "string: ";
 
     String currentValue;
-    private static String accumulator;
+    private String accumulator;
 
     StringCommand(String message) {
         currentValue = message;
-        if (accumulator == null) {
-            accumulator = message;
-        }
+        accumulator = message;
     }
 
-    void accumulate() {
-        if (accumulator == null) {
-            accumulator = this.currentValue;
+    StringCommand accumulate(Controller controller, StringCommand command) {
+        if (command.accumulator == null) {
+            this.accumulator = this.currentValue;
         } else {
-            accumulator = accumulator + System.lineSeparator() + getDecoratedValue(this.currentValue);
+            this.accumulator = command.accumulator + System.lineSeparator() + getDecoratedValue(this.currentValue);
         }
+        return this;
     }
 
-
-    static String getDecoratedState() {
+    String getDecoratedState() {
         return DECOR + accumulator;
     }
 
-    private static String getDecoratedValue(String value) {
+    private String getDecoratedValue(String value) {
         return DECOR + value;
     }
 
-    static void flush() {
+    void flush() {
         accumulator = null;
     }
 }
