@@ -1,19 +1,21 @@
 package com.acme.dbo.txlog.commands;
 
-public class ByteCommand implements Command {
+import static com.acme.dbo.txlog.commands.CommandUtils.checkOverflow;
+
+public class ByteCommand extends BaseCommand {
     public static final String BYTE_DECORATION = "primitive: ";
     private byte message;
 
     public ByteCommand(byte message) {
         this.message = message;
     }
-
+    protected String getDecorator(){
+        return BYTE_DECORATION;
+    }
     public String getMessage() {
         return String.valueOf(message);
     }
-    public String getDecoratedMessage() {
-        return BYTE_DECORATION + getMessage();
-    }
+
 
     @Override
     public boolean shouldAppend(Command state) {
@@ -28,7 +30,4 @@ public class ByteCommand implements Command {
         return new ByteCommand((byte) (message + ((ByteCommand) state).message));
     }
 
-    private boolean checkOverflow(int sum, int a, int b) {
-        return (a > 0 && sum > b || a < 0 && sum < b);
-    }
 }

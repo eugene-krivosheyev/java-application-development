@@ -1,9 +1,10 @@
 package com.acme.dbo.txlog.commands;
 
-public class StringCommand implements Command {
+public class StringCommand extends BaseCommand {
     public static final String STRING_DECORATION = "string: ";
     private String message;
     private int count;
+
 
     public StringCommand(String message) {
         this.message = message;
@@ -15,11 +16,12 @@ public class StringCommand implements Command {
         this.count = count;
     }
 
+    protected String getDecorator(){
+        return STRING_DECORATION;
+    }
+
     public String getMessage() {
         return message + (count > 1 ? (" (x" + count + ")") : "");
-    }
-    public String getDecoratedMessage() {
-        return STRING_DECORATION + getMessage();
     }
 
     @Override

@@ -1,19 +1,20 @@
 package com.acme.dbo.txlog.commands;
 
-public class IntCommand implements Command {
+import static com.acme.dbo.txlog.commands.CommandUtils.checkOverflow;
+
+public class IntCommand extends BaseCommand {
     public static final String INT_DECORATION = "primitive: ";
     private int message;
 
     public IntCommand(int message) {
         this.message = message;
     }
+    protected String getDecorator(){
+        return INT_DECORATION;
+    }
 
     public String getMessage() {
         return String.valueOf(message);
-    }
-
-    public String getDecoratedMessage() {
-        return INT_DECORATION + getMessage();
     }
 
     @Override
@@ -28,9 +29,4 @@ public class IntCommand implements Command {
     public Command append(Command state) {
         return new IntCommand(message + ((IntCommand) state).message);
     }
-
-    private boolean checkOverflow(int sum, int a, int b) {
-        return (a > 0 && sum > b || a < 0 && sum < b);
-    }
-
 }

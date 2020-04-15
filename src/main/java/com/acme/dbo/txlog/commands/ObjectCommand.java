@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.commands;
 
-public class ObjectCommand implements Command {
+public class ObjectCommand extends BaseCommand {
     public static final String OBJECT_DECORATION = "reference: ";
     private Object message;
 
@@ -8,21 +8,11 @@ public class ObjectCommand implements Command {
         this.message = message;
     }
 
+    protected String getDecorator(){
+        return OBJECT_DECORATION;
+    }
+
     public String getMessage() {
         return String.valueOf(message);
     }
-
-    public String getDecoratedMessage() {
-        return OBJECT_DECORATION + getMessage();
-    }
-
-    @Override
-    public boolean shouldAppend(Command state) {
-        return false;
-    }
-
-    public Command append(Command state) {
-        return null;
-    }
-
 }
