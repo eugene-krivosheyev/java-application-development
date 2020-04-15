@@ -2,47 +2,52 @@ package com.acme.dbo.txlog;
 
 public class Facade {
 
+    private static LogController logController = new LogController();
+
     public static void flush() {
-        Logger.flush();
+        logController.flush();
     }
 
     public static void log(int... message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new IntArrayCommand(message));
     }
 
     public static void log(int message) {
-        Logger.logIntMessage(new Message(message));
+        logController.log(new IntCommand(message));
     }
 
     public static void log(int[][] message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new IntMatrixCommand(message));
     }
 
     public static void log(int[][][][] message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new IntMultiMatrixCommand(message));
     }
 
     public static void log(byte message) {
-        Logger.logByteMessage(new Message(message));
+        logController.log(new ByteCommand(message));
     }
 
     public static void log(char message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new CharCommand(message));
     }
 
     public static void log(String... message) {
-        Logger.logStringArrayMessage(message);
+        for (String str : message) {
+            logController.log(new StringCommand(str));
+        }
+        logController.flush();
     }
 
     public static void log(String message) {
-        Logger.logStringMessage(new Message(message));
+        logController.log(new StringCommand(message));
     }
 
     public static void log(boolean message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new BooleanCommand(message));
     }
 
     public static void log(Object message) {
-        Logger.logOtherTypeMessage(new Message(message));
+        logController.log(new ObjectCommand(message));
     }
 }

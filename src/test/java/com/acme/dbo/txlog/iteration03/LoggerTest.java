@@ -103,6 +103,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log("str");
         Facade.log(Integer.MAX_VALUE - 10);
         Facade.log(11);
+        Facade.flush();
         //endregion
 
         //region then

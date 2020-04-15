@@ -1,6 +1,8 @@
 package com.acme.dbo.txlog.iteration01;
 
+import com.acme.dbo.txlog.BooleanCommand;
 import com.acme.dbo.txlog.Facade;
+import com.acme.dbo.txlog.IntCommand;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
@@ -116,5 +118,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("@");
         //endregion
     }
+/*
+
+    @Test
+    public void test() {
+        Facade.log(new BooleanCommand(true));
+        Facade.log(new IntCommand(1));
+        Facade.log(new IntCommand(3));
+    }
+*/
 
 }
