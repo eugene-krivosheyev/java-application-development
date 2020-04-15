@@ -31,15 +31,21 @@ class IntCommand {
                 sum = MAX_INTEGER;
                 controller.flush();
             } else {
-                sum = command.sum + this.currentValue;
-                if (command.accumulator.contains(System.lineSeparator())) {
-                    accumulator = command.accumulator + sum + System.lineSeparator();
-                } else {
-                    accumulator = sum.toString();
-                }
+                accumulator = addCurrentValueAndSumToAccumulator(command.accumulator, command.sum, this.currentValue);
             }
         }
         return this;
+    }
+
+    private String addCurrentValueAndSumToAccumulator(String accumulator, Integer sum, Integer currentValue) {
+        String totalAccumulator;
+        int accumulatedSum = sum + currentValue;
+        if (accumulator.contains(System.lineSeparator())) {
+            totalAccumulator = accumulator + Integer.toString(accumulatedSum) + System.lineSeparator();
+        } else {
+            totalAccumulator = Integer.toString(accumulatedSum);
+        }
+        return totalAccumulator;
     }
 
     void flush() {

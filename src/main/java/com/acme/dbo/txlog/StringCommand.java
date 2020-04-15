@@ -21,8 +21,14 @@ class StringCommand {
         return this;
     }
 
-    String getDecoratedState() {
-        return DECOR + accumulator;
+    String getDecoratedState(int duplicationNum) {
+        String decoratedAccumulator;
+        if (duplicationNum >= 1) {
+            decoratedAccumulator= DECOR + accumulator + " (x" + (duplicationNum + 1) + ")";
+        } else {
+            decoratedAccumulator= DECOR + accumulator;
+        }
+        return decoratedAccumulator;
     }
 
     private String getDecoratedValue(String value) {

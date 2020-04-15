@@ -31,14 +31,21 @@ class ByteCommand {
                 sum = MAX_BYTE;
                 controller.flush();
             } else {
-                sum = (byte) (command.sum + this.currentValue);
-                if (command.accumulator.contains(System.lineSeparator())) {
-                    accumulator = command.accumulator + sum + System.lineSeparator();
-                }
-                accumulator = sum.toString();
+                accumulator = addCurrentValueAndSumToAccumulator(command.accumulator, command.sum, this.currentValue);
             }
         }
         return this;
+    }
+
+    private String addCurrentValueAndSumToAccumulator(String accumulator, Byte sum, Byte currentValue) {
+        String totalAccumulator;
+        int accumulatedSum = sum + currentValue;
+        if (accumulator.contains(System.lineSeparator())) {
+            totalAccumulator = accumulator + Integer.toString(accumulatedSum) + System.lineSeparator();
+        } else {
+            totalAccumulator = Integer.toString(accumulatedSum);
+        }
+        return totalAccumulator;
     }
 
     void flush() {

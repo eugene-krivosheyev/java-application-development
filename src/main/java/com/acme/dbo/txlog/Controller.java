@@ -10,7 +10,7 @@ class Controller {
     private Object lastCommand;
     private Writer writer = new Writer();
 
-        private static String lastCommandType;
+    private static String lastCommandType;
     private static String lastArray;
 
     private static Boolean booleanAccumulator;
@@ -36,43 +36,37 @@ class Controller {
 
     void log(IntCommand command) {
         intCommand = command;
-        if (lastCommand != null) {
-            if (lastCommand.getClass().equals(command.getClass())) {
-                command = command.accumulate(this, (IntCommand) lastCommand);
-            } else {
-                flush();
-            }
+        if ((lastCommand != null) && (lastCommand.getClass().equals(command.getClass()))) {
+            command = command.accumulate(this, (IntCommand) lastCommand);
+        } else {
+            flush();
         }
         lastCommand = command;
     }
 
     void log(ByteCommand command) {
         byteCommand = command;
-        if (lastCommand != null) {
-            if (lastCommand.getClass().equals(command.getClass())) {
-                command = command.accumulate(this, (ByteCommand) lastCommand);
-            } else {
-                flush();
-            }
+        if ((lastCommand != null) && lastCommand.getClass().equals(command.getClass())) {
+            command = command.accumulate(this, (ByteCommand) lastCommand);
+        } else {
+            flush();
         }
         lastCommand = command;
     }
 
     void log(StringCommand command) {
         stringCommand = command;
-        if (lastCommand != null) {
-            if (lastCommand.getClass().equals(command.getClass())) {
-                StringCommand lastStringCommand = (StringCommand) lastCommand;
-                if (lastStringCommand.currentValue.equals(command.currentValue)) {
-                    duplicateStringCount++;
-                    command = lastStringCommand;
-                } else {
-                    command = command.accumulate(this, lastStringCommand);
-                    duplicateStringCount = 0;
-                }
+        if ((lastCommand != null) && lastCommand.getClass().equals(command.getClass())) {
+            StringCommand lastStringCommand = (StringCommand) lastCommand;
+            if (lastStringCommand.currentValue.equals(command.currentValue)) {
+                duplicateStringCount++;
+                command = lastStringCommand;
             } else {
-                flush();
+                command = command.accumulate(this, lastStringCommand);
+                duplicateStringCount = 0;
             }
+        } else {
+            flush();
         }
         lastCommand = command;
     }
@@ -86,11 +80,7 @@ class Controller {
             }
             if ((stringCommand != null) && lastCommand.getClass().equals(stringCommand.getClass())) {
                 StringCommand downCastedLastCommand = (StringCommand) lastCommand;
-                if (duplicateStringCount >= 1) {
-                    writer.write(downCastedLastCommand.getDecoratedState() + " (x" + (duplicateStringCount + 1) + ")");
-                } else {
-                    writer.write(downCastedLastCommand.getDecoratedState());
-                }
+                writer.write(downCastedLastCommand.getDecoratedState(duplicateStringCount));
                 downCastedLastCommand.flush();
                 duplicateStringCount = 0;
             }
@@ -102,7 +92,7 @@ class Controller {
         }
         flushLastState("Array", "Matrix", "MultiMatrix", "StringVarargs", "IntegerVarargs");
         lastCommand = null;
-               lastCommandType = null;
+        lastCommandType = null;
     }
 
     static void logBoolean(boolean message) {
