@@ -42,6 +42,7 @@ public class BooleanCommand implements Command {
         return decoratedAccumulator;
     }
 
+    @Override
     public void flush() {
         accumulator = null;
     }

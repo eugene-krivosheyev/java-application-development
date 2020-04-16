@@ -49,6 +49,12 @@ public class IntCommand implements Command {
         return currentValue.toString();
     }
 
+    @Override
+    public void flush() {
+        accumulator = null;
+        sum = 0;
+    }
+
     private String addCurrentValueAndSumToAccumulator(String accumulator, Integer sum, Integer currentValue) {
         String totalAccumulator;
         int accumulatedSum = sum + currentValue;
@@ -58,11 +64,6 @@ public class IntCommand implements Command {
             totalAccumulator = Integer.toString(accumulatedSum);
         }
         return totalAccumulator;
-    }
-    @Override
-    public void flush() {
-        accumulator = null;
-        sum = 0;
     }
 
     private boolean checkIntegerValueIsOutBound(Integer number) {

@@ -42,6 +42,7 @@ public class ObjectCommand implements Command {
         return decoratedAccumulator;
     }
 
+    @Override
     public void flush() {
         accumulator = null;
     }

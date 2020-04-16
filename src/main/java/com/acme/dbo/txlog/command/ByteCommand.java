@@ -49,6 +49,12 @@ public class ByteCommand implements Command {
         return currentValue.toString();
     }
 
+    @Override
+    public void flush() {
+        accumulator = null;
+        sum = 0;
+    }
+
     private String addCurrentValueAndSumToAccumulator(String accumulator, Byte sum, Byte currentValue) {
         String totalAccumulator;
         int accumulatedSum = sum + currentValue;
@@ -58,11 +64,6 @@ public class ByteCommand implements Command {
             totalAccumulator = Integer.toString(accumulatedSum);
         }
         return totalAccumulator;
-    }
-
-    public void flush() {
-        accumulator = null;
-        sum = 0;
     }
 
     private boolean checkByteValueIsOutBound(Byte number) {

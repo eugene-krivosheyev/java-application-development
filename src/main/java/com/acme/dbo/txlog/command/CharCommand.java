@@ -43,6 +43,7 @@ public class CharCommand implements Command {
         return decoratedAccumulator;
     }
 
+    @Override
     public void flush() {
         accumulator = null;
     }
