@@ -18,7 +18,7 @@ abstract class MyLogger {
 
     public void log(String message) {
         //...
-        if(filter.filter(message)) {
+        if (filter.filter(message)) {
 //            service.coreBusinesLogic(message);
         }
         //.....
@@ -42,7 +42,7 @@ class HPDecoratedMyLogger extends MyLogger {
         System.out.println();
 
     }
-
+    //TODO FIXME
     private String decoreate(String message) {
         return "Harry Potter and " + message;
     }
