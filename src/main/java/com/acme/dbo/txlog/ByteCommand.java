@@ -2,7 +2,7 @@ package com.acme.dbo.txlog;
 
 import static java.lang.Math.abs;
 
-class ByteCommand {
+class ByteCommand implements Command {
     private String DECOR = "primitive: ";
 
     private Byte currentValue;
@@ -20,18 +20,22 @@ class ByteCommand {
         return DECOR + accumulator;
     }
 
-    ByteCommand accumulate(Controller controller, ByteCommand command) {
-        if (command.accumulator == null) {
-            accumulator = this.currentValue.toString();
-            sum = this.currentValue;
-        } else {
-            if (checkByteValueIsOutBound(this.currentValue)) {
-                controller.flush();
-                accumulator = MAX_BYTE + "";
-                sum = MAX_BYTE;
-                controller.flush();
+    @Override
+    public ByteCommand accumulate(Controller controller, Command command) {
+        if(command instanceof ByteCommand) {
+            ByteCommand byteCommand = (ByteCommand) command;
+            if (byteCommand.accumulator == null) {
+                accumulator = this.currentValue.toString();
+                sum = this.currentValue;
             } else {
-                accumulator = addCurrentValueAndSumToAccumulator(command.accumulator, command.sum, this.currentValue);
+                if (checkByteValueIsOutBound(this.currentValue)) {
+                    controller.flush();
+                    accumulator = MAX_BYTE + "";
+                    sum = MAX_BYTE;
+                    controller.flush();
+                } else {
+                    accumulator = addCurrentValueAndSumToAccumulator(byteCommand.accumulator, byteCommand.sum, this.currentValue);
+                }
             }
         }
         return this;

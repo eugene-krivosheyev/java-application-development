@@ -2,7 +2,7 @@ package com.acme.dbo.txlog;
 
 import static java.lang.Math.abs;
 
-class IntCommand {
+class IntCommand implements Command {
     private String DECOR = "primitive: ";
 
     private Integer currentValue;
@@ -20,18 +20,22 @@ class IntCommand {
         return DECOR + accumulator;
     }
 
-    IntCommand accumulate(Controller controller, IntCommand command) {
-        if (command.accumulator == null) {
-            accumulator = this.currentValue.toString();
-            sum = this.currentValue;
-        } else {
-            if (checkIntegerValueIsOutBound(this.currentValue)) {
-                controller.flush();
-                accumulator = MAX_INTEGER + "";
-                sum = MAX_INTEGER;
-                controller.flush();
+    @Override
+    public IntCommand accumulate(Controller controller, Command command) {
+        if(command instanceof IntCommand) {
+            IntCommand intCommand = (IntCommand) command;
+            if (intCommand.accumulator == null) {
+                accumulator = this.currentValue.toString();
+                sum = this.currentValue;
             } else {
-                accumulator = addCurrentValueAndSumToAccumulator(command.accumulator, command.sum, this.currentValue);
+                if (checkIntegerValueIsOutBound(this.currentValue)) {
+                    controller.flush();
+                    accumulator = MAX_INTEGER + "";
+                    sum = MAX_INTEGER;
+                    controller.flush();
+                } else {
+                    accumulator = addCurrentValueAndSumToAccumulator(intCommand.accumulator, intCommand.sum, this.currentValue);
+                }
             }
         }
         return this;

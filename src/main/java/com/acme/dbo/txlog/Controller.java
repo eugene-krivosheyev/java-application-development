@@ -36,7 +36,7 @@ class Controller {
 
     void log(IntCommand command) {
         intCommand = command;
-        if ((lastCommand != null) && (lastCommand.getClass().equals(command.getClass()))) {
+        if ((lastCommand != null) && (lastCommand instanceof IntCommand)) {
             command = command.accumulate(this, (IntCommand) lastCommand);
         } else {
             flush();
@@ -46,7 +46,7 @@ class Controller {
 
     void log(ByteCommand command) {
         byteCommand = command;
-        if ((lastCommand != null) && lastCommand.getClass().equals(command.getClass())) {
+        if ((lastCommand != null) && (lastCommand instanceof ByteCommand)) {
             command = command.accumulate(this, (ByteCommand) lastCommand);
         } else {
             flush();
@@ -56,7 +56,7 @@ class Controller {
 
     void log(StringCommand command) {
         stringCommand = command;
-        if ((lastCommand != null) && lastCommand.getClass().equals(command.getClass())) {
+        if ((lastCommand != null) && (lastCommand instanceof StringCommand)) {
             StringCommand lastStringCommand = (StringCommand) lastCommand;
             if (lastStringCommand.currentValue.equals(command.currentValue)) {
                 duplicateStringCount++;
@@ -73,18 +73,18 @@ class Controller {
 
     void flush() {
         if (lastCommand != null) {
-            if ((intCommand != null) && lastCommand.getClass().equals(intCommand.getClass())) {
+            if (lastCommand instanceof IntCommand) {
                 IntCommand downCastedLastCommand = (IntCommand) lastCommand;
                 writer.write(downCastedLastCommand.getDecoratedState());
                 downCastedLastCommand.flush();
             }
-            if ((stringCommand != null) && lastCommand.getClass().equals(stringCommand.getClass())) {
+            if (lastCommand instanceof StringCommand) {
                 StringCommand downCastedLastCommand = (StringCommand) lastCommand;
                 writer.write(downCastedLastCommand.getDecoratedState(duplicateStringCount));
                 downCastedLastCommand.flush();
                 duplicateStringCount = 0;
             }
-            if ((byteCommand != null) && lastCommand.getClass().equals(byteCommand.getClass())) {
+            if (lastCommand instanceof ByteCommand) {
                 ByteCommand downCastedLastCommand = (ByteCommand) lastCommand;
                 writer.write(downCastedLastCommand.getDecoratedState());
                 downCastedLastCommand.flush();
