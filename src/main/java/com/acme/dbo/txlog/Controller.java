@@ -1,6 +1,8 @@
 package com.acme.dbo.txlog;
 
-class Controller {
+import com.acme.dbo.txlog.command.Command;
+
+public class Controller {
     private Command command;
 
     private Command lastCommand;
@@ -27,7 +29,7 @@ class Controller {
         lastCommand = command;
     }
 
-    void flush() {
+    public void flush() {
         if (lastCommand != null) {
             writer.write(lastCommand.getDecoratedState(duplicateCount));
             lastCommand.flush();

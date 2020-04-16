@@ -1,8 +1,10 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.command;
+
+import com.acme.dbo.txlog.Controller;
 
 import static java.lang.Math.abs;
 
-class ByteCommand implements Command {
+public class ByteCommand implements Command {
     private String DECOR = "primitive: ";
 
     private Byte currentValue;
@@ -10,7 +12,7 @@ class ByteCommand implements Command {
     private Byte sum;
     private Byte MAX_BYTE = Byte.MAX_VALUE;
 
-    ByteCommand(Byte message) {
+    public ByteCommand(Byte message) {
         currentValue = message;
         accumulator = message.toString();
         sum = message;

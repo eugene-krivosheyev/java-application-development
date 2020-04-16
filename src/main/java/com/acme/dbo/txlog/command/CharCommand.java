@@ -1,24 +1,27 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.command;
 
-public class BooleanCommand implements Command {
-    private String DECOR = "primitive: ";
+import com.acme.dbo.txlog.Controller;
 
-    private boolean currentValue;
+public class CharCommand implements Command {
+    private String DECOR = "char: ";
+
+    private char currentValue;
     private String accumulator;
+    private Integer sum;
 
-    BooleanCommand(boolean message) {
+    public CharCommand(char message) {
         currentValue = message;
-        accumulator = convertBooleanToString(message);
+        accumulator = convertCharToString(message);
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof BooleanCommand) {
-            BooleanCommand castedCommand = (BooleanCommand) command;
-            if (castedCommand.accumulator == null) {
-                this.accumulator = convertBooleanToString(this.currentValue);
+        if (command instanceof CharCommand) {
+            CharCommand stringCommand = (CharCommand) command;
+            if (stringCommand.accumulator == null) {
+                this.accumulator = convertCharToString(this.currentValue);
             } else {
-                this.accumulator = castedCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
+                this.accumulator = stringCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
         }
         return this;
@@ -26,7 +29,7 @@ public class BooleanCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return convertBooleanToString(currentValue);
+        return convertCharToString(currentValue);
     }
 
     @Override
@@ -45,15 +48,14 @@ public class BooleanCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(convertBooleanToString(currentValue));
+        return getDecoratedValue(convertCharToString(currentValue));
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
     }
 
-    private String convertBooleanToString(boolean character) {
-        return Boolean.toString(character);
+    private String convertCharToString(char character) {
+        return Character.toString(character);
     }
-
 }

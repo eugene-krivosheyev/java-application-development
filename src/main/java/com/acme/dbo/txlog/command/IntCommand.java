@@ -1,8 +1,10 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.command;
+
+import com.acme.dbo.txlog.Controller;
 
 import static java.lang.Math.abs;
 
-class IntCommand implements Command {
+public class IntCommand implements Command {
     private String DECOR = "primitive: ";
 
     private Integer currentValue;
@@ -10,7 +12,7 @@ class IntCommand implements Command {
     private Integer sum;
     private int MAX_INTEGER = Integer.MAX_VALUE;
 
-    IntCommand(Integer message) {
+    public IntCommand(Integer message) {
         currentValue = message;
         accumulator = message.toString();
         sum = message;
@@ -22,7 +24,7 @@ class IntCommand implements Command {
     }
 
     @Override
-    public IntCommand accumulate(Controller controller, Command command) {
+    public Command accumulate(Controller controller, Command command) {
         if (command instanceof IntCommand) {
             IntCommand intCommand = (IntCommand) command;
             if (intCommand.accumulator == null) {

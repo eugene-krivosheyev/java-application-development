@@ -1,22 +1,24 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.command;
 
-public class ObjectCommand implements Command {
-    private String DECOR = "reference: ";
+import com.acme.dbo.txlog.Controller;
 
-    private Object currentValue;
+public class BooleanCommand implements Command {
+    private String DECOR = "primitive: ";
+
+    private boolean currentValue;
     private String accumulator;
 
-    ObjectCommand(Object message) {
+    public BooleanCommand(boolean message) {
         currentValue = message;
-        accumulator = convertObjectToString(message);
+        accumulator = convertBooleanToString(message);
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof ObjectCommand) {
-            ObjectCommand castedCommand = (ObjectCommand) command;
+        if (command instanceof BooleanCommand) {
+            BooleanCommand castedCommand = (BooleanCommand) command;
             if (castedCommand.accumulator == null) {
-                this.accumulator = convertObjectToString(this.currentValue);
+                this.accumulator = convertBooleanToString(this.currentValue);
             } else {
                 this.accumulator = castedCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
@@ -26,7 +28,7 @@ public class ObjectCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return convertObjectToString(currentValue);
+        return convertBooleanToString(currentValue);
     }
 
     @Override
@@ -45,15 +47,15 @@ public class ObjectCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(convertObjectToString(currentValue));
+        return getDecoratedValue(convertBooleanToString(currentValue));
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
     }
 
-    private String convertObjectToString(Object character) {
-        return character.toString();
+    private String convertBooleanToString(boolean character) {
+        return Boolean.toString(character);
     }
 
 }

@@ -1,23 +1,25 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.command;
 
-public class CharCommand implements Command {
-    private String DECOR = "char: ";
+import com.acme.dbo.txlog.Controller;
 
-    private char currentValue;
+public class StringCommand implements Command {
+
+    private String DECOR = "string: ";
+
+    private String currentValue;
     private String accumulator;
-    private Integer sum;
 
-    CharCommand(char message) {
+    public StringCommand(String message) {
         currentValue = message;
-        accumulator = convertCharToString(message);
+        accumulator = message;
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof CharCommand) {
-            CharCommand stringCommand = (CharCommand) command;
+        if (command instanceof StringCommand) {
+            StringCommand stringCommand = (StringCommand) command;
             if (stringCommand.accumulator == null) {
-                this.accumulator = convertCharToString(this.currentValue);
+                this.accumulator = this.currentValue;
             } else {
                 this.accumulator = stringCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
@@ -27,7 +29,7 @@ public class CharCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return convertCharToString(currentValue);
+        return currentValue;
     }
 
     @Override
@@ -46,14 +48,10 @@ public class CharCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(convertCharToString(currentValue));
+        return getDecoratedValue(currentValue);
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
-    }
-
-    private String convertCharToString(char character) {
-        return Character.toString(character);
     }
 }
