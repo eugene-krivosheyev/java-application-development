@@ -1,23 +1,23 @@
 package com.acme.dbo.txlog;
 
-class StringCommand implements Command {
+public class CharCommand implements Command {
+    private String DECOR = "char: ";
 
-    private String DECOR = "string: ";
-
-    private String currentValue;
+    private char currentValue;
     private String accumulator;
+    private Integer sum;
 
-    StringCommand(String message) {
+    CharCommand(char message) {
         currentValue = message;
-        accumulator = message;
+        accumulator = convertCharToString(message);
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof StringCommand) {
-            StringCommand stringCommand = (StringCommand) command;
+        if (command instanceof CharCommand) {
+            CharCommand stringCommand = (CharCommand) command;
             if (stringCommand.accumulator == null) {
-                this.accumulator = this.currentValue;
+                this.accumulator = convertCharToString(this.currentValue);
             } else {
                 this.accumulator = stringCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
@@ -27,7 +27,7 @@ class StringCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return currentValue;
+        return convertCharToString(currentValue);
     }
 
     @Override
@@ -46,10 +46,14 @@ class StringCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(currentValue);
+        return getDecoratedValue(convertCharToString(currentValue));
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
+    }
+
+    private String convertCharToString(char character) {
+        return Character.toString(character);
     }
 }

@@ -91,33 +91,33 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-//    @Test
-//    public void shouldLogBoolean() throws IOException {
-//        //region when
-//        Facade.log(true);
-//        Facade.flush();
-//        Facade.log(false);
-//        Facade.flush();
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains("primitive: ");
-//        assertSysoutContains("true");
-//        assertSysoutContains("false");
-//        //endregion
-//    }
-//
-//    @Test
-//    public void shouldLogReference() throws IOException {
-//        //region when
-//        Facade.log(new Object());
-//        Facade.flush();
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains("reference: ");
-//        assertSysoutContains("@");
-//        //endregion
-//    }
+    @Test
+    public void shouldLogBoolean() throws IOException {
+        //region when
+        Facade.log(true);
+        Facade.flush();
+        Facade.log(false);
+        Facade.flush();
+        //endregion
+
+        //region then
+        assertSysoutContains("primitive: ");
+        assertSysoutContains("true");
+        assertSysoutContains("false");
+        //endregion
+    }
+
+    @Test
+    public void shouldLogReference() throws IOException {
+        //region when
+        Facade.log(new Object());
+        Facade.flush();
+        //endregion
+
+        //region then
+        assertSysoutContains("reference: ");
+        assertSysoutContains("@");
+        //endregion
+    }
 
 }

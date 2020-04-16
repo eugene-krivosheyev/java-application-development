@@ -16,7 +16,8 @@ class ByteCommand implements Command {
         sum = message;
     }
 
-    String getDecoratedState() {
+    @Override
+    public String getDecoratedState(int duplicationNum) {
         return DECOR + accumulator;
     }
 
@@ -41,6 +42,11 @@ class ByteCommand implements Command {
         return this;
     }
 
+    @Override
+    public String getCurrentValue() {
+        return currentValue.toString();
+    }
+
     private String addCurrentValueAndSumToAccumulator(String accumulator, Byte sum, Byte currentValue) {
         String totalAccumulator;
         int accumulatedSum = sum + currentValue;
@@ -52,7 +58,7 @@ class ByteCommand implements Command {
         return totalAccumulator;
     }
 
-    void flush() {
+    public void flush() {
         accumulator = null;
         sum = 0;
     }

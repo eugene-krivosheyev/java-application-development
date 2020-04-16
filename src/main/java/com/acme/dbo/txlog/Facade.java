@@ -16,35 +16,15 @@ public class Facade {
     }
 
     public static void log(boolean message) {
-        controller.logBoolean(message);
+        controller.log(new BooleanCommand(message));
     }
 
     public static void log(char message) {
-        controller.logChar(message);
-    }
-
-    public static void log(String... strings) {
-        controller.log(strings);
-    }
-
-    public static void log(Integer... strings) {
-        controller.log(strings);
+        controller.log(new CharCommand(message));
     }
 
     public static void log(Object message) {
-        controller.log(message);
-    }
-
-    public static void log(int[] ints) {
-        controller.log(ints);
-    }
-
-    public static void log(int[][] ints) {
-        controller.log(ints);
-    }
-
-    public static void log(int[][][][] ints) {
-        controller.log(ints);
+        controller.log(new ObjectCommand(message));
     }
 
     public static void flush() {

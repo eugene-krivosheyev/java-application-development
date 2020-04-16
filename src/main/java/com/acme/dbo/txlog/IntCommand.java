@@ -16,13 +16,14 @@ class IntCommand implements Command {
         sum = message;
     }
 
-    String getDecoratedState() {
+    @Override
+    public String getDecoratedState(int duplicationNum) {
         return DECOR + accumulator;
     }
 
     @Override
     public IntCommand accumulate(Controller controller, Command command) {
-        if(command instanceof IntCommand) {
+        if (command instanceof IntCommand) {
             IntCommand intCommand = (IntCommand) command;
             if (intCommand.accumulator == null) {
                 accumulator = this.currentValue.toString();
@@ -41,6 +42,11 @@ class IntCommand implements Command {
         return this;
     }
 
+    @Override
+    public String getCurrentValue() {
+        return currentValue.toString();
+    }
+
     private String addCurrentValueAndSumToAccumulator(String accumulator, Integer sum, Integer currentValue) {
         String totalAccumulator;
         int accumulatedSum = sum + currentValue;
@@ -51,8 +57,8 @@ class IntCommand implements Command {
         }
         return totalAccumulator;
     }
-
-    void flush() {
+    @Override
+    public void flush() {
         accumulator = null;
         sum = 0;
     }

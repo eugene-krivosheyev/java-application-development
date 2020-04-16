@@ -1,25 +1,24 @@
 package com.acme.dbo.txlog;
 
-class StringCommand implements Command {
+public class ObjectCommand implements Command {
+    private String DECOR = "reference: ";
 
-    private String DECOR = "string: ";
-
-    private String currentValue;
+    private Object currentValue;
     private String accumulator;
 
-    StringCommand(String message) {
+    ObjectCommand(Object message) {
         currentValue = message;
-        accumulator = message;
+        accumulator = convertObjectToString(message);
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof StringCommand) {
-            StringCommand stringCommand = (StringCommand) command;
-            if (stringCommand.accumulator == null) {
-                this.accumulator = this.currentValue;
+        if (command instanceof ObjectCommand) {
+            ObjectCommand castedCommand = (ObjectCommand) command;
+            if (castedCommand.accumulator == null) {
+                this.accumulator = convertObjectToString(this.currentValue);
             } else {
-                this.accumulator = stringCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
+                this.accumulator = castedCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
         }
         return this;
@@ -27,7 +26,7 @@ class StringCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return currentValue;
+        return convertObjectToString(currentValue);
     }
 
     @Override
@@ -46,10 +45,15 @@ class StringCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(currentValue);
+        return getDecoratedValue(convertObjectToString(currentValue));
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
     }
+
+    private String convertObjectToString(Object character) {
+        return character.toString();
+    }
+
 }

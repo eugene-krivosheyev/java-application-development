@@ -1,25 +1,24 @@
 package com.acme.dbo.txlog;
 
-class StringCommand implements Command {
+public class BooleanCommand implements Command {
+    private String DECOR = "primitive: ";
 
-    private String DECOR = "string: ";
-
-    private String currentValue;
+    private boolean currentValue;
     private String accumulator;
 
-    StringCommand(String message) {
+    BooleanCommand(boolean message) {
         currentValue = message;
-        accumulator = message;
+        accumulator = convertBooleanToString(message);
     }
 
     @Override
     public Command accumulate(Controller controller, Command command) {
-        if (command instanceof StringCommand) {
-            StringCommand stringCommand = (StringCommand) command;
-            if (stringCommand.accumulator == null) {
-                this.accumulator = this.currentValue;
+        if (command instanceof BooleanCommand) {
+            BooleanCommand castedCommand = (BooleanCommand) command;
+            if (castedCommand.accumulator == null) {
+                this.accumulator = convertBooleanToString(this.currentValue);
             } else {
-                this.accumulator = stringCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
+                this.accumulator = castedCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
         }
         return this;
@@ -27,7 +26,7 @@ class StringCommand implements Command {
 
     @Override
     public String getCurrentValue() {
-        return currentValue;
+        return convertBooleanToString(currentValue);
     }
 
     @Override
@@ -46,10 +45,15 @@ class StringCommand implements Command {
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(currentValue);
+        return getDecoratedValue(convertBooleanToString(currentValue));
     }
 
     private String getDecoratedValue(String object) {
         return DECOR + object;
     }
+
+    private String convertBooleanToString(boolean character) {
+        return Boolean.toString(character);
+    }
+
 }
