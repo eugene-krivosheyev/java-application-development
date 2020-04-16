@@ -1,40 +1,36 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.logger.LoggerBase;
+import com.acme.dbo.txlog.message.*;
+
 import java.io.PrintStream;
 
 public class Facade {
+    private static final String PRIMITIVE = "primitive";
 
-    private static PrintStream writer = System.out;
+    static LoggerWriter writer = new LoggerWriter(System.out);
 
     public static void log(byte message) {
-        logPrimitive(Byte.toString(message));
+        writer.log(new PrefixMessage(PRIMITIVE, new ByteMessage(message)));
     }
 
     public static void log(int message) {
-        logPrimitive(Integer.toString(message));
+         writer.log(new PrefixMessage(PRIMITIVE, new IntMessage(message)));
     }
 
     public static void log(boolean message) {
-        logPrimitive(Boolean.toString(message));
+        writer.log(new PrefixMessage(PRIMITIVE, new BoolMessage(message)));
     }
 
     public static void log(char message) {
-        logPrefix("char", Character.toString(message));
+        writer.log(new PrefixMessage("char", new CharMessage(message)));
     }
 
     public static void log(String message) {
-        logPrefix("string", message);
+        writer.log(new PrefixMessage("string", new StringMessage(message)));
     }
 
     public static void log(Object message) {
-        logPrefix("reference", message.toString());
-    }
-
-    private static void logPrimitive(String message){
-        writer.println("primitive: " + message);
-    }
-
-    private static void logPrefix(String prefix, String message){
-        writer.println(prefix + ": " + message);
+        writer.log(new PrefixMessage("reference", new ObjectMessage(message)));
     }
 }

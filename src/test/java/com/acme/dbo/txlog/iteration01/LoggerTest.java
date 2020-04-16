@@ -53,6 +53,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
+    public void shouldLogBoolean() throws IOException {
+        //region when
+        Facade.log(true);
+        Facade.log(false);
+        //endregion
+
+        //region then
+        assertSysoutContains("primitive: ");
+        assertSysoutContains("true");
+        assertSysoutContains("false");
+        //endregion
+    }
+
+
+    @Test
     public void shouldLogChar() throws IOException {
         //region when
         Facade.log('a');
@@ -82,19 +97,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
 
-    @Test
-    public void shouldLogBoolean() throws IOException {
-        //region when
-        Facade.log(true);
-        Facade.log(false);
-        //endregion
-
-        //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutContains("true");
-        assertSysoutContains("false");
-        //endregion
-    }
 
 
     @Test
