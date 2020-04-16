@@ -1,15 +1,26 @@
 package com.acme.dbo.txlog.command;
 
-public class MatrixCommand {
+public class MatrixCommand implements LogCommand {
     private int[][] message;
+    LogType type = LogType.MATRIX;
 
     public MatrixCommand(int[][] message) {
         this.message = message;
     }
 
     @Override
-    public String toString() {
+    public String getValue() {
         return convertArrayToString(message);
+    }
+
+    @Override
+    public LogType getType() {
+        return type;
+    }
+
+    @Override
+    public String getPrefix() {
+        return type.getPrefix();
     }
 
     private String convertArrayToString(int[] array) {

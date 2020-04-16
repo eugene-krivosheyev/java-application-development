@@ -1,22 +1,36 @@
 package com.acme.dbo.txlog.command;
 
-public class IntegerCommand {
+public class IntegerCommand implements LogCommand, AccumulatedCommand {
     private int message;
+    LogType type = LogType.INT;
 
     public IntegerCommand(int message) {
         this.message = message;
     }
 
     @Override
-    public String toString() {
+    public String getValue() {
         return String.valueOf(message);
     }
 
-    public boolean isCumulative(IntegerCommand previousCommand) {
-        return Integer.MAX_VALUE - this.message > previousCommand.message;
+    @Override
+    public LogType getType() {
+        return type;
     }
 
-    public IntegerCommand accumulateWith(IntegerCommand previousCommand) {
-        return new IntegerCommand(previousCommand.message + this.message);
+    @Override
+    public String getPrefix() {
+        return type.getPrefix();
+    }
+
+    @Override
+    public boolean isCumulative(LogCommand previousCommand) {
+        if (!(previousCommand instanceof IntegerCommand)) return false;
+        return Integer.MAX_VALUE - this.message > ((IntegerCommand) previousCommand).message;
+    }
+
+    @Override
+    public LogCommand accumulateWith(LogCommand previousCommand) {
+        return new IntegerCommand(((IntegerCommand) previousCommand).message + this.message);
     }
 }
