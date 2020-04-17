@@ -1,22 +1,19 @@
-package com.acme.dbo.controller;
+package com.acme.dbo.txlog.controller;
 
-import com.acme.dbo.command.Command;
-import com.acme.dbo.writer.LogWriter;
+import com.acme.dbo.txlog.command.Command;
+import com.acme.dbo.txlog.command.NullCommand;
+import com.acme.dbo.txlog.writer.LogWriter;
 
 public class LoggerController {
     private LogWriter logWriter;
-    private Command currentState;
+    private Command currentState = new NullCommand();
 
     public LoggerController(LogWriter logWriter) {
         this.logWriter = logWriter;
     }
 
     public void log(Command command) {
-        if(currentState == null) {
-            this.currentState = command;
-            return;
-        }
-        if(sameCommand(command) && currentState.checkOverflow(command)) {
+        if(sameCommand(command) && currentState.checkNoOverflow(command)) {
             updateState(command);
         } else {
             flush(command);
@@ -28,12 +25,12 @@ public class LoggerController {
     }
 
     private void updateState(Command command) {
-        this.currentState = currentState.accumulateCommand(command);
+        currentState.accumulateCommand(command);
     }
 
     private void flush(Command command) {
         String message = currentState.decoratedMessage();
-        if (message != null) {
+        if (!message.equals("")) {
             logWriter.write(message);
         }
         this.currentState = command;

@@ -1,22 +1,16 @@
 package com.acme.dbo.txlog;
 
-import com.acme.dbo.command.ByteCommand;
-import com.acme.dbo.command.IntCommand;
-import com.acme.dbo.command.NullCommand;
-import com.acme.dbo.command.StringCommand;
-import com.acme.dbo.writer.ConsoleLogWriter;
-import com.acme.dbo.controller.LoggerController;
+import com.acme.dbo.txlog.command.ByteCommand;
+import com.acme.dbo.txlog.command.IntCommand;
+import com.acme.dbo.txlog.command.NullCommand;
+import com.acme.dbo.txlog.command.StringCommand;
+import com.acme.dbo.txlog.writer.ConsoleLogWriter;
+import com.acme.dbo.txlog.controller.LoggerController;
 
 public class Facade {
 
     public static final String PRIMITIVE = "primitive: ";
     public static final String STRING = "string: ";
-
-
-    public static final byte TYPENOTDEFINED = 0;
-    public static final byte TYPEBYTE = 1;
-    public static final byte TYPEINT = 2;
-    public static final byte TYPESTRING = 4;
 
     private static LoggerController controller = new LoggerController(new ConsoleLogWriter());
 

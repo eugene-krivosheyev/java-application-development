@@ -1,4 +1,4 @@
-package com.acme.dbo.writer;
+package com.acme.dbo.txlog.writer;
 
 public class ConsoleLogWriter implements LogWriter {
 
