@@ -25,11 +25,14 @@ public class LogController {
     }
 
     public void close() {
-        writer.write(lastCommand);
+        if (! Objects.isNull(lastCommand)) {
+            writer.write(lastCommand.getDecoratedMessage());
+        }
+        lastCommand = null;
     }
 
     private void flush(Command command) {
-        writer.write(lastCommand);
+        writer.write(lastCommand.getDecoratedMessage());
         lastCommand = command;
     }
 

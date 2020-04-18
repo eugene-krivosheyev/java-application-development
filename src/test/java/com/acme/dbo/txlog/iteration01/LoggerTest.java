@@ -59,9 +59,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-
-    //TODO: implement Logger solution to match specification as tests
-
     @Test
     public void shouldLogChar() throws IOException {
         //region when
@@ -81,6 +78,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log("test string 1");
         Facade.log("other str");
+        Facade.close();
         //endregion
 
         //region then

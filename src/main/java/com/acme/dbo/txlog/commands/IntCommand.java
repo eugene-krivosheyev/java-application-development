@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.commands;
 
 public class IntCommand implements Command {
 
-    private Integer message = 0;
+    private Integer message;
 
     public IntCommand(int message) {
         this.message = message;

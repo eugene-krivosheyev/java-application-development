@@ -4,11 +4,11 @@ import com.acme.dbo.txlog.commands.ByteCommand;
 import com.acme.dbo.txlog.commands.IntCommand;
 import com.acme.dbo.txlog.commands.StrCommand;
 import com.acme.dbo.txlog.controllers.LogController;
-import com.acme.dbo.txlog.writers.LogWriter;
+import com.acme.dbo.txlog.writers.LogWriterFactory;
 
 public class Facade {
 
-    private static LogController logController = new LogController(new LogWriter());
+    private static LogController logController = new LogController(LogWriterFactory.create());
 
     public static void log(int message) {
         logController.log(new IntCommand(message));

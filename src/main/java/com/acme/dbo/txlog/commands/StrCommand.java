@@ -2,9 +2,8 @@ package com.acme.dbo.txlog.commands;
 
 public class StrCommand implements Command {
 
-    private String message = "";
-    private static String accumulator = "";
-    private static int counter = 0;
+    private String message;
+    private static int counter = 1;
 
     public StrCommand(String message) {
         this.message = message;
@@ -14,22 +13,26 @@ public class StrCommand implements Command {
         return message;
     }
 
+    @Override
     public String getDecoratedMessage() {
-        return "string:" + getMessage();
+        String result = "string: " + getMessage() + (counter < 2 ? "" : " (x" + counter + ")");
+        counter = 1;
+        return result;
     }
 
+    @Override
     public boolean isSame(Command command) {
-        return false;
+        return command instanceof StrCommand && message.equals(((StrCommand)command).getMessage());
     }
 
     @Override
     public void accumulate(Command command) {
-
+        ++counter;
     }
 
     @Override
     public boolean validate(Command command) {
-        return false;
+        return true;
     }
 
 }
