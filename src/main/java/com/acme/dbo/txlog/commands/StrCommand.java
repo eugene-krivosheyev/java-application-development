@@ -1,7 +1,6 @@
 package com.acme.dbo.txlog.commands;
 
 public class StrCommand implements Command {
-
     private String message;
     private static int counter = 1;
 
@@ -34,5 +33,4 @@ public class StrCommand implements Command {
     public boolean validate(Command command) {
         return true;
     }
-
 }

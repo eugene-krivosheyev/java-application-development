@@ -1,7 +1,6 @@
 package com.acme.dbo.txlog.commands;
 
 public class ByteCommand implements Command {
-
     private byte message;
 
     public ByteCommand(byte message) {
@@ -35,5 +34,4 @@ public class ByteCommand implements Command {
     private boolean isOverflow(byte a, byte b) {
         return  ((a > 0 && b > Byte.MAX_VALUE - a) || (a < 0 && b < Byte.MIN_VALUE - a));
     }
-
 }

@@ -1,23 +1,20 @@
 package com.acme.dbo.txlog.controllers;
 
+import com.acme.dbo.txlog.commands.NullCommand;
 import com.acme.dbo.txlog.writers.LogWriter;
 import com.acme.dbo.txlog.commands.Command;
 
-import java.util.Objects;
-
 public class LogController {
 
-    private LogWriter writer;
-    private Command lastCommand = null;
+    private final LogWriter writer;
+    private Command lastCommand = new NullCommand();
 
     public LogController(LogWriter logWriter) {
         this.writer = logWriter;
     }
 
     public void log(Command command) {
-        if (Objects.isNull(lastCommand)) {
-            lastCommand = command;
-        } else if (sameCommand(command)) {
+        if (sameCommand(command)) {
             updateState(command);
         } else {
             flush(command);
@@ -25,10 +22,7 @@ public class LogController {
     }
 
     public void close() {
-        if (! Objects.isNull(lastCommand)) {
-            writer.write(lastCommand.getDecoratedMessage());
-        }
-        lastCommand = null;
+        flush(new NullCommand());
     }
 
     private void flush(Command command) {
@@ -47,5 +41,4 @@ public class LogController {
     private boolean sameCommand(Command command) {
         return lastCommand.isSame(command);
     }
-
 }

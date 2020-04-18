@@ -1,7 +1,6 @@
 package com.acme.dbo.txlog.commands;
 
 public class IntCommand implements Command {
-
     private Integer message;
 
     public IntCommand(int message) {
@@ -35,5 +34,4 @@ public class IntCommand implements Command {
     private boolean isOverflow(int a, int b) {
         return  ((a > 0 && b > Integer.MAX_VALUE - a) || (a < 0 && b < Integer.MIN_VALUE - a));
     }
-
 }
