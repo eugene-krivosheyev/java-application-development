@@ -7,11 +7,11 @@ public class Controller {
     private Command command;
 
     private Command lastCommand = new NullCommand(null);
-    private Writer writer;
+    private ConsoleLogWriter writer;
 
     private int duplicateCount;
 
-    Controller(Writer writer) {
+    Controller(ConsoleLogWriter writer) {
         this.writer = writer;
     }
 

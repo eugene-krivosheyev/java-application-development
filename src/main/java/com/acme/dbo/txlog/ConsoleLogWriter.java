@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog;
 
-class Writer {
+class ConsoleLogWriter {
 
     void write(String message) {
         if (message != null) {
