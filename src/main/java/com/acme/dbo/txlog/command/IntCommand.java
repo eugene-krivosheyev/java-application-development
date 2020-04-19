@@ -37,7 +37,7 @@ public class IntCommand implements Command {
                 if (checkIntegerValueIsOutBound(this.currentValue)) {
                     actionIfOutOfBoundValue();
                 } else {
-                    this.accumulator = Integer.toString(sum + this.currentValue);
+                    this.accumulator = Integer.toString(intCommand.sum + this.currentValue);
                 }
             }
         }
