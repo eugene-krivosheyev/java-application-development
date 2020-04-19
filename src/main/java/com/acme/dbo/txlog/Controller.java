@@ -7,14 +7,17 @@ public class Controller {
     private Command command;
 
     private Command lastCommand = new NullCommand(null);
-    private Writer writer = new Writer();
+    private Writer writer;
 
     private int duplicateCount;
 
+    Controller(Writer writer) {
+        this.writer = writer;
+    }
 
     void log(Command command) {
         if ((command.getClass().equals(lastCommand.getClass()))) {
-            command = command.accumulate(this, lastCommand);
+            this.command = command.accumulate(this, lastCommand);
             if (lastCommand.getCurrentValue().equals(command.getCurrentValue())) {
                 duplicateCount++;
                 command = lastCommand;

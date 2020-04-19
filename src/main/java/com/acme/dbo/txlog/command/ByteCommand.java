@@ -12,6 +12,8 @@ public class ByteCommand implements Command {
     private Byte sum;
     private Byte MAX_BYTE = Byte.MAX_VALUE;
 
+    private Controller controller;
+
     public ByteCommand(Byte message) {
         currentValue = message;
         accumulator = message.toString();
@@ -25,19 +27,17 @@ public class ByteCommand implements Command {
 
     @Override
     public ByteCommand accumulate(Controller controller, Command command) {
-        if(command instanceof ByteCommand) {
+        if (command instanceof ByteCommand) {
             ByteCommand byteCommand = (ByteCommand) command;
+            this.controller = controller;
             if (byteCommand.accumulator == null) {
                 accumulator = this.currentValue.toString();
                 sum = this.currentValue;
             } else {
                 if (checkByteValueIsOutBound(this.currentValue)) {
-                    controller.flush();
-                    accumulator = MAX_BYTE + "";
-                    sum = MAX_BYTE;
-                    controller.flush();
+                    actionIfOutOfBoundValue();
                 } else {
-                    accumulator = addCurrentValueAndSumToAccumulator(byteCommand.accumulator, byteCommand.sum, this.currentValue);
+                    accumulator = accumulateIfInBoundValue(byteCommand.accumulator, byteCommand.sum, this.currentValue);
                 }
             }
         }
@@ -55,7 +55,14 @@ public class ByteCommand implements Command {
         sum = 0;
     }
 
-    private String addCurrentValueAndSumToAccumulator(String accumulator, Byte sum, Byte currentValue) {
+    private void actionIfOutOfBoundValue() {
+        controller.flush();
+        accumulator = MAX_BYTE + "";
+        sum = MAX_BYTE;
+        controller.flush();
+    }
+
+    private String accumulateIfInBoundValue(String accumulator, Byte sum, Byte currentValue) {
         String totalAccumulator;
         int accumulatedSum = sum + currentValue;
         if (accumulator.contains(System.lineSeparator())) {

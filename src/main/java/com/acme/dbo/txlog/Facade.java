@@ -3,7 +3,8 @@ package com.acme.dbo.txlog;
 import com.acme.dbo.txlog.command.*;
 
 public class Facade {
-    private static Controller controller = new Controller();
+    private static Controller controller = new Controller(new Writer());
+
 
     public static void log(int message) {
         controller.log(new IntCommand(message));

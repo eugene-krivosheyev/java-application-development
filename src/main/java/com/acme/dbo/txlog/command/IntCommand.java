@@ -12,6 +12,8 @@ public class IntCommand implements Command {
     private Integer sum;
     private int MAX_INTEGER = Integer.MAX_VALUE;
 
+    private Controller controller;
+
     public IntCommand(Integer message) {
         currentValue = message;
         accumulator = message.toString();
@@ -27,17 +29,15 @@ public class IntCommand implements Command {
     public Command accumulate(Controller controller, Command command) {
         if (command instanceof IntCommand) {
             IntCommand intCommand = (IntCommand) command;
+            this.controller = controller;
             if (intCommand.accumulator == null) {
                 accumulator = this.currentValue.toString();
                 sum = this.currentValue;
             } else {
                 if (checkIntegerValueIsOutBound(this.currentValue)) {
-                    controller.flush();
-                    accumulator = MAX_INTEGER + "";
-                    sum = MAX_INTEGER;
-                    controller.flush();
+                    actionIfOutOfBoundValue();
                 } else {
-                    accumulator = addCurrentValueAndSumToAccumulator(intCommand.accumulator, intCommand.sum, this.currentValue);
+                    this.accumulator = accumulateIfInBoundValue(intCommand.accumulator, intCommand.sum);
                 }
             }
         }
@@ -55,9 +55,16 @@ public class IntCommand implements Command {
         sum = 0;
     }
 
-    private String addCurrentValueAndSumToAccumulator(String accumulator, Integer sum, Integer currentValue) {
+    private void actionIfOutOfBoundValue() {
+        controller.flush();
+        accumulator = MAX_INTEGER + "";
+        sum = MAX_INTEGER;
+        controller.flush();
+    }
+
+    private String accumulateIfInBoundValue(String accumulator, Integer sum) {
         String totalAccumulator;
-        int accumulatedSum = sum + currentValue;
+        int accumulatedSum = sum + this.currentValue;
         if (accumulator.contains(System.lineSeparator())) {
             totalAccumulator = accumulator + Integer.toString(accumulatedSum) + System.lineSeparator();
         } else {
