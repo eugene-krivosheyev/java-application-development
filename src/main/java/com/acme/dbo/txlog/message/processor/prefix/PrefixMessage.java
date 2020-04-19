@@ -1,4 +1,6 @@
-package com.acme.dbo.txlog.message;
+package com.acme.dbo.txlog.message.processor.prefix;
+
+import com.acme.dbo.txlog.message.MessageBase;
 
 public class PrefixMessage extends MessageBase {
 

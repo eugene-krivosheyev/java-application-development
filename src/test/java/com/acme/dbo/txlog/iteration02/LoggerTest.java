@@ -1,13 +1,22 @@
 package com.acme.dbo.txlog.iteration02;
 
 import com.acme.dbo.txlog.Facade;
+import com.acme.dbo.txlog.LogWriter;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.message.*;
+import com.acme.dbo.txlog.message.processor.aggregation.AggregatingMessageProcessor;
+import com.acme.dbo.txlog.message.processor.MessageProcessor;
+import com.acme.dbo.txlog.message.processor.aggregation.AggregationBase;
+import com.acme.dbo.txlog.message.processor.aggregation.IntAggregation;
+import com.acme.dbo.txlog.message.processor.aggregation.StringAggregation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CORBA.Environment;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -15,6 +24,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
+        Facade.init(createAggregationProcessor(), new LogWriter(System.out));
     }
 
     @After
@@ -22,8 +32,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         resetOut();
     }
     //endregion
-
-
 
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
@@ -33,14 +41,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(2);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1"+ System.lineSeparator() +
+            "str 1" + System.lineSeparator() +
             "3" + System.lineSeparator() +
             "str 2" + System.lineSeparator()+
-            "0" +System.lineSeparator()
+            "0" + System.lineSeparator()
         );
         //endregion
     }
@@ -48,20 +57,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-//        Facade.log("str 1");
-//        Facade.log(10);
-//        Facade.log(Integer.MAX_VALUE);
-//        Facade.log("str 2");
-//        Facade.log(0);
+        Facade.log("str 1");
+        Facade.log(10);
+        Facade.log(Integer.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Integer.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+            "str 1" + System.lineSeparator() +
+            "10" + System.lineSeparator() +
+            Integer.MAX_VALUE + System.lineSeparator() +
+            "str 2" + System.lineSeparator() +
+            "0" + System.lineSeparator()
         );
         //endregion
     }
@@ -69,20 +79,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-//        Facade.log("str 1");
-//        Facade.log((byte)10);
-//        Facade.log((byte)Byte.MAX_VALUE);
-//        Facade.log("str 2");
-//        Facade.log(0);
+        Facade.log("str 1");
+        Facade.log((byte)10);
+        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Byte.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+            "str 1" + System.lineSeparator() +
+            "10" + System.lineSeparator() +
+            Byte.MAX_VALUE  + System.lineSeparator() +
+            "str 2" + System.lineSeparator() +
+            "0" + System.lineSeparator()
         );
         //endregion
     }
@@ -90,25 +101,36 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-//        Facade.log("str 1");
-//        Facade.log("str 2");
-//        Facade.log("str 2");
-//        Facade.log(0);
-//        Facade.log("str 2");
-//        Facade.log("str 3");
-//        Facade.log("str 3");
-//        Facade.log("str 3");
+        Facade.log("str 1");
+        Facade.log("str 2");
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.log("str 2");
+        Facade.log("str 3");
+        Facade.log("str 3");
+        Facade.log("str 3");
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "str 2 (x2)\n" +
-            "0\n" +
-            "str 2\n" +
-            "str 3 (x3)\n"
+            "str 1" + System.lineSeparator() +
+            "str 2 (x2)" + System.lineSeparator() +
+            "0" + System.lineSeparator() +
+            "str 2" + System.lineSeparator() +
+            "str 3 (x3)" + System.lineSeparator()
         );
         //endregion
+    }
+
+    private static MessageProcessor createAggregationProcessor(){
+        Map<Class, Function<MessageBase, AggregationBase>> classToCreatorMap = new HashMap<>() {{
+            put(IntMessage.class, m->new IntAggregation((IntMessage) m));
+            put(StringMessage.class, m->new StringAggregation((StringMessage)m));
+
+        }};
+
+        return new AggregatingMessageProcessor(classToCreatorMap);
     }
 
 

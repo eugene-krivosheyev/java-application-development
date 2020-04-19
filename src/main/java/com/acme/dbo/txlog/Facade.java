@@ -1,36 +1,64 @@
 package com.acme.dbo.txlog;
 
-import com.acme.dbo.txlog.logger.LoggerBase;
-import com.acme.dbo.txlog.message.*;
+import com.acme.dbo.txlog.message.MessageBase;
+import com.acme.dbo.txlog.message.MessageConverter;
+import com.acme.dbo.txlog.message.processor.MessageProcessor;
 
-import java.io.PrintStream;
+import java.io.IOException;
 
-public class Facade {
-    private static final String PRIMITIVE = "primitive";
 
-    static LoggerWriter writer = new LoggerWriter(System.out);
+public final class Facade {
+
+    private static MessageProcessor messageProcessor;
+    private static LogWriter logWriter;
+    private Facade(){}
+
+    public static void init(MessageProcessor messageProcessor, LogWriter logWriter) {
+        Facade.messageProcessor = messageProcessor;
+        Facade.logWriter = logWriter;
+        messageProcessor.setCallBack(m->logMessage(m));
+    }
 
     public static void log(byte message) {
-        writer.log(new PrefixMessage(PRIMITIVE, new ByteMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void log(int message) {
-         writer.log(new PrefixMessage(PRIMITIVE, new IntMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void log(boolean message) {
-        writer.log(new PrefixMessage(PRIMITIVE, new BoolMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void log(char message) {
-        writer.log(new PrefixMessage("char", new CharMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void log(String message) {
-        writer.log(new PrefixMessage("string", new StringMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void log(Object message) {
-        writer.log(new PrefixMessage("reference", new ObjectMessage(message)));
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
+
+    public static void log(int... intValues ) {
+        //messageProcessor.accept(MessageConverter.toMessage(message));
+    }
+
+    public static void flush(){
+        try {
+            messageProcessor.flush();
+        }
+        catch (IOException ex){
+            System.err.println(ex);
+        }
+    }
+
+    public static void logMessage(MessageBase message){
+        logWriter.println(message);
+    }
+
+
 }

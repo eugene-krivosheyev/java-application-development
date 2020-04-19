@@ -20,14 +20,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void tearDown() {
         resetOut();
     }
-    //endregion
-
 
 
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-//        Facade.log(new int[] {-1, 0, 1});
+        Facade.log(new int[] {-1, 0, 1});
         //endregion
 
         //region then

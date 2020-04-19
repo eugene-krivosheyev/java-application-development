@@ -4,15 +4,15 @@ import com.acme.dbo.txlog.message.MessageBase;
 
 import java.io.PrintStream;
 
-public class LoggerWriter{
+public class LogWriter {
 
     private PrintStream writer;
 
-    public LoggerWriter(PrintStream writer){
+    public LogWriter(PrintStream writer){
         this.writer = writer;
     }
 
-    public void log(MessageBase messageBase){
+    public void println(MessageBase messageBase) {
         writer.println(messageBase.toString());
     }
 }

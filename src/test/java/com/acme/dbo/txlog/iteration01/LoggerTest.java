@@ -1,19 +1,26 @@
 package com.acme.dbo.txlog.iteration01;
 
 import com.acme.dbo.txlog.Facade;
+import com.acme.dbo.txlog.LogWriter;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.message.*;
+import com.acme.dbo.txlog.message.processor.MessageProcessor;
+import com.acme.dbo.txlog.message.processor.prefix.PrefixMessageProcessor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOutAndLogger() throws IOException {
         resetOut();
         captureSysout();
+        Facade.init(createPrefixProcessor(), new LogWriter(System.out));
     }
 
     @After
@@ -96,9 +103,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-
-
-
     @Test
     public void shouldLogReference() throws IOException {
         //region when
@@ -111,5 +115,19 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
+    private static MessageProcessor createPrefixProcessor(){
 
+        final String PRIMITIVE = "primitive";
+
+        Map<Class, String> prefixToClassMap = new HashMap<>() {{
+            put(ByteMessage.class, PRIMITIVE);
+            put(IntMessage.class, PRIMITIVE);
+            put(BoolMessage.class, PRIMITIVE);
+            put(CharMessage.class, "char");
+            put(StringMessage.class, "string");
+            put(ObjectMessage.class, "reference");
+        }};
+
+        return new PrefixMessageProcessor(prefixToClassMap);
+    }
 }

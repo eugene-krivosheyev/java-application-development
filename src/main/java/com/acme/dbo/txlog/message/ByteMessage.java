@@ -8,6 +8,10 @@ public class ByteMessage extends MessageBase {
         this.value = value;
     }
 
+    public byte getValue(){
+        return value;
+    }
+
     @Override
     public String toString(){
         return Byte.toString(value);
