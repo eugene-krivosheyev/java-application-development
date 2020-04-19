@@ -37,7 +37,7 @@ public class IntCommand implements Command {
                 if (checkIntegerValueIsOutBound(this.currentValue)) {
                     actionIfOutOfBoundValue();
                 } else {
-                    this.accumulator = accumulateIfInBoundValue(intCommand.accumulator, intCommand.sum);
+                    this.accumulator = Integer.toString(sum + this.currentValue);
                 }
             }
         }
@@ -60,17 +60,6 @@ public class IntCommand implements Command {
         accumulator = MAX_INTEGER + "";
         sum = MAX_INTEGER;
         controller.flush();
-    }
-
-    private String accumulateIfInBoundValue(String accumulator, Integer sum) {
-        String totalAccumulator;
-        int accumulatedSum = sum + this.currentValue;
-        if (accumulator.contains(System.lineSeparator())) {
-            totalAccumulator = accumulator + Integer.toString(accumulatedSum) + System.lineSeparator();
-        } else {
-            totalAccumulator = Integer.toString(accumulatedSum);
-        }
-        return totalAccumulator;
     }
 
     private boolean checkIntegerValueIsOutBound(Integer number) {

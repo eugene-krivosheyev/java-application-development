@@ -37,7 +37,7 @@ public class ByteCommand implements Command {
                 if (checkByteValueIsOutBound(this.currentValue)) {
                     actionIfOutOfBoundValue();
                 } else {
-                    accumulator = accumulateIfInBoundValue(byteCommand.accumulator, byteCommand.sum, this.currentValue);
+                    accumulator = Integer.toString(sum + this.currentValue);
                 }
             }
         }
@@ -60,17 +60,6 @@ public class ByteCommand implements Command {
         accumulator = MAX_BYTE + "";
         sum = MAX_BYTE;
         controller.flush();
-    }
-
-    private String accumulateIfInBoundValue(String accumulator, Byte sum, Byte currentValue) {
-        String totalAccumulator;
-        int accumulatedSum = sum + currentValue;
-        if (accumulator.contains(System.lineSeparator())) {
-            totalAccumulator = accumulator + Integer.toString(accumulatedSum) + System.lineSeparator();
-        } else {
-            totalAccumulator = Integer.toString(accumulatedSum);
-        }
-        return totalAccumulator;
     }
 
     private boolean checkByteValueIsOutBound(Byte number) {
