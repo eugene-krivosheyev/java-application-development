@@ -25,6 +25,8 @@ public class StringCommand implements Command {
 
     @Override
     public boolean canBeBuffered(Command command) {
+        if (!this.equals(command)) return false;
+
         StringCommand inCommand = (StringCommand) command;
         return state.equals(inCommand.getState());
     }

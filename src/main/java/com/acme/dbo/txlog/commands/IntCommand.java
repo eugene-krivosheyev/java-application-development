@@ -16,6 +16,8 @@ public class IntCommand implements Command {
 
     @Override
     public boolean canBeBuffered(Command command) {
+        if (!this.equals(command)) return false;
+
         int inState = ((IntCommand) command).getState();
         return (inState <= Integer.MAX_VALUE - state);
     }

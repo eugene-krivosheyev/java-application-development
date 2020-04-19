@@ -12,12 +12,16 @@ import static java.lang.String.join;
 import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+
+    static {
+        System.setProperty("isDecorated", "true");
+    }
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        Facade.setDecorated(true);
     }
 
     @After

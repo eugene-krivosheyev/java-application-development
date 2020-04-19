@@ -4,29 +4,32 @@ import java.util.Objects;
 
 public class LogController {
 
-    private Command previousCommand;
-    private LogWriter logWriter = new ConsoleLogWriter();
+    protected Command previousCommand;
+    protected LogWriter logWriter;
+
+
+    public LogController(LogWriter logWriter) {
+        this.logWriter = logWriter;
+    }
 
     public void write(Command command) {
         if (Objects.isNull(previousCommand)) {
             previousCommand = command;
-            return;
-        }
-
-        if (previousCommand.equals(command) && previousCommand.canBeBuffered(command)) {
+        } else  if (previousCommand.canBeBuffered(command)) {
             previousCommand = previousCommand.accumulate(command);
         } else {
-            logWriter.write(previousCommand);
+            writeAccordingBusinessRules(command);
             previousCommand = command;
         }
     }
 
-    public void flush() {
+    protected void writeAccordingBusinessRules(Command command){
         logWriter.write(previousCommand);
+    }
+
+    public void flush() {
+        writeAccordingBusinessRules(previousCommand);
         previousCommand = null;
     }
 
-    public void setDecorated(boolean decorated) {
-        logWriter.setDecorated(decorated);
-    }
 }

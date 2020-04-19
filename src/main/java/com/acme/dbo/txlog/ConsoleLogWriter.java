@@ -2,29 +2,14 @@ package com.acme.dbo.txlog;
 
 public class ConsoleLogWriter implements LogWriter {
 
-    private boolean isDecorated;
-
-
     @Override
     public void write(Command command) {
-        System.out.println(decorate(command));
+        System.out.println(command);
     }
 
     @Override
-    public String decorate(Command command) {
-        if (command == null){
-            return "";
-        }
-
-        if (isDecorated) {
-            return command.getDecoratePrefix() + ": " + command.toString();
-        } else {
-            return command.toString();
-        }
+    public void write(String command) {
+        System.out.println(command);
     }
 
-    @Override
-    public void setDecorated(boolean decorated) {
-        isDecorated = decorated;
-    }
 }

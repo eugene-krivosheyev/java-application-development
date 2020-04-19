@@ -4,7 +4,7 @@ import com.acme.dbo.txlog.commands.*;
 
 public class Facade {
 
-    private static LogController controller = new LogController();
+    private static LogController controller = LogControllerFactory.create();
 
     public static void log(int message) {
         controller.write(new IntCommand(message));
@@ -28,10 +28,6 @@ public class Facade {
 
     public static void log(String message) {
         controller.write(new StringCommand(message));
-    }
-
-    public static void setDecorated(boolean isDecorated) {
-        controller.setDecorated(isDecorated);
     }
 
     public static void flush() {

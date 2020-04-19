@@ -22,6 +22,8 @@ public class ByteCommand implements Command {
 
     @Override
     public boolean canBeBuffered(Command command) {
+        if (!this.equals(command)) return false;
+
         byte inState = ((ByteCommand) command).getState();
         return inState <= Byte.MAX_VALUE - state;
     }
