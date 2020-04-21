@@ -1,4 +1,6 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.writers;
+
+import com.acme.dbo.txlog.commands.Command;
 
 public class ConsoleLogWriter implements LogWriter {
     @Override

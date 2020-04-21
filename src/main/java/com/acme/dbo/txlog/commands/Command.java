@@ -1,7 +1,5 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.commands;
 
 public interface Command {
-    boolean isSame(Command command);
-
     Command accumulate(Command command) throws Exception;
 }

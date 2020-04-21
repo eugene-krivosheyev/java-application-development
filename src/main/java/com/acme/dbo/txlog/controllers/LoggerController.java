@@ -1,4 +1,8 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.controllers;
+
+import com.acme.dbo.txlog.commands.Command;
+import com.acme.dbo.txlog.commands.NullCommand;
+import com.acme.dbo.txlog.writers.LogWriter;
 
 public class LoggerController {
     private final LogWriter logWriter;
@@ -10,28 +14,15 @@ public class LoggerController {
     }
 
     public void log(Command command) {
-        if (sameCommand(command)) {
-            updateCommand(command);
-        } else {
-            flush(command);
+        try {
+            currentCommand = currentCommand.accumulate(command);
+        } catch (Exception e) {
+            this.flush(command);
         }
     }
 
     public void flush() {
         flush(new NullCommand());
-    }
-
-    private boolean sameCommand(Command command) {
-        return this.currentCommand.isSame(command);
-    }
-
-    private void updateCommand(Command command) {
-        try {
-            this.currentCommand = currentCommand.accumulate(command);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            this.flush(command);
-        }
     }
 
     private void flush(Command command) {
