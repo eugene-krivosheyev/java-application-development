@@ -2,9 +2,7 @@ package com.acme.dbo.txlog.message.processor.aggregation;
 
 import com.acme.dbo.txlog.message.MessageBase;
 import com.acme.dbo.txlog.message.processor.MessageProcessor;
-import com.acme.dbo.txlog.message.processor.aggregation.AggregationBase;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -45,7 +43,6 @@ public class AggregatingMessageProcessor implements MessageProcessor {
         }
 
         aggregation = newAggregation;
-
     }
 
     @Override
@@ -53,6 +50,7 @@ public class AggregatingMessageProcessor implements MessageProcessor {
         if (aggregation ==null){
             return;
         }
+
         notify(aggregation.getMessage());
         aggregation = null;
     }

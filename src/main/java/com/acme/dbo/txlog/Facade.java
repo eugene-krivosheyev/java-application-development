@@ -38,13 +38,29 @@ public final class Facade {
     public static void log(String message) {
         messageProcessor.accept(MessageConverter.toMessage(message));
     }
+    public static void log(String... message) {
+        for ( String ss : message) {
+            messageProcessor.accept(MessageConverter.toMessage(ss));
+        }
+        flush();
+    }
 
-    public static void log(Object message) {
+    public static void log(int... message) {
         messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
-    public static void log(int... intValues ) {
-        //messageProcessor.accept(MessageConverter.toMessage(message));
+    public static void log(int[][] message) {
+        messageProcessor.accept(MessageConverter.toMessage(message));
+    }
+
+    public static void log(int[][][][] message) {
+        messageProcessor.accept(MessageConverter.toMessage(message));
+    }
+
+
+
+    public static void log(Object message) {
+        messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
     public static void flush(){

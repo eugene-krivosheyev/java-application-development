@@ -3,6 +3,7 @@ package com.acme.dbo.txlog.message.processor;
 import com.acme.dbo.txlog.message.MessageBase;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class RoutingMessageProcessor implements MessageProcessor {
 
-    private  Map<Class,MessageProcessor> classToProcessorMap;
+    private final Map<Class,MessageProcessor> classToProcessorMap = new HashMap<>();
     private final List<MessageProcessor> processors;
 
     public RoutingMessageProcessor(Map<Class,MessageProcessor> routing){

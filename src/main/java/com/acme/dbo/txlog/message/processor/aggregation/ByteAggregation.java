@@ -1,6 +1,5 @@
 package com.acme.dbo.txlog.message.processor.aggregation;
 import com.acme.dbo.txlog.message.ByteMessage;
-import com.acme.dbo.txlog.message.IntMessage;
 import com.acme.dbo.txlog.message.MessageBase;
 
 public class ByteAggregation extends AggregationBase<ByteMessage> {

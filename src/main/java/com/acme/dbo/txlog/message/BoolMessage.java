@@ -1,8 +1,5 @@
 package com.acme.dbo.txlog.message;
 
-
-import com.acme.dbo.txlog.message.MessageBase;
-
 public class BoolMessage extends MessageBase {
 
     private Boolean value;

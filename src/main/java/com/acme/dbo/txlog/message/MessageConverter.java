@@ -24,9 +24,17 @@ public final class MessageConverter {
         return new StringMessage(message);
     }
 
-    public static MessageBase toMessage(int[] message) {
 
-        return new ObjectMessage(message);
+    public static MessageBase toMessage(int[] message) {
+        return new IntArrayMessage(message);
+    }
+
+    public static MessageBase toMessage(int[][] message) {
+        return new MatrixMessage(message);
+    }
+
+    public static MessageBase toMessage(int[][][][] message) {
+        return new MultiMatrixMessage(message);
     }
 
     public static MessageBase toMessage(Object message) {

@@ -4,11 +4,8 @@ import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.LogWriter;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import com.acme.dbo.txlog.message.*;
-import com.acme.dbo.txlog.message.processor.aggregation.AggregatingMessageProcessor;
+import com.acme.dbo.txlog.message.processor.aggregation.*;
 import com.acme.dbo.txlog.message.processor.MessageProcessor;
-import com.acme.dbo.txlog.message.processor.aggregation.AggregationBase;
-import com.acme.dbo.txlog.message.processor.aggregation.IntAggregation;
-import com.acme.dbo.txlog.message.processor.aggregation.StringAggregation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +45,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutEquals(
             "str 1" + System.lineSeparator() +
             "3" + System.lineSeparator() +
-            "str 2" + System.lineSeparator()+
+            "str 2" + System.lineSeparator() +
             "0" + System.lineSeparator()
         );
         //endregion
@@ -126,7 +123,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     private static MessageProcessor createAggregationProcessor(){
         Map<Class, Function<MessageBase, AggregationBase>> classToCreatorMap = new HashMap<>() {{
             put(IntMessage.class, m->new IntAggregation((IntMessage) m));
-            put(StringMessage.class, m->new StringAggregation((StringMessage)m));
+            put(ByteMessage.class, m->new ByteAggregation((ByteMessage) m));
+            put(StringMessage.class, m->new StringDeduplication((StringMessage)m));
 
         }};
 
