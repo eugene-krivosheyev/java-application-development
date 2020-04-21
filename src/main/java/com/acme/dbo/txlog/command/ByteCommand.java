@@ -4,7 +4,7 @@ import com.acme.dbo.txlog.Controller;
 
 import static java.lang.Math.abs;
 
-public class ByteCommand implements Command {
+public class ByteCommand extends BaseCommand {
     private String DECOR = "primitive: ";
 
     private Byte currentValue;

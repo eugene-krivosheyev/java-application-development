@@ -4,7 +4,7 @@ import com.acme.dbo.txlog.Controller;
 
 import static java.lang.Math.abs;
 
-public class IntCommand implements Command {
+public class IntCommand extends BaseCommand {
     private String DECOR = "primitive: ";
 
     private Integer currentValue;

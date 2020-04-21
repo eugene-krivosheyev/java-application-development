@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class BooleanCommand implements Command {
+public class BooleanCommand extends BaseCommand {
     private String DECOR = "primitive: ";
 
     private boolean currentValue;

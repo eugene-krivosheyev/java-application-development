@@ -2,14 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class NullCommand extends BaseCommand {
-    public NullCommand(String anyMessage) {
-    }
-
-    @Override
-    public String getDecoratedState(int duplicationNum) {
-        return null;
-    }
+public class BaseCommand implements Command {
 
     @Override
     public Command accumulate(Controller controller, Command command) {
@@ -18,11 +11,17 @@ public class NullCommand extends BaseCommand {
 
     @Override
     public String getCurrentValue() {
-        return "";
+        String o = null;
+        return o;
+    }
+
+    @Override
+    public String getDecoratedState(int duplicationNum) {
+        return null;
     }
 
     @Override
     public void flush() {
-
     }
+
 }

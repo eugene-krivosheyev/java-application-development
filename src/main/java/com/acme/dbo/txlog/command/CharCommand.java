@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class CharCommand implements Command {
+public class CharCommand extends BaseCommand {
     private String DECOR = "char: ";
 
     private char currentValue;

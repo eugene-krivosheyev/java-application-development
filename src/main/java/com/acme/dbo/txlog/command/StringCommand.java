@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class StringCommand implements Command {
+public class StringCommand extends BaseCommand {
 
     private String DECOR = "string: ";
 

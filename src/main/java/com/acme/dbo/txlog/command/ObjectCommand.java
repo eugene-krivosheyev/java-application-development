@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class ObjectCommand implements Command {
+public class ObjectCommand extends BaseCommand {
     private String DECOR = "reference: ";
 
     private Object currentValue;
