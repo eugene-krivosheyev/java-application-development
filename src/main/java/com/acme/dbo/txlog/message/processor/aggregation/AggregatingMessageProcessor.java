@@ -17,7 +17,7 @@ public class AggregatingMessageProcessor implements MessageProcessor {
     private Consumer<MessageBase> callback;
     private AggregationBase aggregation;
 
-    public AggregatingMessageProcessor(Map<Class, Function<MessageBase, AggregationBase>> aggregatorFactory){
+    public AggregatingMessageProcessor(Map<Class, Function<MessageBase, AggregationBase>> aggregatorFactory) {
         this.aggregatorFactory.putAll(aggregatorFactory);
     }
 
@@ -29,16 +29,16 @@ public class AggregatingMessageProcessor implements MessageProcessor {
     @Override
     public void accept(MessageBase message) {
 
-        if (aggregation!=null && aggregation.canAggregate(message) && aggregation.tryAggregate(message)){
+        if (aggregation != null && aggregation.canAggregate(message) && aggregation.tryAggregate(message)) {
             return;
         }
 
         AggregationBase newAggregation = createAggregation(message);
-        if (aggregation!=null){
+        if (aggregation != null) {
             notify(aggregation.getMessage());
         }
 
-        if (newAggregation == null){
+        if (newAggregation == null) {
             notify(message);
         }
 
@@ -47,7 +47,7 @@ public class AggregatingMessageProcessor implements MessageProcessor {
 
     @Override
     public void flush() {
-        if (aggregation ==null){
+        if (aggregation == null) {
             return;
         }
 
@@ -56,9 +56,9 @@ public class AggregatingMessageProcessor implements MessageProcessor {
     }
 
 
-    private AggregationBase createAggregation(MessageBase message){
+    private AggregationBase createAggregation(MessageBase message) {
         Function<MessageBase, AggregationBase> aggregationCreator = aggregatorFactory.get(message.getClass());
-        if (aggregationCreator == null){
+        if (aggregationCreator == null) {
             return null;
         }
 
@@ -66,8 +66,8 @@ public class AggregatingMessageProcessor implements MessageProcessor {
     }
 
 
-    private void notify(MessageBase message){
-        if (callback ==null){
+    private void notify(MessageBase message) {
+        if (callback == null) {
             return;
         }
         callback.accept(message);

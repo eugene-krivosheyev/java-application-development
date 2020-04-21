@@ -6,7 +6,7 @@ public class RepeatingStringMessage extends StringMessage {
 
     private int count = 1;
 
-    public RepeatingStringMessage(final String value) {
+    public RepeatingStringMessage(String value) {
         super(value);
     }
 
@@ -15,17 +15,16 @@ public class RepeatingStringMessage extends StringMessage {
         this.count = count;
     }
 
-    public int count(){
+    public int count() {
         return count;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String countStr = "";
-        if(count>1){
-            countStr = " (x"+count+")";
+        if (count > 1) {
+            countStr = " (x" + count + ")";
         }
-        return getValue()+countStr;
+        return getValue() + countStr;
     }
 }
-

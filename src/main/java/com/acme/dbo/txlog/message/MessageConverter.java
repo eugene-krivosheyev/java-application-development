@@ -2,7 +2,8 @@ package com.acme.dbo.txlog.message;
 
 public final class MessageConverter {
 
-    private MessageConverter(){}
+    private MessageConverter() {
+    }
 
     public static MessageBase toMessage(byte message) {
         return new ByteMessage(message);
@@ -24,7 +25,6 @@ public final class MessageConverter {
         return new StringMessage(message);
     }
 
-
     public static MessageBase toMessage(int[] message) {
         return new IntArrayMessage(message);
     }
@@ -40,5 +40,4 @@ public final class MessageConverter {
     public static MessageBase toMessage(Object message) {
         return new ObjectMessage(message);
     }
-
 }

@@ -11,22 +11,22 @@ import java.util.stream.Collectors;
 
 public class RoutingMessageProcessor implements MessageProcessor {
 
-    private final Map<Class,MessageProcessor> classToProcessorMap = new HashMap<>();
+    private final Map<Class, MessageProcessor> classToProcessorMap = new HashMap<>();
     private final List<MessageProcessor> processors;
 
-    public RoutingMessageProcessor(Map<Class,MessageProcessor> routing){
+    public RoutingMessageProcessor(Map<Class, MessageProcessor> routing) {
         classToProcessorMap.putAll(routing);
-        processors = classToProcessorMap.entrySet().stream().map(kv->kv.getValue()).distinct().collect(Collectors.toList());
+        processors = classToProcessorMap.entrySet().stream().map(kv -> kv.getValue()).distinct().collect(Collectors.toList());
     }
 
     @Override
     public void setCallBack(Consumer<MessageBase> callback) {
-        processors.forEach(p->p.setCallBack(callback));
+        processors.forEach(p -> p.setCallBack(callback));
     }
 
     @Override
     public void flush() throws IOException {
-        processors.forEach(p-> {
+        processors.forEach(p -> {
             try {
                 p.flush();
             } catch (IOException e) {

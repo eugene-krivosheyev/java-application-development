@@ -8,7 +8,7 @@ public class LogWriter {
 
     private PrintStream writer;
 
-    public LogWriter(PrintStream writer){
+    public LogWriter(PrintStream writer) {
         this.writer = writer;
     }
 

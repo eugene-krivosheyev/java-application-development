@@ -12,7 +12,4 @@ public class StringAggregation extends AggregationBase<StringMessage> {
     protected StringMessage doAggregation(StringMessage aggregation, StringMessage stringMessage) {
         return new StringMessage(aggregation.getValue() + System.lineSeparator() + stringMessage.getValue());
     }
-
 }
-
-

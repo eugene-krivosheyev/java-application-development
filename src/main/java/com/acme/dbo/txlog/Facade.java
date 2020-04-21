@@ -11,12 +11,14 @@ public final class Facade {
 
     private static MessageProcessor messageProcessor;
     private static LogWriter logWriter;
-    private Facade(){}
+
+    private Facade() {
+    }
 
     public static void init(MessageProcessor messageProcessor, LogWriter logWriter) {
         Facade.messageProcessor = messageProcessor;
         Facade.logWriter = logWriter;
-        messageProcessor.setCallBack(m->logMessage(m));
+        messageProcessor.setCallBack(m -> logMessage(m));
     }
 
     public static void log(byte message) {
@@ -38,8 +40,9 @@ public final class Facade {
     public static void log(String message) {
         messageProcessor.accept(MessageConverter.toMessage(message));
     }
+
     public static void log(String... message) {
-        for ( String ss : message) {
+        for (String ss : message) {
             messageProcessor.accept(MessageConverter.toMessage(ss));
         }
         flush();
@@ -57,24 +60,19 @@ public final class Facade {
         messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
-
-
     public static void log(Object message) {
         messageProcessor.accept(MessageConverter.toMessage(message));
     }
 
-    public static void flush(){
+    public static void flush() {
         try {
             messageProcessor.flush();
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             System.err.println(ex);
         }
     }
 
-    public static void logMessage(MessageBase message){
+    public static void logMessage(MessageBase message) {
         logWriter.println(message);
     }
-
-
 }

@@ -1,15 +1,15 @@
 package com.acme.dbo.txlog.message;
 
-public class IntArrayMessage extends MessageBase{
+public class IntArrayMessage extends MessageBase {
 
     private final int[] value;
 
-    public IntArrayMessage(int[] value){
+    public IntArrayMessage(int[] value) {
         this.value = value;
     }
 
     @Override
-    public String toString(){
-        return "{"+arrayToString(value)+"}";
+    public String toString() {
+        return "{" + arrayToString(value) + "}";
     }
 }

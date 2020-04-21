@@ -10,22 +10,19 @@ public class StringDeduplication extends AggregationBase<StringMessage> {
         super(new RepeatingStringMessage(initialValue.getValue()));
     }
 
-    public boolean canAggregate(MessageBase message){
-        if (!(message instanceof StringMessage)){
+    public boolean canAggregate(MessageBase message) {
+        if (!(message instanceof StringMessage)) {
             return false;
         }
-        StringMessage stringMessage = (StringMessage)message;
+        StringMessage stringMessage = (StringMessage) message;
         return getMessage().getValue().equals(stringMessage.getValue());
     }
 
     @Override
     protected RepeatingStringMessage doAggregation(StringMessage aggregation, StringMessage stringMessage) {
 
-        RepeatingStringMessage repeatingMessage =(RepeatingStringMessage) aggregation;
+        RepeatingStringMessage repeatingMessage = (RepeatingStringMessage) aggregation;
 
-        return new RepeatingStringMessage(stringMessage.getValue(), repeatingMessage.count()+1);
+        return new RepeatingStringMessage(stringMessage.getValue(), repeatingMessage.count() + 1);
     }
-
 }
-
-

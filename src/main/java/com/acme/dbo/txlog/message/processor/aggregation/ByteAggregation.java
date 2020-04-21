@@ -1,4 +1,5 @@
 package com.acme.dbo.txlog.message.processor.aggregation;
+
 import com.acme.dbo.txlog.message.ByteMessage;
 import com.acme.dbo.txlog.message.MessageBase;
 
@@ -8,13 +9,13 @@ public class ByteAggregation extends AggregationBase<ByteMessage> {
         super(initialValue);
     }
 
-    public boolean canAggregate(MessageBase message){
-        if (!super.canAggregate(message)){
+    public boolean canAggregate(MessageBase message) {
+        if (!super.canAggregate(message)) {
             return false;
         }
 
-        ByteMessage byteMessage = (ByteMessage)message;
-        int nextAggregation = (int)byteMessage.getValue() + getMessage().getValue();
+        ByteMessage byteMessage = (ByteMessage) message;
+        int nextAggregation = (int) byteMessage.getValue() + getMessage().getValue();
 
         return nextAggregation < Byte.MAX_VALUE;
     }

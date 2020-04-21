@@ -4,12 +4,12 @@ public class CharMessage extends MessageBase {
 
     private char value;
 
-    public CharMessage(char value){
+    public CharMessage(char value) {
         this.value = value;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Character.toString(value);
     }
 }
