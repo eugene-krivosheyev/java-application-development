@@ -5,23 +5,15 @@ import com.acme.dbo.txlog.Controller;
 public abstract class BaseCommand implements Command {
 
     @Override
-    public Command accumulate(Controller controller, Command command) {
-        return this;
-    }
+    public abstract Command accumulate(Controller controller, Command command);
 
     @Override
-    public String getCurrentValue() {
-        String o = null;
-        return o;
-    }
+    public abstract String getCurrentValue();
 
     @Override
-    public String getDecoratedState(int duplicationNum) {
-        return null;
-    }
+    public abstract String getDecoratedState(int duplicationNum);
 
     @Override
-    public void flush() {
-    }
+    public abstract void flush();
 
 }

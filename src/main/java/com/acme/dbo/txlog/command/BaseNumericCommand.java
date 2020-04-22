@@ -3,16 +3,16 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public abstract class BaseNumericCommand extends BaseCommand {
-    protected String DECOR = "primitive: ";
+public class BaseNumericCommand extends BaseCommand {
+    private String DECOR = "primitive: ";
 
-    protected Integer currentValue;
-    protected String accumulator;
-    protected Integer sum;
+    private Integer currentValue;
+    private String accumulator;
+    private Integer sum;
 
     protected Controller controller;
 
-    public BaseNumericCommand(Integer message) {
+    private BaseNumericCommand(Integer message) {
         currentValue = message;
         accumulator = message.toString();
         sum = message;
@@ -53,8 +53,11 @@ public abstract class BaseNumericCommand extends BaseCommand {
         sum = 0;
     }
 
-    protected abstract void actionIfOutOfBoundValue();
+    protected void actionIfOutOfBoundValue() {
+    }
 
-    protected abstract boolean checkNumValueIsOutBound(Number number);
+    protected boolean checkNumValueIsOutBound(Number number) {
+        return true;
+    }
 
 }
