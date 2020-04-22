@@ -6,13 +6,13 @@ import com.acme.dbo.txlog.Controller;
 public class BaseNumericCommand extends BaseCommand {
     private String DECOR = "primitive: ";
 
-    private Integer currentValue;
-    private String accumulator;
-    private Integer sum;
+    protected Integer currentValue;
+    protected String accumulator;
+    protected Integer sum;
 
     protected Controller controller;
 
-    private BaseNumericCommand(Integer message) {
+    protected BaseNumericCommand(Integer message) {
         currentValue = message;
         accumulator = message.toString();
         sum = message;

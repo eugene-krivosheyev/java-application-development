@@ -3,10 +3,10 @@ package com.acme.dbo.txlog.command;
 import com.acme.dbo.txlog.Controller;
 
 abstract class BaseAccumulatedCommand extends BaseCommand {
-    private Object currentValue;
-    private String accumulator;
+    protected Object currentValue;
+    protected String accumulator;
 
-    private BaseAccumulatedCommand(Object message) {
+    protected BaseAccumulatedCommand(Object message) {
         currentValue = message;
         accumulator = convertObjectToString(message);
     }
