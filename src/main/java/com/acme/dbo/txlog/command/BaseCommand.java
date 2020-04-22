@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class BaseCommand implements Command {
+public abstract class BaseCommand implements Command {
 
     @Override
     public Command accumulate(Controller controller, Command command) {
