@@ -6,7 +6,8 @@ public class StringCommand extends BaseCommand {
     private int count;
 
 
-    public StringCommand(String message) {
+    public StringCommand(String message) throws CommandException{
+       if (message == null) throw new CommandException("Can not log null string");
         this.message = message;
         count = 1;
     }

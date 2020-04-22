@@ -2,13 +2,13 @@ package com.acme.dbo.txlog;
 
 import com.acme.dbo.txlog.commands.*;
 import com.acme.dbo.txlog.controllers.LoggerTypedController;
-import com.acme.dbo.txlog.writers.LogWriter;
+import com.acme.dbo.txlog.writers.ConsoleWriter;
 
 public class Facade {
-    static private LoggerTypedController controller = new LoggerTypedController(new LogWriter());
+    static private LoggerTypedController controller = new LoggerTypedController(new ConsoleWriter());
 
     public static void flush() {
-        controller.flush();
+        controller.log(BaseCommand.EMPTY_COMMAND);
     }
 
     public static void log(int message) {
@@ -20,7 +20,12 @@ public class Facade {
     }
 
     public static void log(String message) {
-        controller.log(new StringCommand(message));
+        try {
+            controller.log(new StringCommand(message));
+        } catch (CommandException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void log(Object message) {
