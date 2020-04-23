@@ -9,8 +9,8 @@ public class LSaver implements ISaver {
         try {
             System.out.println(message);
             throw new IOException("cn't file");
-        } catch (IOException | SQLException e) {
-//            e.printStackTrace();|
+        } catch (IOException e) {
+//            e.printStackTrace();|System.exit(0);
             System.exit(0);
             throw new SaveException("file" + message, e);
             //....
