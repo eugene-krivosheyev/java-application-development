@@ -21,4 +21,9 @@ public class LSaver implements ISaver {
 
         }
     }
+
+    @Override
+    public void close() throws Exception {
+        //.....
+    }
 }
