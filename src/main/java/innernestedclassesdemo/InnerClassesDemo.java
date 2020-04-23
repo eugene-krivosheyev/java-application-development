@@ -2,21 +2,22 @@ package innernestedclassesdemo;
 
 public class InnerClassesDemo {
     public static void main(String[] args) {
-        Outer.StaticInner object = new Outer.StaticInner();
-        object.doSmth();
+        Outer outer = new Outer();
+        Outer.Inner inner = outer.new Inner();
     }
 }
 
 class Outer {
-    private int objectState;
     private static int classSate = 1;
+    private int objectState = 1;
 
-    protected static class StaticInner {
+    protected class Inner {
        private int innerObjectSatate;
-       private static int innStaticSate;
+//       private static int innStaticSate;
 
        public void doSmth() {
            System.out.println(classSate);
+           System.out.println(Outer.this.objectState);
        }
     }
 }
