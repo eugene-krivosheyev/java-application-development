@@ -7,7 +7,7 @@ public class GenericsDemo {
         List<? extends Object> genericList = new ArrayList<String>();
         List<String> strList = new ArrayList<>();
 
-        Collections.sort(list, new Comparator<Object>() {
+        Collections.sort(strList, new Comparator<Object>() {
             @Override
             public int compare(Object o1, Object o2) {
                 return 0;
