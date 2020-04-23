@@ -1,12 +1,18 @@
 package genericsdemo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GenericsDemo {
     public static void main(String[] args) {
         List<? extends Object> genericList = new ArrayList<String>();
         List<String> strList = new ArrayList<>();
+
+        Collections.sort(list, new Comparator<Object>() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+        });
 
 //        MyList<String> stringList = new MyList<>();//
 //        stringList.add("1");
