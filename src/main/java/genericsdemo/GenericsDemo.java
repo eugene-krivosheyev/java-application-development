@@ -8,14 +8,14 @@ public class GenericsDemo {
         List<? extends Object> genericList = new ArrayList<String>();
         List<String> strList = new ArrayList<>();
 
-        MyList<String> stringList = new MyList<>();//
-        stringList.add("1");
-        stringList.add("2");
-        stringList.add("3");
-        stringList.add("4");
-
-        String max = MyListUtil.<String>max(stringList);
-        MyListUtil.transform("");
+//        MyList<String> stringList = new MyList<>();//
+//        stringList.add("1");
+//        stringList.add("2");
+//        stringList.add("3");
+//        stringList.add("4");
+//
+//        String max = MyListUtil.<String>max(stringList);
+//        MyListUtil.transform("");
     }
 }
 
@@ -45,12 +45,12 @@ class MyList<T extends Number> {
     }
 }
 
-class FileMyList<T> extends MyList<T> {
-    @Override
-    public T get() {
-        return null;
-    }
-}
+//class FileMyList<T> extends MyList<T> {
+//    @Override
+//    public T get() {
+//        return null;
+//    }
+//}
 
 class FL2 extends MyList<Integer> {
     @Override
