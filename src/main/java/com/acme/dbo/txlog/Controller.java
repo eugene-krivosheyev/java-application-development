@@ -3,6 +3,8 @@ package com.acme.dbo.txlog;
 import com.acme.dbo.txlog.command.Command;
 import com.acme.dbo.txlog.command.NullCommand;
 
+import java.io.IOException;
+
 public class Controller {
     private Command command;
 
@@ -15,7 +17,7 @@ public class Controller {
         this.writer = writer;
     }
 
-    void log(Command command) {
+    void log(Command command) throws IOException {
         if ((command.getClass().equals(lastCommand.getClass()))) {
             this.command = command.accumulate(this, lastCommand);
             if (lastCommand.getCurrentValue().equals(command.getCurrentValue())) {
@@ -31,7 +33,7 @@ public class Controller {
         lastCommand = command;
     }
 
-    public void flush() {
+    public void flush() throws IOException {
         writer.write(lastCommand.getDecoratedState(duplicateCount));
         lastCommand.flush();
         duplicateCount = 0;

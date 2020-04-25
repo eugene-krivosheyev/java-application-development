@@ -2,6 +2,8 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
+import java.io.IOException;
+
 import static java.lang.Math.abs;
 
 abstract class BaseNumericCommand implements Command {
@@ -26,7 +28,7 @@ abstract class BaseNumericCommand implements Command {
     }
 
     @Override
-    public BaseNumericCommand accumulate(Controller controller, Command command) {
+    public BaseNumericCommand accumulate(Controller controller, Command command) throws IOException {
         if (command instanceof BaseNumericCommand) {
             commandToAccumulate = (BaseNumericCommand) command;
             this.controller = controller;
@@ -49,7 +51,7 @@ abstract class BaseNumericCommand implements Command {
         sum = 0;
     }
 
-    void actionIfOutOfBoundValue(Integer maxValue) {
+    void actionIfOutOfBoundValue(Integer maxValue) throws IOException {
         controller.flush();
         accumulator = maxValue + "";
         sum = maxValue;
@@ -65,7 +67,7 @@ abstract class BaseNumericCommand implements Command {
         sum = this.currentValue;
     }
 
-    private void accumulateSameCommand() {
+    private void accumulateSameCommand() throws IOException {
         if (checkNumValueIsOutBound(this.currentValue, null)) {
             actionIfOutOfBoundValue(null);
         } else

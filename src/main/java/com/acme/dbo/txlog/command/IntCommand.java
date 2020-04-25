@@ -1,5 +1,7 @@
 package com.acme.dbo.txlog.command;
 
+import java.io.IOException;
+
 public class IntCommand extends BaseNumericCommand {
 
     public IntCommand(Integer message) {
@@ -7,7 +9,7 @@ public class IntCommand extends BaseNumericCommand {
     }
 
     @Override
-    protected void actionIfOutOfBoundValue(Integer maxValue) {
+    protected void actionIfOutOfBoundValue(Integer maxValue) throws IOException {
         super.actionIfOutOfBoundValue(Integer.MAX_VALUE);
     }
 

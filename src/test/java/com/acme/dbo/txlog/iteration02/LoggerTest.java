@@ -46,7 +46,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws IOException {
         //region when
         Facade.log("str 1");
         Facade.log(10);
@@ -68,7 +68,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws IOException {
         //region when
         Facade.log("str 1");
         Facade.log((byte)10);

@@ -1,10 +1,25 @@
 package com.acme.dbo.txlog;
 
-class ConsoleLogWriter {
+import java.io.IOException;
 
-    void write(String message) {
-        if (message != null) {
-            System.out.println(message);
+class ConsoleLogWriter implements ILogWriter {
+
+    public void write(String message) throws IOException {
+        try {
+            if (message != null) {
+                System.out.println(message);
+                if (message.contains("Abrakadabra")) {
+                    System.out.println("Raising exception");
+                    throw new IOException("Raised IOException!");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    @Override
+    public void close() {
+
     }
 }
