@@ -14,11 +14,11 @@ abstract class BaseAccumulatedCommand implements Command {
     @Override
     public Command accumulate(Controller controller, Command command) {
         if (command instanceof BaseAccumulatedCommand) {
-            BaseAccumulatedCommand castedCommand = (BaseAccumulatedCommand) command;
-            if (castedCommand.accumulator == null) {
-                this.accumulator = convertObjectToString(this.currentValue);
+            BaseAccumulatedCommand commandToAccumulate = (BaseAccumulatedCommand) command;
+            if (commandToAccumulate.accumulator == null) {
+                accumulator = convertObjectToString(currentValue);
             } else {
-                this.accumulator = castedCommand.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
+                accumulator = commandToAccumulate.accumulator + System.lineSeparator() + getDecoratedCurrentValue();
             }
         }
         return this;
@@ -55,5 +55,5 @@ abstract class BaseAccumulatedCommand implements Command {
 
     protected String getDecoratedValue(String object, String decor) {
         return decor + object;
-    };
+    }
 }

@@ -12,6 +12,7 @@ abstract class BaseNumericCommand implements Command {
     protected Integer sum;
 
     protected Controller controller;
+    private BaseNumericCommand commandToAccumulate;
 
     protected BaseNumericCommand(Integer message) {
         currentValue = message;
@@ -27,18 +28,12 @@ abstract class BaseNumericCommand implements Command {
     @Override
     public BaseNumericCommand accumulate(Controller controller, Command command) {
         if (command instanceof BaseNumericCommand) {
-            BaseNumericCommand baseCommand = (BaseNumericCommand) command;
+            commandToAccumulate = (BaseNumericCommand) command;
             this.controller = controller;
-            if (baseCommand.accumulator == null) {
-                accumulator = this.currentValue.toString();
-                sum = this.currentValue;
-            } else {
-                if (checkNumValueIsOutBound(this.currentValue, null)) {
-                    actionIfOutOfBoundValue(null);
-                } else {
-                    accumulator = Integer.toString(baseCommand.sum + this.currentValue);
-                }
-            }
+            if (commandToAccumulate.accumulator == null) {
+                accumulateNewCommand();
+            } else
+                accumulateSameCommand();
         }
         return this;
     }
@@ -65,4 +60,15 @@ abstract class BaseNumericCommand implements Command {
         return abs(number.longValue()) >= maxValue;
     }
 
+    private void accumulateNewCommand() {
+        accumulator = this.currentValue.toString();
+        sum = this.currentValue;
+    }
+
+    private void accumulateSameCommand() {
+        if (checkNumValueIsOutBound(this.currentValue, null)) {
+            actionIfOutOfBoundValue(null);
+        } else
+            accumulator = Integer.toString(this.commandToAccumulate.sum + this.currentValue);
+    }
 }
