@@ -8,7 +8,7 @@ public class CharCommand extends BaseAccumulatedCommand {
     }
 
     @Override
-    protected String getDecoratedValue(String object) {
-        return DECOR + object;
+    protected String getDecoratedValue(String object, String decor) {
+        return super.getDecoratedValue(object, DECOR);
     }
 }

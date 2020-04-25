@@ -1,7 +1,5 @@
 package com.acme.dbo.txlog.command;
 
-import static java.lang.Math.abs;
-
 public class IntCommand extends BaseNumericCommand {
 
     public IntCommand(Integer message) {
@@ -9,16 +7,12 @@ public class IntCommand extends BaseNumericCommand {
     }
 
     @Override
-    protected void actionIfOutOfBoundValue() {
-        controller.flush();
-        accumulator = Integer.MAX_VALUE + "";
-        sum = Integer.MAX_VALUE;
-        controller.flush();
+    protected void actionIfOutOfBoundValue(Integer maxValue) {
+        super.actionIfOutOfBoundValue(Integer.MAX_VALUE);
     }
 
     @Override
-    protected boolean checkNumValueIsOutBound(Number number) {
-        long longValue = number.longValue();
-        return abs(longValue) >= Integer.MAX_VALUE;
+    protected boolean checkNumValueIsOutBound(Integer number, Integer maxValue) {
+        return super.checkNumValueIsOutBound(number, Integer.MAX_VALUE);
     }
 }

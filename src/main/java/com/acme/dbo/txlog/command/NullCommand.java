@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-public class NullCommand extends BaseCommand {
+public class NullCommand implements Command {
     public NullCommand(String anyMessage) {
     }
 
@@ -12,7 +12,7 @@ public class NullCommand extends BaseCommand {
     }
 
     @Override
-    public Command accumulate(Controller controller, Command command) {
+    public NullCommand accumulate(Controller controller, Command command) {
         return this;
     }
 

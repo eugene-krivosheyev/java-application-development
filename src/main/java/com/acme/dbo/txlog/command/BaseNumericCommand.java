@@ -1,9 +1,10 @@
 package com.acme.dbo.txlog.command;
 
-
 import com.acme.dbo.txlog.Controller;
 
-public class BaseNumericCommand extends BaseCommand {
+import static java.lang.Math.abs;
+
+abstract class BaseNumericCommand implements Command {
     private String DECOR = "primitive: ";
 
     protected Integer currentValue;
@@ -32,8 +33,8 @@ public class BaseNumericCommand extends BaseCommand {
                 accumulator = this.currentValue.toString();
                 sum = this.currentValue;
             } else {
-                if (checkNumValueIsOutBound(this.currentValue)) {
-                    actionIfOutOfBoundValue();
+                if (checkNumValueIsOutBound(this.currentValue, null)) {
+                    actionIfOutOfBoundValue(null);
                 } else {
                     accumulator = Integer.toString(baseCommand.sum + this.currentValue);
                 }
@@ -53,11 +54,15 @@ public class BaseNumericCommand extends BaseCommand {
         sum = 0;
     }
 
-    protected void actionIfOutOfBoundValue() {
+    void actionIfOutOfBoundValue(Integer maxValue) {
+        controller.flush();
+        accumulator = maxValue + "";
+        sum = maxValue;
+        controller.flush();
     }
 
-    protected boolean checkNumValueIsOutBound(Number number) {
-        return true;
+    boolean checkNumValueIsOutBound(Integer number, Integer maxValue) {
+        return abs(number.longValue()) >= maxValue;
     }
 
 }

@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.command;
 
 import com.acme.dbo.txlog.Controller;
 
-abstract class BaseAccumulatedCommand extends BaseCommand {
+abstract class BaseAccumulatedCommand implements Command {
     protected Object currentValue;
     protected String accumulator;
 
@@ -33,15 +33,15 @@ abstract class BaseAccumulatedCommand extends BaseCommand {
     public String getDecoratedState(int duplicationNum) {
         String decoratedAccumulator;
         if (duplicationNum >= 1) {
-            decoratedAccumulator = getDecoratedValue(accumulator) + " (x" + (duplicationNum + 1) + ")";
+            decoratedAccumulator = getDecoratedValue(accumulator, null) + " (x" + (duplicationNum + 1) + ")";
         } else {
-            decoratedAccumulator = getDecoratedValue(accumulator);
+            decoratedAccumulator = getDecoratedValue(accumulator, null);
         }
         return decoratedAccumulator;
     }
 
     private String getDecoratedCurrentValue() {
-        return getDecoratedValue(convertObjectToString(currentValue));
+        return getDecoratedValue(convertObjectToString(currentValue), null);
     }
 
     public void flush() {
@@ -53,6 +53,7 @@ abstract class BaseAccumulatedCommand extends BaseCommand {
         return String.valueOf(character);
     }
 
-    protected abstract String getDecoratedValue(String object);
-
+    protected String getDecoratedValue(String object, String decor) {
+        return decor + object;
+    };
 }
