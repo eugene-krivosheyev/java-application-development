@@ -33,20 +33,20 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        Facade.log("str 1", false);
-        Facade.log(1, false);
-        Facade.log(2, false);
-        Facade.log("str 2", false);
-        Facade.log(0, false);
+        Facade.log("str 1");
+        Facade.log(1);
+        Facade.log(2);
+        Facade.log("str 2");
+        Facade.log(0);
         Facade.clear();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1"  + System.getProperty("line.separator") +
-                    "3"  + System.getProperty("line.separator") +
-                    "str 2"  + System.getProperty("line.separator") +
-                    "0"  + System.getProperty("line.separator")
+            "string: str 1"  + System.getProperty("line.separator") +
+                    "primitive: 3"  + System.getProperty("line.separator") +
+                    "string: str 2"  + System.getProperty("line.separator") +
+                    "primitive: 0"  + System.getProperty("line.separator")
         );
         //endregion
     }
@@ -54,21 +54,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        Facade.log("str 1", false);
-        Facade.log(10, false);
-        Facade.log(Integer.MAX_VALUE, false);
-        Facade.log("str 2", false);
-        Facade.log(0, false);
+        Facade.log("str 1");
+        Facade.log(10);
+        Facade.log(Integer.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
         Facade.clear();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1"  + System.getProperty("line.separator") +
-                    "10"  + System.getProperty("line.separator") +
-                    Integer.MAX_VALUE  + System.getProperty("line.separator") +
-                    "str 2"  + System.getProperty("line.separator") +
-                    "0"  + System.getProperty("line.separator")
+            "string: str 1"  + System.getProperty("line.separator") +
+                    "primitive: 10"  + System.getProperty("line.separator") +
+                    "primitive: " + Integer.MAX_VALUE  + System.getProperty("line.separator") +
+                    "string: str 2"  + System.getProperty("line.separator") +
+                    "primitive: 0"  + System.getProperty("line.separator")
         );
         //endregion
     }
@@ -76,21 +76,21 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        Facade.log("str 1", false);
-        Facade.log((byte)10, false);
-        Facade.log((byte)Byte.MAX_VALUE, false);
-        Facade.log("str 2", false);
-        Facade.log(0, false);
+        Facade.log("str 1");
+        Facade.log((byte)10);
+        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log("str 2");
+        Facade.log(0);
         Facade.clear();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1"  + System.getProperty("line.separator") +
-                    "10"  + System.getProperty("line.separator") +
-                    Byte.MAX_VALUE + System.getProperty("line.separator") +
-            "str 2"  + System.getProperty("line.separator") +
-                    "0"  + System.getProperty("line.separator")
+            "string: str 1"  + System.getProperty("line.separator") +
+                    "primitive: 10"  + System.getProperty("line.separator") +
+                    "primitive: " + Byte.MAX_VALUE + System.getProperty("line.separator") +
+            "string: str 2"  + System.getProperty("line.separator") +
+                    "primitive: 0"  + System.getProperty("line.separator")
         );
         //endregion
     }
@@ -98,24 +98,24 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        Facade.log("str 1", false);
-        Facade.log("str 2", false);
-        Facade.log("str 2", false);
-        Facade.log(0, false);
-        Facade.log("str 2", false);
-        Facade.log("str 3", false);
-        Facade.log("str 3", false);
-        Facade.log("str 3", false);
+        Facade.log("str 1");
+        Facade.log("str 2");
+        Facade.log("str 2");
+        Facade.log(0);
+        Facade.log("str 2");
+        Facade.log("str 3");
+        Facade.log("str 3");
+        Facade.log("str 3");
         Facade.clear();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1"  + System.getProperty("line.separator") +
-                    "str 2 (x2)"  + System.getProperty("line.separator") +
-                    "0"  + System.getProperty("line.separator") +
-                    "str 2"  + System.getProperty("line.separator") +
-                    "str 3 (x3)"  + System.getProperty("line.separator")
+            "string: str 1"  + System.getProperty("line.separator") +
+                    "string: str 2 (x2)"  + System.getProperty("line.separator") +
+                    "primitive: 0"  + System.getProperty("line.separator") +
+                    "string: str 2"  + System.getProperty("line.separator") +
+                    "string: str 3 (x3)"  + System.getProperty("line.separator")
         );
         //endregion
     }
