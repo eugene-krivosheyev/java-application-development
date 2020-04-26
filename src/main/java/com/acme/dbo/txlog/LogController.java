@@ -1,8 +1,12 @@
 package com.acme.dbo.txlog;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LogController {
+
+    private static final Logger LOG = Logger.getLogger(LogController.class.getName());
 
     protected Command previousCommand;
     protected LogWriter logWriter;
@@ -24,7 +28,11 @@ public class LogController {
     }
 
     protected void writeAccordingBusinessRules(Command command){
-        logWriter.write(previousCommand);
+        try {
+            logWriter.write(previousCommand);
+        } catch (LogException e) {
+            LOG.log(Level.SEVERE, "unable to write log {}", command);
+        }
     }
 
     public void flush() {
