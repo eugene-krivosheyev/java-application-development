@@ -1,6 +1,7 @@
 package com.acme.dbo.txlog.commands;
 
 import com.acme.dbo.txlog.decorators.Decorator;
+import com.acme.dbo.txlog.exceptions.AccumulateException;
 
 abstract public class CountableCommand extends AbstractCommand {
     private int count;
@@ -18,10 +19,10 @@ abstract public class CountableCommand extends AbstractCommand {
     }
 
     @Override
-    public void doAccumulationCheck(Command command) throws Exception {
+    public void doAccumulationCheck(Command command) throws AccumulateException {
         super.doAccumulationCheck(command);
         if(!message.equals(((CountableCommand) command).message)) {
-            throw new Exception("Commands are not equals");
+            throw new AccumulateException("Commands are not equals");
         }
     }
 

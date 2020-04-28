@@ -2,6 +2,7 @@ package com.acme.dbo.txlog.controllers;
 
 import com.acme.dbo.txlog.commands.Command;
 import com.acme.dbo.txlog.commands.NullCommand;
+import com.acme.dbo.txlog.exceptions.AccumulateException;
 import com.acme.dbo.txlog.writers.LogWriter;
 
 public class LoggerController {
@@ -16,7 +17,7 @@ public class LoggerController {
     public void log(Command command) {
         try {
             currentCommand = currentCommand.accumulate(command);
-        } catch (Exception e) {
+        } catch (AccumulateException e) {
             this.flush(command);
         }
     }
