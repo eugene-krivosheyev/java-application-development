@@ -1,23 +1,28 @@
 package innernestedclassesdemo;
 
+
 public class InnerClassesDemo {
+    private static int globalVar;
+    private int objectState;
+
     public static void main(String[] args) {
-        Outer outer = new Outer();
-        Outer.Inner inner = outer.new Inner();
+        int localVar = 17;
+
+        new DemoLogger(new DemoWriter() {
+            @Override
+            public void write(String message) {
+
+            }
+        });
     }
 }
 
-class Outer {
-    private static int classSate = 1;
-    private int objectState = 1;
+interface DemoWriter {
+    void write(String message);
+}
 
-    protected class Inner {
-       private int innerObjectSatate;
-//       private static int innStaticSate;
+class DemoLogger {
+    public DemoLogger(DemoWriter writer) {
 
-       public void doSmth() {
-           System.out.println(classSate);
-           System.out.println(Outer.this.objectState);
-       }
     }
 }
