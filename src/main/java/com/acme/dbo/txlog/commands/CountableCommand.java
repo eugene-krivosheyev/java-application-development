@@ -1,12 +1,9 @@
 package com.acme.dbo.txlog.commands;
 
-import com.acme.dbo.txlog.decorators.Decorator;
 import com.acme.dbo.txlog.exceptions.AccumulateException;
 
 abstract public class CountableCommand extends AbstractCommand {
     private int count;
-    protected Decorator decorator;
-    protected Object message;
 
     public CountableCommand() {
         this.count = 1;

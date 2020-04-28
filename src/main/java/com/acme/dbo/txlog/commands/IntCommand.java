@@ -5,7 +5,8 @@ import com.acme.dbo.txlog.exceptions.AccumulateException;
 
 public class IntCommand extends NumberCommand {
     public IntCommand(int message, Decorator decorator) {
-        super(message, decorator);
+        this.message = message;
+        this.decorator = decorator;
     }
 
     protected void doAccumulationCheck(Command command) throws AccumulateException {

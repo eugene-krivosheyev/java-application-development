@@ -1,8 +1,12 @@
 package com.acme.dbo.txlog.commands;
 
+import com.acme.dbo.txlog.decorators.Decorator;
 import com.acme.dbo.txlog.exceptions.AccumulateException;
 
 public abstract class AbstractCommand implements Command {
+    protected Decorator decorator;
+    protected Object message;
+
     @Override
     public Command accumulate(Command command) throws AccumulateException {
         doAccumulationCheck(command);

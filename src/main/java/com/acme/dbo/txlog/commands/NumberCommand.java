@@ -1,15 +1,7 @@
 package com.acme.dbo.txlog.commands;
 
-import com.acme.dbo.txlog.decorators.Decorator;
-
 abstract public class NumberCommand extends AbstractCommand {
-    protected final int message;
-    protected final Decorator decorator;
-
-    public NumberCommand(int message, Decorator decorator) {
-        this.message = message;
-        this.decorator = decorator;
-    }
+    protected Number message;
 
     @Override
     public String toString() {
@@ -17,6 +9,6 @@ abstract public class NumberCommand extends AbstractCommand {
     }
 
     protected long getLongSum(Command command) {
-        return (long) message + ((NumberCommand) command).message;
+        return message.longValue() + ((NumberCommand) command).message.longValue();
     }
 }
