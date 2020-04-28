@@ -17,11 +17,11 @@ public class LoggerController {
     }
 
     private boolean sameCommand(Command command) {
-        return currentState.isSame(command);
+        return false; //currentState.isSame(command);
     }
 
     private void updateState(Command command) {
-        this.currentState = currentState.accumulate(command);
+//        this.currentState = currentState.accumulate(command);
     }
 
     private void flush(Command command) {
