@@ -7,10 +7,10 @@ public class InnerClassesDemo {
 
     public static void main(String[] args) {
         int localVar = 17;
-        DemoWriter writer = m -> m.toUpperCase(); //new ???
+        DemoWriter writer = String::toUpperCase; //new ???
         writer.write("");
 
-        new DemoLogger( message -> System.out.println(message));
+        new DemoLogger( System.out::println );
         new DemoLogger(new DemoWriter() {
             @Override
             public void write(String message) {
