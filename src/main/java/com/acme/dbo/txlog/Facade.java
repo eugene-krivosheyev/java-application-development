@@ -1,5 +1,7 @@
 package com.acme.dbo.txlog;
 
+
+
 public class Facade {
 
     private static String stringAccum;
@@ -9,9 +11,11 @@ public class Facade {
 
     private static byte byteAccum;
 
+    private static String messageType;
+
     public static void log(int message) {
-        clearStringAccum();
-        clearByteAccum();
+        messageType = "integer";
+        clearOptional();
 
         if (message == 0 && intAccum == 0) {
             clearIntAccum(message);
@@ -32,12 +36,12 @@ public class Facade {
         catch(ArithmeticException e) {
             clearIntAccum();
             log(message);
-        }
+            }
     }
 
     public static void log(byte message) {
-        clearStringAccum();
-        clearIntAccum();
+        messageType = "byte";
+        clearOptional();
 
         if (message == 0 && byteAccum == 0) {
             clearIntAccum(message);
@@ -64,9 +68,9 @@ public class Facade {
     }
 
     public static void log(String message) {
+        messageType = "string";
         if (stringAccum == null) {
-            clearIntAccum();
-            clearByteAccum();
+            clearOptional();
             stringAccum = message;
             sequenceCounter++;
         }
@@ -121,6 +125,24 @@ public class Facade {
         }
     }
 
+    private static void clearOptional() {
+        switch (messageType){
+            case "integer": clearStringAccum();
+                clearByteAccum();
+                break;
+            case "byte": clearStringAccum();
+                clearIntAccum();
+                break;
+            case "string": clearByteAccum();
+                clearIntAccum();
+                break;
+            default: clearStringAccum();
+                clearIntAccum();
+                clearByteAccum();
+                break;
+        }
+    }
+
     public static void clear() {
         clearStringAccum();
         clearIntAccum();
@@ -166,6 +188,7 @@ public class Facade {
             byteAccum = 0;
         }
     }
+
 
     private static void clearByteAccum(byte message) {
         clearNumericAccum(message);
