@@ -1,19 +1,9 @@
 package com.acme.dbo.txlog.commands;
 
-public class ByteCommand implements Command {
-    private byte message;
+public class ByteCommand extends NumCommand<Byte> {
 
-    public ByteCommand(byte message) {
-        this.message = message;
-    }
-
-    public byte getMessage() {
-        return message;
-    }
-
-    @Override
-    public String getDecoratedMessage() {
-        return "primitive: " + getMessage();
+    public ByteCommand(Byte message) {
+        super(message);
     }
 
     @Override
@@ -23,15 +13,12 @@ public class ByteCommand implements Command {
 
     @Override
     public boolean validate(Command command) {
-        return ! isOverflow(message, ((ByteCommand)command).getMessage());
+        return ! isOverflow(message, ((ByteCommand)command).getMessage(), Byte.MAX_VALUE, Byte.MIN_VALUE);
     }
 
     @Override
     public void accumulate(Command command) {
-        message += ((ByteCommand)command).getMessage();
+        message = (byte)(message + ((ByteCommand) command).getMessage());
     }
 
-    private boolean isOverflow(byte a, byte b) {
-        return  ((a > 0 && b > Byte.MAX_VALUE - a) || (a < 0 && b < Byte.MIN_VALUE - a));
-    }
 }

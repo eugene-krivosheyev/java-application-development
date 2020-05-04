@@ -1,19 +1,9 @@
 package com.acme.dbo.txlog.commands;
 
-public class IntCommand implements Command {
-    private Integer message;
+public class IntCommand extends NumCommand<Integer> {
 
-    public IntCommand(int message) {
-        this.message = message;
-    }
-
-    public int getMessage() {
-        return message;
-    }
-
-    @Override
-    public String getDecoratedMessage() {
-        return "primitive: " + getMessage();
+    public IntCommand(Integer message) {
+        super(message);
     }
 
     @Override
@@ -23,7 +13,7 @@ public class IntCommand implements Command {
 
     @Override
     public boolean validate(Command command) {
-        return ! isOverflow(message, ((IntCommand)command).getMessage());
+        return ! isOverflow(message, ((IntCommand)command).getMessage(), Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
     @Override
@@ -31,7 +21,4 @@ public class IntCommand implements Command {
         message += ((IntCommand)command).getMessage();
     }
 
-    private boolean isOverflow(int a, int b) {
-        return  ((a > 0 && b > Integer.MAX_VALUE - a) || (a < 0 && b < Integer.MIN_VALUE - a));
-    }
 }
