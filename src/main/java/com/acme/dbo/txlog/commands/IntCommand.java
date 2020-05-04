@@ -13,7 +13,7 @@ public class IntCommand extends NumCommand<Integer> {
 
     @Override
     public boolean validate(Command command) {
-        return ! isOverflow(message, ((IntCommand)command).getMessage(), Integer.MAX_VALUE, Integer.MIN_VALUE);
+        return isNotOverflow(message, ((IntCommand) command).getMessage(), Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
     @Override

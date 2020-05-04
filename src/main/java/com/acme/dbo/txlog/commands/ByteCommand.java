@@ -13,7 +13,7 @@ public class ByteCommand extends NumCommand<Byte> {
 
     @Override
     public boolean validate(Command command) {
-        return ! isOverflow(message, ((ByteCommand)command).getMessage(), Byte.MAX_VALUE, Byte.MIN_VALUE);
+        return isNotOverflow(message, ((ByteCommand) command).getMessage(), Byte.MAX_VALUE, Byte.MIN_VALUE);
     }
 
     @Override

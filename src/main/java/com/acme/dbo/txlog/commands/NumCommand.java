@@ -32,8 +32,8 @@ public class NumCommand<T extends Number> implements Command {
         return message;
     }
     
-    protected boolean isOverflow(int a, int b, int max, int min) {
-        return ((a > 0 && b > max - a) || (a < 0 && b < min - a));
+    protected boolean isNotOverflow(int a, int b, int max, int min) {
+        return ((a <= 0 || b <= max - a) && (a >= 0 || b >= min - a));
     }
 
 }
