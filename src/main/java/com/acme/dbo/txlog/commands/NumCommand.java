@@ -1,7 +1,6 @@
 package com.acme.dbo.txlog.commands;
 
-public class NumCommand<T extends Number> implements Command {
-
+public abstract class NumCommand<T extends Number> implements Command {
     protected T message;
 
     public NumCommand(T message) {
@@ -14,19 +13,13 @@ public class NumCommand<T extends Number> implements Command {
     }
 
     @Override
-    public boolean isSame(Command command) {
-        return false;
-    }
+    public abstract boolean isSame(Command command);
 
     @Override
-    public boolean validate(Command command) {
-        return false;
-    }
+    public abstract boolean validate(Command command);
 
     @Override
-    public void accumulate(Command command) {
-
-    }
+    public abstract void accumulate(Command command);
 
     protected T getMessage() {
         return message;
