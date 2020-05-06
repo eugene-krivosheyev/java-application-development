@@ -8,6 +8,7 @@ public class CloneDemo {
             clonedSheep.getMessage() +
             clonedSheep.getWoolSize());
 
+        System.out.println(clonedSheep);
     }
 }
 
@@ -39,6 +40,17 @@ class Sheep implements Cloneable {
     public Sheep clone() throws CloneNotSupportedException {
         //this.friends.clone()//
         return (Sheep) super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        //db.clode();
+        super.finalize();
     }
 }
 
