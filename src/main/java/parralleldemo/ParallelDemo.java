@@ -2,7 +2,7 @@ package parralleldemo;
 
 public class ParallelDemo {
     public static void main(String[] args) {
-        final MyWorker myWorker = new MyWorker();
+        final Thread myWorker = new Thread(new MyWorker());
         //....
         myWorker.start();
         while (true) {
@@ -11,11 +11,11 @@ public class ParallelDemo {
     }
 }
 
-class MyWorker extends Thread {
+class MyWorker implements Runnable {
     @Override
     public void run() {
         while (true) {
-            System.out.println(this.getName());
+            System.out.println(Thread.currentThread().getName());
         }
     }
 }
