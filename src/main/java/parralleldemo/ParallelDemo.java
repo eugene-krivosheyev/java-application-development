@@ -47,7 +47,11 @@ class Counter {
     }
 
     public int getCounter() {
-        return counter;
+        rwLock.readLock().lock();
+        try {
+            return counter;
+        } finally {
+            rwLock.readLock().unlock();
+        }
     }
 }
-
