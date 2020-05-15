@@ -820,7 +820,7 @@ AbstractType object = new ImplementationType();
 - [ ] Daily retrospectives
 
 ## Webinar Recordings
-- [13.05](https://us02web.zoom.us/rec/share/v-1wPZTKrGdLb4X9-V2FaJN-BdnPX6a81iNI8qJcxBx5B2gpMzk7lBEt82GItTxU)
+- [15.05](https://us02web.zoom.us/rec/share/ypRKNerQxztIH4md8hCEfq46FZvpT6a80Xce8qUEyB1nVo9NOPXGpeORxUC7Lo2-)
 
 ## Reading List
 - [Books](http://tinyurl.com/skilltrekreadinglist)
