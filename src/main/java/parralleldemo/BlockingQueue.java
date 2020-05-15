@@ -35,3 +35,30 @@ class Demo {
         new Thread(() -> queue.push("HW!!")).start();
     }
 }
+
+class Transaction {
+    public void transfer(Account fromAcc, Account toAcc, int amount) {
+        synchronized (fromAcc) {
+            synchronized (toAcc) {
+                fromAcc.decrement(amount);
+                toAcc.increment(amount);
+            }
+        }
+    }
+}
+
+class Account {
+    private int amount;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void increment(int amount) {
+        this.amount += amount;
+    }
+
+    public void decrement(int amount) {
+        this.amount -= amount;
+    }
+}
