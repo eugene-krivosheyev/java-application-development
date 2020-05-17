@@ -821,6 +821,7 @@ AbstractType object = new ImplementationType();
 
 ## Webinar Recordings
 - [15.05](https://us02web.zoom.us/rec/share/ypRKNerQxztIH4md8hCEfq46FZvpT6a80Xce8qUEyB1nVo9NOPXGpeORxUC7Lo2-)
+- [15.05 part 2] (https://us02web.zoom.us/rec/share/tMspJKrWpkBJQY3JuX3Wc6ofRtjpX6a81nUb_fNbmk90EN23nhSRPNdKbu6EJ6Fc)
 
 ## Reading List
 - [Books](http://tinyurl.com/skilltrekreadinglist)
