@@ -6,6 +6,15 @@ import com.acme.dbo.txlog.message.processor.MessageProcessor;
 
 import java.io.IOException;
 
+//expression problem
+//functional programming protocol
+//pattern matching
+// actors
+// Rx, Akka
+//map reduce
+// stream api
+// completable future
+
 
 public final class Facade {
 

@@ -9,6 +9,7 @@ public class IntAggregation extends AggregationBase<IntMessage> {
         super(initialValue);
     }
 
+    @Override
     public boolean canAggregate(MessageBase message) {
         if (!super.canAggregate(message)) {
             return false;

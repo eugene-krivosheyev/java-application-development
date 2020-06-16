@@ -10,6 +10,7 @@ public class StringDeduplication extends AggregationBase<StringMessage> {
         super(new RepeatingStringMessage(initialValue.getValue()));
     }
 
+    @Override
     public boolean canAggregate(MessageBase message) {
         if (!(message instanceof StringMessage)) {
             return false;
