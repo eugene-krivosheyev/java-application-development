@@ -811,5 +811,13 @@ AbstractType object = new ImplementationType();
 ### JDBC intro
 ### JPA intro
 
+## Docker
+
+## Message Queues
+
+## CI/CD Pipelines
+
+## Microservices
+
 ## Buffer (2.5)
 - [ ] Daily retrospectives
