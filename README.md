@@ -3,6 +3,9 @@ Java Application Development
 
 _2. Java Application as a White Box: designing, coding, debugging and using._ 51hrs.
 
+# Recordings
+- [25.02](https://us02web.zoom.us/rec/share/gGCYwGMkiVbxse0RRQCdQioacna880vWEywb52Rpuk-my1sAoa5XhdIzrcGRIucN.icrDiEvIak0gUTUT)
+
 # Attendee prerequisites
 - [ ] Training «1. Java Application Building» completion
 
