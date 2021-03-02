@@ -819,6 +819,7 @@ AbstractType object = new ImplementationType();
 ## Message Queues
 
 ## CI/CD Pipelines
+- [ ] Sonar
 
 ## Microservices
 
