@@ -15,9 +15,11 @@ public class Application {
         }
 
 //        Facade var = null;
-        final byte m = 1; //factual par
-        log(m);
+        byte message = 1; //factual par
+        log(message);
+        System.out.println(">> " + message);
 
+        log("");
         System.out.println(PI);
 
 //        new Facade();

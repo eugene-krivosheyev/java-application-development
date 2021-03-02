@@ -45,12 +45,20 @@ public class Facade {
     /*
     multi-line
      */
-    public static void log(byte message) { //formal par
+    public static byte log(byte message) { //formal par
         int localVar = 1;
         System.out.println(localVar);
         printToConsole("primitive: " + message);
+
+        message = 2;
+        return 1;
     }
 
+    public static void log(Object message) {}
+
+    public static String log(String message) {
+        return "s" + "d";
+    }
 
     private static void printToConsole(String decoratedMessage) {
         System.out.println(decoratedMessage);
