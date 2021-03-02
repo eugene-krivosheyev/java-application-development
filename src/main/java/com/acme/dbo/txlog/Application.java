@@ -30,6 +30,12 @@ public class Application {
         //......
         //......
         //......
+
+        log("some data");
+        log("some data", "and");
+
+        System.out.println("5" + "5");
+
     }
 
     private static boolean notAlwaysTrue() {

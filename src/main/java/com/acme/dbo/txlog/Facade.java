@@ -48,6 +48,18 @@ public class Facade {
         printToConsole(message);
     }
 
+    public static String log(String message) {
+        return "";
+    }
+
+    public static void log(Object message) {
+        return;
+    }
+
+    public static void log(String message1, String message2) {
+
+    }
+
 
     private static void printToConsole(int message) {
         System.out.println("primitive: " + message);
