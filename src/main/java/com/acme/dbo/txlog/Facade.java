@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  */
 
 public class Facade {
-    public static int переменнаяИзНескольктихСлов = 1; //static, global
+    public static int переменнаяИзНескольктихСлов; //static, global
     public static final int MY_CONST = 2;
 
     static {
@@ -31,11 +31,15 @@ public class Facade {
      * message != null
      */
     //@Contract(!null -> !null)
-    public static void log(/* @NotNull */ int message) {
-        int i喝шш; //stack, auto, local
+    public static void log(/* @NotNull */ int message) { //formal arg
+        int i喝шш = 1; //stack, auto, local
+        System.out.println(i喝шш);
 
+        System.out.println(переменнаяИзНескольктихСлов);
         if (message <= 0) throw new IllegalArgumentException();
         //--implementation как?--
+
+        message = 27598;
         printToConsole(message);
         //...
     }
