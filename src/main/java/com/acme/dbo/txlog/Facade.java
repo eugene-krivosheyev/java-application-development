@@ -1,8 +1,22 @@
 package com.acme.dbo.txlog;
 
+import java.sql.DriverManager;
 
 public class Facade {
-    public static int counter = 0;
+    public static int counter = 0; //global state -> behavior
+
+    //JDBC
+    //System
+    static {
+        System.out.println("hello!");
+        //....
+        //....
+        DriverManager.registerDriver(new Facade());
+    }
+
+    static {
+        System.out.println("2");
+    }
 
 
     /** Contract:
@@ -15,6 +29,8 @@ public class Facade {
 //    @Contract(!null -> null, pure)
     public static void log(/* @NonNull */ int message) throws IllegalArgumentException {
         //assumeThatParamIsPosistive(message);
+
+        int localVar = 0; //local, auto, stack, temp
 
         if (message <= 0) throw new IllegalArgumentException();
         //~~implementation comment~~

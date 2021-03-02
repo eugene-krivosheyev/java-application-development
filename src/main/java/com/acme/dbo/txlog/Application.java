@@ -7,12 +7,23 @@ public class Application {
         //.....
         //.....
         //.....
+        while (always()) {
+
+        }
+
+//        Facade var = null;
         Facade.log(1);
+//        new Facade();
         //...
         //...
         //...
         //...
-        Facade.log(1);
         //ClassLoader.
+
+        System.out.println();
+    }
+
+    private static boolean always() {
+        return 1 != 1;
     }
 }
