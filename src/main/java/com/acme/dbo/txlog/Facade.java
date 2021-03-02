@@ -1,6 +1,10 @@
+/**
+ * jkgjdhkgjhdfkgjdhfk
+ */
 package com.acme.dbo.txlog;
 
 import javax.security.auth.*;
+import java.util.stream.IntStream;
 
 /**
  * Facade
@@ -11,6 +15,17 @@ import javax.security.auth.*;
 public class Facade {
     public static int переменнаяИзНескольктихСлов = 1; //static, global
     public static final int MY_CONST = 2;
+
+    static {
+        System.out.println("static block");
+//        new IntStream("file"); // -> exception?
+        //....
+    }
+
+    static {
+        System.out.println("vvv");
+        //....
+    }
 
     /**
      * message != null
