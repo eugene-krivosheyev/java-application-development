@@ -126,6 +126,8 @@ git clone --branch master --depth 1 https://github.com/ACCOUNT/java-application-
 - [ ] Run tests from IDEA 
 ### DoD
 - [ ] All given specifications runs are green
+- [ ] Code reuse and minimum code duplication
+- [ ] Code style
 
 ## Java syntax for procedure style: primitive types system (2.5)
 ### Variable declaration
