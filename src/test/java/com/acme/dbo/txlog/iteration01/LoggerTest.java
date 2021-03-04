@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
