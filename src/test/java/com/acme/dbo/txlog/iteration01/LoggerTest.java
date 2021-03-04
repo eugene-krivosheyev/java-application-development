@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -22,12 +23,23 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
+
+    public void assertSysoutContainsArray(String[] expected) {
+        for (int i = 0; i < expected.length; i = i + 1) {
+            assertSysoutContains(expected[i]);
+        }
+    }
+
+    public void callFacadeMultipleTimes(Object[] messages) {
+        for (int i = 0; i < messages.length; i = i + 1) {
+            Facade.log(messages[i]);
+        }
+    }
+
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        Facade.log(1);
-        Facade.log(0);
-        Facade.log(-1);
+        callFacadeMultipleTimes(new Object[]{1,0,-1});
         //endregion
 
         //region then
@@ -39,16 +51,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte)1);
-        Facade.log((byte)0);
-        Facade.log((byte)-1);
+        callFacadeMultipleTimes(new Object[]{(byte)1,(byte)0,(byte)-1});
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-        assertSysoutContains("0");
-        assertSysoutContains("-1");
+        assertSysoutContainsArray(new String[]{"primitive: ", "1", "0", "-1"});
         //endregion
     }
 
