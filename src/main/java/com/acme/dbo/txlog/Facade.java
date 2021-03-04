@@ -1,11 +1,18 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
+
+    public static final String PRIMITIVE = "primitive: ";
+
     public static void log(int message) {
-        System.out.println("primitive: " + message);
+        printLog(message);
     }
 
     public static void log(byte message) {
-        System.out.println("primitive: " + message);
+        printLog(message);
+    }
+
+    private static void printLog(int message) {
+        System.out.println(PRIMITIVE + message);
     }
 }
