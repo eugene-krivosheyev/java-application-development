@@ -25,14 +25,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     public void assertSysoutContainsArray(String[] expected) {
-        for (int i = 0; i < expected.length; i = i + 1) {
-            assertSysoutContains(expected[i]);
+        for (String s : expected) {
+            assertSysoutContains(s);
         }
     }
 
     public void callFacadeMultipleTimes(Object[] messages) {
-        for (int i = 0; i < messages.length; i = i + 1) {
-            Facade.log(messages[i]);
+        for (Object message : messages) {
+            Facade.log(message);
         }
     }
 
