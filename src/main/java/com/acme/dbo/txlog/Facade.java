@@ -13,8 +13,9 @@ import java.util.stream.IntStream;
  */
 
 public class Facade {
-    public static int переменнаяИзНескольктихСлов; //static, global
+    public static int переменнаяИзНескольктихСлов = 0; //static, global
     public static final int MY_CONST = 2;
+    public static final int MY_SECOND_CONST = 1;
 
     /*
     static {
@@ -41,6 +42,13 @@ public class Facade {
 //        --implementation как?--
 //
 //        message = 27598;
+        final int localConst = 2;
+        int localVar = 0;
+        System.out.println(localVar);
+
+        byte byteVar = 1;
+
+        String stringVar = "some string const literal";
         printMessage(message);
         //...
     }
