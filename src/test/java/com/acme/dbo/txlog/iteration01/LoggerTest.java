@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
+
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
@@ -31,9 +32,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+
+        assertSysoutContains(getTestString("1"));
+        assertSysoutContains(getTestString("0"));
+        assertSysoutContains(getTestString("-1"));
         //endregion
+    }
+
+    private String getTestString(String content){
+        String separator = System.lineSeparator();
+        return String.format("primitive: %s%s", content, separator);
     }
 
     @Test
@@ -45,10 +53,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-        assertSysoutContains("0");
-        assertSysoutContains("-1");
+        assertSysoutContains(getTestString("1"));
+        assertSysoutContains(getTestString("1"));
+        assertSysoutContains(getTestString("1"));
         //endregion
     }
 
