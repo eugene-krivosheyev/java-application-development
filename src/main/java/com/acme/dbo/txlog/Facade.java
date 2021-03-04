@@ -12,6 +12,6 @@ public class Facade {
     }
 
     private static void printIntToConsole(int message) {
-        System.out.print("primitive: " + message + "\n");
+        System.out.println("primitive: " + message);
     }
 }
