@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -25,14 +27,20 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        Facade.log(1);
-        Facade.log(0);
-        Facade.log(-1);
+        int num1=1;
+        int num2=0;
+        int num3=-1;
+        String prefix="primitive: ";
+        Facade.log(num1);
+        Facade.log(num2);
+        Facade.log(num3);
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutContains(prefix);
+        assertSysoutEquals(prefix + num1 + lineSeparator() +
+                prefix + num2 + lineSeparator() +
+                prefix + num3 + lineSeparator());
         //endregion
     }
 
