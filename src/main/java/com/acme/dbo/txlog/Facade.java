@@ -16,4 +16,8 @@ public class Facade {
     public static void log(char message) {
         System.out.println("char: " + message);
     }
+
+    public static void log(boolean b) {
+        System.out.println("primitive: " + b);
+    }
 }
