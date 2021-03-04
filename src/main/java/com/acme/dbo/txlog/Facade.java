@@ -10,9 +10,7 @@ public class Facade {
     }
 
     private static void print(Object message) {
-        if (message instanceof Integer) {
-            prntPrimitive(message);
-        } else if (message instanceof Byte) {
+        if (message instanceof Integer || message instanceof Byte) {
             prntPrimitive(message);
         }
     }
