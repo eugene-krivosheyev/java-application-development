@@ -7,30 +7,30 @@ public class Facade {
     private static final String PrefixMessageString = "string: ";
     private static final String PrefixMessageReference = "reference: ";
 
-    private static void PrintMessage(String Richmessage) {
+    private static void printMessage(String Richmessage) {
         System.out.println(Richmessage);
     }
 
     public static void log(int message) {
-        PrintMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessagePrimitive + message);
     }
 
     public static void log(byte message) {
-        PrintMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessagePrimitive + message);
     }
 
     public static void log(char message) {
-        PrintMessage(PrefixMessageChar + message);
+        printMessage(PrefixMessageChar + message);
     }
 
     public static void log(String message) {
-        PrintMessage(PrefixMessageString + message);
+        printMessage(PrefixMessageString + message);
     }
     public static void log(boolean message) {
-        PrintMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessagePrimitive + message);
     }
 
     public static void log(Object message) {
-        PrintMessage(PrefixMessageReference + message);
+        printMessage(PrefixMessageReference + message);
     }
 }
