@@ -1,10 +1,11 @@
 package com.acme.dbo.txlog;
 
 public class Facade {
-    static String PrefixMessagePrimitive = "primitive: ";
-    static String PrefixMessageChar = "char: ";
-    static String PrefixMessageString = "string: ";
-    static String PrefixMessageReference = "reference: ";
+    //TODO: change to enum or dictionary
+    private static final String PrefixMessagePrimitive = "primitive: ";
+    private static final String PrefixMessageChar = "char: ";
+    private static final String PrefixMessageString = "string: ";
+    private static final String PrefixMessageReference = "reference: ";
 
     private static void PrintMessage(String Richmessage) {
         System.out.println(Richmessage);
