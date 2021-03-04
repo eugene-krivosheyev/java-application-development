@@ -4,7 +4,10 @@ import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.internal.runners.statements.ExpectException;
+import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
 
@@ -32,13 +35,22 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log(1);
         Facade.log(0);
-        Facade.log(-1);
+        //Facade.log(-1);
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0" + ls + "primitive: -1" + ls);
+        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0" + ls);// + "primitive: -1" + ls);
         //endregion
+    }
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
+    @Test
+    public void shouldThrowException() throws IOException{
+        exception.expect(IllegalArgumentException.class);
+        Facade.log(-1);
     }
 
     @Test
