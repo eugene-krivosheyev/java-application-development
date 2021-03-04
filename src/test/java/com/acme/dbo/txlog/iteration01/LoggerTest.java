@@ -50,6 +50,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldThrowException() throws IOException{
         exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Message is less than 0.");
         Facade.log(-1);
     }
 
