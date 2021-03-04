@@ -20,4 +20,8 @@ public class Facade {
     public static void log(boolean b) {
         System.out.println("primitive: " + b);
     }
+
+    public static void log(Object o) {
+        System.out.println("reference: " + o);
+    }
 }
