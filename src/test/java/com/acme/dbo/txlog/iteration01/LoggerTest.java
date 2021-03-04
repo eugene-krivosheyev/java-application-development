@@ -8,7 +8,19 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+
+    private final String prefix = "primitive: ";
+    private final String lineSeparator = lineSeparator();
+    private String logResultInt(int number){
+        return prefix + number + lineSeparator;
+    }
+    private String logResultByte(byte number){
+        return prefix + number + lineSeparator;
+    }
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -24,31 +36,42 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
     @Test
     public void shouldLogInteger() throws IOException {
+        int number1 = 1;
+        int number2 = 0;
+        int number3 = -1;
+
         //region when
-        Facade.log(1);
-        Facade.log(0);
-        Facade.log(-1);
+        Facade.log(number1);
+        Facade.log(number2);
+        Facade.log(number3);
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutContains(prefix);
+        assertSysoutEquals(logResultInt(number1) +
+                                    logResultInt(number2) +
+                                    logResultInt(number3));
         //endregion
     }
 
     @Test
     public void shouldLogByte() throws IOException {
+        byte number1 = 1;
+        byte number2 = 0;
+        byte number3 = -1;
+
+
         //region when
-        Facade.log((byte)1);
-        Facade.log((byte)0);
-        Facade.log((byte)-1);
+        Facade.log(number1);
+        Facade.log(number2);
+        Facade.log(number3);
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-        assertSysoutContains("0");
-        assertSysoutContains("-1");
+        assertSysoutContains(prefix);
+        assertSysoutContains(Integer.toString(number1));
+        assertSysoutContains(Integer.toString(number2));
+        assertSysoutContains(Integer.toString(number3));
         //endregion
     }
 
