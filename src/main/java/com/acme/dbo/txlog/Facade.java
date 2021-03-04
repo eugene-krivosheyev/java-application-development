@@ -16,6 +16,7 @@ public class Facade {
     public static int переменнаяИзНескольктихСлов; //static, global
     public static final int MY_CONST = 2;
 
+    /*
     static {
         System.out.println("static block");
 //        new IntStream("file"); // -> exception?
@@ -26,43 +27,36 @@ public class Facade {
         System.out.println("vvv");
         //....
     }
-
+*/
     /**
      * message != null
      */
     //@Contract(!null -> !null)
     public static void log(/* @NotNull */ int message) { //formal arg
-        int i喝шш = 1; //stack, auto, local
-        System.out.println(i喝шш);
-
-        System.out.println(переменнаяИзНескольктихСлов);
-        if (message <= 0) throw new IllegalArgumentException();
-        //--implementation как?--
-
-        message = 27598;
-        printToConsole(message);
+//        int i喝шш = 1; //stack, auto, local
+//        System.out.println(i喝шш);
+//
+//        System.out.println(переменнаяИзНескольктихСлов);
+//        if (message <= 0) throw new IllegalArgumentException();
+//        --implementation как?--
+//
+//        message = 27598;
+        printMessage(message);
         //...
     }
 
     public static void log(byte message) {
-        printToConsole(message);
+        printMessage(message);
     }
 
-    public static String log(String message) {
-        return "";
+    public static void log(String message) {
+        printMessage(message);
     }
 
-    public static void log(Object message) {
-        return;
-    }
-
-    public static void log(String message1, String message2) {
-
+    private static void printMessage(Object message) {
+        System.out.println(message);
     }
 
 
-    private static void printToConsole(int message) {
-        System.out.println("primitive: " + message);
-    }
 }
 // single-line

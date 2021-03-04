@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -31,8 +33,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutContains("primitive: 1");
+        assertSysoutContains("primitive: 0");
+        assertSysoutContains("primitive: -1");
+//        assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0\nprimitive: -1\n");
         //endregion
     }
 
