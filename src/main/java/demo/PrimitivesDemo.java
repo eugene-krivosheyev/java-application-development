@@ -23,6 +23,11 @@ public strictfp class PrimitivesDemo {
         System.out.println('\t'); //CSV, TSV
         //endregion
 
+        //region boolean
+        // DEFINE true false //счастливой отладки!!!!
+        boolean bb = true | false;
+        //endregion
+
         //region Wrappers
         final Integer anInteger = new Integer(2);
 //        anInteger.NO_SETTERS!!!!
