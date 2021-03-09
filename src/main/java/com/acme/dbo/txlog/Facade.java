@@ -1,5 +1,7 @@
 package com.acme.dbo.txlog;
 
+import static java.lang.System.*;
+
 public class Facade {
     public static void log(int message) {
 
@@ -13,7 +15,7 @@ public class Facade {
 
     private static void printIntToConsole(int message) {
 
-        System.out.print("primitive: " + message +"\n");
+        out.println("primitive: " + message);
 
     }
 }
