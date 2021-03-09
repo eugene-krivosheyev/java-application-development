@@ -1,5 +1,8 @@
 package demo;
 
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.valueOf;
+
 public strictfp class PrimitivesDemo {
     public strictfp static void main(String[] args) {
         //region целочисленные
@@ -29,8 +32,23 @@ public strictfp class PrimitivesDemo {
         //endregion
 
         //region Wrappers
-        final Integer anInteger = new Integer(2);
-//        anInteger.NO_SETTERS!!!!
+        valueOf("10");
+        System.out.println(MAX_VALUE);
+
+        final Integer anInteger1 = new Integer(1);
+        final int i1 = anInteger1.intValue();
+
+        Integer anInteger2 = 1; // new Integer(1)
+        int i2 = anInteger2; // anInteger2.intValue();
+
+        //region Performance issue!!!
+        Integer counter = 0;
+        while(true) {
+            counter++;
+        }
+        //endregion
+
+        //anInteger.NO_SETTERS!!!!
         //endregion
     }
 }
