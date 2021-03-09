@@ -12,8 +12,12 @@ public class PrimitivesDemo {
         System.out.println("dfsdfgdf" + Long.MAX_VALUE);
         //endregion
 
-        //region Wrappers
+        //region FP
+        //endregion
 
+        //region Wrappers
+        final Integer anInteger = new Integer(2);
+//        anInteger.NO_SETTERS!!!!
         //endregion
     }
 }
