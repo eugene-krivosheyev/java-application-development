@@ -43,12 +43,24 @@ public strictfp class PrimitivesDemo {
 
         //region Performance issue!!!
         Integer counter = 0;
-        while(true) {
+        while(forever()) {
             counter++;
         }
         //endregion
 
         //anInteger.NO_SETTERS!!!!
         //endregion
+
+        //region Type Overflow
+        byte accumulator = Byte.MIN_VALUE;
+        for (int n = 0; n < 258; n++) {
+            accumulator++;
+        }
+        System.out.println(accumulator);
+        //endregion
+    }
+
+    private static boolean forever() {
+        return false;
     }
 }
