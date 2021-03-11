@@ -1,36 +1,41 @@
 package com.acme.dbo.txlog;
 
-public class Facade {
-    //TODO: change to enum or dictionary
-    private static final String PrefixMessagePrimitive = "primitive: ";
-    private static final String PrefixMessageChar = "char: ";
-    private static final String PrefixMessageString = "string: ";
-    private static final String PrefixMessageReference = "reference: ";
+import java.util.HashMap;
 
+public class Facade {
+
+    static HashMap<String,String>  PrefixMessage = new HashMap<String,String>();
+    static {
+
+        PrefixMessage.put("Primitive", "primitive: ");
+        PrefixMessage.put("Char", "char: ");
+        PrefixMessage.put("String", "string: ");
+        PrefixMessage.put("Reference", "reference: ");
+    }
     private static void printMessage(String Richmessage) {
         System.out.println(Richmessage);
     }
 
     public static void log(int message) {
-        printMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessage.get("Primitive") + message);
     }
 
     public static void log(byte message) {
-        printMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessage.get("Primitive") + message);
     }
 
     public static void log(char message) {
-        printMessage(PrefixMessageChar + message);
+        printMessage(PrefixMessage.get("Char") + message);
     }
 
     public static void log(String message) {
-        printMessage(PrefixMessageString + message);
+        printMessage(PrefixMessage.get("String") + message);
     }
     public static void log(boolean message) {
-        printMessage(PrefixMessagePrimitive + message);
+        printMessage(PrefixMessage.get("Primitive") + message);
     }
 
     public static void log(Object message) {
-        printMessage(PrefixMessageReference + message);
+        printMessage(PrefixMessage.get("Reference") + message);
     }
 }
