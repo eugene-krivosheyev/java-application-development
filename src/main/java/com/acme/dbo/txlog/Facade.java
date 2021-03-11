@@ -3,31 +3,37 @@ package com.acme.dbo.txlog;
 import static java.lang.System.*;
 
 public class Facade {
+
+    public static final String PRIMITIVE_PREFIX = "primitive: ";
+    public static final String CHAR_PREFIX = "char: ";
+    public static final String STRING_PREFIX = "string: ";
+    public static final String REFERENCE_PREFIX = "reference: ";
+
     public static void log(int message) {
-        printToConsole("primitive: " + message);
+        printMessage(PRIMITIVE_PREFIX + message);
     }
 
     public static void log(byte message) {
-        printToConsole("primitive: " + String.valueOf(message));
+        printMessage(PRIMITIVE_PREFIX + message);
     }
 
     public static void log(char message) {
-        printToConsole("char: " + message);
+        printMessage(CHAR_PREFIX + message);
     }
 
     public static void log(String message) {
-        printToConsole("string: " + message);
+        printMessage(STRING_PREFIX + message);
     }
 
     public static void log(boolean message) {
-        printToConsole("primitive: " + message);
+        printMessage(PRIMITIVE_PREFIX + message);
     }
 
     public static void log(Object message) {
-        printToConsole("reference: " + message);
+        printMessage(REFERENCE_PREFIX + message);
     }
 
-    private static void printToConsole(String message) {
+    private static void printMessage(String message) {
         out.println(message);
     }
 
