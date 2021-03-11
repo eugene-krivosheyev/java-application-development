@@ -9,11 +9,15 @@ public class Facade {
         printToConsole(decorate(message));
     }
 
-    private static String decorate(Object message) {
+    private static String decorate(int message) {
         return "primitive: " + message;
     }
 
-    private static void printToConsole(Object message) {
+    private static String decorate(byte message) {
+        return "primitive: " + message;
+    }
+
+    private static void printToConsole(String message) {
         System.out.println(message);
     }
 }
