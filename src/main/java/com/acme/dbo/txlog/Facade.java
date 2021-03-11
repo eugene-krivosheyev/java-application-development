@@ -6,7 +6,7 @@ public class Facade {
     private static final String PRIMITIVE_POSTFIX = "";
     private static final String STRING_POSTFIX = "";
 
-    public static void log(int message) {
+    public static void log(Integer message) {
         print(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
     }
 
