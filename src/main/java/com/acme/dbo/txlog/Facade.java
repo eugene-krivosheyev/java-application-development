@@ -29,6 +29,10 @@ public class Facade {
         return "primitive: " + message;
     }
 
+    private static String decorate(byte message) {
+        return "primitive: " + message;
+    }
+
     private static String decorate(char message) {
         return "char: " + message;
     }
