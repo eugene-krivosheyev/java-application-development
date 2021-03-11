@@ -12,7 +12,7 @@ public strictfp class PrimitivesDemo {
 
         //region wrappers
         System.out.println(Short.MAX_VALUE);
-        System.out.println(Float.MAX_VALUE);
+        System.out.println(Double.MAX_VALUE);
         //endregion
     }
 }
