@@ -2,22 +2,27 @@ package com.acme.dbo.txlog;
 
 public class Facade {
     public static void log(int message) {
-        System.out.println(("primitive: " + message));
+        printMessage("primitive: " + message);
     }
 
     public static void log(char message) {
-        System.out.println("char: " + message);
+        printMessage("char: " + message);
     }
 
     public static void log(String message) {
-        System.out.println("string: " + message);
+        printMessage("string: " + message);
     }
 
     public static void log(boolean message) {
-        System.out.println("primitive: " + message);
+        printMessage("primitive: " + message);
     }
 
     public static void log(Object obj) {
-        System.out.println("reference: " + obj);
+        printMessage("reference: " + obj);
+    }
+
+
+    private static void printMessage(String msg) {
+        System.out.println(msg);
     }
 }
