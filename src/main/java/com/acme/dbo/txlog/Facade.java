@@ -2,9 +2,13 @@ package com.acme.dbo.txlog;
 
 public class Facade {
     private static boolean isLoggedIntOnPrevious = false;
-    private static int summ = 0;
+    private static long summ = 0;
     public static void log(int message) {
         isLoggedIntOnPrevious = true;
+        if (summ + message > Integer.MAX_VALUE) {
+            printSumm();
+            isLoggedIntOnPrevious = true;
+        }
         summ += message;
         if (summ == 0) printSumm();
     }

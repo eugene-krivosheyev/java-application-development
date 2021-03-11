@@ -43,7 +43,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
+
 
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
@@ -65,7 +65,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-
+  /*
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
