@@ -2,27 +2,27 @@ package com.acme.dbo.txlog;
 
 public class Facade {
     public static void log(int message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     public static void log(byte message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     public static void log(char message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     public static void log(String message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     public static void log(boolean message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     public static void log(Object message) {
-        printToConsole(decorate(message));
+        printMessage(decorate(message));
     }
 
     private static String decorate(int message) {
@@ -49,7 +49,7 @@ public class Facade {
         return "reference: " + message;
     }
 
-    private static void printToConsole(String message) {
+    private static void printMessage(String message) {
         System.out.println(message);
     }
 }
