@@ -39,8 +39,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutEquals("primitive: 1" + lineSeparator()
                 + "primitive: 0" + lineSeparator()
                 + "primitive: -1" + lineSeparator());
-//        Client and server will have same platform (client and logger code)
-//        Do not wish to include equals to contract
+//       Assuming client and server will have same platform (logger code and the client)
         //endregion
     }
 
@@ -58,9 +57,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("primitive: -1");
         //endregion
     }
-
-    /*
-    TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogChar() throws IOException {
@@ -115,6 +111,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("@");
         //endregion
     }
-
-    */
 }
