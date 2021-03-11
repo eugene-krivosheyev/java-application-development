@@ -24,6 +24,8 @@ public class Facade {
 
 
     private static String decorate(String stringPrefix, Object message, String stringPostfix) {
+        System.out.printf("jsdhfgsj %d hgdjhf %s jkgh %s kjgkh %s lfgf", stringPrefix, message, stringPostfix);
+//        REGEXP("regexp")
         return stringPrefix + message + stringPostfix;
     }
 
