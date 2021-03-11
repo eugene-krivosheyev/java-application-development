@@ -3,11 +3,7 @@ package com.acme.dbo.txlog;
 public class Facade {
 
     public static void log(Object message) {
-        outputMessageWithPrefix(getPrefixByType(message), message);
-    }
-
-    private static void outputMessageWithPrefix(String prefix, Object message) {
-        System.out.println(prefix + ": " + message);
+        outputDecoratedMessage(decorateMessage(message));
     }
 
     private static String getPrefixByType(Object message) {
@@ -20,5 +16,13 @@ public class Facade {
         } else {
             return "reference";
         }
+    }
+
+    private static String decorateMessage(Object message) {
+        return getPrefixByType(message) + message.toString();
+    }
+
+    private static void outputDecoratedMessage(String decoratedMessage) {
+        System.out.println(decoratedMessage);
     }
 }
