@@ -8,29 +8,37 @@ public class Facade {
     public static final String CHAR_PREFIX = "char: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
+    public static final String PRIMITIVE_POSTFIX = "";
+    public static final String REFERENCE_POSTFIX = "";
+    public static final String STRING_POSTFIX = "";
+    public static final String CHAR_POSTFIX = "";
 
     public static void log(int message) {
-        printMessage(PRIMITIVE_PREFIX + message);
+        printMessage(decorate(PRIMITIVE_PREFIX,message, PRIMITIVE_POSTFIX));
     }
 
     public static void log(byte message) {
-        printMessage(PRIMITIVE_PREFIX + message);
+        printMessage(decorate(PRIMITIVE_PREFIX,message, PRIMITIVE_POSTFIX));
     }
 
     public static void log(char message) {
-        printMessage(CHAR_PREFIX + message);
+        printMessage(decorate(CHAR_PREFIX,message, CHAR_POSTFIX));
     }
 
     public static void log(String message) {
-        printMessage(STRING_PREFIX + message);
+        printMessage(decorate(STRING_PREFIX,message, STRING_POSTFIX));
     }
 
     public static void log(boolean message) {
-        printMessage(PRIMITIVE_PREFIX + message);
+        printMessage(decorate(PRIMITIVE_PREFIX,message, PRIMITIVE_POSTFIX));
     }
 
     public static void log(Object message) {
-        printMessage(REFERENCE_PREFIX + message);
+        printMessage(decorate(REFERENCE_PREFIX,message, REFERENCE_POSTFIX));
+    }
+
+    private static String decorate(String prefix,Object message,String postfix) {
+        return prefix + message + postfix;
     }
 
     private static void printMessage(String message) {
