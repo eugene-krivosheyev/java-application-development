@@ -25,23 +25,32 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        Facade.log(1);
-        Facade.log(0);
-        Facade.log(-1);
+        int[] input = new int[]{1, 0, -1};
+
+        for (int value : input) {
+            Facade.log(value);
+        }
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutEquals("primitive: 1"
+                + System.lineSeparator()
+                + "primitive: 0"
+                + System.lineSeparator()
+                + "primitive: -1"
+                + System.lineSeparator());
         //endregion
     }
 
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte)1);
-        Facade.log((byte)0);
-        Facade.log((byte)-1);
+        byte[] input = new byte[]{(byte) 1, (byte) 0, (byte) -1};
+
+        for (byte value : input) {
+            Facade.log(value);
+        }
         //endregion
 
         //region then
@@ -52,8 +61,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
-    TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogChar() throws IOException {
@@ -69,6 +76,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
+
+
     @Test
     public void shouldLogString() throws IOException {
         //region when
@@ -82,6 +91,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
+
+
 
     @Test
     public void shouldLogBoolean() throws IOException {
@@ -97,6 +108,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
+
+
     @Test
     public void shouldLogReference() throws IOException {
         //region when
@@ -109,5 +122,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    */
 }
