@@ -1,6 +1,7 @@
 package demo;
 
 import javax.xml.ws.soap.Addressing;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +11,8 @@ import static java.lang.Double.POSITIVE_INFINITY;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.of;
 
-public class OperatorsDemo {
-    public static void main(String[] args) {
+public strictfp class OperatorsDemo {
+    public strictfp static void main(String[] args) {
         //region Type operators
         byte b = 0;
         int i = b; //implicit type casting
@@ -49,6 +50,12 @@ public class OperatorsDemo {
         System.out.println(POSITIVE_INFINITY + 1 == POSITIVE_INFINITY);
         System.out.println(NaN == NaN);
         System.out.println(NaN + 1 < NaN);
+        //endregion
+
+        //region FP pre loss
+        // IEEE 754: 2e3
+        System.out.println(.1 + .2);
+        BigDecimal bd;
         //endregion
     }
 }

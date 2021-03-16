@@ -1,5 +1,7 @@
 package demo;
 
+import java.math.BigInteger;
+
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.valueOf;
 
@@ -57,6 +59,7 @@ public strictfp class PrimitivesDemo {
             accumulator++;
         }
         System.out.println(accumulator);
+        // or BigInteger
         //endregion
     }
 
