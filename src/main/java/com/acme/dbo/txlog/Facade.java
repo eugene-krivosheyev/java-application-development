@@ -1,19 +1,31 @@
 package com.acme.dbo.txlog;
 
+import static com.acme.dbo.txlog.Printer.printMessage;
+
 public class Facade {
-    public static void log(int message) {
-        prntPrimitive(message);
+    //TODO: extract constants (prefixes) in decorator
+    /*public static void log(int message) {
+        printMessage(message);
     }
 
     public static void log(byte message) {
-        prntPrimitive(message);
+        printMessage(message);
     }
 
-    private static void prntPrimitive(Object message) {
-        prntToConsole("primitive: " + message);
+    public static void log(char message) {
+        printMessage(message);
     }
 
-    private static void prntToConsole(Object message) {
-        System.out.println(message);
+    public static void log(String message) {
+        printMessage(message);
     }
+
+    public static void log(boolean message) {
+        printMessage(message);
+    }*/
+
+    public static void log(Object message) {
+        printMessage(message);
+    }
+
 }
