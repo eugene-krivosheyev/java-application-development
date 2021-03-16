@@ -8,8 +8,9 @@ public class OperatorsDemo {
         System.out.println(var2);
 
         //NON-PRIMITIVES!!!
-        if ("a" instanceof String) {
-
+        Object obj = new Integer(1); //polymorphism
+        if (obj instanceof String) {
+            String result = (String) obj; // -> ClassCastException
         }
         //endregion
     }
