@@ -24,5 +24,7 @@ public class OperatorsDemo {
         System.out.println(1./0.);
         System.out.println(0./0.);
         //endregion
+
+        
     }
 }
