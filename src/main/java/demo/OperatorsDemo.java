@@ -25,6 +25,15 @@ public class OperatorsDemo {
         System.out.println(0./0.);
         //endregion
 
-        
+        //region Bitwise
+        int v1 = 1, v2 = 2, v3 = -1;
+        System.out.println( ~v1 );
+        System.out.println( v1 & v2);
+        System.out.println( v1 | v2);
+        System.out.println( v1 ^ v2);
+        System.out.println( v1 << 1);
+        System.out.println( v3 >> 1);
+        System.out.println( v3 >>> 1);
+        //endregion
     }
 }
