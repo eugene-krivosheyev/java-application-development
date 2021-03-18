@@ -57,5 +57,17 @@ public strictfp class OperatorsDemo {
         System.out.println(.1 + .2);
         BigDecimal bd;
         //endregion
+
+        //region Bitwise
+        int ii1 = 1, ii2 = -2;
+        System.out.println( ii1 | ii2 );
+        System.out.println( ii1 & ii2 );
+        System.out.println( ii1 ^ ii2 ); // XOR
+        System.out.println( ~ii1 ); // !
+
+        System.out.println( ii1 << 1 ); // *2
+        System.out.println( ii2 >> 1 ); // div 2
+        System.out.println( ii2 >>> 1 );
+        //endregion
     }
 }
