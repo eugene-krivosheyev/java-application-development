@@ -36,4 +36,23 @@ public class SwitchAndCycleDemo {
     private static boolean f1() {
         return false;
     }
+
+    private static void methodWithParam(int param) {
+        if (param > 0) {
+            // main flow
+        } else if (param < 0) {
+            throw new IllegalArgumentException("param must be positive");
+        } else if (param < 0) {
+            throw new IllegalArgumentException("param must be positive");
+        }
+    }
+
+    // Guard Clauses
+    private static void refactoredMethodWithParam(int param) {
+        if (param <= 0) throw new IllegalArgumentException("param must be positive");
+        if (param <= 0) throw new IllegalArgumentException("param must be positive");
+        if (param <= 0) throw new IllegalArgumentException("param must be positive");
+
+        // main flow
+    }
 }
