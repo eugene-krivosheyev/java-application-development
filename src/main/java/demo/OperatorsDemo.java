@@ -35,5 +35,9 @@ public class OperatorsDemo {
         System.out.println( v3 >> 1);
         System.out.println( v3 >>> 1);
         //endregion
+
+        System.out.println(1 + 1);
+        System.out.println(1 + "1"); // concat
+        System.out.println( 1 + 2 + "3" + 4 * 5);
     }
 }
