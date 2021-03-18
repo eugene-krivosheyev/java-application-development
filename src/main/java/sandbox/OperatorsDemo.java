@@ -63,6 +63,19 @@ public class OperatorsDemo {
         System.out.println(wrB == null); // == != > < >= <=
 
         //endregion
+
+        //region references
+        System.out.println("<<<<<<<<<<<< References and Objects >>>>>>>>>>");
+        Object obj1; // reference id | hash
+        obj1 = new Object();
+        Object obj2 = new Object();
+
+        final String isSame = obj1 == obj2 ? "same":"different";
+
+        System.out.println(obj1 != obj2);
+        System.out.println(obj1.equals(obj2));
+        System.out.println(isSame);
+        //endregion
     }
 
     private static boolean m1() {
