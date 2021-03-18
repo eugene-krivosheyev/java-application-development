@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
-
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
@@ -23,6 +22,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
+    private String getTestString(String prefix, Object obj){
+        String separator = System.lineSeparator();
+        return prefix + ": " + obj.toString() + separator;
+        //return String.format("%s:%s%s", prefix, content, separator);
+    }
+
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
@@ -32,16 +37,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-
-        assertSysoutContains(getTestString("1"));
-        assertSysoutContains(getTestString("0"));
-        assertSysoutContains(getTestString("-1"));
+        assertSysoutContains("primitive: ");
+        assertSysoutContains(getTestString("primitive", "1"));
+        assertSysoutContains(getTestString("primitive","0"));
+        assertSysoutContains(getTestString("primitive","-1"));
         //endregion
-    }
-
-    private String getTestString(String content){
-        String separator = System.lineSeparator();
-        return String.format("primitive: %s%s", content, separator);
     }
 
     @Test
@@ -53,14 +53,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains(getTestString("1"));
-        assertSysoutContains(getTestString("1"));
-        assertSysoutContains(getTestString("1"));
+        assertSysoutContains("primitive: ");
+        assertSysoutContains(getTestString("primitive","1"));
+        assertSysoutContains(getTestString("primitive","0"));
+        assertSysoutContains(getTestString("primitive","-1"));
         //endregion
     }
 
-    /*
-    TODO: implement Logger solution to match specification as tests
+
+    //TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogChar() throws IOException {
@@ -71,8 +72,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("char: ");
-        assertSysoutContains("a");
-        assertSysoutContains("b");
+        assertSysoutContains(getTestString("char",'a'));
+        assertSysoutContains(getTestString("char",'b'));
         //endregion
     }
 
@@ -85,8 +86,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("string: ");
-        assertSysoutContains("test string 1");
-        assertSysoutContains("other str");
+        assertSysoutContains(getTestString("string","test string 1"));
+        assertSysoutContains(getTestString("string","other str"));
         //endregion
     }
 
@@ -99,22 +100,23 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutContains("true");
-        assertSysoutContains("false");
+        assertSysoutContains(getTestString("primitive","true"));
+        assertSysoutContains(getTestString("primitive","false"));
         //endregion
     }
 
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        Facade.log(new Object());
+        Object obj = new Object();
+        Facade.log(obj);
         //endregion
 
         //region then
         assertSysoutContains("reference: ");
-        assertSysoutContains("@");
+        assertSysoutContains(getTestString("reference", obj));
         //endregion
     }
 
-    */
+Integer a = new Integer((char)'a');
 }
