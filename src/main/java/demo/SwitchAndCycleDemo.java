@@ -2,6 +2,7 @@ package demo;
 
 public class SwitchAndCycleDemo {
     public static void main(String[] args) {
+        //region if
         if (f1()) {
 
         } else if(f2()) {
@@ -26,7 +27,55 @@ public class SwitchAndCycleDemo {
             default: break;
             case 2: break;
         }
+        //endregion
 
+        //region cycles
+        //for(;;) {}
+        for (int counter = 0, i = 1; counter < 10 & i < 2; counter++, i--) {
+            System.out.println(counter);
+        }
+
+        do {
+
+        } while (always());
+
+        while (always()) {
+
+        }
+
+        //foreach -> iteartion over arrays and Collections
+        for(String current : args) {
+            System.out.println(current);
+        }
+        //endregion
+
+        //region nested
+        outer: while (always()) {
+            if (condition()) break; // -> 61
+            if (condition()) continue; // -> 53
+            //...
+
+            inner: do {
+                if (condition()) break outer; // -> 65
+                if (condition()) continue outer; // ->
+
+                doIterateCollection();
+            } while (always());
+            //..
+        }
+        //endregion
+    }
+
+    private static boolean condition() {
+        return false;
+    }
+
+    private static void doIterateCollection() {
+
+    }
+
+    private static boolean always() {
+        return 1 == 1;
     }
 
     private static boolean f2() {
