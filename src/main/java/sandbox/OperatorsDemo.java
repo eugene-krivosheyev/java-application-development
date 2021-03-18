@@ -56,6 +56,13 @@ public class OperatorsDemo {
 
         }
         //endregion
+
+        //region logic operations
+        Boolean wrB = true;
+        System.out.println("<<<<<<<<<<<< Logic ops >>>>>>>>>>");
+        System.out.println(wrB == null); // == != > < >= <=
+
+        //endregion
     }
 
     private static boolean m1() {
