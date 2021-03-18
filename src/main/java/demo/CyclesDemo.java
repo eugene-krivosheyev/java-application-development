@@ -1,5 +1,7 @@
 package demo;
 
+import java.util.Objects;
+
 public class CyclesDemo {
     public static void main(String[] args) {
         if (condition()) {
@@ -10,6 +12,28 @@ public class CyclesDemo {
         } else {
 
         }
+
+        String var = null; // == .equals()
+        switch (var) {
+            case "1": {
+                System.out.println("1"); break;
+            }
+            case "2":
+                System.out.println("2"); break;
+            default:
+                System.out.println("something other"); break;
+        }
+
+        if ("1".equals(var)) {
+
+        }
+        if (Objects.equals("1", var)) {
+
+        }
+
+
+
+
 
     }
 
