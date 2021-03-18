@@ -69,5 +69,50 @@ public strictfp class OperatorsDemo {
         System.out.println( ii2 >> 1 ); // div 2
         System.out.println( ii2 >>> 1 );
         //endregion
+
+        //region Logical operators + сравнения
+        boolean bb1 = true, bb2 = false;
+        //eager
+        System.out.println( bb1 & bb2 ); // *
+        System.out.println( bb1 | bb2 ); // +
+        System.out.println( !bb2 );
+        //lazy
+        System.out.println( first() && second() ); // +
+        System.out.println( first() || second() ); // +
+        // fopen('file') or die();
+
+        System.out.println( 1 == 1 ); // = =
+        System.out.println( 1 != 1 ); // ! =
+        System.out.println(1 >= 1); // > =
+        System.out.println(1 <= 1); // < =
+
+        Object var = new Object();
+        System.out.println(var);
+
+
+        Object o1 = new Object();
+        Object o2 = new Object();
+        System.out.println( o1 == o2 ); // same?
+        System.out.println( o1.equals(o2) );
+        //endregion
+
+        //region ternary
+        final Object result = check() ? get1Option() : 3;
+        //endregion
+    }
+
+    private static boolean check() {
+        return 1 == 2;
+    }
+
+    private static String get1Option() {
+        return "equals";
+    }
+
+    private static boolean first() {
+        return false;
+    }
+    private static boolean second() {
+        return false;
     }
 }
