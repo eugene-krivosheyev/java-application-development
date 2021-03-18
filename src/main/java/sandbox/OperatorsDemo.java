@@ -1,5 +1,7 @@
 package sandbox;
 
+import java.util.Arrays;
+
 public class OperatorsDemo {
     public static void main(String[] args){
         //region typ cast operators
@@ -37,5 +39,32 @@ public class OperatorsDemo {
         System.out.println(v3 << 1);
 
         //endregion
+
+        //region ++++ str+++
+        System.out.println(1 + 1);
+        System.out.println("1" + 1 );
+        System.out.println(1 + 2 + "3" + 4 + 5 );
+        //endregion
+
+        //region logical
+        boolean boo1 = true, boo2 = false;
+        System.out.println(boo1 & boo2);
+        System.out.println(boo1 | boo2);
+        System.out.println(!boo1 );
+        System.out.println(!boo2 );
+        if ( m1() || m2()){
+
+        }
+        //endregion
     }
+
+    private static boolean m1() {
+        return false;
+    }
+
+    private static boolean m2() {
+        return true;
+    }
+
+
 }
