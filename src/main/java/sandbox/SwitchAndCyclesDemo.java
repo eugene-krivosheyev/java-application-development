@@ -2,6 +2,7 @@ package sandbox;
 
 public class SwitchAndCyclesDemo {
     public strictfp static void main(String[] args) {
+        //region if/switch
         if (fun1()) {
 
         } else if (fun2()) {
@@ -26,6 +27,54 @@ public class SwitchAndCyclesDemo {
                 System.out.println("default");
 
         }
+        //endregion
+
+        //region cycles
+        for(int counter = 0, i = 0; counter < 10 & i>0; counter++, i--){
+            System.out.println(counter);
+        }
+
+        do {
+
+        } while (isAlways());
+
+        while (isAlways()){
+
+        }
+
+        //foreach  used for iteration over list, collection, maps etc.
+        for (String current : args ) {
+            System.out.println(current);
+        }
+
+        //endregion
+
+        //region nested cycles
+        outher: while (isAlways()){
+            if(condition()) break;  // -> 63
+            if(condition()) continue; // -> 53
+
+            inner: do{
+                if(condition()) break outher;
+                if(condition()) continue outher;
+                doIterateInputStrings(args);
+            } while (isAlways());
+        }
+        //endregion
+    }
+
+    private static boolean condition() {
+        return false;
+    }
+
+    private static void doIterateInputStrings(String[] args) {
+        for (String current : args ) {
+            System.out.println(current);
+        }
+    }
+
+    private static boolean isAlways() {
+        return true;
     }
 
     private static boolean fun2() {
