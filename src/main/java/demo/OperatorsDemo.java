@@ -47,7 +47,6 @@ public class OperatorsDemo {
 
         }
         //fopen("file") or die("gggg");
-        //endregion
         Integer iiii = 2;
         Boolean wrBool = null; // new Boolean(true);
 
@@ -55,6 +54,16 @@ public class OperatorsDemo {
         if ( wrBool | true ) { // new Boolean(null)
 
         }
+
+        Object obj1; // reference: id | hash
+        obj1 = new Object();
+        Object obj2 = new Object();
+
+        System.out.println(obj1 != obj2); // = =
+        System.out.println( obj1.equals(obj2) ); // = = =
+
+        final String isSame = obj1 == obj2 ? "same" : "different objects";
+        //endregion
     }
 
     private static boolean m2() {
