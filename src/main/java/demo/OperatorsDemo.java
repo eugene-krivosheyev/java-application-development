@@ -39,5 +39,22 @@ public class OperatorsDemo {
         System.out.println(1 + 1);
         System.out.println(1 + "1"); // concat
         System.out.println( 1 + 2 + "3" + 4 * 5);
+
+        //region Logical
+        boolean boo1 = true, boo2 = false;
+        System.out.println( boo1 | boo2 ); // | & !
+        if ( m1() || m2() ) {
+
+        }
+        //fopen("file") or die("gggg");
+        //endregion
+    }
+
+    private static boolean m2() {
+        return true;
+    }
+
+    private static boolean m1() {
+        return false;
     }
 }
