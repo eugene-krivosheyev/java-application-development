@@ -43,11 +43,18 @@ public class OperatorsDemo {
         //region Logical
         boolean boo1 = true, boo2 = false;
         System.out.println( boo1 | boo2 ); // | & !
-        if ( m1() || m2() ) {
+        if ( m1() || m2() ) { // lazy
 
         }
         //fopen("file") or die("gggg");
         //endregion
+        Integer iiii = 2;
+        Boolean wrBool = null; // new Boolean(true);
+
+        System.out.println( 1 == 1 ); // == != > < >= <=
+        if ( wrBool | true ) { // new Boolean(null)
+
+        }
     }
 
     private static boolean m2() {
