@@ -3,9 +3,6 @@
  */
 package com.acme.dbo.txlog;
 
-import javax.security.auth.*;
-import java.util.stream.IntStream;
-
 /**
  * Facade
  * @author kjghdkfjghdkfjhg
@@ -13,40 +10,49 @@ import java.util.stream.IntStream;
  */
 
 public class Facade {
-    public static int переменнаяИзНескольктихСлов; //static, global
-    public static final int MY_CONST = 2;
+    public static final String PREFIX_PRIMITIVE = "primitive: ";
+    public static final String PREFIX_CHAR = "char: ";
+    public static final String PREFIX_STRING = "string: ";
+    public static final String PREFIX_REFERENCE = "reference: @";
+    public static final String FORMAT_PATTER = "%s %s %s";
 
     /**
      * message != null
      */
     //@Contract(!null -> !null)
     public static void log(/* @NotNull */ int message) { //formal arg
-        printToConsole("primitive: " + message + '\n');
+        printToConsole(PREFIX_PRIMITIVE + message + '\n');
     }
 
     public static void log(char message) {
-        printToConsole("char: " + message);
+        printToConsole(PREFIX_CHAR + message);
     }
 
     public static void log(byte message) {
-        printToConsole("primitive: " + message);
+        printToConsole(PREFIX_PRIMITIVE + message);
     }
 
     public static void log(String message) {
-        printToConsole("string: " + message);
+        printToConsole(PREFIX_STRING + message);
     }
 
     public static void log(boolean message) {
-        printToConsole("primitive: " + message + '\n');
+        printToConsole(PREFIX_PRIMITIVE + message + '\n');
     }
 
     public static void log(Object message) {
-        printToConsole("reference: @" + message + '\n');;
+        printToConsole(PREFIX_REFERENCE + message + '\n');;
     }
 
     public static void log(String message1, String message2) {
 
     }
+
+    /*
+    private static String decorate(String prefix, Object msg, String postfix) {
+        return System.out.printf(FORMAT_PATTER, prefix, msg, postfix);
+    }
+     */
 
     private static void printToConsole(String message) {
         System.out.print(message);
