@@ -1,6 +1,5 @@
 package com.acme.dbo.txlog.iteration01;
 
-import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
@@ -8,8 +7,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static com.acme.dbo.txlog.Facade.flush;
 import static com.acme.dbo.txlog.Facade.log;
-import static java.lang.System.*;
+import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -29,8 +29,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         log(1);
+        flush();
         log(0);
+        flush();
         log(-1);
+        flush();
         //endregion
 
         //region then
@@ -43,8 +46,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogByte() throws IOException {
         //region when
         log((byte)1);
+        flush();
         log((byte)0);
+        flush();
         log((byte)-1);
+        flush();
+
         //endregion
 
         //region then
@@ -60,7 +67,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogChar() throws IOException {
         //region when
         log('a');
+        flush();
         log('b');
+        flush();
         //endregion
 
         //region then
@@ -75,7 +84,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogString() throws IOException {
         //region when
         log("test string 1");
+        flush();
         log("other str");
+        flush();
         //endregion
 
         //region then
@@ -90,7 +101,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogBoolean() throws IOException {
         //region when
         log(true);
+        flush();
         log(false);
+        flush();
         //endregion
 
         //region then
@@ -105,6 +118,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogReference() throws IOException {
         //region when
         log(new Object());
+        flush();
         //endregion
 
         //region then
