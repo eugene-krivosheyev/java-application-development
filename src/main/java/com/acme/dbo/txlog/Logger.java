@@ -1,5 +1,5 @@
 package com.acme.dbo.txlog;
 
 public interface Logger {
-    public void log(String message);
+    public void log(Object message);
 }
