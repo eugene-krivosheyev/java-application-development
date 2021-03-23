@@ -27,10 +27,11 @@ public class Facade {
     private static Object objectAccumulator = null;
 
     public static void log(int message) {
-        if (!activeAccumulator.equals(INT_ACC)) {
+        if (!activeAccumulator.equals(INT_ACC) | (isNumberOverflow(message, intAccumulator, Integer.MAX_VALUE))) {
             resetActiveAccumulator(INT_ACC);
         }
         intAccumulator += message;
+
     }
 
     public static void log(char message) {
@@ -41,7 +42,7 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        if (!activeAccumulator.equals(BYTE_ACC)) {
+        if (!activeAccumulator.equals(BYTE_ACC)| (isNumberOverflow(message, byteAccumulator, Byte.MAX_VALUE))) {
             resetActiveAccumulator(BYTE_ACC);
         }
         byteAccumulator += message;
@@ -111,6 +112,10 @@ public class Facade {
     private static void resetActiveAccumulator(String accumulator) {
         flush();
         activeAccumulator = accumulator;
+    }
+
+    private static boolean isNumberOverflow (long first, long second, long overflow) {
+        return first + second > overflow;
     }
 
 
