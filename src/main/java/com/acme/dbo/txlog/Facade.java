@@ -6,6 +6,8 @@ public class Facade {
 
     static HashMap<String,String>  PrefixMessage = new HashMap<String,String>();
     static HashMap<String,String>  PostfixMessage = new HashMap<String,String>();
+    static Object Buffer=null;
+
     static {
 
         PrefixMessage.put("Primitive", "primitive: ");
@@ -18,6 +20,15 @@ public class Facade {
         PostfixMessage.put("String", "");
         PostfixMessage.put("Reference", "");
     }
+
+    public static void flush(){
+        printMessage(decorate(PrefixMessage.get("Primitive"), Buffer, PostfixMessage.get("Primitive")));
+        setBuffer(null);
+    }
+
+    public static void setBuffer(Object message){
+        Buffer = message;
+    }
     private static void printMessage(Object RichMessage) {
         System.out.println(RichMessage);
     }
@@ -27,7 +38,13 @@ public class Facade {
     }
 
     public static void log(int message) {
-        printMessage(decorate(PrefixMessage.get("Primitive"), message, PostfixMessage.get("Primitive")));
+       if (Buffer instanceof Integer) {
+           setBuffer(message);
+        } else if (Buffer != null){
+           flush();
+       } else {
+           setBuffer(message);
+       }
     }
 
     public static void log(byte message) {
