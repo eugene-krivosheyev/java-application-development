@@ -23,7 +23,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
-
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
@@ -40,10 +39,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1" + System.lineSeparator() +
-            "primitive: 3" + System.lineSeparator() +
-            "string: str 2" + System.lineSeparator() +
-            "primitive: 0" + System.lineSeparator()
+                "string: str 1" + System.lineSeparator() +
+                        "primitive: 3" + System.lineSeparator() +
+                        "string: str 2" + System.lineSeparator() +
+                        "primitive: 0" + System.lineSeparator()
         );
         //endregion
     }
@@ -64,11 +63,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1" + System.lineSeparator() +
-            "primitive: 10" + System.lineSeparator() +
-            "primitive: " + Integer.MAX_VALUE + "" + System.lineSeparator() +
-            "string: str 2" + System.lineSeparator() +
-            "primitive: 0" + System.lineSeparator()
+                "string: str 1" + System.lineSeparator() +
+                        "primitive: 10" + System.lineSeparator() +
+                        "primitive: " + Integer.MAX_VALUE + "" + System.lineSeparator() +
+                        "string: str 2" + System.lineSeparator() +
+                        "primitive: 0" + System.lineSeparator()
         );
         //endregion
     }
@@ -77,19 +76,23 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
         Facade.log("str 1");
-        Facade.log((byte)10);
-        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.flush();
+        Facade.log((byte) 10);
+        Facade.log((byte) Byte.MAX_VALUE);
+        Facade.flush();
         Facade.log("str 2");
+        Facade.flush();
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1" + System.lineSeparator() +
-            "10" + System.lineSeparator() +
-            Byte.MAX_VALUE + "" + System.lineSeparator() +
-            "str 2" + System.lineSeparator() +
-            "0" + System.lineSeparator()
+                "string: str 1" + System.lineSeparator() +
+                        "primitive: 10" + System.lineSeparator() +
+                        "primitive: " + Byte.MAX_VALUE + "" + System.lineSeparator() +
+                        "string: str 2" + System.lineSeparator() +
+                        "primitive: 0" + System.lineSeparator()
         );
         //endregion
     }
@@ -114,11 +117,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: str 1" + System.lineSeparator() +
-            "string: str 2 (x2)" + System.lineSeparator() +
-            "primitive: 0" + System.lineSeparator() +
-            "string: str 2" + System.lineSeparator() +
-            "string: str 3 (x3)" + System.lineSeparator()
+                "string: str 1" + System.lineSeparator() +
+                        "string: str 2 (x2)" + System.lineSeparator() +
+                        "primitive: 0" + System.lineSeparator() +
+                        "string: str 2" + System.lineSeparator() +
+                        "string: str 3 (x3)" + System.lineSeparator()
         );
         //endregion
     }

@@ -2,6 +2,10 @@ package com.acme.dbo.txlog;
 
 public class Facade {
 
+    public static final String PREFIX_PRIMITIVE = "primitive:";
+    public static final String PREFIX_CHAR = "char:";
+    public static final String PREFIX_REFERENCE = "reference:";
+
     private static Long lastIntValue = null;
     private static String overloadInt = null;
     private static Integer lastByteValue = null;
@@ -15,10 +19,11 @@ public class Facade {
         } else {
             if (lastIntValue + message > Integer.MAX_VALUE) {
                 if (overloadInt == null) {
-                    overloadInt = "primitive: " + lastIntValue;
+                    overloadInt = decorate(PREFIX_PRIMITIVE, lastIntValue);
                 } else {
-                    overloadInt = System.lineSeparator() + "primitive: " + lastIntValue;
+                    overloadInt = System.lineSeparator() + decorate(PREFIX_PRIMITIVE, lastIntValue);
                 }
+                lastIntValue = (long) Integer.MAX_VALUE;
             } else {
                 lastIntValue += message;
             }
@@ -29,16 +34,25 @@ public class Facade {
         if (lastByteValue == null) {
             lastByteValue = (int) message;
         } else {
-            lastByteValue += message;
+            if (lastByteValue + message > Byte.MAX_VALUE) {
+                if (overloadByte == null) {
+                    overloadByte = decorate(PREFIX_PRIMITIVE, lastByteValue);
+                } else {
+                    overloadByte = System.lineSeparator() + decorate(PREFIX_PRIMITIVE, lastByteValue);
+                }
+                lastByteValue = (int) Byte.MAX_VALUE;
+            } else {
+                lastByteValue += message;
+            }
         }
     }
 
     public static void log(boolean message) {
-        logInternal(decorate("primitive:", message));
+        logInternal(decorate(PREFIX_PRIMITIVE, message));
     }
 
     public static void log(char message) {
-        logInternal(decorate("char:", message));
+        logInternal(decorate(PREFIX_CHAR, message));
     }
 
     public static void log(String message) {
@@ -51,7 +65,7 @@ public class Facade {
     }
 
     public static void log(Object message) {
-        logInternal(decorate("reference:", message));
+        logInternal(decorate(PREFIX_REFERENCE, message));
     }
 
     public static String decorate(String prefix, Object message) {
@@ -66,12 +80,13 @@ public class Facade {
         if (lastIntValue != null) {
             if (overloadInt != null) {
                 logInternal(overloadInt);
-                logInternal(decorate("primitive:", lastIntValue));
-            } else {
-                logInternal(decorate("primitive:", lastIntValue));
             }
+            logInternal(decorate(PREFIX_PRIMITIVE, lastIntValue));
         } else if (lastByteValue != null) {
-            logInternal(decorate("primitive:", lastByteValue));
+            if (overloadByte != null) {
+                logInternal(overloadByte);
+            }
+            logInternal(decorate(PREFIX_PRIMITIVE, lastByteValue));
         } else if (lastStringValue != null) {
             String msg = lastStringValue;
             if (equalsStringsCount > 1) {
@@ -80,6 +95,10 @@ public class Facade {
             logInternal(decorate("string:", msg));
         }
 
+        resetState();
+    }
+
+    private static void resetState() {
         lastIntValue = null;
         overloadInt = null;
         lastByteValue = null;
