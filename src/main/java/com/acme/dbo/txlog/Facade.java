@@ -46,18 +46,12 @@ public class Facade {
     }
 
     public static void log(boolean message) {
-        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
-            flush();
-        }
-
+        flush();
         logInternal(decorate(PREFIX_PRIMITIVE, message));
     }
 
     public static void log(char message) {
-        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
-            flush();
-        }
-
+        flush();
         logInternal(decorate(PREFIX_CHAR, message));
     }
 
@@ -81,10 +75,7 @@ public class Facade {
     }
 
     public static void log(Object message) {
-        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
-            flush();
-        }
-
+        flush();
         logInternal(decorate(PREFIX_REFERENCE, message));
     }
 
