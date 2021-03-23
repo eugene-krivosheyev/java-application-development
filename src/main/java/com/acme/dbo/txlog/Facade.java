@@ -17,10 +17,6 @@ public class Facade {
     private static String prevType = "";
     private static String currType = "";
 
-
-
-
-
     public static void log(byte message) {
         printMessage(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
     }
@@ -37,9 +33,8 @@ public class Facade {
         if (message instanceof Integer) {
             currType = "Integer";
             Integer intMessage = (Integer) message;
-            if (intMessage == Integer.MAX_VALUE) {
-//            if ((intMessage > 0 && intAccumulator < (intAccumulator + intMessage))
-//            || (intMessage < 0 && intAccumulator > (intAccumulator + intMessage))) {
+            if ((intMessage > 0 && intAccumulator > (intAccumulator + intMessage))
+            || (intMessage < 0 && intAccumulator < (intAccumulator + intMessage))) {
                 // overflow
                 flush();
             }
@@ -47,12 +42,13 @@ public class Facade {
         } else if (message instanceof String) {
             currType = "String";
             strAccumulator = (String) message;
+        } else {
+            printMessage(decorate(REFERENCE_PREFIX, message, REFERENCE_POSTFIX));
         }
         if (!currType.equals(prevType)) {
             flush();
         }
         prevType = currType;
-//        printMessage(decorate(REFERENCE_PREFIX, message, REFERENCE_POSTFIX));
     }
 
     public static void flush() {

@@ -63,7 +63,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-/*    @Test
+/*
+    @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
         Facade.log("str 1");
@@ -74,13 +75,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Byte.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
-        );
+        assertSysoutContains("str 1");
+        assertSysoutContains("10");
+        assertSysoutContains(String.valueOf(Byte.MAX_VALUE));
+        assertSysoutContains("str 2");
         //endregion
     }
 
