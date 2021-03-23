@@ -7,38 +7,32 @@ public class Facade {
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
 
-    //Вариант с type switching
-    /* public static void log (Object message){
+    private static Integer int_accumulator = null;
+    private static String str_accumulator = null;
 
-        if ((message instanceof Integer)|(message instanceof Byte)|(message instanceof Boolean)) {
-            logMessage(outputDecorate(PRIMITIVE_PREFIX, message));
-        }
-        else if ((message instanceof Character)) {
-            logMessage(outputDecorate(CHAR_PREFIX, message));
-        }
-        else if ((message instanceof String)) {
-            logMessage(outputDecorate(STRING_PREFIX, message));
-        }
-        else {
-            logMessage(outputDecorate(REFERENCE_PREFIX, message));
-        }
-    }
-    */
 
-    public static void log (Object message){
+    public static void log(Object message) {
         logMessage(outputDecorate(REFERENCE_PREFIX, message));
     }
 
-    public static void log (String message){
-        logMessage(outputDecorate(STRING_PREFIX, message));
+    public static void log(String message) {
+        if (int_accumulator == null && str_accumulator == null) {
+            str_accumulator = message;
+            logMessage(outputDecorate(STRING_PREFIX, str_accumulator));
+        } else logMessage(outputDecorate(STRING_PREFIX, message));
     }
 
     public static void log (char message){
         logMessage(outputDecorate(CHAR_PREFIX, message));
     }
 
-    public static void log (int message){
-        logMessage(outputDecorate(PRIMITIVE_PREFIX, message));
+    public static void log (int message) {
+        if (int_accumulator == null && str_accumulator == null) {
+            int_accumulator = message;
+        } else if (int_accumulator != null) {
+            int_accumulator = int_accumulator + message;
+        }
+        //else logMessage(outputDecorate(PRIMITIVE_PREFIX, int_accumulator));
     }
 
     public static void log (byte message){
@@ -50,9 +44,6 @@ public class Facade {
     }
 
 
-
-
-
     private static void logMessage(String message) {
         System.out.println(message);
     }
@@ -61,4 +52,14 @@ public class Facade {
         return prefix + message;
     }
 
+    public static void flush() {
+        if (int_accumulator != null) {
+            logMessage(outputDecorate(PRIMITIVE_PREFIX, int_accumulator));
+        } else if (str_accumulator != null) {
+            logMessage(outputDecorate(PRIMITIVE_PREFIX, str_accumulator));
+        }
+
+        int_accumulator = null;
+        str_accumulator = null;
+    }
 }
