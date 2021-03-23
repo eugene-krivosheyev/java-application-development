@@ -20,6 +20,8 @@ public class Facade {
 
     private static String activeAccumulator = "";
     private static String stringAccumulator = "";
+    private static String previousString = "";
+    private static int exactStringCounter = 1;
     private static int intAccumulator = 0;
     private static byte byteAccumulator = 0;
     private static char charAccumulator = 0;
@@ -42,7 +44,7 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        if (!activeAccumulator.equals(BYTE_ACC)| (isNumberOverflow(message, byteAccumulator, Byte.MAX_VALUE))) {
+        if (!activeAccumulator.equals(BYTE_ACC) | (isNumberOverflow(message, byteAccumulator, Byte.MAX_VALUE))) {
             resetActiveAccumulator(BYTE_ACC);
         }
         byteAccumulator += message;
@@ -54,10 +56,16 @@ public class Facade {
     }
 
     public static void log(String message) {
-        if (!activeAccumulator.equals(STRING_ACC)){
+        boolean isEqualPrevious = previousString.equals(message);
+
+        if (!activeAccumulator.equals(STRING_ACC) | !isEqualPrevious){
             resetActiveAccumulator(STRING_ACC);
+            previousString = message;
+            stringAccumulator = message;
+        } else  {
+            exactStringCounter += 1;
+            stringAccumulator = message + " (x" + exactStringCounter + ")";
         }
-        stringAccumulator += message;
     }
 
     public static void log(Object message) {
@@ -71,6 +79,8 @@ public class Facade {
             case STRING_ACC: {
                 outputDecoratedMessage(decorateMessage(stringAccumulator, STRING_PREFIX, STRING_POSTFIX));
                 stringAccumulator = "";
+                previousString = "";
+                exactStringCounter = 1;
                 break;
             }
             case INT_ACC: {
@@ -99,6 +109,7 @@ public class Facade {
                 break;
             }
         }
+        activeAccumulator = "";
     }
 
     private static String decorateMessage(Object message, String prefix, String postfix) {
