@@ -8,12 +8,20 @@ public class Facade {
     public static void log(Object obj) {
         if (null == lastObject) {
             lastObject = obj;
-            return;
         } else if(obj.getClass() != lastObject.getClass()) {
             flush();
             lastObject = obj;
         } else if (obj instanceof Integer) {
-            lastObject = (Integer)lastObject+(Integer)obj;
+            long lObj = ((Integer)obj).longValue();
+            long lLastObj = ((Integer)lastObject).longValue();
+            long sum = lObj + lLastObj;
+
+            if(sum > Integer.MAX_VALUE) {
+                flush();
+                lastObject = obj;
+            } else {
+                lastObject = sum;
+            }
         } else {
             flush();
             lastObject = obj;
