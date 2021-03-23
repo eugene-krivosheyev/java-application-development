@@ -83,6 +83,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log("test string 1");
         Facade.log("other str");
         //endregion
+        Facade.flush();
 
         //region then
         assertSysoutContains("string: ");
