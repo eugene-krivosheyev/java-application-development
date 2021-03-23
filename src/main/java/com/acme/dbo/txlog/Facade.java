@@ -43,6 +43,8 @@ public class Facade {
             currType = "String";
             strAccumulator = (String) message;
         } else {
+            currType = "Object";
+            flush();
             printMessage(decorate(REFERENCE_PREFIX, message, REFERENCE_POSTFIX));
         }
         if (!currType.equals(prevType)) {
@@ -59,6 +61,7 @@ public class Facade {
             printMessage(decorate(PRIMITIVE_PREFIX, intAccumulator, PRIMITIVE_POSTFIX));
             intAccumulator = 0;
         }
+        prevType = "";
     }
 
     private static String decorate(String prefix, Object message, String postfix) {
