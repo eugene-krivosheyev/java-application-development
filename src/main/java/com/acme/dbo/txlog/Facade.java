@@ -26,9 +26,10 @@ public class Facade {
         setBuffer(null);
     }
 
-    public static void setBuffer(Object message){
+    private static void setBuffer(Object message){
         Buffer = message;
     }
+
     private static void printMessage(Object RichMessage) {
         System.out.println(RichMessage);
     }
@@ -39,12 +40,12 @@ public class Facade {
 
     public static void log(int message) {
        if (Buffer instanceof Integer) {
-           setBuffer(message);
+           setBuffer((int)Buffer + message);
         } else if (Buffer != null){
            flush();
-       } else {
-           setBuffer(message);
        }
+       setBuffer(message);
+
     }
 
     public static void log(byte message) {
