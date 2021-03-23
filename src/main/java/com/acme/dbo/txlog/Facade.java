@@ -11,28 +11,93 @@ public class Facade {
     private static final String CHAR_POSTFIX= "";
     private static final String OBJ_POSTFIX= "";
 
+    private static final String STRING_ACC = "string";
+    private static final String INT_ACC = "integer";
+    private static final String BYTE_ACC = "byte";
+    private static final String CHAR_ACC = "char";
+    private static final String BOOL_ACC = "boolean";
+    private static final String OBJ_ACC = "object";
+
+    private static String activeAccumulator = "";
+    private static String stringAccumulator = "";
+    private static int intAccumulator = 0;
+    private static byte byteAccumulator = 0;
+    private static char charAccumulator = 0;
+    private static boolean boolAccumulator = true;
+    private static Object objectAccumulator = null;
+
     public static void log(int message) {
-        outputDecoratedMessage(decorateMessage(message, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+        if (!activeAccumulator.equals(INT_ACC)) {
+            resetActiveAccumulator(INT_ACC);
+        }
+        intAccumulator += message;
     }
 
     public static void log(char message) {
-        outputDecoratedMessage(decorateMessage(message, CHAR_PREFIX, CHAR_POSTFIX));
+        if (!activeAccumulator.equals(CHAR_ACC)) {
+            resetActiveAccumulator(CHAR_ACC);
+        }
+        charAccumulator += message;
     }
 
     public static void log(byte message) {
-        outputDecoratedMessage(decorateMessage(message, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+        if (!activeAccumulator.equals(BYTE_ACC)) {
+            resetActiveAccumulator(BYTE_ACC);
+        }
+        byteAccumulator += message;
     }
 
     public static void log(boolean message) {
-        outputDecoratedMessage(decorateMessage(message, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+        resetActiveAccumulator(BOOL_ACC);
+        boolAccumulator = message;
     }
 
     public static void log(String message) {
-        outputDecoratedMessage(decorateMessage(message, STRING_PREFIX, STRING_POSTFIX));
+        if (!activeAccumulator.equals(STRING_ACC)){
+            resetActiveAccumulator(STRING_ACC);
+        }
+        stringAccumulator += message;
     }
 
     public static void log(Object message) {
         outputDecoratedMessage(decorateMessage(message, OBJ_PREFIX, OBJ_POSTFIX));
+        resetActiveAccumulator(OBJ_ACC);
+        objectAccumulator = message;
+    }
+
+    public static void flush() {
+        switch (activeAccumulator) {
+            case STRING_ACC: {
+                outputDecoratedMessage(decorateMessage(stringAccumulator, STRING_PREFIX, STRING_POSTFIX));
+                stringAccumulator = "";
+                break;
+            }
+            case INT_ACC: {
+                outputDecoratedMessage(decorateMessage(intAccumulator, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+                intAccumulator = 0;
+                break;
+            }
+            case BYTE_ACC: {
+                outputDecoratedMessage(decorateMessage(byteAccumulator, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+                byteAccumulator = 0;
+                break;
+            }
+            case CHAR_ACC: {
+                outputDecoratedMessage(decorateMessage(charAccumulator, CHAR_PREFIX, CHAR_POSTFIX));
+                charAccumulator = 0;
+                break;
+            }
+            case BOOL_ACC: {
+                outputDecoratedMessage(decorateMessage(boolAccumulator, PRIMITIVE_PREFIX, PRIMITIVE_POSTFIX));
+                boolAccumulator = true;
+                break;
+            }
+            case OBJ_ACC: {
+                outputDecoratedMessage(decorateMessage(objectAccumulator, OBJ_PREFIX, OBJ_POSTFIX));
+                objectAccumulator = null;
+                break;
+            }
+        }
     }
 
     private static String decorateMessage(Object message, String prefix, String postfix) {
@@ -42,4 +107,11 @@ public class Facade {
     private static void outputDecoratedMessage(String decoratedMessage) {
         System.out.println(decoratedMessage);
     }
+
+    private static void resetActiveAccumulator(String accumulator) {
+        flush();
+        activeAccumulator = accumulator;
+    }
+
+
 }
