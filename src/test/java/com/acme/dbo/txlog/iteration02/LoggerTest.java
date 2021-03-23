@@ -8,7 +8,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+
+    private static final String ls = lineSeparator();
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -76,15 +81,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1");
-        assertSysoutContains("10");
-        assertSysoutContains(String.valueOf(Byte.MAX_VALUE));
+        assertSysoutContains("str 1" + ls);
+        assertSysoutContains("10" + ls);
+        assertSysoutContains(String.valueOf(Byte.MAX_VALUE) + ls);
         assertSysoutContains("str 2");
         assertSysoutContains("0");
         //endregion
     }
 
-    /*
+
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
@@ -99,15 +104,20 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "str 2 (x2)\n" +
-            "0\n" +
-            "str 2\n" +
-            "str 3 (x3)\n"
-        );
+        assertSysoutContains("str 1" + ls);
+        assertSysoutContains("str 2 (x2)" + ls);
+        assertSysoutContains("0" + ls);
+        assertSysoutContains("str 2" + ls);
+        assertSysoutContains("str 3 (x3)" + ls);
         //endregion
     }
 
-    */
+    @Test
+    public void devTestFlush() throws IOException {
+        Facade.flush();
+        Facade.log("str 1");
+        Facade.flush();
+
+        assertSysoutContains("string: str 1" + ls);
+    }
 }
