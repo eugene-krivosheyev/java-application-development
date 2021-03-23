@@ -2,8 +2,43 @@ package com.acme.dbo.txlog;
 
 public class Facade {
 
+    private static Object lastObject = null;
+
+    // check object. accumulate if required
     public static void log(Object obj) {
+        if (null == lastObject) {
+            lastObject = obj;
+            return;
+        } else if(obj.getClass() != lastObject.getClass()) {
+            flush();
+            lastObject = obj;
+        } else if (obj instanceof Integer) {
+            lastObject = (Integer)lastObject+(Integer)obj;
+        } else {
+            flush();
+            lastObject = obj;
+        }
+
+    }
+
+    private static void logInternal(Object obj) {
         printMessage(decorate(obj));
+    }
+
+    // if we have accumulated value -
+    public static void flush() {
+        if(null != lastObject) {
+            logInternal(lastObject);
+            lastObject = null;
+        }
+    }
+
+    private static Object accumulate(Object obj) {
+        if (obj.getClass() != lastObject.getClass()) {
+            flush();
+        }
+
+        return obj;
     }
 
     private static String decorate(Object message) {
