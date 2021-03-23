@@ -27,12 +27,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
         Facade.log("str 1");
-        Facade.flush();
         Facade.log(1);
         Facade.log(2);
-        Facade.flush();
         Facade.log("str 2");
-        Facade.flush();
         Facade.log(0);
         Facade.flush();
         //endregion
@@ -51,12 +48,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
         Facade.log("str 1");
-        Facade.flush();
         Facade.log(10);
         Facade.log(Integer.MAX_VALUE);
-        Facade.flush();
         Facade.log("str 2");
-        Facade.flush();
         Facade.log(0);
         Facade.flush();
         //endregion
@@ -76,12 +70,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
         Facade.log("str 1");
-        Facade.flush();
         Facade.log((byte) 10);
         Facade.log((byte) Byte.MAX_VALUE);
-        Facade.flush();
         Facade.log("str 2");
-        Facade.flush();
         Facade.log(0);
         Facade.flush();
         //endregion
@@ -101,14 +92,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
         Facade.log("str 1");
-        Facade.flush();
         Facade.log("str 2");
         Facade.log("str 2");
-        Facade.flush();
         Facade.log(0);
-        Facade.flush();
         Facade.log("str 2");
-        Facade.flush();
         Facade.log("str 3");
         Facade.log("str 3");
         Facade.log("str 3");

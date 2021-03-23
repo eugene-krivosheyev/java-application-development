@@ -14,6 +14,10 @@ public class Facade {
     private static int equalsStringsCount = 0;
 
     public static void log(int message) {
+        if (lastByteValue != null | lastStringValue != null) {
+            flush();
+        }
+
         if (lastIntValue == null) {
             lastIntValue = Integer.valueOf(message).longValue();
         } else {
@@ -31,6 +35,10 @@ public class Facade {
     }
 
     public static void log(byte message) {
+        if (lastIntValue != null | lastStringValue != null) {
+            flush();
+        }
+
         if (lastByteValue == null) {
             lastByteValue = (int) message;
         } else {
@@ -48,23 +56,45 @@ public class Facade {
     }
 
     public static void log(boolean message) {
+        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
+            flush();
+        }
+
         logInternal(decorate(PREFIX_PRIMITIVE, message));
     }
 
     public static void log(char message) {
+        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
+            flush();
+        }
+
         logInternal(decorate(PREFIX_CHAR, message));
     }
 
     public static void log(String message) {
-        if (lastStringValue != null && lastStringValue.equals(message)) {
-            equalsStringsCount++;
-        } else if (lastStringValue == null) {
+        if (lastIntValue != null | lastByteValue != null) {
+            flush();
+        }
+
+        if (lastStringValue != null) {
+            if (lastStringValue.equals(message)) {
+                equalsStringsCount++;
+            } else {
+                flush();
+                lastStringValue = message;
+                equalsStringsCount = 1;
+            }
+        } else {
             lastStringValue = message;
             equalsStringsCount = 1;
         }
     }
 
     public static void log(Object message) {
+        if (lastIntValue != null | lastByteValue != null | lastStringValue != null) {
+            flush();
+        }
+
         logInternal(decorate(PREFIX_REFERENCE, message));
     }
 
