@@ -18,8 +18,16 @@ public class Facade {
     public static final String STRING = "string";
     public static final String REFERENCE = "reference";
 
+    private static Integer intAccumulator = null;
+    private static Integer stringAccumulator = 0;
+    private static String logMessage = null;
+
     public static void log(int obj) {
-        print(PRIMITIVE, obj);
+        if (intAccumulator == null){
+            intAccumulator = obj;
+        }else{
+            intAccumulator += obj;
+        }
     }
 
     public static void log(byte obj) {
@@ -35,7 +43,14 @@ public class Facade {
     }
 
     public static void log(String obj) {
-        print(STRING, obj);
+        if (logMessage == null){
+            logMessage = obj;
+        }
+        if (!obj.equals(logMessage)){
+            flush();
+        }
+        stringAccumulator += 1;
+        logMessage = obj;
     }
 
     public static void log(Object obj) {
@@ -45,6 +60,24 @@ public class Facade {
     public static void print(String prefix, Object obj) {
         System.out.println(prefix + ": " + obj.toString());
     }
+
+    public static void flush() {
+        if (intAccumulator != null){
+            print(PRIMITIVE, intAccumulator);
+            intAccumulator = null;
+            //stringAccumulator = 0;
+        }
+        if (stringAccumulator != 0){
+            if (stringAccumulator == 1){
+                print(STRING, logMessage);
+            }else {
+                print(STRING, logMessage + " (x" + stringAccumulator + ")");
+            }
+            //intAccumulator = null;
+            stringAccumulator = 0;
+        }
+
+    };
 
 }
 // single-line
