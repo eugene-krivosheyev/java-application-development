@@ -7,9 +7,7 @@ public class Facade {
     public static final String PREFIX_REFERENCE = "reference:";
 
     private static Long lastIntValue = null;
-    private static String overloadInt = null;
     private static Integer lastByteValue = null;
-    private static String overloadByte = null;
     private static String lastStringValue = null;
     private static int equalsStringsCount = 0;
 
@@ -22,12 +20,8 @@ public class Facade {
             lastIntValue = Integer.valueOf(message).longValue();
         } else {
             if (lastIntValue + message > Integer.MAX_VALUE) {
-                if (overloadInt == null) {
-                    overloadInt = decorate(PREFIX_PRIMITIVE, lastIntValue);
-                } else {
-                    overloadInt = System.lineSeparator() + decorate(PREFIX_PRIMITIVE, lastIntValue);
-                }
-                lastIntValue = (long) Integer.MAX_VALUE;
+                flush();
+                lastIntValue = (long) message;
             } else {
                 lastIntValue += message;
             }
@@ -43,12 +37,8 @@ public class Facade {
             lastByteValue = (int) message;
         } else {
             if (lastByteValue + message > Byte.MAX_VALUE) {
-                if (overloadByte == null) {
-                    overloadByte = decorate(PREFIX_PRIMITIVE, lastByteValue);
-                } else {
-                    overloadByte = System.lineSeparator() + decorate(PREFIX_PRIMITIVE, lastByteValue);
-                }
-                lastByteValue = (int) Byte.MAX_VALUE;
+                flush();
+                lastByteValue = (int) message;
             } else {
                 lastByteValue += message;
             }
@@ -108,14 +98,8 @@ public class Facade {
 
     public static void flush() {
         if (lastIntValue != null) {
-            if (overloadInt != null) {
-                logInternal(overloadInt);
-            }
             logInternal(decorate(PREFIX_PRIMITIVE, lastIntValue));
         } else if (lastByteValue != null) {
-            if (overloadByte != null) {
-                logInternal(overloadByte);
-            }
             logInternal(decorate(PREFIX_PRIMITIVE, lastByteValue));
         } else if (lastStringValue != null) {
             String msg = lastStringValue;
@@ -130,9 +114,7 @@ public class Facade {
 
     private static void resetState() {
         lastIntValue = null;
-        overloadInt = null;
         lastByteValue = null;
-        overloadByte = null;
         lastStringValue = null;
         equalsStringsCount = 0;
     }
