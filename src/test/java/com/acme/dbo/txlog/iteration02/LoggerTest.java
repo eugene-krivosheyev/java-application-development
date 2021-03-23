@@ -57,10 +57,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(Integer.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutContains("str 1");
+        assertSysoutContains("str 1" + ls);
         assertSysoutContains("10");
         assertSysoutContains(String.valueOf(Integer.MAX_VALUE));
         assertSysoutContains("str 2");
@@ -101,6 +102,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log("str 3");
         Facade.log("str 3");
         Facade.log("str 3");
+        Facade.flush();
         //endregion
 
         //region then

@@ -3,8 +3,9 @@ package com.acme.dbo.txlog;
 public class Facade {
 
     private static Object lastObject = null;
+    private static int lastStrObjectRepeatedCnt = 0;
 
-    // check object. accumulate if required
+    // check object. accumulate if required, flush on type/value change
     public static void log(Object obj) {
         if (null == lastObject) {
             lastObject = obj;
@@ -22,31 +23,39 @@ public class Facade {
             } else {
                 lastObject = sum;
             }
+        } else if (obj instanceof String) {
+            String sObj = (String)obj;
+            String sLastObj = (String)lastObject;
+            if (sObj.equals(sLastObj)) {
+                ++lastStrObjectRepeatedCnt;
+            } else {
+                flush();
+                lastObject = obj;
+            }
         } else {
             flush();
             lastObject = obj;
         }
-
     }
 
     private static void logInternal(Object obj) {
         printMessage(decorate(obj));
     }
 
-    // if we have accumulated value -
+    // if we have accumulated value
     public static void flush() {
-        if(null != lastObject) {
-            logInternal(lastObject);
-            lastObject = null;
-        }
-    }
+        if (null == lastObject)
+            return;
 
-    private static Object accumulate(Object obj) {
-        if (obj.getClass() != lastObject.getClass()) {
-            flush();
+        Object ret = lastObject;
+
+        if (lastStrObjectRepeatedCnt > 0) {
+            ret = lastObject + " (x" +  (lastStrObjectRepeatedCnt + 1) + ")";
+            lastStrObjectRepeatedCnt = 0;
         }
 
-        return obj;
+        logInternal(ret);
+        lastObject = null;
     }
 
     private static String decorate(Object message) {
