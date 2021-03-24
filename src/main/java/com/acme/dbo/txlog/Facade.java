@@ -14,7 +14,7 @@ public class Facade {
     private static int byteState = 0;
 
     private static String stringState = "";
-    private static int stringSubsequentCount = 1;
+    private static int stringSubsequentCount = 0;
 
     public static void log(int message) {
         flushString();
@@ -43,11 +43,11 @@ public class Facade {
     public static void log(String message) {
         flushInt();
         flushByte();
-        if(stringState == message) {
-            stringSubsequentCount++;
-        } else {
+        if(stringState != message) {
+            flushString();
             stringState = message;
         }
+        stringSubsequentCount++;
         if(stringSubsequentCount > 1) {
             message = message + " (x" + stringSubsequentCount + ")";
         }
@@ -71,7 +71,7 @@ public class Facade {
     }
 
     public static void flushString() {
-        stringSubsequentCount = 1;
+        stringSubsequentCount = 0;
         stringState = "";
     }
 
