@@ -7,37 +7,81 @@ public class Facade {
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
 
-    private static Integer int_accumulator = null;
-    private static String str_accumulator = null;
+    public enum availableTypes  {NONE, INT, STR, BYTE};
+    static availableTypes currentType = availableTypes.NONE;
+
+    public static Integer accumulator = null;
+    public static int strCounter = 0;
+    public static String strMessage = null;
 
 
-    public static void log(Object message) {
+    public static void log (int message){
+        if (currentType == availableTypes.INT){
+            long i = accumulator.longValue() + message;
+            if (i >= Integer.MAX_VALUE) {
+                flush();
+                logMessage(outputDecorate(PRIMITIVE_PREFIX, Integer.MAX_VALUE));
+            }
+             else {
+                 accumulator = accumulator + message;
+            }
+        }
+        else {
+            flush();
+            accumulator = 0;
+            accumulator = accumulator + message;
+            currentType = availableTypes.INT;
+        }
+    }
+
+    public static void log (byte message){
+        if (currentType == availableTypes.BYTE){
+            long i = accumulator.longValue() + message;
+            if (i >= Byte.MAX_VALUE) {
+                flush();
+                logMessage(outputDecorate(PRIMITIVE_PREFIX, Byte.MAX_VALUE));
+            }
+            else {
+                accumulator = accumulator + message;
+            }
+        }
+        else {
+            flush();
+            accumulator = 0;
+            accumulator = accumulator + message;
+            currentType = availableTypes.BYTE;
+        }
+    }
+
+    public static void log (String message){
+        if (currentType != availableTypes.STR) {
+            flush();
+            strMessage = message;
+            currentType = availableTypes.STR;
+        }
+        else {
+            if (strMessage == message){
+                strCounter ++;
+                currentType = availableTypes.STR;
+            }
+            else {
+                flush();
+                strMessage = message;
+                currentType = availableTypes.STR;
+            }
+        }
+    }
+
+
+    public static void log (Object message){
         logMessage(outputDecorate(REFERENCE_PREFIX, message));
     }
 
-    public static void log(String message) {
-        if (int_accumulator == null && str_accumulator == null) {
-            str_accumulator = message;
-            logMessage(outputDecorate(STRING_PREFIX, str_accumulator));
-        } else logMessage(outputDecorate(STRING_PREFIX, message));
-    }
 
     public static void log (char message){
         logMessage(outputDecorate(CHAR_PREFIX, message));
     }
 
-    public static void log (int message) {
-        if (int_accumulator == null && str_accumulator == null) {
-            int_accumulator = message;
-        } else if (int_accumulator != null) {
-            int_accumulator = int_accumulator + message;
-        }
-        //else logMessage(outputDecorate(PRIMITIVE_PREFIX, int_accumulator));
-    }
-
-    public static void log (byte message){
-        logMessage(outputDecorate(PRIMITIVE_PREFIX, message));
-    }
 
     public static void log (boolean message){
         logMessage(outputDecorate(PRIMITIVE_PREFIX, message));
@@ -52,14 +96,26 @@ public class Facade {
         return prefix + message;
     }
 
-    public static void flush() {
-        if (int_accumulator != null) {
-            logMessage(outputDecorate(PRIMITIVE_PREFIX, int_accumulator));
-        } else if (str_accumulator != null) {
-            logMessage(outputDecorate(PRIMITIVE_PREFIX, str_accumulator));
+    public static void flush () {
+        if (currentType == availableTypes.INT){
+            logMessage(outputDecorate(PRIMITIVE_PREFIX, accumulator));
         }
-
-        int_accumulator = null;
-        str_accumulator = null;
+        if (currentType == availableTypes.BYTE){
+            logMessage(outputDecorate(PRIMITIVE_PREFIX, accumulator));
+        }
+        if (currentType == availableTypes.STR){
+            if (strCounter >= 1 ){
+                strCounter++;
+                logMessage(outputDecorate(STRING_PREFIX, strMessage + " (x" + strCounter + ")"));
+            }
+            else {
+                logMessage(outputDecorate(STRING_PREFIX, strMessage));
+            }
+        }
+        strCounter = 0;
+        strMessage = "";
+        accumulator = null;
+        currentType = availableTypes.NONE;
     }
+
 }
