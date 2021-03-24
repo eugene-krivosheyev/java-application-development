@@ -8,12 +8,11 @@ public class Facade {
     public static final String REFERENCE_PREFIX = "reference: ";
 
     public enum availableTypes  {NONE, INT, STR, BYTE};
-
     static availableTypes currentType = availableTypes.NONE;
 
     public static Integer accumulator = null;
-    public static String strMessage = null;
     public static int strCounter = 0;
+    public static String strMessage = null;
 
 
     public static void log (int message){
@@ -28,6 +27,7 @@ public class Facade {
             }
         }
         else {
+            flush();
             accumulator = 0;
             accumulator = accumulator + message;
             currentType = availableTypes.INT;
@@ -46,6 +46,7 @@ public class Facade {
             }
         }
         else {
+            flush();
             accumulator = 0;
             accumulator = accumulator + message;
             currentType = availableTypes.BYTE;
@@ -61,9 +62,12 @@ public class Facade {
         else {
             if (strMessage == message){
                 strCounter ++;
+                currentType = availableTypes.STR;
             }
             else {
                 flush();
+                strMessage = message;
+                currentType = availableTypes.STR;
             }
         }
     }
@@ -79,13 +83,9 @@ public class Facade {
     }
 
 
-
     public static void log (boolean message){
         logMessage(outputDecorate(PRIMITIVE_PREFIX, message));
     }
-
-
-
 
 
     private static void logMessage(String message) {
@@ -99,24 +99,23 @@ public class Facade {
     public static void flush () {
         if (currentType == availableTypes.INT){
             logMessage(outputDecorate(PRIMITIVE_PREFIX, accumulator));
-            currentType = availableTypes.NONE;
-            accumulator = null;
         }
         if (currentType == availableTypes.BYTE){
             logMessage(outputDecorate(PRIMITIVE_PREFIX, accumulator));
-            currentType = availableTypes.NONE;
-            accumulator = null;
         }
         if (currentType == availableTypes.STR){
-            if (strCounter != 0 ){
+            if (strCounter >= 1 ){
+                strCounter++;
                 logMessage(outputDecorate(STRING_PREFIX, strMessage + " (x" + strCounter + ")"));
             }
             else {
                 logMessage(outputDecorate(STRING_PREFIX, strMessage));
             }
-            currentType = availableTypes.NONE;
-            strMessage = "";
         }
+        strCounter = 0;
+        strMessage = "";
+        accumulator = null;
+        currentType = availableTypes.NONE;
     }
-//test
+
 }
