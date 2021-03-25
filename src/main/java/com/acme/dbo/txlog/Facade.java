@@ -17,39 +17,21 @@ public class Facade {
 
     public static void log (int message){
         if (currentType == availableTypes.INT){
-            long i = accumulator.longValue() + message;
-            if (i >= Integer.MAX_VALUE) {
-                flush();
-                logMessage(outputDecorate(PRIMITIVE_PREFIX, Integer.MAX_VALUE));
-            }
-             else {
-                 accumulator = accumulator + message;
-            }
+            checkForMaxValueAndIncreaseAccumulator(message, Integer.MAX_VALUE);
         }
         else {
             flush();
-            accumulator = 0;
-            accumulator = accumulator + message;
-            currentType = availableTypes.INT;
+            increaseAccumulator(message, availableTypes.INT);
         }
     }
 
     public static void log (byte message){
         if (currentType == availableTypes.BYTE){
-            long i = accumulator.longValue() + message;
-            if (i >= Byte.MAX_VALUE) {
-                flush();
-                logMessage(outputDecorate(PRIMITIVE_PREFIX, Byte.MAX_VALUE));
-            }
-            else {
-                accumulator = accumulator + message;
-            }
+            checkForMaxValueAndIncreaseAccumulator(message, Byte.MAX_VALUE);
         }
         else {
             flush();
-            accumulator = 0;
-            accumulator = accumulator + message;
-            currentType = availableTypes.BYTE;
+            increaseAccumulator(message, availableTypes.BYTE);
         }
     }
 
@@ -88,12 +70,29 @@ public class Facade {
     }
 
 
+
     private static void logMessage(String message) {
         System.out.println(message);
     }
 
     private static String outputDecorate(String prefix, Object message) {
         return prefix + message;
+    }
+
+    private static void checkForMaxValueAndIncreaseAccumulator(int message, int maxValue) {
+        long i = accumulator.longValue() + message;
+        if (i >= maxValue) {
+            flush();
+            logMessage(outputDecorate(PRIMITIVE_PREFIX, maxValue));
+        } else {
+            accumulator = accumulator + message;
+        }
+    }
+
+    private static void increaseAccumulator(int message, availableTypes anInt) {
+        accumulator = 0;
+        accumulator = accumulator + message;
+        currentType = anInt;
     }
 
     public static void flush () {
