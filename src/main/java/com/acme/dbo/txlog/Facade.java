@@ -39,10 +39,9 @@ public class Facade {
         if (currentType != availableTypes.STR || strMessage != message) {
             flushAndRemeberCurrentStateForString(message);
         }
-        else
-            if (strMessage == message){
-                strCounter ++;
-                currentType = availableTypes.STR;
+        else {
+            strCounter ++;
+            currentType = availableTypes.STR;
         }
     }
 
