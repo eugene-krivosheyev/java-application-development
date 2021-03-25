@@ -30,6 +30,18 @@ public class ArraysDemo {
         for (int current :array) {
             System.out.println(current);
         }
+
+        doSmthwithArgs( );
+        doSmthwithArgs(1 );
+        doSmthwithArgs(1,2 );
+        doSmthwithArgs(1,2,3 );
+    }
+
+    private static void doSmthwithArgs(int... args) {
+        for (int current :args) {
+            System.out.println(current);
+        }
+
     }
 
     private static void doSmthwithArray( int[] param) {
