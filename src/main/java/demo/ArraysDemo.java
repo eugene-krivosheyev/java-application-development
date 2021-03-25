@@ -2,7 +2,7 @@ package demo;
 
 public class ArraysDemo {
     public static void main(String... args) {
-        int[] intArray = new int[f()]; //2
+        int[] intArray = new int[f()]; //MAX:2^31
         System.out.println(intArray.length);
 
         for (int current : intArray) {
