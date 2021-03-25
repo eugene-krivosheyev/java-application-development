@@ -1,7 +1,7 @@
 package demo;
 
 public class ArraysDemo {
-    public static void main(String[] args) {
+    public static void main(String... args) {
         int[] intArray = new int[f()]; //2
         System.out.println(intArray.length);
 
@@ -19,6 +19,28 @@ public class ArraysDemo {
 
 //        int[] literal = {1, 2, 3};
         doSmtWithArray( new int[] {1, 2, 3} );
+
+
+        doSmthWithParam(new int[] {});
+        doSmthWithParam(new int[] {1});
+        doSmthWithParam(new int[] {1, 2});
+
+        doSmthWithVararg(1);
+        doSmthWithVararg(1, 2);
+        doSmthWithVararg(1, 2, 3);
+    }
+
+    private static void doSmthWithVararg(int p, int... param) {
+        System.out.println(param[0]);
+        for (int current : param) {
+            System.out.println(current);
+        }
+    }
+
+    private static void doSmthWithParam(int[] param) {
+        for (int current : param) {
+            System.out.println(current);
+        }
     }
 
     private static void doSmtWithArray(int[] param) {
