@@ -4,62 +4,72 @@ import static com.acme.dbo.txlog.FacadePrefixes.*;
 import static com.acme.dbo.txlog.FacadePrefixes.INT_PREFIX;
 
 public class Facade {
-
-    private static String type = "null";
+    private static String currentLogState = "null";
     private static int cumulativeIntLog = 0;
     private static byte cumulativeByteLog = 0;
 
     public static void log( int message ) {
-        if (type != "int") {
-            type = "int";
+        if (currentLogState != "int") {
+            flush();
+            currentLogState = "int";
             cumulativeIntLog = message;
         } else {
-            if(Integer.MAX_VALUE - message >= cumulativeIntLog){
+            if(sumNotOverflowGivenLimit(cumulativeIntLog, message, Integer.MAX_VALUE)){
                 cumulativeIntLog += message;
             } else {
                 flush();
                 log(message);
-                //cumulativeIntLog = message;
             }
         }
-        //print(INT_PREFIX + message);
+    }
+
+    
+    private static boolean sumNotOverflowGivenLimit(int num1, int num2, int limit ) {
+        return limit - num2 >= num1;
     }
 
     public static void flush() {
-        if (type == "int") {
+        if (currentLogState == "int") {
             print(INT_PREFIX + cumulativeIntLog);
-            type = "null";
-        } else if (type == "byte"){
+        } else if (currentLogState == "byte"){
             print(BYTE_PREFIX + cumulativeByteLog);
-            type = "null";
         }
-        type = "null";
-
+        currentLogState = "null";
     }
 
     public static void log( byte message ) {
-        type = "byte";
-        print(BYTE_PREFIX + message);
+        if (currentLogState != "byte") {
+            flush();
+            currentLogState = "byte";
+            cumulativeByteLog = message;
+        } else {
+            if(sumNotOverflowGivenLimit(cumulativeByteLog, message, Byte.MAX_VALUE)){
+                cumulativeByteLog += message;
+            } else {
+                flush();
+                log(message);
+            }
+        }
     }
 
     public static void log( char message ) {
-        type = "char";
+        flush();
         print(CHAR_PREFIX + message);
     }
 
     public static void log( String message ) {
         flush();
-        type = "String";
+        //currentLogState = "String";
         print(STRING_PREFIX + message);
     }
 
     public static void log( boolean message ) {
-        type = "boolean";
+        flush();
         print(BOOLEAN_PREFIX + message);
     }
 
     public static void log( Object message ) {
-        type = "Object";
+        flush();
         print(REFERENCE_PREFIX + message.toString());
     }
 
