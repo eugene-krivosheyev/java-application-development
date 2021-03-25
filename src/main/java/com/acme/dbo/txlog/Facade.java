@@ -68,7 +68,7 @@ public class Facade {
             cumulativeStringLog = message;
             cumulativeStringLogCounter = 1;
         } else {
-            if (cumulativeStringLog == message){
+            if (cumulativeStringLog == message && cumulativeStringLogCounter > 0){
                 cumulativeStringLogCounter++;
             } else {
                 flush();
