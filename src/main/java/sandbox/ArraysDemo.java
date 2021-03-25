@@ -3,7 +3,7 @@ package sandbox;
 import java.util.Arrays;
 
 public class ArraysDemo {
-    public static void main(String[] args){
+    public static void main(String... args){  //strange but good enough
         int[] array = new int[fSize()];
         System.out.println(array[3]);
         System.out.println(array.length);
