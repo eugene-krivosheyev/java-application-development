@@ -36,19 +36,12 @@ public class Facade {
     }
 
     public static void log (String message){
-        if (currentType != availableTypes.STR) {
-            flush();
-            strMessage = message;
-            currentType = availableTypes.STR;
+        if (currentType != availableTypes.STR || strMessage != message) {
+            flushAndRemeberCurrentStateForString(message);
         }
         else {
             if (strMessage == message){
                 strCounter ++;
-                currentType = availableTypes.STR;
-            }
-            else {
-                flush();
-                strMessage = message;
                 currentType = availableTypes.STR;
             }
         }
@@ -93,6 +86,12 @@ public class Facade {
         accumulator = 0;
         accumulator = accumulator + message;
         currentType = anInt;
+    }
+
+    private static void flushAndRemeberCurrentStateForString(String message) {
+        flush();
+        strMessage = message;
+        currentType = availableTypes.STR;
     }
 
     public static void flush () {
