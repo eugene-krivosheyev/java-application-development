@@ -6,42 +6,40 @@ public class Facade {
     public static final String PREFIX_CHAR = "char:";
     public static final String PREFIX_REFERENCE = "reference:";
 
-    private static Long lastIntValue = null;
-    private static Integer lastByteValue = null;
+    public static final String LOGGING_TYPE_INT = "int";
+    public static final String LOGGING_TYPE_BYTE = "byte";
+    public static final String LOGGING_TYPE_STRING = "string";
+
+    private static long numbersAccumulator = 0;
     private static String lastStringValue = null;
     private static int equalsStringsCount = 0;
 
+    private static String lastLoggedType = null;
+
     public static void log(int message) {
-        if (lastByteValue != null | lastStringValue != null) {
+        if (!LOGGING_TYPE_INT.equals(lastLoggedType)) {
             flush();
         }
 
-        if (lastIntValue == null) {
-            lastIntValue = Integer.valueOf(message).longValue();
-        } else {
-            if (lastIntValue + message > Integer.MAX_VALUE) {
-                flush();
-                lastIntValue = (long) message;
-            } else {
-                lastIntValue += message;
-            }
-        }
+        logNumber(message, Integer.MAX_VALUE);
+        lastLoggedType = LOGGING_TYPE_INT;
     }
 
     public static void log(byte message) {
-        if (lastIntValue != null | lastStringValue != null) {
+        if (!LOGGING_TYPE_BYTE.equals(lastLoggedType)) {
             flush();
         }
 
-        if (lastByteValue == null) {
-            lastByteValue = (int) message;
+        logNumber(message, Byte.MAX_VALUE);
+        lastLoggedType = LOGGING_TYPE_BYTE;
+    }
+
+    private static void logNumber(int message, int maxValue) {
+        if (numbersAccumulator + message > maxValue) {
+            flush();
+            numbersAccumulator = message;
         } else {
-            if (lastByteValue + message > Byte.MAX_VALUE) {
-                flush();
-                lastByteValue = (int) message;
-            } else {
-                lastByteValue += message;
-            }
+            numbersAccumulator += message;
         }
     }
 
@@ -56,7 +54,7 @@ public class Facade {
     }
 
     public static void log(String message) {
-        if (lastIntValue != null | lastByteValue != null) {
+        if (!LOGGING_TYPE_STRING.equals(lastLoggedType)) {
             flush();
         }
 
@@ -72,6 +70,7 @@ public class Facade {
             lastStringValue = message;
             equalsStringsCount = 1;
         }
+        lastLoggedType = LOGGING_TYPE_STRING;
     }
 
     public static void log(Object message) {
@@ -88,11 +87,11 @@ public class Facade {
     }
 
     public static void flush() {
-        if (lastIntValue != null) {
-            logInternal(decorate(PREFIX_PRIMITIVE, lastIntValue));
-        } else if (lastByteValue != null) {
-            logInternal(decorate(PREFIX_PRIMITIVE, lastByteValue));
-        } else if (lastStringValue != null) {
+        if (LOGGING_TYPE_INT.equals(lastLoggedType)) {
+            logInternal(decorate(PREFIX_PRIMITIVE, numbersAccumulator));
+        } else if (LOGGING_TYPE_BYTE.equals(lastLoggedType)) {
+            logInternal(decorate(PREFIX_PRIMITIVE, numbersAccumulator));
+        } else if (LOGGING_TYPE_STRING.equals(lastLoggedType)) {
             String msg = lastStringValue;
             if (equalsStringsCount > 1) {
                 msg += " (x" + equalsStringsCount + ")";
@@ -104,8 +103,8 @@ public class Facade {
     }
 
     private static void resetState() {
-        lastIntValue = null;
-        lastByteValue = null;
+        lastLoggedType = null;
+        numbersAccumulator = 0;
         lastStringValue = null;
         equalsStringsCount = 0;
     }
