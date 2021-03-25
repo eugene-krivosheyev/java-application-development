@@ -7,6 +7,8 @@ public class Facade {
     private static String currentLogState = "null";
     private static int cumulativeIntLog = 0;
     private static byte cumulativeByteLog = 0;
+    private static String cumulativeStringLog = "";
+    private static int cumulativeStringLogCounter = 0;
 
     public static void log( int message ) {
         if (currentLogState != "int") {
@@ -33,6 +35,8 @@ public class Facade {
             print(INT_PREFIX + cumulativeIntLog);
         } else if (currentLogState == "byte"){
             print(BYTE_PREFIX + cumulativeByteLog);
+        } else if (currentLogState == "String"){
+            print(STRING_PREFIX + stringFormat());
         }
         currentLogState = "null";
     }
@@ -58,9 +62,20 @@ public class Facade {
     }
 
     public static void log( String message ) {
-        flush();
-        //currentLogState = "String";
-        print(STRING_PREFIX + message);
+        if (currentLogState != "String"){
+            flush();
+            currentLogState = "String";
+            cumulativeStringLog = message;
+            cumulativeStringLogCounter = 1;
+        } else {
+            if (cumulativeStringLog == message){
+                cumulativeStringLogCounter++;
+            } else {
+                flush();
+                currentLogState = "String";
+                cumulativeStringLog = message;
+            }
+        }
     }
 
     public static void log( boolean message ) {
@@ -75,6 +90,10 @@ public class Facade {
 
     private static void print( String message ) {
         System.out.println(message);
+    }
+
+    private static String stringFormat(){
+        return cumulativeStringLogCounter > 1 ? cumulativeStringLog + " (x" + cumulativeStringLogCounter + ")" : cumulativeStringLog;
     }
 
 
