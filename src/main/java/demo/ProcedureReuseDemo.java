@@ -12,9 +12,9 @@ public class ProcedureReuseDemo {
 
         //region after
         if (condition()) {
-            m(0, Byte.MAX_VALUE);
+            m(0, Byte.MAX_VALUE, "case1");
         } else {
-            m(0, Integer.MAX_VALUE);
+            m(0, Integer.MAX_VALUE, "case2");
         }
         //endregion
     }
@@ -26,6 +26,7 @@ public class ProcedureReuseDemo {
             //2
             //3
         }
+        //4-1: subProcedure1()
     }
 
     private static void m2(int param) {
@@ -34,15 +35,23 @@ public class ProcedureReuseDemo {
             //2
             //3
         }
+        //4-2: subProcedure2()
     }
     //endregion
 
     //region after
-    private static void m(int param, int limit) {
+    private static void m(int param, int limit, String condition) {
         if (param >= limit) {
             //1
             //2
             //3
+        }
+
+        // OCP
+        if ("case1".equals(condition)) {
+            //4-1: subProcedure1()
+        } else if ("case2".equals(condition)) {
+            //4-2: subProcedure2()
         }
     }
     //endregion
