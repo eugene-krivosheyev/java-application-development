@@ -1,11 +1,16 @@
 package com.acme.dbo.txlog;
 
+import java.util.Arrays;
+
 public class Facade {
 
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
+    public static final String ARRAY_PREFIX = "primitives array: ";
+    public static final String MATRIX_PREFIX = "primitives matrix: ";
+
 
     public enum availableTypes  {NONE, INT, STR, BYTE};
     static availableTypes currentType = availableTypes.NONE;
@@ -45,6 +50,16 @@ public class Facade {
         }
     }
 
+    public static void log (int[] message){
+        logMessage(outputDecorate(ARRAY_PREFIX, Arrays.toString(message).replace("[","{").replace("]", "}")));
+
+    }
+    public static void log (int[][] message){
+        String outputMessage = Arrays.deepToString(message).replace(" [", "[");
+        outputMessage = outputMessage.replace("[","{").replace("]", "}").replace("},","}\r\n");
+        outputMessage = outputMessage.replace("{{","{\r\n{").replace("}}","}\r\n}");
+        logMessage(outputDecorate(MATRIX_PREFIX, outputMessage));
+    }
 
     public static void log (Object message){
         logMessage(outputDecorate(REFERENCE_PREFIX, message));
