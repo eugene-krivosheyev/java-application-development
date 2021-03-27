@@ -63,10 +63,6 @@ public class Facade {
             System.out.println(message);
         }
 
-    private static String decorate(String prefix, Object message, String postfix) {
-        return prefix + message + postfix;
+        }
     }
-
-
-
-    }
+}
