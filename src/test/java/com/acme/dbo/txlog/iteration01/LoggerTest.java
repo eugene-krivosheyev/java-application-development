@@ -7,10 +7,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.PrimitiveIterator;
 
 import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+    private final String LineSeparator =lineSeparator();
+    private String logResultInt (int number) {
+        return PRIMITIVE_PREFIX + number + lineSeparator();
+    }
+    private String logResultByte (byte number) {
+        return PRIMITIVE_PREFIX + number + lineSeparator();
+    }
+    private String logResultChar (char symbol) {
+        return CHAR_PREFIX + symbol + lineSeparator();
+    }
+
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -27,20 +39,20 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        int num1=1;
-        int num2=0;
-        int num3=-1;
-        String prefix="primitive: ";
-        Facade.log(num1);
-        Facade.log(num2);
-        Facade.log(num3);
+        int number1=1;
+        int number2=0;
+        int number3=-1;
+        Facade.log(number1);
+        Facade.flush();
+        Facade.log(number2);
+        Facade.flush();
+        Facade.log(number3);
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutContains(prefix);
-        assertSysoutEquals(prefix + num1 + lineSeparator() +
-                prefix + num2 + lineSeparator() +
-                prefix + num3 + lineSeparator());
+        assertSysoutContains(PRIMITIVE_PREFIX);
+        assertSysoutEquals(logResultInt(number1)  + logResultInt(number2) + logResultInt(number3));
         //endregion
     }
 
