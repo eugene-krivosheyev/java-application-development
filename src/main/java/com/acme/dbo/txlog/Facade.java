@@ -6,9 +6,11 @@ public class Facade {
 
     static HashMap<String,String>  PrefixMessage = new HashMap<String,String>();
     static HashMap<String,String>  PostfixMessage = new HashMap<String,String>();
-    static Object Buffer=null;
-
-    static {
+    static int Buffer;
+    static String StrBuffer;
+    static byte Seq = 0;
+    static byte StrSeq = 0;
+     static {
 
         PrefixMessage.put("Primitive", "primitive: ");
         PrefixMessage.put("Char", "char: ");
@@ -20,14 +22,10 @@ public class Facade {
         PostfixMessage.put("String", "");
         PostfixMessage.put("Reference", "");
     }
-
-    public static void flush(){
+    public static void flush() {
         printMessage(decorate(PrefixMessage.get("Primitive"), Buffer, PostfixMessage.get("Primitive")));
-        setBuffer(null);
-    }
-
-    private static void setBuffer(Object message){
-        Buffer = message;
+        Seq = 0;
+        Buffer = 0;
     }
 
     private static void printMessage(Object RichMessage) {
@@ -39,24 +37,48 @@ public class Facade {
     }
 
     public static void log(int message) {
-       if (Buffer instanceof Integer) {
-           setBuffer((int)Buffer + message);
-        } else if (Buffer != null){
-           flush();
-       }
-       setBuffer(message);
-
+        if ( message == Integer.MAX_VALUE | Buffer == Integer.MAX_VALUE)
+        {
+            flush();
+        }
+        if(Seq != 0){
+            Buffer = Buffer + message;
+        } else {
+            Buffer = message;
+        }
+        Seq++;
     }
 
     public static void log(byte message) {
-        printMessage(decorate(PrefixMessage.get("Primitive"), message, PostfixMessage.get("Primitive")));
+        if ( message == Byte.MAX_VALUE | Buffer == Byte.MAX_VALUE)
+        {
+            flush();
+        }
+        if(Seq != 0){
+            Buffer = Buffer + message;
+        } else {
+            Buffer = message;
+        }
+        Seq++;
     }
+
 
     public static void log(char message) {
         printMessage(decorate(PrefixMessage.get("Char"), message, PostfixMessage.get("Char")));
     }
 
     public static void log(String message) {
+        if(Seq != 0){
+            flush();
+        }
+
+        if (StrSeq == 0) StrBuffer = message;
+        else {
+            if (StrBuffer == message){
+
+            }
+        }
+
         printMessage(decorate(PrefixMessage.get("String"), message, PostfixMessage.get("String")));
     }
 
