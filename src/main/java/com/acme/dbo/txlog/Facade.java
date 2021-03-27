@@ -1,12 +1,14 @@
 package com.acme.dbo.txlog;
 
 import static com.sun.deploy.trace.Trace.flush;
+import static com.acme.dbo.txlog.FacadePrefixes.*;
+import static com.acme.dbo.txlog.FacadePrefixes.INT_PREFIX;
+import static jdk.nashorn.internal.objects.Global.print;
 
 public class Facade {
-    public static final String PRIMITIVE_PREFIX = "primitive: ";
+    public static final String INT_PREFIX = "primitive: ";
     public static final String STRING_PREFIX = "string: ";
-    private static final String PRIMITIVE_POSTFIX = "";
-    private static final String STRING_POSTFIX = "";
+
     private static String type = "null";
     private static int cumulativeIntLog = 0;
     private static byte cumulativeByteLog = 0;
@@ -17,39 +19,54 @@ public class Facade {
             type = "int";
             cumulativeIntLog = message;
         } else {
-            if(Integer.MAX_VALUE - message >=cumulativeIntLog) {
-            cumulativeIntLog += message;
-            else {
-                flush();
-                log(message);
+            if (Integer.MAX_VALUE - message >= cumulativeIntLog) {
+                cumulativeIntLog += message;
+            else{
+                    flush();
+                    log(message);
+                }
+            }
         }
-    }
 
     public static void flush() {
         if (type == "int") {
-            print(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
+            print (INT_PREFIX + cumulativeIntLog));
             } else if (type == "byte") {
-            print(PRIMITIVE_PREFIX + cumulativeByteLog);
+            print (BYTE_PREFIX + cumulativeByteLog);
              }
         type = "null";
     }
 
     public static void log(byte message) {
+            if (type != "byte") {
+                flush();
+                type = "byte";
+                cumulativeByteLog = message;
+            } else {
+            flush();
+            log(message);
+          }
 
-        print(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
+
+    public static void log(char message){
+            type = "char";
+            print(CHAR_PREFIX + message);
+        }
+
+    public static void log(String message) {
+            flush();
+            type = "String";
+            print(STRING_PREFIX + message);
     }
 
-    /*public static void log(String message) {
-        print(decorate(STRING_PREFIX, message, STRING_POSTFIX));
-    }
+        public static void print(String message) {
+            System.out.println(message);
+        }
 
-
-    private static void print(Object message)  {
-        print(decorate("", message, ""));
-    }
-*/
     private static String decorate(String prefix, Object message, String postfix) {
         return prefix + message + postfix;
     }
 
-}
+
+
+    }
