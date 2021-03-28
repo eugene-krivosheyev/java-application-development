@@ -13,7 +13,7 @@ public class Facade {
     private static boolean isMessageTypeChanged;
 
     public static void log(int message) {
-        if (intMessagesAccumulated == null) {
+        if (intMessagesAccumulated == null || ((long) intMessagesAccumulated + (long) message > Integer.MAX_VALUE)) {
             flush();
             intMessagesAccumulated = message;
         } else {
@@ -55,7 +55,11 @@ public class Facade {
 
     public static void flush() {
         if (ifIntCurrentState(intMessagesAccumulated)) {
-            printMessage(decorate(PRIMITIVE_PREFIX, intMessagesAccumulated));
+            if (intMessagesAccumulated == Integer.MAX_VALUE) {
+                printMessage(decorate(PRIMITIVE_PREFIX, "Integer.MAX_VALUE"));
+            } else {
+                printMessage(decorate(PRIMITIVE_PREFIX, intMessagesAccumulated));
+            }
 
         }
         if (ifStringCurrentState(duplicatedStringMessagesCounter)) {
@@ -83,7 +87,7 @@ public class Facade {
         return intMessagesAccumulated != null;
     }
 
-    private static boolean ifStringCurrentState (Integer stringMessagesRepeatCounter) {
-        return stringMessagesRepeatCounter !=0;
+    private static boolean ifStringCurrentState(Integer stringMessagesRepeatCounter) {
+        return stringMessagesRepeatCounter != 0;
     }
 }
