@@ -1,10 +1,13 @@
 package com.acme.dbo.txlog.iteration02;
 
+import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
+import static java.lang.System.lineSeparator;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
@@ -41,6 +44,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
             "str 2\n" +
             "0\n"
         );
+
         //endregion
     }
 
@@ -109,6 +113,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-
-
 }
