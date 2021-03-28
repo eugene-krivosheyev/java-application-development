@@ -15,7 +15,7 @@ public class Facade {
     private static int cumulativeIntLog = 0;
     private static byte cumulativeByteLog = 0;
     private static char cumulativeCharLog = 0;
-    private static String cumulativeStringLog = 0;
+    private static String cumulativeStringLog = "0";
 
 
     public static void log(int message) {
@@ -58,30 +58,21 @@ public class Facade {
     }
 
     public static void log(char message) {
-        if (type != "char") {
-            flush();
-            type = "char";
-            cumulativeCharLog = message;
-        } else {
-            flush();
-            log(message);
+        flush();
+        type = "char";
+        print(CHAR_PREFIX + message);
         }
-    }
 
     public static void log(String message) {
-        if (type != "string") {
-            flush();
-            type = "string";
-            cumulativeStringLog = message;
-        } else {
-            log(message);
+        type = "string";
+        print(STRING_PREFIX + message);
         }
 
-        public static void print (String message){
+    public static void print (String message){
             System.out.println(message);
         }
     }
-}
+
 
 
 
