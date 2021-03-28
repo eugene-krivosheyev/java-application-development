@@ -28,7 +28,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         return CHAR_PREFIX + symbol + lineSeparator();
     }
 
-    //region given
+    private String logResultString (String symbol) {
+
+        return STRING_PREFIX + symbol + lineSeparator();
+
+    }
+
+           //region given
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
@@ -90,7 +96,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         char char1='a';
         char char2='b';
         Facade.log((char1));
+        Facade.flush();
         Facade.log((char2));
+        Facade.flush();
         //endregion
 
         //region then
@@ -99,21 +107,22 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    /*
+
     @Test
     public void shouldLogString() throws IOException {
         //region when
+        String string1 = "test string 1";
+        String string2 = "other str";
         Facade.log("test string 1");
         Facade.log("other str");
         //endregion
 
         //region then
-        assertSysoutContains("string: ");
-        assertSysoutContains("test string 1");
-        assertSysoutContains("other str");
+        assertSysoutContains(STRING_PREFIX);
+        assertSysoutEquals(logResultString(string1) + logResultString(string2));
         //endregion
     }
-
+/*
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when

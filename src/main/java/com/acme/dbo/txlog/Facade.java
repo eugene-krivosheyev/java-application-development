@@ -9,11 +9,14 @@ public class Facade {
     public static final String INT_PREFIX = "primitive: ";
     public static final String BYTE_PREFIX = "primitive: ";
     public static final String CHAR_PREFIX = "string: ";
+    public static final String STRING_PREFIX = "string: ";
 
     private static String type = "null";
     private static int cumulativeIntLog = 0;
     private static byte cumulativeByteLog = 0;
     private static char cumulativeCharLog = 0;
+    private static String cumulativeStringLog = 0;
+
 
     public static void log(int message) {
         if (type != "int") {
@@ -66,13 +69,19 @@ public class Facade {
     }
 
     public static void log(String message) {
-        flush();
-        type = "String";
-        print(STRING_PREFIX + message);
-    }
+        if (type != "string") {
+            flush();
+            type = "string";
+            cumulativeStringLog = message;
+        } else {
+            log(message);
+        }
 
-    public static void print(String message) {
-        System.out.println(message);
+        public static void print (String message){
+            System.out.println(message);
+        }
     }
 }
+
+
 
