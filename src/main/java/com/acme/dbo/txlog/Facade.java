@@ -8,9 +8,8 @@ public class Facade {
 
     private static Integer intMessagesAccumulated = null;
     private static String stringMesssagesAccumulated = null;
-    private static Byte byteMessagesAccumulated = null;
+    private static Integer byteMessagesAccumulated = null;
     private static Integer duplicatedStringMessagesCounter = 0;
-    private static boolean isMessageTypeChanged;
 
     public static void log(int message) {
         if (intMessagesAccumulated == null || ((long) intMessagesAccumulated + (long) message > Integer.MAX_VALUE)) {
@@ -39,8 +38,12 @@ public class Facade {
     }
 
     public static void log(byte message) {
-        flush();
-        printMessage(decorate(PRIMITIVE_PREFIX, message));
+        if (byteMessagesAccumulated == null || (byteMessagesAccumulated + message > Byte.MAX_VALUE)) {
+            flush();
+            byteMessagesAccumulated = Integer.valueOf(message);
+        } else {
+            byteMessagesAccumulated += message;
+        }
     }
 
     public static void log(boolean message) {
@@ -60,8 +63,16 @@ public class Facade {
             } else {
                 printMessage(decorate(PRIMITIVE_PREFIX, intMessagesAccumulated));
             }
-
         }
+
+        if (ifByteCurrentState(byteMessagesAccumulated)) {
+            if (byteMessagesAccumulated == Byte.MAX_VALUE) {
+                printMessage(decorate(PRIMITIVE_PREFIX, "Byte.MAX_VALUE"));
+            } else {
+                printMessage(decorate(PRIMITIVE_PREFIX, byteMessagesAccumulated));
+            }
+        }
+
         if (ifStringCurrentState(duplicatedStringMessagesCounter)) {
             if (duplicatedStringMessagesCounter == 1) {
                 printMessage(decorate(STRING_PREFIX, stringMesssagesAccumulated));
@@ -71,6 +82,7 @@ public class Facade {
 
         }
         intMessagesAccumulated = null;
+        byteMessagesAccumulated = null;
         duplicatedStringMessagesCounter = 0;
     }
 
@@ -89,5 +101,9 @@ public class Facade {
 
     private static boolean ifStringCurrentState(Integer stringMessagesRepeatCounter) {
         return stringMessagesRepeatCounter != 0;
+    }
+
+    private static boolean ifByteCurrentState(Integer byteMessagesAccumulated) {
+        return byteMessagesAccumulated != null;
     }
 }
