@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static java.lang.System.lineSeparator;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -34,15 +36,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(2);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1" + System.getProperty("line.separator") +
-            "3" + System.getProperty("line.separator") +
-            "str 2" + System.getProperty("line.separator")+
-            "0" + System.getProperty("line.separator")
-        );
+        assertSysoutContains("str 1" + lineSeparator());
+        assertSysoutContains("3" + lineSeparator());
+        assertSysoutContains("str 2" + lineSeparator());
+        assertSysoutContains("0" + lineSeparator());
         //endregion
     }
 
@@ -54,16 +55,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log(Integer.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1" + System.getProperty("line.separator") +
-            "10" + System.getProperty("line.separator") +
-            Integer.MAX_VALUE  + System.getProperty("line.separator") +
-            "str 2" + System.getProperty("line.separator") +
-            "0" + System.getProperty("line.separator")
-        );
+        assertSysoutContains("str 1" + lineSeparator());
+        assertSysoutContains("10" + lineSeparator());
+        assertSysoutContains(Integer.MAX_VALUE + lineSeparator());
+        assertSysoutContains("str 2" + lineSeparator());
+        assertSysoutContains("0" + lineSeparator());
         //endregion
     }
 
@@ -75,16 +75,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log((byte)Byte.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1" + System.getProperty("line.separator") +
-            "10" + System.getProperty("line.separator") +
-            Byte.MAX_VALUE + System.getProperty("line.separator") +
-            "str 2" + System.getProperty("line.separator") +
-            "0" + System.getProperty("line.separator")
-        );
+        assertSysoutContains("str 1" + lineSeparator());
+        assertSysoutContains("10" + lineSeparator());
+        assertSysoutContains(Byte.MAX_VALUE  + lineSeparator());
+        assertSysoutContains("str 2" + lineSeparator());
+        assertSysoutContains("0" + lineSeparator());
         //endregion
     }
 
@@ -99,18 +98,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Facade.log("str 3");
         Facade.log("str 3");
         Facade.log("str 3");
-        Facade.log("0");
+        Facade.flush();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1" +System.getProperty("line.separator")+
-            "str 2 (x2)" +System.getProperty("line.separator")+
-            "0" +System.getProperty("line.separator")+
-            "str 2"  + System.getProperty("line.separator")+
-            "str 3 (x3)"+ System.getProperty("line.separator")+
-            "0"  + System.getProperty("line.separator")  //haltura?
-        );
+        assertSysoutContains("str 1" + lineSeparator());
+        assertSysoutContains("str 2 (x2)" +  lineSeparator());
+        assertSysoutContains("0" +  lineSeparator());
+        assertSysoutContains("str 2" +  lineSeparator());
+        assertSysoutContains("str 3 (x3)" + lineSeparator());
         //endregion
     }
 
