@@ -93,12 +93,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        char char1='a';
-        char char2='b';
-        Facade.log((char1));
-        Facade.flush();
-        Facade.log((char2));
-        Facade.flush();
+        char char1 = 'a';
+        char char2 = 'b';
+        Facade.log(char1);
+        Facade.log(char2);
         //endregion
 
         //region then
@@ -113,8 +111,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         String string1 = "test string 1";
         String string2 = "other str";
-        Facade.log("test string 1");
-        Facade.log("other str");
+        Facade.log(string1);
+        Facade.log(string2);
         //endregion
 
         //region then

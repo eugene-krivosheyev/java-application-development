@@ -38,8 +38,15 @@ public class Facade {
             print(INT_PREFIX + cumulativeIntLog);
         } else if (type == "byte") {
             print(BYTE_PREFIX + cumulativeByteLog);
+        } else if (type == "char") {
+            print(CHAR_PREFIX + cumulativeCharLog);
         }
-        type = "null";
+        else if (type == "string") {
+            print(STRING_PREFIX + cumulativeStringLog);
+        }
+        else {
+            type = "null";
+        }
     }
 
     public static void log(byte message) {
@@ -58,7 +65,6 @@ public class Facade {
     }
 
     public static void log(char message) {
-        flush();
         type = "char";
         print(CHAR_PREFIX + message);
         }
