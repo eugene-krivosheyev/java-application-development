@@ -21,7 +21,6 @@ public class Facade {
     private static byte byteAccumulator = 0;
 
     private static String prevType = "";
-    private static String currType = "";
 
     public static void log(char message) {
         printMessage(decorate(CHAR_PREFIX, message, CHAR_POSTFIX));
@@ -32,6 +31,7 @@ public class Facade {
     }
 
     public static void log(Object message) {
+        String currType = "";
         if (message instanceof String) {
             currType = STRING_TYPE;
             accumulate((String) message);
