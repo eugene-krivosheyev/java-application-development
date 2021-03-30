@@ -28,6 +28,8 @@ public class Facade {
     private static final String CHAR_ACC = "char";
     private static final String BOOL_ACC = "boolean";
     private static final String OBJ_ACC = "object";
+    private static final String INT_ARRAY_ACC = "int_array";
+    private static final String INT_MATRIX_ACC = "int_matrix";
 
     private static String activeAccumulator = "";
     private static String stringAccumulator = "";
@@ -38,6 +40,8 @@ public class Facade {
     private static char charAccumulator = 0;
     private static boolean boolAccumulator = true;
     private static Object objectAccumulator = null;
+    private static String intArrayAccumulator = "";
+    private static String intMatrixAccumulator = "";
 
     public static void log(int message) {
         resetNumberAccumulator(INT_ACC, intAccumulator, message, Integer.MAX_VALUE);
@@ -81,13 +85,13 @@ public class Facade {
     }
 
     public static void log(int[] intArrayMessage) {
-        resetActiveAccumulator("");
-        outputDecoratedMessage(decorateMessage(arrayToString(intArrayMessage), PRIMITIVE_ARRAY_PREFIX, PRIMITIVE_ARRAY_POSTFIX));
+        resetActiveAccumulator(INT_ARRAY_ACC);
+        intArrayAccumulator = arrayToString(intArrayMessage);
     }
 
     public static void log(int[][] intMatrix) {
-        resetActiveAccumulator("");
-        outputDecoratedMessage(decorateMessage(matrixToString(intMatrix), PRIMITIVE_MATRIX_PREFIX, PRIMITIVE_MATRIX_POSTFIX));
+        resetActiveAccumulator(INT_MATRIX_ACC);
+        intMatrixAccumulator = matrixToString(intMatrix);
     }
 
     public static void log(Object message) {
@@ -127,6 +131,18 @@ public class Facade {
             case OBJ_ACC: {
                 outputDecoratedMessage(decorateMessage(objectAccumulator, OBJ_PREFIX, OBJ_POSTFIX));
                 objectAccumulator = null;
+                break;
+            }
+
+            case INT_ARRAY_ACC: {
+                outputDecoratedMessage(decorateMessage(intArrayAccumulator, PRIMITIVE_ARRAY_PREFIX, PRIMITIVE_ARRAY_POSTFIX));
+                intArrayAccumulator = "";
+                break;
+            }
+
+            case INT_MATRIX_ACC: {
+                outputDecoratedMessage(decorateMessage(intMatrixAccumulator, PRIMITIVE_MATRIX_PREFIX, PRIMITIVE_MATRIX_POSTFIX));
+                intMatrixAccumulator = "";
                 break;
             }
         }
