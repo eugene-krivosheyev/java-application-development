@@ -5,6 +5,7 @@ import static java.lang.System.*;
 public class Facade {
 
     public static final String PRIMITIVE_PREFIX = "primitive: ";
+    public static final String ARRAY_PREFIX = "primitives array: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
@@ -12,6 +13,7 @@ public class Facade {
     public static final String REFERENCE_POSTFIX = "";
     public static final String STRING_POSTFIX = "";
     public static final String CHAR_POSTFIX = "";
+    public static final String MATRIX_PREFIX = "primitives matrix: ";
 
     private static String strPattern  = "";
     private static int repetitionCount = 1;
@@ -53,6 +55,33 @@ public class Facade {
 
     public static void log(Object message) {
         printMessage(decorate(REFERENCE_PREFIX,message, REFERENCE_POSTFIX));
+    }
+
+    public static void log(int[] message) {
+        stringAccum = "{";
+        for (int i = 0; i < message.length; i++) {
+            if (message[i] >= 0)
+             stringAccum = stringAccum + " " + message[i];
+            else
+             stringAccum = stringAccum + message[i];
+            if (i < message.length-1) stringAccum = stringAccum + ",";
+        }
+        stringAccum = stringAccum + "}";
+        printMessage(decorate(ARRAY_PREFIX,stringAccum, PRIMITIVE_POSTFIX));
+    }
+
+    public static void log(int[][] message) {
+        stringAccum = "{\n";
+        for (int i = 0; i < message.length; i++) {
+            stringAccum = stringAccum + "{";
+            for (int j = 0; j < message[i].length; j++){
+                stringAccum = stringAccum + message[i][j];
+                if (j < message[i].length-1) stringAccum = stringAccum + ", ";
+            }
+            stringAccum = stringAccum + "}\n";
+        }
+        stringAccum = stringAccum + "}";
+        printMessage(decorate(MATRIX_PREFIX,stringAccum, PRIMITIVE_POSTFIX));
     }
 
     private static String decorate(String prefix,Object message,String postfix) {
