@@ -85,6 +85,20 @@ public class Facade {
         }
     }
 
+    public static void log(int[] message) {
+        logger.log(message);
+    }
+
+    public static void log(int[][] message) {
+        logger.log(message);
+    }
+
+    public static void log(String ...message) {
+        for (String str : message) {
+            Facade.log(str);
+        }
+    }
+
     public static void close() {
         if (currentType == null) {
             return;
@@ -99,7 +113,9 @@ public class Facade {
                 break;
             case STRING:
                 String message = stringCount > 1 ? stringAccumulator + " (x" + stringCount + ")" : stringAccumulator;
-                logger.log(message);
+                if (stringAccumulator != null) {
+                    logger.log(message);
+                }
                 break;
         }
 
@@ -107,4 +123,6 @@ public class Facade {
         byteAccumulator = 0;
         stringAccumulator = null;
     }
+
+
 }
