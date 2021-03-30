@@ -1,5 +1,8 @@
 package com.acme.dbo.txlog;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class ArrayToStringFormatter implements Format {
 
     private static String LEFT_BRACKET = "{";
@@ -7,16 +10,9 @@ public class ArrayToStringFormatter implements Format {
     private static String ARRAY_DIVIDER = ", ";
 
      public String format(int[] array) {
-        String result = LEFT_BRACKET;
-        for (int i = 0; i < array.length; ++i)
-        {
-            result += array[i];
-            if (i != array.length - 1) {
-                result += ARRAY_DIVIDER;
-            }
-        }
-        result += RIGHT_BRACKET;
-        return result;
+        return LEFT_BRACKET + Arrays.stream(array)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining(ARRAY_DIVIDER)) + RIGHT_BRACKET;
     }
 
      public String format(int[][] array) {
