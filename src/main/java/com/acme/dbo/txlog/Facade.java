@@ -53,13 +53,7 @@ public class Facade {
 
     public static void log(int[][] message) {
         flush();
-
-        StringBuilder sb = new StringBuilder("{" + System.lineSeparator());
-        for (int[] ints : message) {
-            sb.append(arrayToString(ints)).append(System.lineSeparator());
-        }
-        sb.append("}");
-        logInternal(decorate(PREFIX_PRIMITIVES_MATRIX, sb.toString()));
+        logInternal(decorate(PREFIX_PRIMITIVES_MATRIX, matrixToString(message)));
     }
 
     public static void log(int[][][][] message) {
@@ -68,12 +62,8 @@ public class Facade {
         StringBuilder sb = new StringBuilder("{" + System.lineSeparator());
         for (int[][][] array3d : message) {
             sb.append("{").append(System.lineSeparator());
-            for (int[][] array2d : array3d) {
-                sb.append("{").append(System.lineSeparator());
-                for (int[] array : array2d) {
-                    sb.append(arrayToString(array, true)).append(System.lineSeparator());
-                }
-                sb.append("}").append(System.lineSeparator());
+            for (int[][] matrix : array3d) {
+                sb.append(matrixToString(matrix, true)).append(System.lineSeparator());
             }
             sb.append("}").append(System.lineSeparator());
         }
@@ -83,6 +73,19 @@ public class Facade {
 
     private static String arrayToString(int[] arr) {
         return arrayToString(arr, false);
+    }
+
+    private static String matrixToString(int[][] matrix) {
+        return matrixToString(matrix, false);
+    }
+
+    private static String matrixToString(int[][] matrix, boolean isNewLineForInnerBraces) {
+        StringBuilder sb = new StringBuilder("{" + System.lineSeparator());
+        for (int[] ints : matrix) {
+            sb.append(arrayToString(ints, isNewLineForInnerBraces)).append(System.lineSeparator());
+        }
+        sb.append("}");
+        return sb.toString();
     }
 
     private static String arrayToString(int[] arr, boolean isNewLineForBraces) {
