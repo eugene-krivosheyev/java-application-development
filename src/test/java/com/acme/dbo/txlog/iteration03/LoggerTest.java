@@ -55,7 +55,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-    /*
+
     @Test
     public void shouldLogIntegersMulitidimentionalArray() throws IOException {
         //region when
@@ -64,15 +64,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
+            "primitives multimatrix: {" + lineSeparator() +
+                "{" + lineSeparator() + "{" + lineSeparator() + "{" + lineSeparator() +
+                    "0" + lineSeparator() +
+                "}" + lineSeparator() + "}" + lineSeparator() + "}" + lineSeparator() +
+            "}" + lineSeparator()
         );
         //endregion
     }
-
+    /*
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when

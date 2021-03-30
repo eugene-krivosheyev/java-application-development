@@ -12,6 +12,7 @@ public class Facade {
     public static final String REFERENCE_PREFIX = "reference: ";
     private static final String PRIMITIVE_ARRAY_PREFIX = "primitives array: ";
     private static final String PRIMITIVE_MATRIX_PREFIX = "primitives matrix: ";
+    private static final String PRIMITIVE_MULTIMATRIX_PREFIX = "primitives multimatrix: ";
 
     private static Integer intMessagesAccumulated = null;
     private static String stringMesssagesAccumulated = null;
@@ -86,9 +87,32 @@ public class Facade {
             logArray((int[]) message);
         } else if (message instanceof int[][]) {
             logMatrix((int[][]) message);
+        } else if (message instanceof int[][][][]) {
+            logMatrix((int[][][][]) message);
         } else {
             printMessage(decorate(REFERENCE_PREFIX, message));
         }
+    }
+
+    private static void logMatrix(int[][][][] message) {
+        StringBuilder sb = new StringBuilder("{").append(lineSeparator());
+        for (int[][][] ints : message) {
+            sb.append("{").append(lineSeparator());
+            for (int[][] anInt : ints) {
+                sb.append("{").append(lineSeparator());
+                for (int[] ints1 : anInt) {
+                    sb.append("{").append(lineSeparator());
+                    for (int i : ints1) {
+                        sb.append(i);
+                    }
+                    sb.append(lineSeparator()).append("}");
+                }
+                sb.append(lineSeparator()).append("}");
+            }
+            sb.append(lineSeparator()).append("}");
+        }
+        sb.append(lineSeparator()).append("}");
+        printMessage(decorate(PRIMITIVE_MULTIMATRIX_PREFIX, sb.toString()));
     }
 
     private static void logMatrix(int[][] message) {
