@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
