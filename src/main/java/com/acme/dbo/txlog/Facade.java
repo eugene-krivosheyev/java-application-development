@@ -71,15 +71,19 @@ public class Facade {
         if(Seq != 0){
             flush();
         }
-
         if (StrSeq == 0) StrBuffer = message;
         else {
             if (StrBuffer == message){
-
+                StrSeq++;
+            }
+            else{
+                if (StrSeq >0)
+                {
+                    printMessage(decorate(PrefixMessage.get("String"), message + "(" + StrSeq + ")", PostfixMessage.get("String")));
+                } else printMessage(decorate(PrefixMessage.get("String"), message, PostfixMessage.get("String")));
             }
         }
 
-        printMessage(decorate(PrefixMessage.get("String"), message, PostfixMessage.get("String")));
     }
 
     public static void log(boolean message) {
