@@ -8,14 +8,13 @@ public class OutputDecorator implements Logger {
     private static String REFERENCE_PREFIX = "reference: ";
     private static String PRIMITIVE_ARRAY_PREFIX = "primitives array: ";
     private static String PRIMITIVE_MATRIX_PREFIX = "primitives matrix: ";
-    private static String LEFT_BRACKET = "{";
-    private static String RIGHT_BRACKET = "}";
-    private static String ARRAY_DIVIDER = ", ";
 
     private Logger logger;
+    private Format formatter;
 
-    OutputDecorator(Logger logger) {
-       this.logger = logger;
+    OutputDecorator(Logger logger, ArrayToStringFormatter formatter) {
+        this.logger = logger;
+        this.formatter = formatter;
     }
 
     public void log(byte message) {
@@ -46,30 +45,7 @@ public class OutputDecorator implements Logger {
         logger.log(REFERENCE_PREFIX + message);
     }
 
-    public void log(int[] message) { logger.log(PRIMITIVE_ARRAY_PREFIX + arrayToString(message)); }
+    public void log(int[] message) { logger.log(PRIMITIVE_ARRAY_PREFIX + formatter.format(message)); }
 
-    public void log(int[][] message) { logger.log(PRIMITIVE_MATRIX_PREFIX + matrixToString(message)); }
-
-    private static String arrayToString(int[] array) {
-        String result = LEFT_BRACKET;
-        for (int i = 0; i < array.length; ++i)
-        {
-            result += array[i];
-            if (i != array.length - 1) {
-                result += ARRAY_DIVIDER;
-            }
-        }
-        result += RIGHT_BRACKET;
-        return result;
-    }
-
-    private static String matrixToString(int[][] array) {
-        String result = LEFT_BRACKET + System.lineSeparator();
-        for (int i = 0; i < array.length; ++i)
-        {
-            result += arrayToString(array[i]) + System.lineSeparator();
-        }
-        result += RIGHT_BRACKET;
-        return result;
-    }
+    public void log(int[][] message) { logger.log(PRIMITIVE_MATRIX_PREFIX + formatter.format(message)); }
 }

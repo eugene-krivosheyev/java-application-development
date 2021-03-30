@@ -15,7 +15,10 @@ public class Facade {
 
     private static Type currentType = null;
 
-    static OutputDecorator logger = new OutputDecorator(new ConsoleLogger());
+    static OutputDecorator logger = new OutputDecorator(
+            new ConsoleLogger(),
+            new ArrayToStringFormatter()
+    );
 
     public static void log(int message) {
         if (currentType != Type.INTEGER) {
