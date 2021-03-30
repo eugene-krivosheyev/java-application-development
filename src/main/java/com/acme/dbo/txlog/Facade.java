@@ -1,7 +1,13 @@
 package com.acme.dbo.txlog;
 
+import java.util.Arrays;
+
+import static java.lang.System.lineSeparator;
+
 public class Facade {
     public static final String PRIMITIVE_PREFIX = "primitive: ";
+    public static final String PRIMITIVES_ARRAY_PREFIX = "primitives array: ";
+    public static final String PRIMITIVES_MATRIX_PREFIX = "primitives matrix: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
@@ -43,7 +49,7 @@ public class Facade {
     public static void log(String message) {
         flushInt();
         flushByte();
-        if(stringState != message) {
+        if(!stringState.equals(message)) {
             flushString();
             stringState = message;
         }
@@ -60,6 +66,33 @@ public class Facade {
 
     public static void log(Object message) {
         printToConsole(decorate(message, REFERENCE_PREFIX, REFERENCE_POSTFIX));
+    }
+
+    public static void log(int[][] message) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append(lineSeparator());
+        for (int[] ints : message) {
+            sb.append(buildPrimitivesArrayOutput(ints));
+            sb.append(lineSeparator());
+        }
+        sb.append("}");
+        printToConsole(decorate(sb,PRIMITIVES_MATRIX_PREFIX,""));
+    }
+
+    public static void log(String... messages) {
+        String sb = buildGenericsArrayOutput(messages, lineSeparator());
+        printToConsole(decorate(sb, "", ""));
+    }
+
+    public static void log(int[] messages) {
+        String sb = buildPrimitivesArrayOutput(messages);
+        printToConsole(decorate(sb, "", ""));
+    }
+
+    public static void log(Integer... messages) {
+        String sb = buildGenericsArrayOutput(messages, "");
+        printToConsole(decorate(sb, "", ""));
     }
 
     public static void flushInt() {
@@ -83,6 +116,26 @@ public class Facade {
 
     private static void printToConsole(Object message) {
         System.out.println(message);
+    }
+
+    private static String buildPrimitivesArrayOutput(int[] message) {
+        Integer[] array = Arrays.stream( message ).boxed().toArray( Integer[]::new );
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append(buildGenericsArrayOutput(array, ", "));
+        sb.append("}");
+        return sb.toString();
+    }
+
+    private static<T> String buildGenericsArrayOutput(T[] messages, String separator) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < messages.length; i++) {
+            sb.append(messages[i]);
+            if(i != messages.length - 1) {
+                sb.append(separator);
+            }
+        }
+        return sb.toString();
     }
 
     private static String decorate(Object message, String prefix, String postfix) {
