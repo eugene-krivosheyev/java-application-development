@@ -6,12 +6,17 @@ package com.acme.dbo.txlog;
 
 public class Facade {
     public static final String OBJECT_PREFIX = "reference: ";
+    public static final String ARRAY_PREFIX = "primitives array: ";
+    public static final String MATRIX_PREFIX = "primitives matrix: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String STRING_PREFIX = "string: ";
-    private static final String PRIMITIVE_POSTFIX = "";
-    private static final String CHAR_POSTFIX = "";
+
     private static final String OBJECT_POSTFIX = "";
+    private static final String ARRAY_POSTFIX = "";
+    private static final String MATRIX_POSTFIX = "";
+    private static final String CHAR_POSTFIX = "";
+    private static final String PRIMITIVE_POSTFIX = "";
     private static final String STRING_POSTFIX = "";
 
     public static boolean intSequence = false;
@@ -75,9 +80,33 @@ public class Facade {
         stringSequence = true;
     }
 
+    public static void log(String... message) {
+        for (String str : message) {
+            log(str);
+        }
+    }
+
     public static void log(Object message) {
         flush();
         printMessage(decorate(OBJECT_PREFIX, message, OBJECT_POSTFIX));
+    }
+
+    public static void log(int... message) {
+        flush();
+        for (int i : message) {
+            log(i);
+        }
+    }
+
+    public static void log(int[][] message) {
+        flush();
+
+        String result = "{" + System.lineSeparator();
+        for (int[] array : message) {
+            result = result + String.format("{%d, %d, %d}", array[0], array[1], array[2]) + System.lineSeparator();
+        }
+        result = result + "}";
+        printMessage(decorate(MATRIX_PREFIX, result, MATRIX_POSTFIX));
     }
 
     public static void flush() {
