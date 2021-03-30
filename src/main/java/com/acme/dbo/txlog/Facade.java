@@ -3,6 +3,9 @@ package com.acme.dbo.txlog;
 public class Facade {
 
     public static final String PREFIX_PRIMITIVE = "primitive:";
+    public static final String PREFIX_PRIMITIVES_ARRAY = "primitives array:";
+    public static final String PREFIX_PRIMITIVES_MATRIX = "primitives matrix:";
+    public static final String PREFIX_PRIMITIVES_MULTIMATRIX = "primitives multimatrix:";
     public static final String PREFIX_CHAR = "char:";
     public static final String PREFIX_REFERENCE = "reference:";
 
@@ -43,6 +46,57 @@ public class Facade {
         }
     }
 
+    public static void log(int... message) {
+        flush();
+        logInternal(decorate(PREFIX_PRIMITIVES_ARRAY, arrayToString(message)));
+    }
+
+    public static void log(int[][] message) {
+        flush();
+
+        StringBuilder sb = new StringBuilder("{" + System.lineSeparator());
+        for (int[] ints : message) {
+            sb.append(arrayToString(ints)).append(System.lineSeparator());
+        }
+        sb.append("}");
+        logInternal(decorate(PREFIX_PRIMITIVES_MATRIX, sb.toString()));
+    }
+
+    public static void log(int[][][][] message) {
+        flush();
+
+        StringBuilder sb = new StringBuilder("{" + System.lineSeparator());
+        for (int[][][] array3d : message) {
+            sb.append("{").append(System.lineSeparator());
+            for (int[][] array2d : array3d) {
+                sb.append("{").append(System.lineSeparator());
+                for (int[] array : array2d) {
+                    sb.append(arrayToString(array, true)).append(System.lineSeparator());
+                }
+                sb.append("}").append(System.lineSeparator());
+            }
+            sb.append("}").append(System.lineSeparator());
+        }
+        sb.append("}");
+        logInternal(decorate(PREFIX_PRIMITIVES_MULTIMATRIX, sb.toString()));
+    }
+
+    private static String arrayToString(int[] arr) {
+        return arrayToString(arr, false);
+    }
+
+    private static String arrayToString(int[] arr, boolean newLineForBraces) {
+        StringBuilder sb = new StringBuilder("{").append(newLineForBraces ? System.lineSeparator() : "");
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(arr[i]);
+            if (i < arr.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append(newLineForBraces ? System.lineSeparator() : "").append("}");
+        return sb.toString();
+    }
+
     public static void log(boolean message) {
         flush();
         logInternal(decorate(PREFIX_PRIMITIVE, message));
@@ -51,6 +105,12 @@ public class Facade {
     public static void log(char message) {
         flush();
         logInternal(decorate(PREFIX_CHAR, message));
+    }
+
+    public static void log(String... message) {
+        for (String m : message) {
+            log(m);
+        }
     }
 
     public static void log(String message) {
