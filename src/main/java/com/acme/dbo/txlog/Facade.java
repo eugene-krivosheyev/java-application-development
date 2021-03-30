@@ -1,10 +1,14 @@
 package com.acme.dbo.txlog;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Facade {
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String REFERENCE_PREFIX = "reference: ";
+    private static final String PRIMITIVE_ARRAY_PREFIX = "primitives array: ";
 
     private static Integer intMessagesAccumulated = null;
     private static String stringMesssagesAccumulated = null;
@@ -40,7 +44,7 @@ public class Facade {
     public static void log(byte message) {
         if (byteMessagesAccumulated == null || (byteMessagesAccumulated + message > Byte.MAX_VALUE)) {
             flush();
-            byteMessagesAccumulated = Integer.valueOf(message);
+            byteMessagesAccumulated = (int) message;
         } else {
             byteMessagesAccumulated += message;
         }
@@ -51,9 +55,27 @@ public class Facade {
         printMessage(decorate(PRIMITIVE_PREFIX, message));
     }
 
+    private static void logArray(int[] message) {
+        flush();
+        printMessage(decorate(PRIMITIVE_ARRAY_PREFIX, toString(message)));
+    }
+
+    private static String toString(int[] message) {
+        StringBuilder sb = new StringBuilder("{");
+        for (int i = 0; i < message.length - 1; i++) {
+            sb.append(message[i]).append(", ");
+        }
+        sb.append(message[message.length - 1]).append("}");
+        return sb.toString();
+    }
+
     public static void log(Object message) {
         flush();
-        printMessage(decorate(REFERENCE_PREFIX, message));
+        if (message instanceof int[]) {
+            logArray((int[]) message);
+        } else {
+            printMessage(decorate(REFERENCE_PREFIX, message));
+        }
     }
 
     public static void flush() {
