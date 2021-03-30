@@ -3,12 +3,15 @@ package com.acme.dbo.txlog;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.System.lineSeparator;
+
 public class Facade {
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String REFERENCE_PREFIX = "reference: ";
     private static final String PRIMITIVE_ARRAY_PREFIX = "primitives array: ";
+    private static final String PRIMITIVE_MATRIX_PREFIX = "primitives matrix: ";
 
     private static Integer intMessagesAccumulated = null;
     private static String stringMesssagesAccumulated = null;
@@ -56,7 +59,6 @@ public class Facade {
     }
 
     private static void logArray(int[] message) {
-        flush();
         printMessage(decorate(PRIMITIVE_ARRAY_PREFIX, toString(message)));
     }
 
@@ -69,13 +71,28 @@ public class Facade {
         return sb.toString();
     }
 
+    private static String toString(int[][] message) {
+        StringBuilder sb = new StringBuilder("{");
+        for (int[] ints : message) {
+            sb.append(lineSeparator()).append(toString(ints));
+        }
+        sb.append(lineSeparator()).append("}");
+        return sb.toString();
+    }
+
     public static void log(Object message) {
         flush();
         if (message instanceof int[]) {
             logArray((int[]) message);
+        } else if (message instanceof int[][]) {
+            logMatrix((int[][]) message);
         } else {
             printMessage(decorate(REFERENCE_PREFIX, message));
         }
+    }
+
+    private static void logMatrix(int[][] message) {
+        printMessage(decorate(PRIMITIVE_MATRIX_PREFIX, toString(message)));
     }
 
     public static void flush() {
