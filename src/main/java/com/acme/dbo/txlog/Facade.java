@@ -64,19 +64,30 @@ public class Facade {
         print(CHAR_PREFIX + message);
     }
 
-    public static void log( String message ) {
-        if (currentLogState != "String"){
+    public static void log(String message){
+        stringProcessingInLog(message);
+    }
+    
+    public static void log( String... message ) {
+        for (String s : message) {
+            stringProcessingInLog(s);
+        }
+    }
+
+    private static void stringProcessingInLog( String s ) {
+        if (currentLogState != "String") {
             flush();
             currentLogState = "String";
-            cumulativeStringLog = message;
+            cumulativeStringLog = s;
             cumulativeStringLogCounter = 1;
         } else {
-            if (cumulativeStringLog == message && cumulativeStringLogCounter > 0){
+            if (cumulativeStringLog == s && cumulativeStringLogCounter > 0) {
                 cumulativeStringLogCounter++;
             } else {
                 flush();
                 currentLogState = "String";
-                cumulativeStringLog = message;
+                cumulativeStringLogCounter = 1;
+                cumulativeStringLog = s;
             }
         }
     }
