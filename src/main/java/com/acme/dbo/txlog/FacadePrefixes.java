@@ -7,4 +7,6 @@ public interface FacadePrefixes {
     String STRING_PREFIX = "string: ";
     String BOOLEAN_PREFIX = "primitive: ";
     String REFERENCE_PREFIX = "reference: ";
+    String ARRAY_PREFIX = "primitives array: ";
+    String MATRIX_PREFIX = "primitives matrix: ";
 }

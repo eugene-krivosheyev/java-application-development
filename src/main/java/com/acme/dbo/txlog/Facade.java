@@ -1,7 +1,10 @@
 package com.acme.dbo.txlog;
 
+import java.util.Arrays;
+
 import static com.acme.dbo.txlog.FacadePrefixes.*;
 import static com.acme.dbo.txlog.FacadePrefixes.INT_PREFIX;
+import static java.lang.System.lineSeparator;
 
 public class Facade {
     private static String currentLogState = "null";
@@ -86,6 +89,26 @@ public class Facade {
     public static void log( Object message ) {
         flush();
         print(REFERENCE_PREFIX + message.toString());
+    }
+
+    public static void log(int [] message){
+        flush();
+        print(ARRAY_PREFIX + replaceHooks(message));
+    }
+
+    public static void log(int [][] message){
+        flush();
+        print(MATRIX_PREFIX + "{");
+        for (int[] ints : message) {
+            print(replaceHooks(ints));
+        }
+        print("}");
+    }
+
+    private static String replaceHooks( int[] ints ) {
+        return Arrays.toString(ints)
+                .replace('[', '{')
+                .replace(']', '}');
     }
 
     private static void print( String message ) {
