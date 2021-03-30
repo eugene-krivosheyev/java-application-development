@@ -5,11 +5,22 @@ public class Facade {
     private static final String STRING_PREFIX = "string: ";
     private static final String CHAR_PREFIX = "char: ";
     private static final String OBJ_PREFIX = "reference: ";
+    private static final String PRIMITIVE_ARRAY_PREFIX = "primitives array: ";
+    private static final String PRIMITIVE_MATRIX_PREFIX = "primitives matrix: ";
 
     private static final String PRIMITIVE_POSTFIX= "";
     private static final String STRING_POSTFIX= "";
     private static final String CHAR_POSTFIX= "";
     private static final String OBJ_POSTFIX= "";
+    private static final String PRIMITIVE_ARRAY_POSTFIX= "";
+    private static final String PRIMITIVE_MATRIX_POSTFIX = "";
+
+    private static final String ARRAY_PREFIX = "{";
+    private static final String ARRAY_DEVIDER = ", ";
+    private static final String ARRAY_POSTFIX = "}";
+
+    private static final String MATRIX_PREFIX = "{" + System.lineSeparator();
+    private static final String MATRIX_POSTFIX = "}";
 
     private static final String STRING_ACC = "string";
     private static final String INT_ACC = "integer";
@@ -29,11 +40,13 @@ public class Facade {
     private static Object objectAccumulator = null;
 
     public static void log(int message) {
-        if (!activeAccumulator.equals(INT_ACC) | (isNumberOverflow(message, intAccumulator, Integer.MAX_VALUE))) {
-            resetActiveAccumulator(INT_ACC);
-        }
+        resetNumberAccumulator(INT_ACC, intAccumulator, message, Integer.MAX_VALUE);
         intAccumulator += message;
+    }
 
+    public static void log(byte message) {
+        resetNumberAccumulator(BYTE_ACC, byteAccumulator, message, Byte.MAX_VALUE);
+        byteAccumulator += message;
     }
 
     public static void log(char message) {
@@ -41,13 +54,6 @@ public class Facade {
             resetActiveAccumulator(CHAR_ACC);
         }
         charAccumulator += message;
-    }
-
-    public static void log(byte message) {
-        if (!activeAccumulator.equals(BYTE_ACC) | (isNumberOverflow(message, byteAccumulator, Byte.MAX_VALUE))) {
-            resetActiveAccumulator(BYTE_ACC);
-        }
-        byteAccumulator += message;
     }
 
     public static void log(boolean message) {
@@ -68,8 +74,23 @@ public class Facade {
         }
     }
 
+    public static void log(String... messages) {
+        for (String message: messages) {
+            log(message);
+        }
+    }
+
+    public static void log(int[] intArrayMessage) {
+        resetActiveAccumulator("");
+        outputDecoratedMessage(decorateMessage(arrayToString(intArrayMessage), PRIMITIVE_ARRAY_PREFIX, PRIMITIVE_ARRAY_POSTFIX));
+    }
+
+    public static void log(int[][] intMatrix) {
+        resetActiveAccumulator("");
+        outputDecoratedMessage(decorateMessage(matrixToString(intMatrix), PRIMITIVE_MATRIX_PREFIX, PRIMITIVE_MATRIX_POSTFIX));
+    }
+
     public static void log(Object message) {
-        outputDecoratedMessage(decorateMessage(message, OBJ_PREFIX, OBJ_POSTFIX));
         resetActiveAccumulator(OBJ_ACC);
         objectAccumulator = message;
     }
@@ -129,5 +150,29 @@ public class Facade {
         return first + second > overflow;
     }
 
+    private static void resetNumberAccumulator(String setAccumulator, int accumulatorValue, int currentValue, int accumulatorLimit) {
+        if (!activeAccumulator.equals(setAccumulator) | (isNumberOverflow(currentValue, accumulatorValue, accumulatorLimit))) {
+            resetActiveAccumulator(setAccumulator);
+        }
+    }
 
+    private static String arrayToString(int[] intArray) {
+        String buffer = ARRAY_PREFIX;
+        for (int element: intArray) {
+            if (!buffer.equals(ARRAY_PREFIX)) {
+                buffer = buffer + ARRAY_DEVIDER + element;
+            } else {
+                buffer = buffer + element;
+            }
+        }
+        return buffer + ARRAY_POSTFIX;
+    }
+
+    private static String matrixToString(int[][] matrix) {
+        String buffer = MATRIX_PREFIX;
+        for (int[] array: matrix) {
+            buffer = buffer + arrayToString(array) + System.lineSeparator();
+        }
+        return buffer + MATRIX_POSTFIX;
+    }
 }
