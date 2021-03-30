@@ -5,6 +5,8 @@ public class Facade {
     private static final String PREFIX_CHAR = "char: ";
     private static final String PREFIX_STRING = "string: ";
     private static final String PREFIX_REFERENCE = "reference: ";
+    private static final String PREFIX_ONE_D_ARRAY = "primitives array: ";
+    private static final String PREFIX_TWO_D_ARRAY = "primitives matrix: ";
     private static Object accumulatedValue = null;
     private static int stringDuplicates = 0;
     private static String MODE_INT = "MODE_INT";
@@ -14,6 +16,8 @@ public class Facade {
     private static String MODE_OBJECT = "MODE_OBJECT";
     private static String MODE_STRING = "MODE_STRING";
     private static String MODE_NONE = "MODE_NONE";
+    private static String MODE_ONE_D_ARRAY = "MODE_ONE_D_ARRAY";
+    private static String MODE_TWO_D_ARRAY = "MODE_TWO_D_ARRAY";
     private static String accumulationMode = MODE_NONE;
 
     public static void log(int n) {
@@ -30,6 +34,13 @@ public class Facade {
 	    accumulatedValue = n;
 	}
 	accumulationMode = MODE_INT;
+    }
+
+    public static void log(int n, int...arr) {
+	log(n);
+	for(int value: arr){
+	    log(value);
+	}
     }
 
     public static void log(byte n) {
@@ -75,10 +86,39 @@ public class Facade {
 	accumulationMode = MODE_STRING;
     }
 
+    public static void log(String s, String... arr) {
+	log(s);
+	for(String value: arr) {
+	    log(value);
+	}
+    }
+
+    public static void log(int[] arr) {
+	accumulatedValue = (int [])arr;
+	accumulationMode = MODE_ONE_D_ARRAY;
+    }
+
+    public static void log(int[][] arr) {
+	accumulatedValue = (int [][])arr;
+	accumulationMode = MODE_TWO_D_ARRAY;
+    }
+
     public static void log(Object obj) {
 	flush();
 	accumulatedValue = obj;
 	accumulationMode = MODE_OBJECT;
+    }
+
+    private static String decorateArray(int [] arr) {
+	StringBuilder result = new StringBuilder("{");
+	for(int ix=0; ix < arr.length; ix++){
+	    result.append(String.valueOf(arr[ix]));
+	    if(ix < arr.length-1) {
+		result.append(", ");
+	    }
+	}
+	result.append("}");
+	return result.toString();
     }
 
     private static String decorateBuffer() {
@@ -98,6 +138,15 @@ public class Facade {
 	    return PREFIX_REFERENCE + accumulatedValue;
 	} else if (accumulationMode.equals(MODE_CHARACTER)) {
 	    return PREFIX_CHAR + accumulatedValue;
+	} else if (accumulationMode.equals(MODE_ONE_D_ARRAY)) {
+	    return PREFIX_ONE_D_ARRAY + decorateArray((int [])accumulatedValue);
+	} else if (accumulationMode.equals(MODE_TWO_D_ARRAY)) {
+	    StringBuilder result = new StringBuilder(PREFIX_TWO_D_ARRAY + "{\n");
+	    for(int[] arr: (int[][])accumulatedValue){
+		result.append(decorateArray(arr) + "\n");
+	    }
+	    result.append("}");
+	    return result.toString();
 	}
 	throw new RuntimeException("Unknown mode: " + accumulationMode);
     }
