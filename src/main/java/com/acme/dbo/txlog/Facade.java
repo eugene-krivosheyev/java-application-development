@@ -50,7 +50,7 @@ public class Facade {
             }
             aggregatedMultyDimArray.append("}");
         }
-        //TODO ELSE FLUSH AND STORE INT[][]
+        //TODO else create aggregatedMultyDimArray the same way as in if (constructMessageOutOfArray(arr[][]), FLUSH
         previousState = currentState;
     }
 
@@ -65,7 +65,7 @@ public class Facade {
             aggregatedOneDimArray.deleteCharAt(aggregatedOneDimArray.length() - 1).deleteCharAt(aggregatedOneDimArray.length() - 1);
             aggregatedOneDimArray.append("}");
         }
-        //TODO ELSE FLUSH AND STORE INT[]
+        //TODO else create aggregatedMultyDimArray the same way as in if (constructMessageOutOfArray(arr[]), FLUSH
         previousState = currentState;
     }
 
