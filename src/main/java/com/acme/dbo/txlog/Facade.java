@@ -68,11 +68,16 @@ public class Facade {
         printToConsole(decorate(message, REFERENCE_PREFIX, REFERENCE_POSTFIX));
     }
 
-    public static void log(int[][] message) {
+    public static void log(int[] messages) {
+        String sb = buildPrimitivesArrayOutput(messages);
+        printToConsole(decorate(sb, PRIMITIVES_ARRAY_PREFIX, ""));
+    }
+
+    public static void log(int[][] messagesMatrix) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         sb.append(lineSeparator());
-        for (int[] ints : message) {
+        for (int[] ints : messagesMatrix) {
             sb.append(buildPrimitivesArrayOutput(ints));
             sb.append(lineSeparator());
         }
@@ -82,11 +87,6 @@ public class Facade {
 
     public static void log(String... messages) {
         String sb = buildGenericsArrayOutput(messages, lineSeparator());
-        printToConsole(decorate(sb, "", ""));
-    }
-
-    public static void log(int[] messages) {
-        String sb = buildPrimitivesArrayOutput(messages);
         printToConsole(decorate(sb, "", ""));
     }
 
