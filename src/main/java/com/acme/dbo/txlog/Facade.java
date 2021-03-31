@@ -60,11 +60,8 @@ public class Facade {
     public static void log(int[] message) {
         stringAccum = "{";
         for (int i = 0; i < message.length; i++) {
-            if (message[i] >= 0)
-             stringAccum = stringAccum + " " + message[i];
-            else
-             stringAccum = stringAccum + message[i];
-            if (i < message.length-1) stringAccum = stringAccum + ",";
+            stringAccum = stringAccum + message[i];
+            if (i < message.length-1) stringAccum = stringAccum + ", ";
         }
         stringAccum = stringAccum + "}";
         printMessage(decorate(ARRAY_PREFIX,stringAccum, PRIMITIVE_POSTFIX));
@@ -115,5 +112,19 @@ public class Facade {
         }
     }
 
+    public static void log(String... message) {
+        stringAccum = "";
+        for (String current:message) {
+            stringAccum = stringAccum + current + "\n";
+            printMessage(decorate(MATRIX_PREFIX,stringAccum, PRIMITIVE_POSTFIX));
+        }
+    }
 
+    public static void log(long... message) {
+        numericAccum = 0;
+        for (int i = 0; i < message.length; i++) {
+             numericAccum = numericAccum + (int) message[i];
+        }
+        printMessage(decorate(ARRAY_PREFIX,numericAccum, PRIMITIVE_POSTFIX));
+    }
 }
