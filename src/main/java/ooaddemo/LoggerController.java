@@ -1,8 +1,8 @@
 package ooaddemo;
 
 /**
- *  Code reuse : responsibility delegation, inheritance
- *  also generic programming, HLF high level functions
+ *  Code reuse : responsibility delegation, inheritance, frameworks
+ *  also generic programming, HOF high level functions
  */
 
 public class LoggerController extends ValidatingController {
