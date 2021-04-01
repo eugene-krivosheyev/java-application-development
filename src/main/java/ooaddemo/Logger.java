@@ -2,8 +2,8 @@ package ooaddemo;
 
 
 public class Logger {
-    //TODO: Creational problem
-    private final MessageFilter filter = new SeverityMessageFilter(1);
+    //TODO: Creational problem -> Creational DP
+    private final MessageFilter filter = new SeverityMessageFilter(1); //Creator [GRASP]
     private final MessagePrinter printer = new FileMessagePrinter("log.txt");
 
     //Algo: OCP
