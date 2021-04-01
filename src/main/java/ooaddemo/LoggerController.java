@@ -1,8 +1,16 @@
 package ooaddemo;
 
 public class LoggerController {
-    private final Printer printer = XmlConfigPrinterFactory.create();
-    private final MessageFilter filter = new SeverityMessageFilter(SeverityLevel.WARNING);
+    private final Printer printer;
+    private final MessageFilter filter;
+
+    /**
+     * Constructor DI
+     */
+    public LoggerController(Printer printer, MessageFilter filter) {
+        this.printer = printer;
+        this.filter = filter;
+    }
 
     public void log(String message, SeverityLevel severity) {
         if (filter.filter(message, severity)) {
