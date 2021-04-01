@@ -1,6 +1,11 @@
 package ooaddemo;
 
-public class LoggerController {
+/**
+ *  Code reuse : responsibility delegation, inheritance
+ *  also generic programming, HLF high level functions
+ */
+
+public class LoggerController extends ValidatingController {
     private final Printer printer;
     private final MessageFilter filter;
 
@@ -15,6 +20,7 @@ public class LoggerController {
     }
 
     public void log(String message, SeverityLevel severity){
+        super.log(message, severity);
         if (filter.filter(message, severity)){
             printer.print(message);
         }
