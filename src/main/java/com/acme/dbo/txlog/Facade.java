@@ -1,14 +1,21 @@
 package com.acme.dbo.txlog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Facade {
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String CHAR_PREFIX = "char: ";
     public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
+    private static final String PRIMITIVES_ARRAY_PREFIX = "primitives array: ";
+    private static final String PRIMITIVES_MATRIX_PREFIX = "primitives matrix: ";
     public static final String PRIMITIVE_POSTFIX = "";
     public static final String CHAR_POSTFIX = "";
     private static final String STRING_POSTFIX = "";
     private static final String REFERENCE_POSTFIX = "";
+    private static final String PRIMITIVES_ARRAY_POSTFIX = "";
+    private static final String PRIMITIVES_MATRIX_POSTFIX = "";
 
     private static final String INTEGER_TYPE = "Integer";
     private static final String STRING_TYPE = "String";
@@ -23,10 +30,12 @@ public class Facade {
     private static String prevType = "";
 
     public static void log(char message) {
+        flush();
         printMessage(decorate(CHAR_PREFIX, message, CHAR_POSTFIX));
     }
 
     public static void log(boolean message) {
+        flush();
         printMessage(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
     }
 
@@ -50,6 +59,23 @@ public class Facade {
             flush();
         }
         prevType = currType;
+    }
+
+    public static void log(int[] messages) {
+        flush();
+        printMessage(decorate(PRIMITIVES_ARRAY_PREFIX, messages, PRIMITIVES_ARRAY_POSTFIX));
+    }
+
+    public static void log(int[][] messages) {
+        flush();
+        printMessage(decorate(PRIMITIVES_MATRIX_PREFIX, messages, PRIMITIVES_MATRIX_POSTFIX));
+    }
+
+    public static void log(Object... messages) {
+        flush();
+        for (Object message : messages) {
+            log(message);
+        }
     }
 
     public static void flush() {
@@ -84,25 +110,52 @@ public class Facade {
     }
 
     private static void accumulate(int message) {
-        int sum = intAccumulator + message;
-        if ((message > 0 && intAccumulator > sum) || (message < 0 && intAccumulator < sum)) {
-            // overflow
+        if ((isOverflow(intAccumulator, message, intAccumulator + message))) {
             flush();
         }
         intAccumulator += message;
     }
 
     private static void accumulate(byte message) {
-        byte sum = (byte) (byteAccumulator + message);
-        if ((message > 0 && byteAccumulator > sum) || (message < 0 && byteAccumulator < sum)) {
-            // overflow
+        if (isOverflow(message, byteAccumulator, (byte) (byteAccumulator + message))) {
             flush();
         }
         byteAccumulator += message;
     }
 
+    private static boolean isOverflow(int a, int b, int sum) {
+        return (a > 0 && b > sum) || (a < 0 && b < sum);
+    }
+
     private static String decorate(String prefix, Object message, String postfix) {
-        return prefix + message.toString() + postfix;
+        String messageAsString;
+        if (message instanceof int[][]) {
+            messageAsString = intMatrixAsString((int[][]) message);
+        } else if (message instanceof int[]) {
+            messageAsString = intArrayAsString((int[]) message);
+        } else {
+            messageAsString = message.toString();
+        }
+        return prefix + messageAsString + postfix;
+    }
+
+    private static String intMatrixAsString(int[][] message) {
+        StringBuilder decoratedMatrix = new StringBuilder();
+        String sep = System.lineSeparator();
+        decoratedMatrix.append("{").append(sep);
+        for (int[] array : message) {
+            decoratedMatrix.append(intArrayAsString(array)).append(sep);
+        }
+        decoratedMatrix.append("}");
+        return decoratedMatrix.toString();
+    }
+
+    private static String intArrayAsString(int[] message) {
+        List<String> list = new ArrayList<>();
+        for (int i : message) {
+            list.add(String.valueOf(i));
+        }
+        return "{" + String.join(", ", list) + "}";
     }
 
     private static void printMessage(String message) {
