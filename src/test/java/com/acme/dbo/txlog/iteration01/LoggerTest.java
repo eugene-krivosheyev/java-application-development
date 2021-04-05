@@ -26,7 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
     @Test
     public void shouldLogInteger() throws IOException {
-        String separator = System.lineSeparator();
+        String lineSeparator = System.lineSeparator();
         //region when
         Facade.log(1);
         flush();
@@ -38,16 +38,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1" + separator + "primitive: 0" + separator + "primitive: -1" + separator);
+        assertSysoutEquals("primitive: 1" + lineSeparator + "primitive: 0" + lineSeparator + "primitive: -1" + lineSeparator);
         //endregion
     }
 
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Facade.log((byte)1);
-        Facade.log((byte)0);
-        Facade.log((byte)-1);
+        Facade.log((byte) 1);
+        Facade.log((byte) 0);
+        Facade.log((byte) -1);
         flush();
         //endregion
 

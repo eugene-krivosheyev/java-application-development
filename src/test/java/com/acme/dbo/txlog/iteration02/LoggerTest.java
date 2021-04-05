@@ -11,7 +11,7 @@ import java.io.IOException;
 import static com.acme.dbo.txlog.Facade.flush;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
-    String separator = System.lineSeparator();
+    String lineSeparator = System.lineSeparator();
 
     //region given
     @Before
@@ -38,10 +38,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1" + separator);
-        assertSysoutContains("3" + separator);
-        assertSysoutContains("str 2" + separator);
-        assertSysoutContains("0" + separator);
+        assertSysoutContains("str 1" + lineSeparator);
+        assertSysoutContains("3" + lineSeparator);
+        assertSysoutContains("str 2" + lineSeparator);
+        assertSysoutContains("0" + lineSeparator);
         //endregion
     }
 
@@ -57,11 +57,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1"+ separator);
-        assertSysoutContains("10" + separator);
-        assertSysoutContains(Integer.MAX_VALUE + separator);
-        assertSysoutContains("str 2" + separator);
-        assertSysoutContains("0" + separator);
+        assertSysoutContains("str 1" + lineSeparator);
+        assertSysoutContains("10" + lineSeparator);
+        assertSysoutContains(Integer.MAX_VALUE + lineSeparator);
+        assertSysoutContains("str 2" + lineSeparator);
+        assertSysoutContains("0" + lineSeparator);
         //endregion
     }
 
@@ -69,19 +69,19 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
         Facade.log("str 1");
-        Facade.log((byte)10);
-        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log((byte) 10);
+        Facade.log((byte) Byte.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
         flush();
         //endregion
 
         //region then
-        assertSysoutContains("str 1" + separator);
-        assertSysoutContains("10" + separator);
-        assertSysoutContains(Byte.MAX_VALUE + separator);
-        assertSysoutContains("str 2" + separator);
-        assertSysoutContains("0" + separator);
+        assertSysoutContains("str 1" + lineSeparator);
+        assertSysoutContains("10" + lineSeparator);
+        assertSysoutContains(Byte.MAX_VALUE + lineSeparator);
+        assertSysoutContains("str 2" + lineSeparator);
+        assertSysoutContains("0" + lineSeparator);
         //endregion
     }
 
@@ -100,11 +100,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains("str 1" + separator);
-        assertSysoutContains("str 2 (x2)" + separator);
-        assertSysoutContains("0" + separator);
-        assertSysoutContains("str 2" + separator);
-        assertSysoutContains("str 3 (x3)" + separator);
+        assertSysoutContains("str 1" + lineSeparator);
+        assertSysoutContains("str 2 (x2)" + lineSeparator);
+        assertSysoutContains("0" + lineSeparator);
+        assertSysoutContains("str 2" + lineSeparator);
+        assertSysoutContains("str 3 (x3)" + lineSeparator);
         //endregion
     }
 }
