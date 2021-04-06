@@ -16,7 +16,11 @@ public class EnumDemo {
 }
 
 enum SeverityEnum {
-    ERROR, WARN, DEBUG
+    ERROR(23), WARN(24), DEBUG(25);
+    int field;
+    SeverityEnum(int field){
+        this.field = field;
+    }
 }
 
 final class SeverityClass {
