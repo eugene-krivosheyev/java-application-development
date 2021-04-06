@@ -1,5 +1,7 @@
 package sandbox;
 
+import java.util.Arrays;
+
 public class EnumDemo {
     public static void main(String[] args) {
         SeverityEnum level = SeverityEnum.DEBUG;
@@ -11,7 +13,7 @@ public class EnumDemo {
             case DEBUG: break;
         }
         System.out.println(level.valueOf("WARN"));
-        System.out.println(SeverityEnum.values());
+        System.out.println(Arrays.toString((SeverityEnum.values())));
     }
 }
 
