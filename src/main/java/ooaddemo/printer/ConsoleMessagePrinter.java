@@ -1,6 +1,6 @@
 package ooaddemo.printer;
 
-import ooaddemo.message.Message;
+import ooaddemo.domain.message.Message;
 
 public class ConsoleMessagePrinter implements MessagePrinter {
     @Override

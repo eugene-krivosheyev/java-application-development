@@ -1,20 +1,21 @@
 package ooaddemo.filter;
 
-import ooaddemo.message.Message;
+import ooaddemo.domain.SeverityLevel;
+import ooaddemo.domain.message.Message;
 
 public class SeverityMessageFilter implements MessageFilter {
-    private final int threshold;
+    private final SeverityLevel threshold;
 
-    public SeverityMessageFilter(int threshold) {
+    public SeverityMessageFilter(SeverityLevel threshold) {
         this.threshold = threshold;
     }
 
     @Override
-    public boolean filter(Message message, int severity) {
-        return severity < threshold;
+    public boolean filter(Message message, SeverityLevel severity) {
+        return severity.compareTo(threshold) < 0;
     }
 
-    public int getThreshold() {
+    public SeverityLevel getThreshold() {
         return threshold;
     }
 }
