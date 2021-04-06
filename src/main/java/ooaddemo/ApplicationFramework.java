@@ -9,6 +9,8 @@ public class ApplicationFramework {
         );
         //endregion
 
+        logger.log(new IntMessage(1), 0);
+        logger.log(new StringMessage("str"), 1);
         //region Request cycle
         /*
         while(true) {

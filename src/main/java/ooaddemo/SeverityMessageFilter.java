@@ -8,7 +8,7 @@ public class SeverityMessageFilter implements MessageFilter {
     }
 
     @Override
-    public boolean filter(String message, int severity) {
+    public boolean filter(Message message, int severity) {
         return severity < threshold;
     }
 

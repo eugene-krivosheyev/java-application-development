@@ -15,7 +15,7 @@ public class Logger extends ValidatingLogger {
     }
 
     //Algo: OCP
-    public void log(String message, int severity) { //0,1,2
+    public void log(Message message, int severity) { //0,1,2
         this.validate(message, severity);
 
         if (filter.filter(message, severity)) {
