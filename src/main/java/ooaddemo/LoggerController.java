@@ -19,10 +19,10 @@ public class LoggerController extends ValidatingController {
         this.filter = filter;
     }
 
-    public void log(String message, SeverityLevel severity){
+    public void log(DecoratingMessage message, SeverityLevel severity){
         super.log(message, severity);
         if (filter.filter(message, severity)){
-            printer.print(message);
+            printer.print(message.getDecoratedMessage());
         }
     }
 
