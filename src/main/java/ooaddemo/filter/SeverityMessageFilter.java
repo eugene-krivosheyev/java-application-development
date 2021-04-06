@@ -1,4 +1,7 @@
-package ooaddemo;
+package ooaddemo.filter;
+
+import ooaddemo.message.DecoratingMessage;
+import ooaddemo.domain.SeverityLevel;
 
 public class SeverityMessageFilter implements MessageFilter {
     private final SeverityLevel threshold;

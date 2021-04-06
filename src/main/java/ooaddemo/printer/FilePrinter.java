@@ -1,4 +1,4 @@
-package ooaddemo;
+package ooaddemo.printer;
 
 public class FilePrinter implements Printer {
     private String file;

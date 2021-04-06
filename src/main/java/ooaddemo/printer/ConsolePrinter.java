@@ -1,4 +1,4 @@
-package ooaddemo;
+package ooaddemo.printer;
 
 public class ConsolePrinter implements Printer {
     @Override

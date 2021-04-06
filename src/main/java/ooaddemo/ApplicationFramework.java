@@ -1,5 +1,11 @@
 package ooaddemo;
 
+import ooaddemo.controller.LoggerController;
+import ooaddemo.domain.SeverityLevel;
+import ooaddemo.filter.SeverityMessageFilter;
+import ooaddemo.message.StringMessage;
+import ooaddemo.printer.FilePrinter;
+
 /**
  * Application builder
  */
