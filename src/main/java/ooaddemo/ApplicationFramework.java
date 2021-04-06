@@ -21,5 +21,6 @@ public class ApplicationFramework {
         }
          */
         //endregion
+        loggerController.log(new StringMessage("message"), SeverityLevel.ERROR);
     }
 }
