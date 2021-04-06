@@ -1,4 +1,6 @@
-package ooaddemo;
+package ooaddemo.filter;
+
+import ooaddemo.message.Message;
 
 public class SeverityMessageFilter implements MessageFilter {
     private final int threshold;

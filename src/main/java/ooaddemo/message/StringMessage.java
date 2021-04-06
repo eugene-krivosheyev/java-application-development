@@ -1,4 +1,4 @@
-package ooaddemo;
+package ooaddemo.message;
 
 public class StringMessage implements Message {
     private String body;

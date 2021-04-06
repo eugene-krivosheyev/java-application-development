@@ -1,4 +1,6 @@
-package ooaddemo;
+package ooaddemo.controller;
+
+import ooaddemo.message.Message;
 
 public abstract class ValidatingLogger {
     protected void validate(Message message, int severity) {

@@ -1,4 +1,8 @@
-package ooaddemo;
+package ooaddemo.controller;
+
+import ooaddemo.filter.MessageFilter;
+import ooaddemo.message.Message;
+import ooaddemo.printer.MessagePrinter;
 
 /**
  * Code reuse: inheritance | delegation | frameworks (IoC) | Generic programming | HOF
