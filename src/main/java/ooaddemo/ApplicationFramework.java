@@ -1,5 +1,9 @@
 package ooaddemo;
 
+import ooaddemo.controller.LoggerController;
+import ooaddemo.filter.SeverityMessageFilter;
+import ooaddemo.printer.FilePrinter;
+
 public class ApplicationFramework {
     public static void main(String... args){
         //region DI framework

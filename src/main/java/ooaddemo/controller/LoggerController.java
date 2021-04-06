@@ -1,4 +1,9 @@
-package ooaddemo;
+package ooaddemo.controller;
+
+import ooaddemo.SeverityLevel;
+import ooaddemo.filter.MessageFilter;
+import ooaddemo.message.DecoratingMessage;
+import ooaddemo.printer.Printer;
 
 /**
  *  Code reuse : responsibility delegation, inheritance, frameworks

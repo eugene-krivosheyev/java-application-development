@@ -1,4 +1,7 @@
-package ooaddemo;
+package ooaddemo.filter;
+
+import ooaddemo.SeverityLevel;
+import ooaddemo.message.DecoratingMessage;
 
 public class SeverityMessageFilter implements MessageFilter {
     private final SeverityLevel threshold;
@@ -8,7 +11,7 @@ public class SeverityMessageFilter implements MessageFilter {
     };
 
     @Override
-    public boolean filter(String message, SeverityLevel severity) {
+    public boolean filter(DecoratingMessage message, SeverityLevel severity) {
 
         return severity.compareTo(threshold) < 0;
     }

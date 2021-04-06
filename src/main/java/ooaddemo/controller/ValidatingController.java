@@ -1,4 +1,7 @@
-package ooaddemo;
+package ooaddemo.controller;
+
+import ooaddemo.SeverityLevel;
+import ooaddemo.message.DecoratingMessage;
 
 public class ValidatingController {
 
