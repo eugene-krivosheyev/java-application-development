@@ -79,16 +79,17 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    @Test
 //    public void shouldLogStringsWithOneMethodCall() throws IOException {
 //        //region when
-//        Facade.log("str1", );
-//          Facade.log("string 2");
-//          Facade.log("str 3");
+//        Facade.log("str1");
+//        Facade.log("string 2");
+//        Facade.log("str 3");
+//        Facade.flush();
 //        //endregion
 //
 //        //region then
 //        assertSysoutContains("str1\nstring 2\nstr 3");
 //        //endregion
 //    }
-//
+////
 //    @Test
 //    public void shouldLogIntegersWithOneMethodCall() throws IOException {
 //        //region when
@@ -99,23 +100,24 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //        assertSysoutContains("3");
 //        //endregion
 //    }
-//
-//    @Test
-//    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
-//        //region when
-//        Facade.log(1);
-//        Facade.log("str");
-//        Facade.log(Integer.MAX_VALUE - 10);
-//        Facade.log(11);
-//        //endregion
-//
-//        //region then
-//        assertSysoutContains(1);
-//        assertSysoutContains("str");
-//        assertSysoutContains(Integer.MAX_VALUE - 10);
-//        assertSysoutContains(11);
-//        //endregion
-//    }
+
+    @Test
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
+        //region when
+        Facade.log(1);
+        Facade.log("str");
+        Facade.log(Integer.MAX_VALUE - 10);
+        Facade.log(11);
+        Facade.flush();
+        //endregion
+
+        //region then
+        assertSysoutContains(1 + lineSeparator());
+        assertSysoutContains("str" + lineSeparator());
+        assertSysoutContains(Integer.MAX_VALUE - 10 + lineSeparator());
+        assertSysoutContains(11 + lineSeparator());
+        //endregion
+    }
 
 
 }
