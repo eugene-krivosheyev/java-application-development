@@ -3,66 +3,33 @@
  */
 package com.acme.dbo.txlog;
 
-import javax.security.auth.*;
-import java.util.stream.IntStream;
-
-/**
- * Facade
- * @author kjghdkfjghdkfjhg
- * @since 1.0
- */
 
 public class Facade {
-    public static int переменнаяИзНескольктихСлов; //static, global
-    public static final int MY_CONST = 2;
+    public static final String PRIMITIVE_PREFIX = "primitive: ";
+    public static final String STRING_PREFIX = "string: ";
+    private static final String PRIMITIVE_POSTFIX = "";
+    private static final String STRING_POSTFIX = "";
 
-    static {
-        System.out.println("static block");
-//        new IntStream("file"); // -> exception?
-        //....
-    }
-
-    static {
-        System.out.println("vvv");
-        //....
-    }
-
-    /**
-     * message != null
-     */
-    //@Contract(!null -> !null)
-    public static void log(/* @NotNull */ int message) { //formal arg
-        int i喝шш = 1; //stack, auto, local
-        System.out.println(i喝шш);
-
-        System.out.println(переменнаяИзНескольктихСлов);
-        if (message <= 0) throw new IllegalArgumentException();
-        //--implementation как?--
-
-        message = 27598;
-        printToConsole(message);
-        //...
+    public static void log(int message) {
+        printMessage(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
     }
 
     public static void log(byte message) {
-        printToConsole(message);
+        printMessage(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
     }
 
-    public static String log(String message) {
-        return "";
-    }
-
-    public static void log(Object message) {
-        return;
-    }
-
-    public static void log(String message1, String message2) {
-
+    public static void log(String message) {
+        printMessage(decorate(STRING_PREFIX, message, STRING_POSTFIX));
     }
 
 
-    private static void printToConsole(int message) {
-        System.out.println("primitive: " + message);
+    private static String decorate(String stringPrefix, Object message, String stringPostfix) {
+        System.out.printf("jsdhfgsj %d hgdjhf %s jkgh %s kjgkh %s lfgf", stringPrefix, message, stringPostfix);
+//        REGEXP("regexp")
+        return stringPrefix + message + stringPostfix;
+    }
+
+    private static void printMessage(Object message) {
+        System.out.println(message);
     }
 }
-// single-line

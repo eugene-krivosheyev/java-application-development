@@ -32,7 +32,7 @@ public class Application {
         //......
 
         log("some data");
-        log("some data", "and");
+        log("some data");
 
         System.out.println("5" + "5");
 
