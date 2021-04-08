@@ -4,14 +4,25 @@
 package com.acme.dbo.txlog;
 
 
+import ooaddemo.controller.LoggerController;
+import ooaddemo.domain.SeverityLevel;
+import ooaddemo.filter.SeverityMessageFilter;
+import ooaddemo.message.StringMessage;
+import ooaddemo.printer.ConsolePrinter;
+
 public class Facade {
     public static final String PRIMITIVE_PREFIX = "primitive: ";
     public static final String STRING_PREFIX = "string: ";
     private static final String PRIMITIVE_POSTFIX = "";
     private static final String STRING_POSTFIX = "";
 
+    private static LoggerController controller = new LoggerController(
+            new ConsolePrinter(),
+            new SeverityMessageFilter(SeverityLevel.DEBUG)
+    );
+
     public static void log(int message) {
-        printMessage(decorate(PRIMITIVE_PREFIX, message, PRIMITIVE_POSTFIX));
+        //controller.log(new StringMessage(message), ...);
     }
 
     public static void log(byte message) {
