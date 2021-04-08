@@ -4,7 +4,7 @@ public class InstatiationDemo {
     public static void main(String[] args) {
         int formak = 1;
         IntMessage message = new IntMessage(1);
-        IntMessage message2 = new IntMessage();
+        IntMessage message2 = IntMessage.getInstance();
     }
 }
 
