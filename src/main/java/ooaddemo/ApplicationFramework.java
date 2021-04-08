@@ -13,8 +13,7 @@ public class ApplicationFramework {
     public static void main(String[] args) {
         //region DI Framework
         final LoggerController loggerController = new LoggerController(
-                new FilePrinter("log.txt"), // -> config.xml
-                new SeverityMessageFilter(SeverityLevel.WARNING) // -> config.xml
+                new FilePrinter("log.txt") // -> config.xml
         );
         //endregion
 
@@ -27,6 +26,6 @@ public class ApplicationFramework {
         }
          */
         //endregion
-        loggerController.log(new StringMessage("message"), SeverityLevel.ERROR);
+        loggerController.log(new StringMessage("message")/*, SeverityLevel.ERROR*/);
     }
 }

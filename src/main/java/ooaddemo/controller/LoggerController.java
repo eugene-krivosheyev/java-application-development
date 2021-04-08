@@ -10,22 +10,22 @@ import ooaddemo.printer.Printer;
  */
 public class LoggerController extends ValidatingController {
     private final Printer printer;
-    private final MessageFilter filter;
+//    private final MessageFilter filter;
 
     /**
      * Constructor DI
      */
-    public LoggerController(Printer printer, MessageFilter filter) {
+    public LoggerController(Printer printer/*, MessageFilter filter*/) {
         this.printer = printer;
-        this.filter = filter;
+//        this.filter = filter;
     }
 
     @Override
-    public void log(DecoratingMessage message, SeverityLevel severity) {
-        super.log(message, severity);
+    public void log(DecoratingMessage message/*, SeverityLevel severity*/) {
+        super.log(message/*, severity*/);
 
-        if (filter.filter(message, severity)) {
+//        if (filter.filter(message, severity)) {
             printer.print(message.getDecoratedMessage());
-        }
+//        }
     }
 }
