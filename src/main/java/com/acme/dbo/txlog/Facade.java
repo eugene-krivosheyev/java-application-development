@@ -1,5 +1,12 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.controller.LoggerController;
+import com.acme.dbo.txlog.message.BooleanDecoratingMessage;
+import com.acme.dbo.txlog.message.ByteDecoratingMessage;
+import com.acme.dbo.txlog.message.CharDecoratingMessage;
+import com.acme.dbo.txlog.message.IntDecoratingMessage;
+import com.acme.dbo.txlog.printer.ConsolePrinter;
+
 public class Facade {
 
     public static final String PREFIX_PRIMITIVE = "primitive:";
@@ -19,31 +26,14 @@ public class Facade {
 
     private static String lastLoggedType = null;
 
-    public static void log(int message) {
-        if (!LOGGING_TYPE_INT.equals(lastLoggedType)) {
-            flush();
-        }
+    private static final LoggerController loggerController = new LoggerController(new ConsolePrinter());
 
-        logNumber(message, Integer.MAX_VALUE);
-        lastLoggedType = LOGGING_TYPE_INT;
+    public static void log(int message) {
+        loggerController.log(new IntDecoratingMessage(message));
     }
 
     public static void log(byte message) {
-        if (!LOGGING_TYPE_BYTE.equals(lastLoggedType)) {
-            flush();
-        }
-
-        logNumber(message, Byte.MAX_VALUE);
-        lastLoggedType = LOGGING_TYPE_BYTE;
-    }
-
-    private static void logNumber(int message, int maxValue) {
-        if (numbersAccumulator + message > maxValue) {
-            flush();
-            numbersAccumulator = message;
-        } else {
-            numbersAccumulator += message;
-        }
+        loggerController.log(new ByteDecoratingMessage(message));
     }
 
     public static void log(int... message) {
@@ -102,12 +92,12 @@ public class Facade {
 
     public static void log(boolean message) {
         flush();
-        logInternal(decorate(PREFIX_PRIMITIVE, message));
+        loggerController.log(new BooleanDecoratingMessage(message));
     }
 
     public static void log(char message) {
         flush();
-        logInternal(decorate(PREFIX_CHAR, message));
+        loggerController.log(new CharDecoratingMessage(message));
     }
 
     public static void log(String... message) {
@@ -150,11 +140,8 @@ public class Facade {
     }
 
     public static void flush() {
-        if (LOGGING_TYPE_INT.equals(lastLoggedType)) {
-            logInternal(decorate(PREFIX_PRIMITIVE, numbersAccumulator));
-        } else if (LOGGING_TYPE_BYTE.equals(lastLoggedType)) {
-            logInternal(decorate(PREFIX_PRIMITIVE, numbersAccumulator));
-        } else if (LOGGING_TYPE_STRING.equals(lastLoggedType)) {
+        loggerController.flush();
+        if (LOGGING_TYPE_STRING.equals(lastLoggedType)) {
             String msg = lastStringValue;
             if (equalsStringsCount > 1) {
                 msg += " (x" + equalsStringsCount + ")";
