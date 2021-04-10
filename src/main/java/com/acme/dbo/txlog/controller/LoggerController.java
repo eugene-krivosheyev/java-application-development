@@ -1,5 +1,6 @@
 package com.acme.dbo.txlog.controller;
 
+import com.acme.dbo.txlog.message.AccumulatingMessage;
 import com.acme.dbo.txlog.message.DecoratingMessage;
 import com.acme.dbo.txlog.message.NumberDecoratingMessage;
 import com.acme.dbo.txlog.message.StringDecoratingMessage;
@@ -16,8 +17,8 @@ public class LoggerController {
 
     private LoggingType lastLoggedType = null;
 
-    private DecoratingMessage lastNumberMessage = null;
-    private DecoratingMessage lastStringMessage = null;
+    private AccumulatingMessage lastNumberMessage = null;
+    private AccumulatingMessage lastStringMessage = null;
 
     public LoggerController(final Printer printer) {
         this.printer = printer;
@@ -36,14 +37,14 @@ public class LoggerController {
         lastLoggedType = loggingType;
     }
 
-    public DecoratingMessage logNumber(final DecoratingMessage lastMessage, final DecoratingMessage message) {
+    public AccumulatingMessage logNumber(final AccumulatingMessage lastMessage, final AccumulatingMessage message) {
         if (lastMessage == null) {
             return message;
         }
 
-        DecoratingMessage accumulatedMessage = lastMessage.accumulate(message);
+        AccumulatingMessage accumulatedMessage = lastMessage.accumulate(message);
         if (accumulatedMessage.equals(message)) {
-            printer.print(lastMessage.getDecoratedMessage());
+            printer.print(((DecoratingMessage) lastMessage).getDecoratedMessage());
         }
         return accumulatedMessage;
     }
@@ -53,7 +54,7 @@ public class LoggerController {
             this.flush();
         }
 
-        DecoratingMessage accumulatedMessage = message;
+        AccumulatingMessage accumulatedMessage = message;
         if (lastStringMessage != null) {
             accumulatedMessage = lastStringMessage.accumulate(message);
             if (accumulatedMessage.equals(message)) {
@@ -67,9 +68,9 @@ public class LoggerController {
 
     public void flush() {
         if (INT.equals(lastLoggedType) || BYTE.equals(lastLoggedType)) {
-            printer.print(lastNumberMessage.getDecoratedMessage());
+            printer.print(((DecoratingMessage) lastNumberMessage).getDecoratedMessage());
         } else if (STRING.equals(lastLoggedType)) {
-            printer.print(lastStringMessage.getDecoratedMessage());
+            printer.print(((DecoratingMessage) lastStringMessage).getDecoratedMessage());
         }
 
         this.resetState();

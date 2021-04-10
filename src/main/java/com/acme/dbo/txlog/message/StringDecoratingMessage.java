@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class StringDecoratingMessage implements DecoratingMessage {
+public class StringDecoratingMessage implements DecoratingMessage, AccumulatingMessage {
     private final String body;
     private final int repeated;
 
@@ -23,7 +23,7 @@ public class StringDecoratingMessage implements DecoratingMessage {
     }
 
     @Override
-    public DecoratingMessage accumulate(DecoratingMessage message) {
+    public AccumulatingMessage accumulate(AccumulatingMessage message) {
         if (!(message instanceof StringDecoratingMessage)) {
             throw new IllegalArgumentException("Parameter 'message' is not of type " + this.getClass().getTypeName());
         }
