@@ -1,16 +1,14 @@
 package com.acme.dbo.txlog.domain;
 
-public interface Message <T>{
+public interface Message {
 
-    Message<T> accumulate(Message<T> newMessage);
+    Message accumulate(Message newMessage);
 
     String getPrefix();
-
-    T getBody();
 
     String intermediate();
 
     void clear();
 
-    boolean shouldFlush(Message<T> newMessage);
+    boolean shouldFlush(Message newMessage);
 }

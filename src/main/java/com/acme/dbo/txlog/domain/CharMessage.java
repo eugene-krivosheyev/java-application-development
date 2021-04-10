@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.domain;
 
-public class CharMessage extends AbstractMessage<Character>{
+public class CharMessage extends AbstractMessage {
     char body;
 
     {
@@ -11,12 +11,15 @@ public class CharMessage extends AbstractMessage<Character>{
         body = message;
     }
 
-    @Override
-    public Message accumulate(Message newMessage) {
-        return new CharMessage((Character) newMessage.getBody());
+    public String toString() {
+        return getPrefix() + getBody().toString();
     }
 
     @Override
+    public Message accumulate(Message newMessage) {
+        return new CharMessage(((CharMessage) newMessage).getBody());
+    }
+
     public Character getBody() {
         return body;
     }

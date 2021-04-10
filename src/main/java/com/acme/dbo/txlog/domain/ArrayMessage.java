@@ -16,10 +16,9 @@ public class ArrayMessage extends AbstractMessage {
 
     @Override
     public ArrayMessage accumulate(Message newMessage) {
-        return new ArrayMessage((int[])newMessage.getBody());
+        return new ArrayMessage(((ArrayMessage)newMessage).getBody());
     }
 
-    @Override
     public int[] getBody() {
         return body;
     }

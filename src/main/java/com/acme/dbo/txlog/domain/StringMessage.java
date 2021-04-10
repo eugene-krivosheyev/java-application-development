@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.domain;
 
-public class StringMessage extends AbstractMessage<String> {
+public class StringMessage extends AbstractMessage {
     private String body;
     private int repeats;
 
@@ -21,17 +21,16 @@ public class StringMessage extends AbstractMessage<String> {
     @Override
     public Message accumulate(Message newMessage) {
         repeats++;
-        return new StringMessage(newMessage.getBody().toString(), repeats);
+        return new StringMessage(((StringMessage)newMessage).getBody().toString(), repeats);
     }
 
-    @Override
     public String getBody() {
         return body;
     }
 
     @Override
     public boolean shouldFlush(Message newMessage) {
-        if (newMessage.getBody() == body) {
+        if (((StringMessage)newMessage).getBody() == body) {
             return false;
         } else {
             return true;

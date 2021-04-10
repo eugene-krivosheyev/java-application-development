@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.domain;
 
-abstract class AbstractMessage <T> implements Message<T>{
+abstract class AbstractMessage implements Message{
     String prefix;
 
     @Override
@@ -8,11 +8,7 @@ abstract class AbstractMessage <T> implements Message<T>{
         return prefix;
     }
 
-    public String toString(){
-        return getPrefix() + getBody().toString();
-    }
-
-    public boolean shouldFlush(Message<T> newMessage)
+    public boolean shouldFlush(Message newMessage)
     {
         return false;
     }

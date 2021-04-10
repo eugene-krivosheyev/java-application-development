@@ -16,10 +16,9 @@ public class MatrixMessage extends AbstractMessage {
 
     @Override
     public MatrixMessage accumulate(Message newMessage) {
-        return new MatrixMessage((int[][])newMessage.getBody());
+        return new MatrixMessage(((MatrixMessage)newMessage).getBody());
     }
 
-    @Override
     public int[][] getBody() {
         return body;
     }
