@@ -6,4 +6,6 @@ public interface DecoratingMessage {
     default DecoratingMessage accumulate(DecoratingMessage message) {
         throw new UnsupportedOperationException("Not supported yet");
     }
+
+    Object getBody();
 }

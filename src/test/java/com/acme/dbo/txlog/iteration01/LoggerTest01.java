@@ -6,9 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-
-public class LoggerTest implements SysoutCaptureAndAssertionAbility {
+public class LoggerTest01 implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() {
@@ -61,7 +59,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogChar() throws IOException {
+    public void shouldLogChar() {
         //region when
         Facade.log('a');
         Facade.flush();
@@ -77,7 +75,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogString() throws IOException {
+    public void shouldLogString() {
         //region when
         Facade.log("test string 1");
         Facade.flush();
@@ -93,7 +91,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogBoolean() throws IOException {
+    public void shouldLogBoolean() {
         //region when
         Facade.log(true);
         Facade.flush();
@@ -109,7 +107,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogReference() throws IOException {
+    public void shouldLogReference() {
         //region when
         Facade.log(new Object());
         Facade.flush();

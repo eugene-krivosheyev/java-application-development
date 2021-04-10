@@ -1,9 +1,9 @@
 package com.acme.dbo.txlog.message;
 
 public class ByteDecoratingMessage implements DecoratingMessage {
-    private final long body;
+    private final int body;
 
-    public ByteDecoratingMessage(final long body) {
+    public ByteDecoratingMessage(final int body) {
         this.body = body;
     }
 
@@ -24,7 +24,8 @@ public class ByteDecoratingMessage implements DecoratingMessage {
         return new ByteDecoratingMessage(body + addingMessage.getBody());
     }
 
-    public long getBody() {
+    @Override
+    public Integer getBody() {
         return this.body;
     }
 }

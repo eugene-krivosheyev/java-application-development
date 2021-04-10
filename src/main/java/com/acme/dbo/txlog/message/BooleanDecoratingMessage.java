@@ -13,7 +13,8 @@ public class BooleanDecoratingMessage implements DecoratingMessage {
         return PREFIX + body;
     }
 
-    public boolean getBody() {
+    @Override
+    public Boolean getBody() {
         return this.body;
     }
 }

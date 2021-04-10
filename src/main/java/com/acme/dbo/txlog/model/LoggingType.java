@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.model;
 
 public enum LoggingType {
     INT, BYTE, STRING

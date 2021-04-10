@@ -1,23 +1,25 @@
 package com.acme.dbo.txlog.controller;
 
-import com.acme.dbo.txlog.LoggingType;
 import com.acme.dbo.txlog.message.ByteDecoratingMessage;
 import com.acme.dbo.txlog.message.DecoratingMessage;
 import com.acme.dbo.txlog.message.IntDecoratingMessage;
+import com.acme.dbo.txlog.message.StringDecoratingMessage;
+import com.acme.dbo.txlog.model.LoggingType;
 import com.acme.dbo.txlog.printer.Printer;
+
+import static com.acme.dbo.txlog.model.LoggingType.BYTE;
+import static com.acme.dbo.txlog.model.LoggingType.INT;
+import static com.acme.dbo.txlog.model.LoggingType.STRING;
 
 public class LoggerController {
 
-    public static final String LOGGING_TYPE_INT = "int";
-    public static final String LOGGING_TYPE_BYTE = "byte";
-    public static final String LOGGING_TYPE_STRING = "string";
+    private final Printer printer;
 
     private LoggingType lastLoggedType = null;
 
-    private final Printer printer;
-
     private DecoratingMessage lastIntMessage = null;
     private DecoratingMessage lastByteMessage = null;
+    private DecoratingMessage lastStringMessage = null;
 
     public LoggerController(final Printer printer) {
         this.printer = printer;
@@ -29,19 +31,19 @@ public class LoggerController {
     }
 
     public void log(final IntDecoratingMessage message) {
-        if (!LoggingType.INT.equals(lastLoggedType)) {
+        if (!INT.equals(lastLoggedType)) {
             this.flush();
         }
         lastIntMessage = logNumber(lastIntMessage, message);
-        lastLoggedType = LoggingType.INT;
+        lastLoggedType = INT;
     }
 
     public void log(final ByteDecoratingMessage message) {
-        if (!LoggingType.BYTE.equals(lastLoggedType)) {
+        if (!BYTE.equals(lastLoggedType)) {
             this.flush();
         }
         lastByteMessage = logNumber(lastByteMessage, message);
-        lastLoggedType = LoggingType.BYTE;
+        lastLoggedType = BYTE;
     }
 
     public DecoratingMessage logNumber(final DecoratingMessage lastMessage, final DecoratingMessage message) {
@@ -56,13 +58,30 @@ public class LoggerController {
         return accumulatedMessage;
     }
 
+    public void log(final StringDecoratingMessage message) {
+        if (!STRING.equals(lastLoggedType)) {
+            this.flush();
+        }
+
+        DecoratingMessage accumulatedMessage = message;
+        if (lastStringMessage != null) {
+            accumulatedMessage = lastStringMessage.accumulate(message);
+            if (accumulatedMessage.equals(message)) {
+                this.flush();
+            }
+        }
+
+        lastStringMessage = accumulatedMessage;
+        lastLoggedType = STRING;
+    }
+
     public void flush() {
-        if (LoggingType.INT.equals(lastLoggedType)) {
+        if (INT.equals(lastLoggedType)) {
             printer.print(lastIntMessage.getDecoratedMessage());
-        } else if (LoggingType.BYTE.equals(lastLoggedType)) {
+        } else if (BYTE.equals(lastLoggedType)) {
             printer.print(lastByteMessage.getDecoratedMessage());
-        } else if (LoggingType.STRING.equals(lastLoggedType)) {
-            printer.print("Not supported yet");
+        } else if (STRING.equals(lastLoggedType)) {
+            printer.print(lastStringMessage.getDecoratedMessage());
         }
 
         this.resetState();
@@ -72,5 +91,6 @@ public class LoggerController {
         lastLoggedType = null;
         lastIntMessage = null;
         lastByteMessage = null;
+        lastStringMessage = null;
     }
 }

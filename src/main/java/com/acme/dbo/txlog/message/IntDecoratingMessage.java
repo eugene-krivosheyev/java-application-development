@@ -24,7 +24,8 @@ public class IntDecoratingMessage implements DecoratingMessage {
         return new IntDecoratingMessage(body + addingMessage.getBody());
     }
 
-    public long getBody() {
+    @Override
+    public Long getBody() {
         return this.body;
     }
 }

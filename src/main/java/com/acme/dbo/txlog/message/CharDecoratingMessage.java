@@ -12,7 +12,8 @@ public class CharDecoratingMessage implements DecoratingMessage {
         return "char: " + body;
     }
 
-    public char getBody() {
+    @Override
+    public Character getBody() {
         return this.body;
     }
 }
