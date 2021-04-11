@@ -1,70 +1,42 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.controller.LoggerController;
+import com.acme.dbo.txlog.message.ByteMessage;
+import com.acme.dbo.txlog.message.IntMessage;
+import com.acme.dbo.txlog.message.StringMessage;
+
 import java.util.Arrays;
 
 import static java.lang.System.lineSeparator;
 
 public class Facade {
-    public enum Types {
-        INT,
-        BYTE,
-        STRING,
-        OBJECT
-    }
-    public static final String PRIMITIVE_PREFIX = "primitive: ";
+
+    private static final LoggerController loggerController = new LoggerController();
+
     public static final String PRIMITIVES_ARRAY_PREFIX = "primitives array: ";
     public static final String PRIMITIVES_MATRIX_PREFIX = "primitives matrix: ";
     public static final String CHAR_PREFIX = "char: ";
-    public static final String STRING_PREFIX = "string: ";
     public static final String REFERENCE_PREFIX = "reference: ";
 
-    private static long intState = 0;
-    private static int byteState = 0;
-
-    private static String stringState = "";
-    private static int stringSubsequentCount = 0;
-
     public static void log(int message) {
-        flushAllTypesExcept(Types.INT);
-        intState += message;
-        if(intState >= Integer.MAX_VALUE) {
-            intState = Integer.MAX_VALUE;
-        }
-        print(decorate(intState, PRIMITIVE_PREFIX, ""));
+        loggerController.log(new IntMessage(message));
     }
 
     public static void log(byte message) {
-        flushAllTypesExcept(Types.BYTE);
-        byteState += message;
-        if(byteState >= Byte.MAX_VALUE) {
-            byteState = Byte.MAX_VALUE;
-        }
-        print(decorate(byteState, PRIMITIVE_PREFIX, ""));
+
+        loggerController.log(new ByteMessage(message));
+    }
+
+    public static void log(String message) {
+        loggerController.log(new StringMessage(message));
     }
 
     public static void log(char message) {
         print(decorate(message, CHAR_PREFIX, ""));
     }
 
-    public static void log(String message) {
-        flushAllTypesExcept(Types.STRING);
-        resetStringStateIfNewMessageNotSame(message);
-        stringSubsequentCount++;
-        if(stringSubsequentCount > 1) {
-            message = message + " (x" + stringSubsequentCount + ")";
-        }
-        print(decorate(message, STRING_PREFIX, ""));
-    }
-
-    private static void resetStringStateIfNewMessageNotSame(String message) {
-        if(!stringState.equals(message)) {
-            flushType(Types.STRING);
-            stringState = message;
-        }
-    }
-
     public static void log(boolean message) {
-        print(decorate(message, PRIMITIVE_PREFIX, ""));
+        print(decorate(message, "primitive: ", ""));
     }
 
     public static void log(Object message) {
@@ -93,37 +65,6 @@ public class Facade {
         print(decorate(sb, "", ""));
     }
 
-    public static void flushAllTypes() {
-        for (Types t: Types.values()) {
-            flushType(t);
-        }
-    }
-
-    private static void flushType(Types type) {
-        switch (type) {
-            case INT:
-                intState = 0;
-                break;
-            case BYTE:
-                byteState = 0;
-                break;
-            case STRING:
-                stringSubsequentCount = 0;
-                stringState = "";
-                break;
-            default:
-                break;
-        }
-    }
-
-    private static void flushAllTypesExcept(Types type) {
-        for (Types t: Types.values()) {
-            if(t == type) {
-                continue;
-            }
-            flushType(t);
-        }
-    }
 
     private static void print(Object message) {
         System.out.println(message);

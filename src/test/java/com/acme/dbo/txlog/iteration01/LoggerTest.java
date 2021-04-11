@@ -2,6 +2,7 @@ package com.acme.dbo.txlog.iteration01;
 
 import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.controller.LoggerController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,11 +29,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogInteger() throws IOException {
         //region when
         Facade.log(1);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.INT);
         Facade.log(0);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.INT);
         Facade.log(-1);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.INT);
         //endregion
 
         //region then
@@ -45,11 +46,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogByte() throws IOException {
         //region when
         Facade.log((byte)1);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.BYTE);
         Facade.log((byte)0);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.BYTE);
         Facade.log((byte)-1);
-        Facade.flushAllTypes();
+        LoggerController.flush(LoggerController.Types.BYTE);
         //endregion
 
         //region then
@@ -81,6 +82,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log("test string 1");
         Facade.log("other str");
+        LoggerController.flush(LoggerController.Types.STRING);
         //endregion
 
         //region then
