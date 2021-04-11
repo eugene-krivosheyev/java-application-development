@@ -32,7 +32,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log(new int[]{-1, 0, 1});
         //endregion
-        Facade.flush();
 
         //region then
         assertSysoutEquals(
@@ -45,7 +44,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         Facade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
-        Facade.flush();
         //endregion
 
         //region then
