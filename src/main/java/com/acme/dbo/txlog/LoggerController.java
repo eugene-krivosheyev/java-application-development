@@ -5,7 +5,7 @@ import com.acme.dbo.txlog.domain.Message;
 public class LoggerController {
 
     private Message currentStateValue;
-    private ConsolePrinter printer = new ConsolePrinter();
+    private Printer printer = new ConsolePrinter();
 
     public void log(Message newMessage) {
         if (currentStateValue == null) {
