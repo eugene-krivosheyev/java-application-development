@@ -1,8 +1,7 @@
 package com.acme.dbo.txlog.controller;
 
-import com.acme.dbo.txlog.message.ByteDecoratingMessage;
 import com.acme.dbo.txlog.message.DecoratingMessage;
-import com.acme.dbo.txlog.message.IntDecoratingMessage;
+import com.acme.dbo.txlog.message.NumberDecoratingMessage;
 import com.acme.dbo.txlog.message.StringDecoratingMessage;
 import com.acme.dbo.txlog.model.LoggingType;
 import com.acme.dbo.txlog.printer.Printer;
@@ -17,8 +16,7 @@ public class LoggerController {
 
     private LoggingType lastLoggedType = null;
 
-    private DecoratingMessage lastIntMessage = null;
-    private DecoratingMessage lastByteMessage = null;
+    private DecoratingMessage lastNumberMessage = null;
     private DecoratingMessage lastStringMessage = null;
 
     public LoggerController(final Printer printer) {
@@ -30,20 +28,12 @@ public class LoggerController {
         printer.print(message.getDecoratedMessage());
     }
 
-    public void log(final IntDecoratingMessage message) {
-        if (!INT.equals(lastLoggedType)) {
+    public void log(final NumberDecoratingMessage message, final LoggingType loggingType) {
+        if (!loggingType.equals(lastLoggedType)) {
             this.flush();
         }
-        lastIntMessage = logNumber(lastIntMessage, message);
-        lastLoggedType = INT;
-    }
-
-    public void log(final ByteDecoratingMessage message) {
-        if (!BYTE.equals(lastLoggedType)) {
-            this.flush();
-        }
-        lastByteMessage = logNumber(lastByteMessage, message);
-        lastLoggedType = BYTE;
+        lastNumberMessage = logNumber(lastNumberMessage, message);
+        lastLoggedType = loggingType;
     }
 
     public DecoratingMessage logNumber(final DecoratingMessage lastMessage, final DecoratingMessage message) {
@@ -76,10 +66,8 @@ public class LoggerController {
     }
 
     public void flush() {
-        if (INT.equals(lastLoggedType)) {
-            printer.print(lastIntMessage.getDecoratedMessage());
-        } else if (BYTE.equals(lastLoggedType)) {
-            printer.print(lastByteMessage.getDecoratedMessage());
+        if (INT.equals(lastLoggedType) || BYTE.equals(lastLoggedType)) {
+            printer.print(lastNumberMessage.getDecoratedMessage());
         } else if (STRING.equals(lastLoggedType)) {
             printer.print(lastStringMessage.getDecoratedMessage());
         }
@@ -89,8 +77,7 @@ public class LoggerController {
 
     private void resetState() {
         lastLoggedType = null;
-        lastIntMessage = null;
-        lastByteMessage = null;
+        lastNumberMessage = null;
         lastStringMessage = null;
     }
 }

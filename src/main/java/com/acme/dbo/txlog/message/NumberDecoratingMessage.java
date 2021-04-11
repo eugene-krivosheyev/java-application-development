@@ -1,10 +1,12 @@
 package com.acme.dbo.txlog.message;
 
-public class IntDecoratingMessage implements DecoratingMessage {
+public class NumberDecoratingMessage implements DecoratingMessage {
     private final long body;
+    private final int maxValue;
 
-    public IntDecoratingMessage(final long body) {
+    public NumberDecoratingMessage(final long body, final int maxValue) {
         this.body = body;
+        this.maxValue = maxValue;
     }
 
     @Override
@@ -14,14 +16,14 @@ public class IntDecoratingMessage implements DecoratingMessage {
 
     @Override
     public DecoratingMessage accumulate(final DecoratingMessage message) {
-        if (!(message instanceof IntDecoratingMessage)) {
+        if (!(message instanceof NumberDecoratingMessage)) {
             throw new IllegalArgumentException("Parameter 'message' is not of type " + this.getClass().getTypeName());
         }
-        final IntDecoratingMessage addingMessage = (IntDecoratingMessage) message;
-        if (body + addingMessage.getBody() > Integer.MAX_VALUE) {
+        final NumberDecoratingMessage addingMessage = (NumberDecoratingMessage) message;
+        if (body + addingMessage.getBody() > this.maxValue) {
             return message;
         }
-        return new IntDecoratingMessage(body + addingMessage.getBody());
+        return new NumberDecoratingMessage(body + addingMessage.getBody(), this.maxValue);
     }
 
     @Override
