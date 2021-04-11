@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.printer;
 
 public class ConsolePrinter implements Printer {
     @Override

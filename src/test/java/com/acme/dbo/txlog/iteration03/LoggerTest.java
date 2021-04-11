@@ -14,7 +14,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void setUpSystemOut() throws IOException {
         resetOut();
         captureSysout();
-        LoggerFacade.clearState();
     }
 
     @After
@@ -28,6 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() throws IOException {
         //region when
         LoggerFacade.log(new int[] {-1, 0, 1});
+        LoggerFacade.flush();
         //endregion
 
         //region then
@@ -41,6 +41,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         LoggerFacade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        LoggerFacade.flush();
         //endregion
 
         //region then

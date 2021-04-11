@@ -25,8 +25,6 @@ public class BooleanMessage extends AbstractMessage {
     }
 
     @Override
-    public String intermediate() {
-        return toString();
-    }
+    public boolean shouldFlush(Message newMessage) { return true; }
 
 }

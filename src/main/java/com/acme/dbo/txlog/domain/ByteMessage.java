@@ -26,6 +26,7 @@ public class ByteMessage extends AbstractMessage {
 
     @Override
     public boolean shouldFlush(Message newMessage) {
+        if (!(newMessage instanceof ByteMessage)) {return true;}
         byte newBody = ((ByteMessage) newMessage).getBody();
         byte result = (byte) (body + newBody);
         if ((result > 0 & body < 0 & newBody < 0) || (result < 0 & body > 0 & newBody > 0)) {
@@ -34,10 +35,4 @@ public class ByteMessage extends AbstractMessage {
             return false;
         }
     }
-
-    @Override
-    public void clear() {
-        body = 0;
-    }
-
 }

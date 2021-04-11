@@ -21,7 +21,7 @@ public class StringMessage extends AbstractMessage {
     @Override
     public Message accumulate(Message newMessage) {
         repeats++;
-        return new StringMessage(((StringMessage)newMessage).getBody().toString(), repeats);
+        return new StringMessage(((StringMessage)newMessage).getBody(), repeats);
     }
 
     public String getBody() {
@@ -30,17 +30,12 @@ public class StringMessage extends AbstractMessage {
 
     @Override
     public boolean shouldFlush(Message newMessage) {
+        if (!(newMessage instanceof StringMessage)) {return true;}
         if (((StringMessage)newMessage).getBody() == body) {
             return false;
         } else {
             return true;
         }
-    }
-
-    @Override
-    public void clear() {
-        body = "";
-        repeats = 0;
     }
 
     @Override

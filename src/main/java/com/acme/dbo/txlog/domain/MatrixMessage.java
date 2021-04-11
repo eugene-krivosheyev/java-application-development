@@ -24,9 +24,7 @@ public class MatrixMessage extends AbstractMessage {
     }
 
     @Override
-    public String intermediate() {
-        return toString();
-    }
+    public boolean shouldFlush(Message newMessage) { return true; }
 
     @Override
     public String toString(){

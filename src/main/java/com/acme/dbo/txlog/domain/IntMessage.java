@@ -25,14 +25,9 @@ public class IntMessage extends AbstractMessage {
 
     @Override
     public boolean shouldFlush(Message newMessage) {
+        if (!(newMessage instanceof IntMessage)) {return true;}
         int newBody = ((IntMessage) newMessage).getBody();
         int result = body + newBody;
         return (result > 0 & body < 0 & newBody < 0) || (result < 0 & body > 0 & newBody > 0);
     }
-
-    @Override
-    public void clear() {
-        body = 0;
-    }
-
 }

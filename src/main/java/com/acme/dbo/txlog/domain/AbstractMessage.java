@@ -7,18 +7,4 @@ abstract class AbstractMessage implements Message{
     public String getPrefix() {
         return prefix;
     }
-
-    public boolean shouldFlush(Message newMessage)
-    {
-        return false;
-    }
-
-    @Override
-    public String intermediate() {
-        return null;
-    }
-
-    @Override
-    public void clear() {}
-
 }

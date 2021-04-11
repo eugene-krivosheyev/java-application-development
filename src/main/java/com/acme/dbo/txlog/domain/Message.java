@@ -6,9 +6,5 @@ public interface Message {
 
     String getPrefix();
 
-    String intermediate();
-
-    void clear();
-
     boolean shouldFlush(Message newMessage);
 }

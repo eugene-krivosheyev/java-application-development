@@ -1,9 +1,10 @@
 package com.acme.dbo.txlog;
 
 import com.acme.dbo.txlog.domain.*;
+import com.acme.dbo.txlog.printer.ConsolePrinter;
 
 public class LoggerFacade {
-    private static LoggerController controller = new LoggerController();
+    private static LoggerController controller = new LoggerController(new ConsolePrinter());
 
     public static void log (byte message){
         controller.log(new ByteMessage(message));
@@ -51,10 +52,6 @@ public class LoggerFacade {
 
     public static void flush(){
         controller.flush();
-    }
-
-    public static void clearState(){
-        controller.clearState();
     }
 
 }

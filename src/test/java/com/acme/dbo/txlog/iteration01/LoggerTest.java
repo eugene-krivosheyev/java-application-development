@@ -61,7 +61,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogChar() {
         //region when
         LoggerFacade.log('a');
+        LoggerFacade.flush();
         LoggerFacade.log('b');
+        LoggerFacade.flush();
         //endregion
 
         //region then
@@ -90,7 +92,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogBoolean() {
         //region when
         LoggerFacade.log(true);
+        LoggerFacade.flush();
         LoggerFacade.log(false);
+        LoggerFacade.flush();
         //endregion
 
         //region then
@@ -104,6 +108,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogReference() {
         //region when
         LoggerFacade.log(new Object());
+        LoggerFacade.flush();
         //endregion
 
         //region then
