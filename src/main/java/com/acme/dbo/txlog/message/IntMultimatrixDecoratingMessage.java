@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.utils.Utils;
+import com.acme.dbo.txlog.message.utils.DecoratingUtils;
 
 public class IntMultimatrixDecoratingMessage implements DecoratingMessage {
     public static final String PREFIX = "primitives multimatrix: ";
@@ -12,7 +12,7 @@ public class IntMultimatrixDecoratingMessage implements DecoratingMessage {
 
     @Override
     public String getDecoratedMessage() {
-        return PREFIX + Utils.multiMatrixToString(this.body);
+        return PREFIX + DecoratingUtils.multiMatrixToString(this.body);
     }
 
     @Override

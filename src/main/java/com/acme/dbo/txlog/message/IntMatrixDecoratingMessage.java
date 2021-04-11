@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.utils.Utils;
+import com.acme.dbo.txlog.message.utils.DecoratingUtils;
 
 public class IntMatrixDecoratingMessage implements DecoratingMessage {
     public static final String PREFIX = "primitives matrix: ";
@@ -12,7 +12,7 @@ public class IntMatrixDecoratingMessage implements DecoratingMessage {
 
     @Override
     public String getDecoratedMessage() {
-        return PREFIX + Utils.matrixToString(this.body);
+        return PREFIX + DecoratingUtils.matrixToString(this.body);
     }
 
     @Override

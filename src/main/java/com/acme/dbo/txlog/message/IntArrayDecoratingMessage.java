@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import static com.acme.dbo.txlog.utils.Utils.arrayToString;
+import static com.acme.dbo.txlog.message.utils.DecoratingUtils.arrayToString;
 
 public class IntArrayDecoratingMessage implements DecoratingMessage {
     public static final String PREFIX = "primitives array: ";

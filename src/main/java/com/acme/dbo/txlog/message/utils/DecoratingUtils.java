@@ -1,7 +1,7 @@
-package com.acme.dbo.txlog.utils;
+package com.acme.dbo.txlog.message.utils;
 
-public class Utils {
-    private Utils() {
+public class DecoratingUtils {
+    private DecoratingUtils() {
 
     }
 

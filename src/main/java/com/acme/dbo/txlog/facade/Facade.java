@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.facade;
 
 import com.acme.dbo.txlog.controller.LoggerController;
 import com.acme.dbo.txlog.message.BooleanDecoratingMessage;
@@ -25,27 +25,22 @@ public class Facade {
     }
 
     public static void log(int... message) {
-        loggerController.flush();
         loggerController.log(new IntArrayDecoratingMessage(message));
     }
 
     public static void log(int[][] message) {
-        loggerController.flush();
         loggerController.log(new IntMatrixDecoratingMessage(message));
     }
 
     public static void log(int[][][][] message) {
-        loggerController.flush();
         loggerController.log(new IntMultimatrixDecoratingMessage(message));
     }
 
     public static void log(boolean message) {
-        loggerController.flush();
         loggerController.log(new BooleanDecoratingMessage(message));
     }
 
     public static void log(char message) {
-        loggerController.flush();
         loggerController.log(new CharDecoratingMessage(message));
     }
 
@@ -60,7 +55,6 @@ public class Facade {
     }
 
     public static void log(Object message) {
-        loggerController.flush();
         loggerController.log(new ReferenceDecoratingMessage(message));
     }
 
