@@ -27,7 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log(1);
         Facade.flush();
-        Facade.log(2);
+        Facade.log(0);
         Facade.flush();
         Facade.log(-1);
         Facade.flush();
@@ -35,7 +35,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region
         assertSysoutContains("primitive: 1");
-        assertSysoutContains("primitive: 2");
+        assertSysoutContains("primitive: 0");
         assertSysoutContains("primitive: -1");
     //    assertSysoutEquals("primitive: 1" + System.getProperty("line.separator")+"primitive: 0"+System.getProperty("line.separator")+"primitive: -1"+System.getProperty("line.separator"));
         //endregion
