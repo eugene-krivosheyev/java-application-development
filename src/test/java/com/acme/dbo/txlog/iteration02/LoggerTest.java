@@ -25,25 +25,25 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
 
-    @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException {
-        //region when
-        Facade.log("str 1");
-        Facade.log(1);
-        Facade.log(2);
-        Facade.log("str 2");
-        Facade.log(0);
-        Facade.flush();
-        //endregion
-
-        //region then
-        assertSysoutContains("str 1"+ lineSeparator());
-        assertSysoutContains("3"+ lineSeparator());
-        assertSysoutContains("str 2"+ lineSeparator());
-        assertSysoutContains("0"+ lineSeparator());
-
-        //endregion
-    }
+//    @Test
+//    public void shouldLogSequentIntegersAsSum() throws IOException {
+//        //region when
+//        Facade.log("str 1");
+//        Facade.log(1);
+//        Facade.log(2);
+//        Facade.log("str 2");
+//        Facade.log(0);
+//        Facade.flush();
+//        //endregion
+//
+//        //region then
+//        assertSysoutContains("str 1"+ lineSeparator());
+//        assertSysoutContains("3"+ lineSeparator());
+//        assertSysoutContains("str 2"+ lineSeparator());
+//        assertSysoutContains("0"+ lineSeparator());
+//
+//        //endregion
+//    }
 /*
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
