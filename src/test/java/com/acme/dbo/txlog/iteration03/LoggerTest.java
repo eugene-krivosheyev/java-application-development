@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static com.acme.dbo.txlog.Facade.flush;
+
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
@@ -30,11 +32,12 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() throws IOException {
         //region when
         Facade.log(new int[] {-1, 0, 1});
+        flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}\n"
+            "primitives array: {-1, 0, 1}"+System.lineSeparator()
         );
         //endregion
     }
@@ -44,15 +47,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         Facade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        flush();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives matrix: {\n" +
-                "{-1, 0, 1}\n" +
-                "{1, 2, 3}\n" +
-                "{-1, -2, -3}\n" +
-            "}\n"
+            "primitives matrix: {" + System.lineSeparator() +
+                "{-1, 0, 1}" + System.lineSeparator() +
+                "{1, 2, 3}" + System.lineSeparator() +
+                "{-1, -2, -3}" + System.lineSeparator() +
+            "}" + System.lineSeparator()
         );
         //endregion
     }
