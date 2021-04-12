@@ -82,7 +82,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Facade.log("str 1");
         Facade.log((byte)10);
-        Facade.log((byte)Byte.MAX_VALUE);
+        Facade.log(Byte.MAX_VALUE);
         Facade.log("str 2");
         Facade.log(0);
         Facade.close();
