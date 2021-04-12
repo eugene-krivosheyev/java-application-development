@@ -24,9 +24,7 @@ public class IntMessage implements Message {
             return this;
         }
 
-        long left = ((long) Integer.parseInt(message.getBody()) + (long) this.value) - Integer.MAX_VALUE;
-
-        if (left > 0) {
+        if (isOverflowed(message)) {
             return null;
         }
 
@@ -41,5 +39,10 @@ public class IntMessage implements Message {
     @Override
     public boolean isSameTypeOf(Message message) {
         return message.getClass() == this.getClass();
+    }
+
+    private boolean isOverflowed(Message message) {
+        long left = ((long) Integer.parseInt(message.getBody()) + (long) this.value) - Integer.MAX_VALUE;
+        return left > 0;
     }
 }

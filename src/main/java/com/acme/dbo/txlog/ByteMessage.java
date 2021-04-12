@@ -23,9 +23,7 @@ public class ByteMessage implements Message {
             return this;
         }
 
-        long left = ((long) Byte.parseByte(message.getBody()) + (long) this.value) - Byte.MAX_VALUE;
-
-        if (left > 0) {
+        if (isOverflowed(message)) {
             return null;
         }
 
@@ -40,5 +38,10 @@ public class ByteMessage implements Message {
     @Override
     public boolean isSameTypeOf(Message message) {
         return message.getClass() == this.getClass();
+    }
+
+    private boolean isOverflowed(Message message) {
+        long left = ((long) Byte.parseByte(message.getBody()) + (long) this.value) - Byte.MAX_VALUE;
+        return left > 0;
     }
 }
