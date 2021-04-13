@@ -2,16 +2,26 @@ package com.acme.dbo.txlog;
 
 import com.acme.dbo.txlog.message.*;
 import com.acme.dbo.txlog.printer.ConsolePrinter;
+import com.acme.dbo.txlog.printer.Printer;
 
 public class LogController {
-    private final ConsolePrinter printer;
+    private final Printer printer;
 
-    private StringMessage lastStringMessage = null;
-    private IntMessage lastIntMessage = null;
-    private ByteMessage lastByteMessage = null;
+//    private StringMessage lastStringMessage = null;
+//    private IntMessage lastIntMessage = null;
+//    private ByteMessage lastByteMessage = null;
+    private Message currentState;
 
-    public LogController(ConsolePrinter printer) {
+    public LogController(Printer printer) {
         this.printer = printer;
+    }
+
+    public void log(Message message) {
+        if (this.currentState.equalType(message)) { //Optional
+            currentState = currentState.accumulate(message);
+        } else {
+            flush();
+        }
     }
 
     public void log(StringMessage stringMessage) {

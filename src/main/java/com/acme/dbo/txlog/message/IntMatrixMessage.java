@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class IntMatrixMessage {
+public class IntMatrixMessage implements Message {
     private final String MATRIX_PREFIX = "primitives matrix: ";
     private final String MATRIX_POSTFIX = "";
 

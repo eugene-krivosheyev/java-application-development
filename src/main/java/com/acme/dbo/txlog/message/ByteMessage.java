@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class ByteMessage {
+public class ByteMessage implements Message {
     private final String PRIMITIVE_PREFIX = "primitive: ";
     private final String PRIMITIVE_POSTFIX = "";
 
@@ -14,11 +14,19 @@ public class ByteMessage {
         return message;
     }
 
-    public ByteMessage accumulate(ByteMessage byteMessage) {
-        return new ByteMessage((byte) (this.getMessage() + byteMessage.getMessage()));
+    public String getDecoratedMessage() {
+        return PRIMITIVE_PREFIX + message + PRIMITIVE_POSTFIX;
     }
 
-    public Object getDecoratedMessage() {
-        return PRIMITIVE_PREFIX + message + PRIMITIVE_POSTFIX;
+    @Override
+    public boolean equalType(Message message) {
+        return message instanceof ByteMessage;
+    }
+
+    @Override
+    public ByteMessage accumulate(Message message) {
+        if (!(message instanceof ByteMessage)) throw new IllegalArgumentException("Message");
+        ByteMessage newMessage = (ByteMessage) message;
+        return new ByteMessage((byte) (this.getMessage() + newMessage.getMessage()));
     }
 }

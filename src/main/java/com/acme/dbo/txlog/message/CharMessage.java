@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class CharMessage {
+public class CharMessage implements Message {
     private final String CHAR_PREFIX = "char: ";
     private final String CHAR_POSTFIX = "";
 
@@ -10,7 +10,17 @@ public class CharMessage {
         this.message = message;
     }
 
-    public Object getDecoratedMessage() {
+    public String getDecoratedMessage() {
         return CHAR_PREFIX + message + CHAR_POSTFIX;
+    }
+
+    @Override
+    public boolean equalType(Message message) {
+        return message instanceof CharMessage;
+    }
+
+    @Override
+    public CharMessage accumulate(Message message) {
+        return (CharMessage) message;
     }
 }
