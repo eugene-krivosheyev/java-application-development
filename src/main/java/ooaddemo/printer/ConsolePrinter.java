@@ -1,8 +1,10 @@
 package ooaddemo.printer;
 
-public class ConsolePrinter implements Printer{
+import java.io.Serializable;
 
-    @Override
+public class ConsolePrinter implements Printer, Serializable { // IS-A // multiple inheritance
+
+    @Override // optional directive
     public void print(String message) {
         System.out.println("to console" + message);
     }
