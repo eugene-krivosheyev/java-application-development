@@ -1,9 +1,14 @@
 package ooadrefactoring;
 
-public class StringMessage {
-    private String message;
+public class StringMessage implements Message {
+    private String body;
 
-    public StringMessage(String message) {
-        this.message = message;
+    public StringMessage(String body) {
+        this.body = body;
+    }
+
+    @Override
+    public String getDecoratedBody() {
+        return "string: " + body;
     }
 }
