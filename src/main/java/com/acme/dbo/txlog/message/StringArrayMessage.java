@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.message;
 
 public class StringArrayMessage {
     private final String[] message;

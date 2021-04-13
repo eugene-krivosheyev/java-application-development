@@ -4,6 +4,9 @@
 package com.acme.dbo.txlog;
 
 
+import com.acme.dbo.txlog.message.*;
+import com.acme.dbo.txlog.printer.ConsolePrinter;
+
 public class Facade {
     private static final LogController logController = new LogController(new ConsolePrinter());
 

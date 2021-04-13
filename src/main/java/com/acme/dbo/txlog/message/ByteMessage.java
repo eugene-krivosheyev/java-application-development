@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.message;
 
 public class ByteMessage {
     private final String PRIMITIVE_PREFIX = "primitive: ";

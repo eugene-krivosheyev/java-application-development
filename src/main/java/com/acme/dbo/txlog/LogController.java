@@ -1,5 +1,8 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.message.*;
+import com.acme.dbo.txlog.printer.ConsolePrinter;
+
 public class LogController {
     private final ConsolePrinter printer;
 

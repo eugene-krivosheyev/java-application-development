@@ -1,4 +1,4 @@
-package com.acme.dbo.txlog;
+package com.acme.dbo.txlog.message;
 
 public class IntMatrixMessage {
     private final String MATRIX_PREFIX = "primitives matrix: ";
