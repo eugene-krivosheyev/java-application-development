@@ -6,6 +6,8 @@ import ooaddemo.filter.SeverityMessageFilter;
 import ooaddemo.message.StringMessage;
 import ooaddemo.printer.FilePrinter;
 
+import java.sql.Connection;
+
 /**
  * Application builder
  */
@@ -16,6 +18,7 @@ public class ApplicationFramework {
                 new FilePrinter("log.txt"), // -> config.xml
                 new SeverityMessageFilter(SeverityLevel.WARNING) // -> config.xml
         );
+
         //endregion
 
         //region Request Cycle

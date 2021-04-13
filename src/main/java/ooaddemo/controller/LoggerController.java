@@ -2,6 +2,7 @@ package ooaddemo.controller;
 
 import ooaddemo.domain.SeverityLevel;
 import ooaddemo.filter.MessageFilter;
+import ooaddemo.filter.SeverityMessageFilter;
 import ooaddemo.message.DecoratingMessage;
 import ooaddemo.printer.Printer;
 
@@ -23,6 +24,9 @@ public class LoggerController extends ValidatingController {
     @Override
     public void log(DecoratingMessage message, SeverityLevel severity) {
         super.log(message, severity);
+
+        Printer.commonMethod();
+        printer.instMethod();
 
         if (filter.filter(message, severity)) {
             printer.print(message.getDecoratedMessage());
