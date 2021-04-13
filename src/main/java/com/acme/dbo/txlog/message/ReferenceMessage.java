@@ -1,7 +1,5 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.Message;
-
 public class ReferenceMessage implements Message {
     private final Object message;
 
@@ -10,12 +8,12 @@ public class ReferenceMessage implements Message {
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return "reference: " + message;
+    public boolean accumulate(Message message) {
+        return false;
     }
 
     @Override
-    public void accumulate(Message message) {
-
+    public String getDecoratedMessage() {
+        return "reference: " + message;
     }
 }

@@ -1,7 +1,5 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.Message;
-
 public class CharMessage implements Message {
     private final char message;
 
@@ -10,12 +8,12 @@ public class CharMessage implements Message {
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return "char: " + message;
+    public boolean accumulate(Message message) {
+        return false;
     }
 
     @Override
-    public void accumulate(Message message) {
-
+    public String getDecoratedMessage() {
+        return "char: " + message;
     }
 }

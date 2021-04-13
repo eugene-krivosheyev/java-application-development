@@ -1,15 +1,13 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.Message;
-
 import java.util.Objects;
 
 public class StringMessage implements Message {
-    private final String message;
-    private int acc = 1;
+    private final String body;
+    private int bodyCount = 1;
 
-    public StringMessage(String message) {
-        this.message = message;
+    public StringMessage(String body) {
+        this.body = body;
     }
 
     @Override
@@ -22,17 +20,17 @@ public class StringMessage implements Message {
         }
 
         StringMessage that = (StringMessage) o;
-        return Objects.equals(message, that.message);
+        return Objects.equals(body, that.body);
     }
 
     @Override
-    public void accumulate(Message message) {
-        acc++;
+    public boolean accumulate(Message message) {
+        bodyCount++;
+        return true;
     }
 
     @Override
     public String getDecoratedMessage() {
-        return "string: " + message +
-                (acc > 1 ? " (x" + acc + ")" : "");
+        return "string: " + body + (bodyCount > 1 ? String.format(" (x%s)", bodyCount) : "");
     }
 }

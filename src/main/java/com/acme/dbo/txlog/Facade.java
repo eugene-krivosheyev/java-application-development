@@ -1,129 +1,42 @@
 package com.acme.dbo.txlog;
 
+import com.acme.dbo.txlog.controller.LoggerController;
+import com.acme.dbo.txlog.filter.SeverityLevelMessageFilter;
+import com.acme.dbo.txlog.filter.SeverityLevel;
 import com.acme.dbo.txlog.message.*;
-
-//import static com.acme.dbo.txlog.Decorator.decorate;
+import com.acme.dbo.txlog.printer.ConsolePrinter;
 
 public class Facade {
-    private static final LoggerController controller = new LoggerController(new ConsolePrinter(), new SeverityLevelFilter(SevertyLevel.DEBUG));
-
-    private static boolean intSequence;
-    private static int intSum;
-
-    private static boolean byteSequence;
-    private static byte byteSum;
-
-    private static int stringCounter;
-    private static String lastString;
-
-    private static Class<?> lastUsedType;
+    private static final LoggerController controller = new LoggerController(
+            new ConsolePrinter(),
+            new SeverityLevelMessageFilter(SeverityLevel.DEBUG)
+    );
 
     public static void log(int message) {
-        controller.log(new IntMessage(message), SevertyLevel.INFO);
-//        if (lastUsedType != Integer.class) {
-//            flush();
-//        }
-//
-//        if ((long) intSum + message >= Integer.MAX_VALUE) {
-//            flush();
-//        }
-//        accumulate(message);
+        controller.log(new IntMessage(message), SeverityLevel.INFO);
     }
-
-//    private static void accumulate(int message) {
-//        intSequence = true;
-//        intSum += message;
-//        lastUsedType = Integer.class;
-//    }
 
     public static void log(byte message) {
-        controller.log(new ByteMessage(message), SevertyLevel.INFO);
-//        if (lastUsedType != Byte.class) {
-//            flush();
-//        }
-//
-//        if (byteSum + message >= Byte.MAX_VALUE) {
-//            flush();
-//        }
-//        accumulate(message);
+        controller.log(new ByteMessage(message), SeverityLevel.INFO);
     }
 
-//    private static void accumulate(byte message) {
-//        byteSequence = true;
-//        byteSum += message;
-//        lastUsedType = Byte.class;
-//    }
-
     public static void log(char message) {
-        controller.log(new CharMessage(message), SevertyLevel.INFO);
-//        print(decorate(message));
+        controller.log(new CharMessage(message), SeverityLevel.INFO);
+    }
+
+    public static void log(boolean message) {
+        controller.log(new BooleanMessage(message), SeverityLevel.INFO);
     }
 
     public static void log(String message) {
-        controller.log(new StringMessage(message), SevertyLevel.INFO);
-//        if (lastUsedType != String.class) {
-//            flush();
-//        }
-//
-//        if (lastString == null || lastString.equals(message)) {
-//            lastString = message;
-//            accumulate();
-//        } else {
-//            flush();
-//            lastString = message;
-//            accumulate();
-//        }
-    }
-
-//    private static void accumulate() {
-//        stringCounter++;
-//        lastUsedType = String.class;
-//    }
-
-    public static void log(boolean message) {
-        controller.log(new BooleanMessage(message), SevertyLevel.INFO);
-//        print(decorate(message));
+        controller.log(new StringMessage(message), SeverityLevel.INFO);
     }
 
     public static void log(Object message) {
-        controller.log(new ReferenceMessage(message), SevertyLevel.INFO);
-//        print(decorate(message));
+        controller.log(new ReferenceMessage(message), SeverityLevel.INFO);
     }
+
     public static void flush() {
-        controller.log(new EmptyMessage(), SevertyLevel.INFO);
+        controller.log(new EmptyMessage(), SeverityLevel.INFO);
     }
-//    public static void flush() {
-//        if (intSequence) {
-//            print(decorate(intSum));
-//            intSequence = false;
-//            intSum = 0;
-//        }
-//
-//        if (byteSequence) {
-//            print(decorate(byteSum));
-//            byteSequence = false;
-//            byteSum = 0;
-//        }
-//
-//        if (lastString != null) {
-//            if (stringCounter > 0) {
-//                print(
-//                        decorate(lastString + (stringCounter > 1 ? String.format(" (x%s)", stringCounter) : ""))
-//                );
-//                stringCounter = 0;
-//                lastString = null;
-//            } else {
-//                print(decorate(lastString));
-//                lastString = null;
-//            }
-//        }
-//    }
-//
-//    private static void print(Object message) {
-//        printToConsole(message);
-//    }
-//
-//    private static void printToConsole(Object message) {
-//        System.out.println(message);
-//    }
 }

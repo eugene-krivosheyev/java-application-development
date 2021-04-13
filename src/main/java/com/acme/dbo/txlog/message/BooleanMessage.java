@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.Message;
+import static com.acme.dbo.txlog.message.MessageConstants.PRIMITIVE_PREFIX;
 
 public class BooleanMessage implements Message {
     private final boolean message;
@@ -10,12 +10,12 @@ public class BooleanMessage implements Message {
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return "primitive: " + message;
+    public boolean accumulate(Message message) {
+        return false;
     }
 
     @Override
-    public void accumulate(Message message) {
-
+    public String getDecoratedMessage() {
+        return PRIMITIVE_PREFIX + message;
     }
 }
