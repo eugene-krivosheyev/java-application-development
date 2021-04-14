@@ -1,17 +1,13 @@
 package com.acme.dbo.txlog.message;
 
-public class ObjectMessage implements Message {
+public class ObjectMessage extends AbstractMessage implements Message {
     private final String OBJECT_PREFIX = "reference: ";
     private final String OBJECT_POSTFIX = "";
 
-    private final Object message;
+    private final Object body;
 
-    public ObjectMessage(Object message) {
-        this.message = message;
-    }
-
-    public String getDecoratedMessage() {
-        return OBJECT_PREFIX + message + OBJECT_POSTFIX;
+    public ObjectMessage(Object body) {
+        this.body = body;
     }
 
     @Override
@@ -23,4 +19,10 @@ public class ObjectMessage implements Message {
     public ObjectMessage accumulate(Message message) {
         return (ObjectMessage) message;
     }
+
+    @Override
+    public String getDecoratedMessage() {
+        return OBJECT_PREFIX + body + OBJECT_POSTFIX;
+    }
+
 }

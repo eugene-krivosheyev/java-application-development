@@ -1,18 +1,13 @@
 package com.acme.dbo.txlog.message;
 
-public class IntMessage implements Message {
+public class IntMessage extends AbstractMessage implements Message {
     private final String PRIMITIVE_PREFIX = "primitive: ";
     private final String PRIMITIVE_POSTFIX = "";
 
-    private final int message;
+    private final int body;
 
-    public IntMessage(int message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getDecoratedMessage() {
-        return PRIMITIVE_PREFIX + message + PRIMITIVE_POSTFIX;
+    public IntMessage(int body) {
+        this.body = body;
     }
 
     @Override
@@ -24,10 +19,26 @@ public class IntMessage implements Message {
     public IntMessage accumulate(Message intMessage) {
         if (!(intMessage instanceof IntMessage)) throw new IllegalArgumentException("Message");
         IntMessage newMessage = (IntMessage) intMessage;
-        return new IntMessage(this.getMessage() + newMessage.getMessage());
+        if ((long) this.body + newMessage.body > Integer.MAX_VALUE) {
+            newMessage.messageSavedAfterAccumulation = this;
+            return newMessage;
+        } else {
+            return new IntMessage(this.body + newMessage.body);
+        }
+
     }
 
-    public int getMessage() {
-        return message;
+    @Override
+    public String getDecoratedMessage() {
+        return PRIMITIVE_PREFIX + body + PRIMITIVE_POSTFIX;
+    }
+
+    @Override
+    public Message getMessageIfCurrentMessageFlushedAfterAccumulation() {
+        return messageSavedAfterAccumulation;
+    }
+
+    public int getBody() {
+        return body;
     }
 }

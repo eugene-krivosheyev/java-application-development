@@ -1,17 +1,13 @@
 package com.acme.dbo.txlog.message;
 
-public class BooleanMessage implements Message {
+public class BooleanMessage extends AbstractMessage implements Message {
     private final String PRIMITIVE_PREFIX = "primitive: ";
     private final String PRIMITIVE_POSTFIX = "";
 
-    private boolean message;
+    private final boolean body;
 
-    public BooleanMessage(boolean message) {
-        this.message = message;
-    }
-
-    public String getDecoratedMessage() {
-        return PRIMITIVE_PREFIX + message + PRIMITIVE_POSTFIX;
+    public BooleanMessage(boolean body) {
+        this.body = body;
     }
 
     @Override
@@ -22,5 +18,10 @@ public class BooleanMessage implements Message {
     @Override
     public BooleanMessage accumulate(Message message) {
         return (BooleanMessage) message;
+    }
+
+    @Override
+    public String getDecoratedMessage() {
+        return PRIMITIVE_PREFIX + body + PRIMITIVE_POSTFIX;
     }
 }

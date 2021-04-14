@@ -44,6 +44,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         Facade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        flush();
         //endregion
 
         //region then

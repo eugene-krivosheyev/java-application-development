@@ -1,13 +1,37 @@
 package com.acme.dbo.txlog.message;
 
-public class StringArrayMessage {
-    private final String[] message;
+import static java.lang.System.lineSeparator;
 
-    public StringArrayMessage(String[] message) {
-        this.message = message;
+public class StringArrayMessage extends AbstractMessage implements Message{
+    private final String STRING_PREFIX = "string: ";
+    private final String STRING_POSTFIX = "";
+
+    private final String[] body;
+
+    public StringArrayMessage(String[] body) {
+        this.body = body;
     }
 
-    public String[] getMessage() {
-        return message;
+    @Override
+    public boolean equalType(Message message) {
+        return false;
+    }
+
+    @Override
+    public Message accumulate(Message message) {
+        return null;
+    }
+
+    @Override
+    public String getDecoratedMessage() {
+        StringBuilder result = new StringBuilder();
+        for (String value : body) {
+            result
+                    .append(STRING_PREFIX)
+                    .append(value)
+                    .append(STRING_POSTFIX)
+                    .append(lineSeparator());
+        }
+        return result.toString();
     }
 }

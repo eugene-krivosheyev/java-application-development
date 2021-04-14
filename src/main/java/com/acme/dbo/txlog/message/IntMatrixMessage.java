@@ -1,26 +1,33 @@
 package com.acme.dbo.txlog.message;
 
-public class IntMatrixMessage implements Message {
+public class IntMatrixMessage extends AbstractMessage implements Message {
     private final String MATRIX_PREFIX = "primitives matrix: ";
     private final String MATRIX_POSTFIX = "";
 
-    private final int[][] message;
+    private final int[][] body;
 
-    public IntMatrixMessage(int[][] message) {
-        this.message = message;
+    public IntMatrixMessage(int[][] body) {
+        this.body = body;
     }
 
-    public int[][] getMessage() {
-        return message;
+    @Override
+    public boolean equalType(Message message) {
+        return false;
     }
 
+    @Override
+    public Message accumulate(Message message) {
+        return null;
+    }
+
+    @Override
     public String getDecoratedMessage() {
         return MATRIX_PREFIX + matrixToString() + MATRIX_POSTFIX;
     }
 
     private String matrixToString() {
         StringBuilder result = new StringBuilder("{" + System.lineSeparator());
-        for (int[] array : this.getMessage()) {
+        for (int[] array : this.body) {
             result.append("{");
             for (int i = 0; i < array.length; i++) {
                 result.append(array[i]);

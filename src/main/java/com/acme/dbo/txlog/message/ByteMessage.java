@@ -1,21 +1,17 @@
 package com.acme.dbo.txlog.message;
 
-public class ByteMessage implements Message {
+public class ByteMessage extends AbstractMessage implements Message {
     private final String PRIMITIVE_PREFIX = "primitive: ";
     private final String PRIMITIVE_POSTFIX = "";
 
-    private final byte message;
+    private final byte body;
 
-    public ByteMessage(byte message) {
-        this.message = message;
+    public ByteMessage(byte body) {
+        this.body = body;
     }
 
-    public byte getMessage() {
-        return message;
-    }
-
-    public String getDecoratedMessage() {
-        return PRIMITIVE_PREFIX + message + PRIMITIVE_POSTFIX;
+    public byte getBody() {
+        return body;
     }
 
     @Override
@@ -27,6 +23,16 @@ public class ByteMessage implements Message {
     public ByteMessage accumulate(Message message) {
         if (!(message instanceof ByteMessage)) throw new IllegalArgumentException("Message");
         ByteMessage newMessage = (ByteMessage) message;
-        return new ByteMessage((byte) (this.getMessage() + newMessage.getMessage()));
+        if (this.body + newMessage.body > Byte.MAX_VALUE) {
+            newMessage.messageSavedAfterAccumulation = this;
+            return newMessage;
+        } else {
+            return new ByteMessage((byte) (this.getBody() + newMessage.getBody()));
+        }
+    }
+
+    @Override
+    public String getDecoratedMessage() {
+        return PRIMITIVE_PREFIX + body + PRIMITIVE_POSTFIX;
     }
 }
