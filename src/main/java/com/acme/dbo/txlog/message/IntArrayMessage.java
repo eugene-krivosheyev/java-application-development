@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class IntArrayMessage {
+public class IntArrayMessage implements Message{
     private final int[] value;
     private final String DECORATION_PREFIX  = "primitives array: ";
     private final String DECORATION_POSTFIX = "";
@@ -17,13 +17,24 @@ public class IntArrayMessage {
         this(new int[] {0});
     }
 
-    public int[] getValue() {
+    @Override
+    public Object getValue() {
         return value;
+    }
+
+    @Override
+    public IntArrayMessage accumulate(Message message) {
+        return new IntArrayMessage((int[]) message.getValue());
     }
 
     @Override
     public String toString() {
         return DECORATION_PREFIX + arrayToString(value) + DECORATION_POSTFIX;
+    }
+
+    @Override
+    public IntArrayMessage getDefaultMessage() {
+        return new IntArrayMessage();
     }
 
     public String toString(boolean decorate) {

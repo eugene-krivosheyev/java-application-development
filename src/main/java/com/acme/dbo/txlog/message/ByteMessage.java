@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class ByteMessage {
+public class ByteMessage implements Message{
     private final byte value;
     private final String DECORATION_PREFIX  = "primitive: ";
     private final String DECORATION_POSTFIX = "";
@@ -12,12 +12,19 @@ public class ByteMessage {
     public ByteMessage() {this((byte) 0);
     }
 
-    public byte getValue() {
+    @Override
+    public Object getValue() {
         return value;
     }
 
-    public ByteMessage accumulate(ByteMessage message) {
-        return new ByteMessage((byte) (message.getValue() + value));
+    @Override
+    public ByteMessage accumulate(Message message) {
+        return new ByteMessage((byte) ((byte) message.getValue() + value));
+    }
+
+    @Override
+    public ByteMessage getDefaultMessage() {
+        return new ByteMessage();
     }
 
     @Override
@@ -25,8 +32,9 @@ public class ByteMessage {
         return DECORATION_PREFIX + value + DECORATION_POSTFIX;
     }
 
-    public boolean isNumberOverflow (ByteMessage testMessage) {
-        return (long) value + (long) testMessage.value > Byte.MAX_VALUE;
+    @Override
+    public boolean isNumberOverflow (Message testMessage) {
+        return (long) value + (Byte) testMessage.getValue() > Byte.MAX_VALUE;
     }
 
 }

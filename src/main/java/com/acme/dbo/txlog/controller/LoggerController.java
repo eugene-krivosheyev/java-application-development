@@ -1,152 +1,92 @@
 package com.acme.dbo.txlog.controller;
 
 import com.acme.dbo.txlog.message.*;
-import com.acme.dbo.txlog.printer.ConsolePrinter;
+import com.acme.dbo.txlog.printer.Printer;
+
 import static  com.acme.dbo.txlog.controller.AccumulatorState.*;
 
 
 public class LoggerController {
     private AccumulatorState currentState = NONE;
-    private StringMessage currentStringValue;
-    private IntMessage currentIntValue;
-    private ByteMessage currentByteValue;
-    private CharMessage currentCharValue;
-    private BooleanMessage currentBooleanValue;
-    private ObjectMessage currentObjectValue;
-    private IntArrayMessage currentIntArrayValue;
-    private IntArrayMatrixMessage currentIntArrayMatrixValue;
-    private ConsolePrinter consolePrinter;
+    private Message currentValue;
+    private Printer printer;
 
-    public LoggerController(ConsolePrinter printer) {
-        this.consolePrinter = printer;
-        this.currentStringValue = new StringMessage();
-        this.currentIntValue = new IntMessage();
-        this.currentByteValue = new ByteMessage();
-        this.currentCharValue = new CharMessage();
-        this.currentBooleanValue = new BooleanMessage();
-        this.currentObjectValue = new ObjectMessage();
-        this.currentIntArrayValue = new IntArrayMessage();
-        this.currentIntArrayMatrixValue = new IntArrayMatrixMessage();
+    public LoggerController(Printer printer) {
+        this.printer = printer;
+        this.currentValue = new NullMessage();
     }
 
     public void log(StringMessage message) {
-        if (!(currentState.equals(STRING) & currentStringValue.isValueEqual(message))) {
-            flush();
+        if (!(currentState.equals(STRING)) | !(message.isValueEqual(currentValue))) {
+            flush(message);
             currentState = STRING;
         }
-        currentStringValue = currentStringValue.accumulate(message);
+        currentValue = currentValue.accumulate(message);
     }
 
     public void log(IntMessage message) {
-        if (!currentState.equals(INT) | currentIntValue.isNumberOverflow(message)) {
-            flush();
+        if (!currentState.equals(INT) | currentValue.isNumberOverflow(message)) {
+            flush(message);
             currentState = INT;
         }
-        currentIntValue = currentIntValue.accumulate(message);
+        currentValue = currentValue.accumulate(message);
     }
 
     public void log(ByteMessage message) {
-        if (!currentState.equals(BYTE) | currentByteValue.isNumberOverflow(message)) {
-            flush();
+        if (!currentState.equals(BYTE) | currentValue.isNumberOverflow(message)) {
+            flush(message);
             currentState = BYTE;
         }
-        currentByteValue = currentByteValue.accumulate(message);
+        currentValue = currentValue.accumulate(message);
     }
 
     public void log(CharMessage message) {
         if (!currentState.equals(CHAR)) {
-            flush();
+            flush(message);
             currentState = CHAR;
         }
-        currentCharValue = currentCharValue.accumulate(message);
+        currentValue = currentValue.accumulate(message);
     }
 
     public void log(BooleanMessage message) {
-        flush();
+        flush(message);
         currentState = BOOL;
-        currentBooleanValue = new BooleanMessage(message.getValue());
+        currentValue = new BooleanMessage((boolean) message.getValue());
     }
 
     public void log(ObjectMessage message) {
-        flush();
+        flush(message);
         currentState = OBJ;
-        currentObjectValue = new ObjectMessage(message.getValue());
+        currentValue = new ObjectMessage(message.getValue());
     }
 
     public void log(IntArrayMessage message) {
-        flush();
+        flush(message);
         currentState = INT_ARRAY;
-        currentIntArrayValue = new IntArrayMessage(message.getValue());
+        currentValue = new IntArrayMessage((int[]) message.getValue());
     }
 
     public void log(IntArrayMatrixMessage message) {
-        flush();
+        flush(message);
         currentState = INT_MATRIX;
-        currentIntArrayMatrixValue = new IntArrayMatrixMessage(message.getValue());
+        currentValue = new IntArrayMatrixMessage((int[][]) message.getValue());
     }
 
     public void flush() {
-        switch (currentState) {
-            case INT: {
-                consolePrinter.print(currentIntValue.toString());
-                currentIntValue = new IntMessage();
-                currentState = NONE;
-                break;
-            }
-            case STRING: {
-                consolePrinter.print(currentStringValue.toString());
-                currentStringValue = new StringMessage();
-                currentState = NONE;
-                break;
-            }
-            case BYTE: {
-                consolePrinter.print(currentByteValue.toString());
-                currentByteValue = new ByteMessage();
-                currentState = NONE;
-                break;
-            }
-            case CHAR: {
-                consolePrinter.print(currentCharValue.toString());
-                currentCharValue = new CharMessage();
-                currentState = NONE;
-                break;
-            }
-            case BOOL: {
-                consolePrinter.print(currentBooleanValue.toString());
-                currentBooleanValue = new BooleanMessage();
-                currentState = NONE;
-                break;
-            }
-
-            case OBJ: {
-                consolePrinter.print(currentObjectValue.toString());
-                currentObjectValue = new ObjectMessage();
-                currentState = NONE;
-                break;
-            }
-            case INT_ARRAY: {
-                consolePrinter.print(currentIntArrayValue.toString());
-                currentIntArrayValue = new IntArrayMessage();
-                currentState = NONE;
-                break;
-            }
-
-            case INT_MATRIX: {
-                consolePrinter.print(currentIntArrayMatrixValue.toString());
-                currentIntArrayMatrixValue = new IntArrayMatrixMessage();
-                currentState = NONE;
-                break;
-            }
-
-            case NONE: {
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-
+        printer.print(currentValue.toString());
+        currentValue = currentValue.getDefaultMessage();
+        currentState = NONE;
     }
+
+    public void flush(Message message) {
+        if (!(currentState == NONE)) {
+            printer.print(currentValue.toString());
+        }
+        currentValue = message.getDefaultMessage();
+        currentState = NONE;
+    }
+
+
 
 
 

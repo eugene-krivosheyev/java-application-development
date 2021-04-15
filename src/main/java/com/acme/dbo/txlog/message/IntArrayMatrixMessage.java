@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class IntArrayMatrixMessage {
+public class IntArrayMatrixMessage implements Message {
     private final int[][] value;
     private final String DECORATION_PREFIX  = "primitives matrix: ";
     private final String DECORATION_POSTFIX = "";
@@ -16,13 +16,24 @@ public class IntArrayMatrixMessage {
         this(new int[][] {{0}});
     }
 
-    public int[][] getValue() {
+    @Override
+    public Object getValue() {
         return value;
+    }
+
+    @Override
+    public IntArrayMatrixMessage accumulate(Message message) {
+        return new IntArrayMatrixMessage((int[][]) message.getValue());
     }
 
     @Override
     public String toString() {
         return DECORATION_PREFIX + matrixToString(value) + DECORATION_POSTFIX;
+    }
+
+    @Override
+    public IntArrayMatrixMessage getDefaultMessage() {
+        return new IntArrayMatrixMessage();
     }
 
     private String matrixToString(int[][] matrix) {

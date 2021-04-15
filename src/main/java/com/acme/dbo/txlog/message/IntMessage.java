@@ -1,7 +1,7 @@
 package com.acme.dbo.txlog.message;
 
 
-public class IntMessage {
+public class IntMessage implements Message {
     private final int value;
     private final String DECORATION_PREFIX  = "primitive: ";
     private final String DECORATION_POSTFIX = "";
@@ -15,12 +15,19 @@ public class IntMessage {
         this(0);
     }
 
-    public int getValue() {
+    @Override
+    public IntMessage getDefaultMessage() {
+        return new IntMessage();
+    }
+
+    @Override
+    public Object getValue() {
         return value;
     }
 
-    public IntMessage accumulate(IntMessage message) {
-        return new IntMessage(value + message.getValue());
+    @Override
+    public IntMessage accumulate(Message message) {
+        return new IntMessage(value + (int) message.getValue());
     }
 
     @Override
@@ -28,7 +35,7 @@ public class IntMessage {
         return DECORATION_PREFIX + value + DECORATION_POSTFIX;
     }
 
-    public boolean isNumberOverflow (IntMessage testMessage) {
-        return (long) value + (long) testMessage.value > Integer.MAX_VALUE;
+    public boolean isNumberOverflow (Message testMessage) {
+        return (long) value + ((Integer) testMessage.getValue()).intValue() > Integer.MAX_VALUE;
     }
 }
