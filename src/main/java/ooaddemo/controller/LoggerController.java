@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  *  Inheritance = polymorphism + state and behavior reuse
  */
-public class LoggerController extends ValidatingController {
+public final class LoggerController extends ValidatingController {
     private final Printer printer;
     private final MessageFilter filter;
 
@@ -22,12 +22,17 @@ public class LoggerController extends ValidatingController {
      * Constructor DI
      */
     public LoggerController(Printer printer, MessageFilter filter) {
+        super(0);
         this.printer = printer;
         this.filter = filter;
     }
 
+    public LoggerController() {
+        this(null,null); // XOR super()
+    }
+
     @Override
-    public Integer log(DecoratingMessage message, SeverityLevel severity) {
+    public final Integer log(DecoratingMessage message, SeverityLevel severity) {
         super.log(message, severity);
 
         Printer.commonMethod();
