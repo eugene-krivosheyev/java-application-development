@@ -2,28 +2,31 @@ package demo;
 
 public class TemplateMethodDemo {
     public static void main(String[] args) {
-
+        AbstractLogger logger = new CustomLogger1();
+        logger.log();
     }
 }
 
-class Logger {
-    public void log(int m) {
+abstract class AbstractLogger {
+    public void log() {
         //....
-        customStep1(); // delegate.customStep(); -> "Strategy"
-        //....
-    }
-
-    public void log(String m) {
-        //....
-        customStep2(); // delegate.customStep();
+        this.customStep();
         //....
     }
 
-    private void customStep2() {
+    protected abstract void customStep();
+}
 
+class CustomLogger1 extends AbstractLogger {
+    @Override
+    protected void customStep() {
+        System.out.println("1");
     }
+}
 
-    private void customStep1() {
-
+class CustomLogger2 extends AbstractLogger {
+    @Override
+    protected void customStep() {
+        System.out.println("2");
     }
 }
