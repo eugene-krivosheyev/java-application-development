@@ -21,7 +21,6 @@ abstract class Logger {
         //....
         //....
     }
-
     protected abstract Number step() throws IllegalArgumentException;
 }
 
