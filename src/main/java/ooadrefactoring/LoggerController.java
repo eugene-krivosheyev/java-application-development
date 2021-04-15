@@ -18,6 +18,7 @@ public class LoggerController extends AbstractController {
 
         Printer.newStaticMethod("");
         printer.newMethod();
+
         printer.print(newMessage.getDecoratedBody());
     }
 }
