@@ -13,8 +13,7 @@ package ooadrefactoring;
  * ЖЦ инстансов? Когда порождаются инстансы?
  */
 public class LoggerFacade {
-    private static LoggerController controller
-            = new LoggerController(new ConsolePrinter());
+    private static AbstractController controller = new LoggerController(new ConsolePrinter());
 
     public static void log(String message) {
         controller.log(new StringMessage(message));
