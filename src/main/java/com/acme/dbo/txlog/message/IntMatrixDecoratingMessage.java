@@ -1,22 +1,17 @@
 package com.acme.dbo.txlog.message;
 
-import com.acme.dbo.txlog.message.utils.DecoratingUtils;
+import static com.acme.dbo.txlog.message.utils.DecoratingUtils.matrixToString;
 
-public class IntMatrixDecoratingMessage implements DecoratingMessage {
-    public static final String PREFIX = "primitives matrix: ";
-    private final int[][] body;
+public class IntMatrixDecoratingMessage extends AbstractDecoratingMessage {
+    private static final String PREFIX = "primitives matrix: ";
 
     public IntMatrixDecoratingMessage(final int[][] body) {
-        this.body = body;
+        this.body = matrixToString(body);
+        this.prefix = PREFIX;
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return PREFIX + DecoratingUtils.matrixToString(this.body);
-    }
-
-    @Override
-    public int[][] getBody() {
-        return this.body;
+    public boolean isEqualType(DecoratingMessage message) {
+        return message instanceof IntMatrixDecoratingMessage;
     }
 }

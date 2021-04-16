@@ -24,6 +24,7 @@ public class LoggerTest03 implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() {
         //region when
         Facade.log(new int[] {-1, 0, 1});
+        Facade.flush();
         //endregion
 
         //region then
@@ -37,6 +38,7 @@ public class LoggerTest03 implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() {
         //region when
         Facade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        Facade.flush();
         //endregion
 
         //region then
@@ -54,6 +56,7 @@ public class LoggerTest03 implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMulitidimentionalArray() {
         //region when
         Facade.log(new int[][][][] {{{{0}}}});
+        Facade.flush();
         //endregion
 
         //region then

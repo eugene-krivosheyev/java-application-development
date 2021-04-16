@@ -1,20 +1,15 @@
 package com.acme.dbo.txlog.message;
 
-public class ReferenceDecoratingMessage implements DecoratingMessage {
-    public static final String PREFIX = "reference: ";
-    private final Object body;
+public class ReferenceDecoratingMessage extends AbstractDecoratingMessage {
+    private static final String PREFIX = "reference: ";
 
     public ReferenceDecoratingMessage(final Object body) {
         this.body = body;
+        this.prefix = PREFIX;
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return PREFIX + body;
-    }
-
-    @Override
-    public Object getBody() {
-        return this.body;
+    public boolean isEqualType(DecoratingMessage message) {
+        return message instanceof ReferenceDecoratingMessage;
     }
 }

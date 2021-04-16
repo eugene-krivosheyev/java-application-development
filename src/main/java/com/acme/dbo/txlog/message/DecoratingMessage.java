@@ -3,5 +3,7 @@ package com.acme.dbo.txlog.message;
 public interface DecoratingMessage {
     String getDecoratedMessage();
 
-    Object getBody();
+    DecoratingMessage accumulate(DecoratingMessage message);
+
+    boolean isEqualType(DecoratingMessage message);
 }

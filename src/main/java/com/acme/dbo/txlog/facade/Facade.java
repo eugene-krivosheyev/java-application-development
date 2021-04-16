@@ -9,7 +9,6 @@ import com.acme.dbo.txlog.message.IntMultimatrixDecoratingMessage;
 import com.acme.dbo.txlog.message.NumberDecoratingMessage;
 import com.acme.dbo.txlog.message.ReferenceDecoratingMessage;
 import com.acme.dbo.txlog.message.StringDecoratingMessage;
-import com.acme.dbo.txlog.model.LoggingType;
 import com.acme.dbo.txlog.printer.ConsolePrinter;
 
 public class Facade {
@@ -17,11 +16,11 @@ public class Facade {
     private static final LoggerController loggerController = new LoggerController(new ConsolePrinter());
 
     public static void log(int message) {
-        loggerController.log(new NumberDecoratingMessage(message, Integer.MAX_VALUE), LoggingType.INT);
+        loggerController.log(new NumberDecoratingMessage(message, Integer.MAX_VALUE));
     }
 
     public static void log(byte message) {
-        loggerController.log(new NumberDecoratingMessage(message, Byte.MAX_VALUE), LoggingType.BYTE);
+        loggerController.log(new NumberDecoratingMessage(message, Byte.MAX_VALUE));
     }
 
     public static void log(int... message) {

@@ -1,20 +1,15 @@
 package com.acme.dbo.txlog.message;
 
-public class BooleanDecoratingMessage implements DecoratingMessage {
-    public static final String PREFIX = "primitive: ";
-    private final boolean body;
+public class BooleanDecoratingMessage extends AbstractDecoratingMessage {
+    private static final String PREFIX = "primitive: ";
 
     public BooleanDecoratingMessage(final boolean body) {
         this.body = body;
+        this.prefix = PREFIX;
     }
 
     @Override
-    public String getDecoratedMessage() {
-        return PREFIX + body;
-    }
-
-    @Override
-    public Boolean getBody() {
-        return this.body;
+    public boolean isEqualType(DecoratingMessage message) {
+        return message instanceof BooleanDecoratingMessage;
     }
 }
