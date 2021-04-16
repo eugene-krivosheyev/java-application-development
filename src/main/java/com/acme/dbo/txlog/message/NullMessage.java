@@ -1,14 +1,20 @@
 package com.acme.dbo.txlog.message;
 
-public class NullMessage implements Message{
+import com.acme.dbo.txlog.controller.AccumulatorState;
+
+public class NullMessage extends AbstractMessage implements Message{
+    public NullMessage() {
+        this.status = AccumulatorState.NONE;
+    }
+
     @Override
     public Object getValue() {
-        return null;
+        return new Object();
     }
 
     @Override
     public Message accumulate(Message message) {
-        return message.accumulate(message);
+        return message;
     }
 
     @Override

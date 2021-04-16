@@ -1,9 +1,9 @@
 package com.acme.dbo.txlog.message;
 
-public class IntArrayMessage implements Message{
-    private final int[] value;
-    private final String DECORATION_PREFIX  = "primitives array: ";
-    private final String DECORATION_POSTFIX = "";
+import com.acme.dbo.txlog.controller.AccumulatorState;
+
+public class IntArrayMessage extends AbstractMessage implements Message{
+
     private static final String ARRAY_PREFIX = "{";
     private static final String ARRAY_DEVIDER = ", ";
     private static final String ARRAY_POSTFIX = "}";
@@ -11,15 +11,13 @@ public class IntArrayMessage implements Message{
 
     public IntArrayMessage(int[] value) {
         this.value = value;
+        this.DECORATION_PREFIX = "primitives array: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.INT_ARRAY;
     }
 
     public IntArrayMessage() {
         this(new int[] {0});
-    }
-
-    @Override
-    public Object getValue() {
-        return value;
     }
 
     @Override
@@ -29,7 +27,7 @@ public class IntArrayMessage implements Message{
 
     @Override
     public String toString() {
-        return DECORATION_PREFIX + arrayToString(value) + DECORATION_POSTFIX;
+        return DECORATION_PREFIX + arrayToString((int[]) value) + DECORATION_POSTFIX;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class IntArrayMessage implements Message{
         if (decorate) {
             return toString();
         } else {
-            return arrayToString(value);
+            return arrayToString((int[]) value);
         }
     }
 

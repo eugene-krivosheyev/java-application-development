@@ -1,5 +1,7 @@
 package com.acme.dbo.txlog.message;
 
+import com.acme.dbo.txlog.controller.AccumulatorState;
+
 public interface Message {
 
     Object getValue();
@@ -11,11 +13,7 @@ public interface Message {
 
     Message getDefaultMessage();
 
-    default boolean isNumberOverflow(Message message) {
-        return false;
-    }
+    AccumulatorState getStatus();
 
-    default boolean isValueEqual(Message message) {
-        return false;
-    }
+    boolean isAccumulatable(Message message);
 }

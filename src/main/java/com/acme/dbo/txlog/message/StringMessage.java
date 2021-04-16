@@ -1,13 +1,11 @@
 package com.acme.dbo.txlog.message;
 
 
-public class StringMessage implements Message{
+import com.acme.dbo.txlog.controller.AccumulatorState;
 
-    private final String DECORATION_PREFIX  = "string: ";
-    private final String DECORATION_POSTFIX = "";
+public class StringMessage extends AbstractMessage implements Message {
 
-    private final Object value;
-    private final int repeateCounter;
+    private final int repeatCounter;
 
     public StringMessage(String value) {
         this(value, 1);
@@ -19,11 +17,10 @@ public class StringMessage implements Message{
 
     private StringMessage(String value, int repeateCounter) {
         this.value = value;
-        this.repeateCounter = repeateCounter;
-    }
-
-    public Object getValue() {
-        return value;
+        this.repeatCounter = repeateCounter;
+        this.DECORATION_PREFIX = "string: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.STRING;
     }
 
     @Override
@@ -31,21 +28,21 @@ public class StringMessage implements Message{
         return new StringMessage();
     }
 
-    public boolean isValueEqual(Message message) {
+    public boolean isAccumulatable(Message message) {
         return this.value.equals(message.getValue());
     }
 
     public StringMessage accumulate(Message message) {
         if (value.equals(message.getValue())) {
-            return new StringMessage(value.toString(), repeateCounter + 1);
+            return new StringMessage(value.toString(), repeatCounter + 1);
         } else {
             return new StringMessage(message.getValue().toString(), 1);
         }
     }
     @Override
     public String toString() {
-        if (repeateCounter > 1) {
-            return DECORATION_PREFIX + value + " (x" + repeateCounter + ")" + DECORATION_POSTFIX;
+        if (repeatCounter > 1) {
+            return DECORATION_PREFIX + value + " (x" + repeatCounter + ")" + DECORATION_POSTFIX;
         } else {
             return DECORATION_PREFIX + value + DECORATION_POSTFIX;
         }

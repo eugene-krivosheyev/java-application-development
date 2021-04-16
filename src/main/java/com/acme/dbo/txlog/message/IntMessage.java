@@ -1,14 +1,15 @@
 package com.acme.dbo.txlog.message;
 
 
-public class IntMessage implements Message {
-    private final int value;
-    private final String DECORATION_PREFIX  = "primitive: ";
-    private final String DECORATION_POSTFIX = "";
+import com.acme.dbo.txlog.controller.AccumulatorState;
 
+public class IntMessage extends AbstractMessage implements Message {
 
     public IntMessage(int value) {
         this.value = value;
+        this.DECORATION_PREFIX = "primitive: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.INT;
     }
 
     public IntMessage() {
@@ -21,21 +22,15 @@ public class IntMessage implements Message {
     }
 
     @Override
-    public Object getValue() {
-        return value;
-    }
-
-    @Override
     public IntMessage accumulate(Message message) {
-        return new IntMessage(value + (int) message.getValue());
+        return new IntMessage((int) value + (int) message.getValue());
     }
-
     @Override
-    public String toString() {
-        return DECORATION_PREFIX + value + DECORATION_POSTFIX;
-    }
-
-    public boolean isNumberOverflow (Message testMessage) {
-        return (long) value + ((Integer) testMessage.getValue()).intValue() > Integer.MAX_VALUE;
+    public boolean isAccumulatable (Message testMessage) {
+        if (testMessage.getStatus() == status) {
+            return (long) (Integer) value + (Integer) testMessage.getValue() <= Integer.MAX_VALUE;
+        } else {
+            return false;
+        }
     }
 }

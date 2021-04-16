@@ -1,13 +1,14 @@
 package com.acme.dbo.txlog.message;
 
-public class ObjectMessage implements Message {
-    private final Object value;
-    private final String DECORATION_PREFIX  = "reference: ";
-    private final String DECORATION_POSTFIX = "";
+import com.acme.dbo.txlog.controller.AccumulatorState;
 
+public class ObjectMessage extends AbstractMessage implements Message {
 
     public ObjectMessage(Object value) {
         this.value = value;
+        this.DECORATION_PREFIX = "reference: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.OBJ;
     }
 
     public ObjectMessage() {
@@ -15,18 +16,8 @@ public class ObjectMessage implements Message {
     }
 
     @Override
-    public Object getValue() {
-        return value;
-    }
-
-    @Override
     public ObjectMessage accumulate(Message message) {
         return new ObjectMessage(message.getValue());
-    }
-
-    @Override
-    public String toString() {
-        return DECORATION_PREFIX + value.toString() + DECORATION_POSTFIX;
     }
 
     @Override

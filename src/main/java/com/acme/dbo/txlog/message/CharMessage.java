@@ -1,13 +1,14 @@
 package com.acme.dbo.txlog.message;
 
-public class CharMessage implements Message {
-    private final char value;
-    private final String DECORATION_PREFIX  = "char: ";
-    private final String DECORATION_POSTFIX = "";
+import com.acme.dbo.txlog.controller.AccumulatorState;
 
+public class CharMessage extends AbstractMessage implements Message {
 
     public CharMessage(char value) {
         this.value = value;
+        this.DECORATION_PREFIX = "char: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.CHAR;
     }
 
     public CharMessage() {
@@ -15,18 +16,8 @@ public class CharMessage implements Message {
     }
 
     @Override
-    public Object getValue() {
-        return value;
-    }
-
-    @Override
     public CharMessage accumulate(Message message) {
-        return new CharMessage((char) (value + (char) message.getValue()));
-    }
-
-    @Override
-    public String toString() {
-        return DECORATION_PREFIX + value + DECORATION_POSTFIX;
+        return new CharMessage((char) ((char) value + (char) message.getValue()));
     }
 
     @Override

@@ -1,24 +1,22 @@
 package com.acme.dbo.txlog.message;
 
-public class IntArrayMatrixMessage implements Message {
-    private final int[][] value;
-    private final String DECORATION_PREFIX  = "primitives matrix: ";
-    private final String DECORATION_POSTFIX = "";
+import com.acme.dbo.txlog.controller.AccumulatorState;
+
+public class IntArrayMatrixMessage extends AbstractMessage implements Message {
+
     private static final String MATRIX_PREFIX = "{" + System.lineSeparator();
     private static final String MATRIX_POSTFIX = "}";
 
 
     public IntArrayMatrixMessage(int[][] value) {
         this.value = value;
+        this.DECORATION_PREFIX = "primitives matrix: ";
+        this.DECORATION_POSTFIX = "";
+        this.status = AccumulatorState.INT_MATRIX;
     }
 
     public IntArrayMatrixMessage() {
         this(new int[][] {{0}});
-    }
-
-    @Override
-    public Object getValue() {
-        return value;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class IntArrayMatrixMessage implements Message {
 
     @Override
     public String toString() {
-        return DECORATION_PREFIX + matrixToString(value) + DECORATION_POSTFIX;
+        return DECORATION_PREFIX + matrixToString((int[][]) value) + DECORATION_POSTFIX;
     }
 
     @Override
