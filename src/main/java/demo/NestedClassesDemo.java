@@ -2,6 +2,7 @@ package demo;
 
 import com.sun.tools.javac.util.List;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -48,6 +49,16 @@ public class NestedClassesDemo {
                 .map(e -> "string " + e)
                 .forEach(System.out::println); // - >
 
+
+
+        new ArrayList<String>() {{
+                this.add("");
+                add("");
+                add("");
+                add("");
+        }};
+
+        List.of(1,2,3,5);
     }
 
     private static void reusableM(Todo todo) {
