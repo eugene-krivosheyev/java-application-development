@@ -6,6 +6,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class NestedClassesDemo {
+    private static int staticState;
+    private int instanceState;
     //state
     public static void main(String[] args) {
         TopLevel.StaticNested o = new TopLevel.StaticNested();
@@ -27,9 +29,10 @@ public class NestedClassesDemo {
         template( String::toUpperCase );
 
 
+        final int localVar = 2;
         System.out.println("=============");
-        List.of(1,3,2,4,5).stream()
-            .filter(integer -> integer >= 3)
+        List.of(1,3,2,4,5).stream().parallel()
+            .filter(integer -> integer >= localVar)
             .map(String::valueOf)
             .map(s -> "string: " + s)
             .forEach(System.out::println);
