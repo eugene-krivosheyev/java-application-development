@@ -1,5 +1,9 @@
 package com.acme.dbo.txlog;
 
+import logger.IntMessage;
+import logger.LoggerController;
+import logger.StringMessage;
+
 import java.util.Arrays;
 
 import static com.acme.dbo.txlog.FacadePrefixes.*;
@@ -13,19 +17,22 @@ public class Facade {
     private static String cumulativeStringLog = "";
     private static int cumulativeStringLogCounter = 0;
 
+    private static LoggerController loggerController = new LoggerController();
+
     public static void log( int message ) {
-        if (currentLogState != "int") {
-            flush();
-            currentLogState = "int";
-            cumulativeIntLog = message;
-        } else {
-            if(sumNotOverflowGivenLimit(cumulativeIntLog, message, Integer.MAX_VALUE)){
-                cumulativeIntLog += message;
-            } else {
-                flush();
-                log(message);
-            }
-        }
+        loggerController.logMessage(new IntMessage(message));
+//        if (currentLogState != "int") {
+//            flush();
+//            currentLogState = "int";
+//            cumulativeIntLog = message;
+//        } else {
+//            if(sumNotOverflowGivenLimit(cumulativeIntLog, message, Integer.MAX_VALUE)){
+//                cumulativeIntLog += message;
+//            } else {
+//                flush();
+//                log(message);
+//            }
+//        }
     }
 
     
@@ -65,9 +72,11 @@ public class Facade {
     }
 
     public static void log(String message){
-        stringProcessingInLog(message);
+        loggerController.logMessage(new StringMessage(message));
+        //stringProcessingInLog(message);
     }
-    
+
+
     public static void log( String... message ) {
         for (String s : message) {
             stringProcessingInLog(s);
