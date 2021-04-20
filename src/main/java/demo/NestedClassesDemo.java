@@ -44,8 +44,10 @@ public class NestedClassesDemo {
         List.of(1,3,2,4).stream()
                 .filter(e -> e >= 2)
                 .map(String::valueOf)
-                .map(e -> "string: " + e)
+                .map(e -> ": " + e)
+                .map(e -> "string " + e)
                 .forEach(System.out::println); // - >
+
     }
 
     private static void reusableM(Todo todo) {
