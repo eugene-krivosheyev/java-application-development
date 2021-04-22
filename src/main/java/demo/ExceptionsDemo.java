@@ -42,23 +42,14 @@ class Controller {
 class Printer {
     public void print(String message) {
         //....
-        Connection conn = null;
-        try {
-            conn = new ????();
+        try (Connection conn = new ????) {
+            //...
             systemLibWrite();
             // -
         } catch (RuntimeException e) {
             //log(e)
             throw new RuntimeException(message + " didn't print", e);
             // -
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
         }
         //....
     }
