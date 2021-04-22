@@ -1,24 +1,19 @@
 package com.acme.dbo.txlog.message;
 
-public class NumberDecoratingMessage implements DecoratingMessage {
+public class NumberDecoratingMessage extends AbstractDecoratingMessage<Long> {
     private static final String PREFIX = "primitive: ";
     private final int overflowMaxValue;
-    protected Long body;
 
     public NumberDecoratingMessage(final long body, final int overflowMaxValue) {
         this.body = body;
         this.overflowMaxValue = overflowMaxValue;
+        this.prefix = PREFIX;
     }
 
     @Override
     public boolean isEqualType(DecoratingMessage message) {
         return message instanceof NumberDecoratingMessage
                 && this.overflowMaxValue == ((NumberDecoratingMessage) message).overflowMaxValue;
-    }
-
-    @Override
-    public String getDecoratedMessage() {
-        return PREFIX + this.body;
     }
 
     @Override

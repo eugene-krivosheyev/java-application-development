@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.message;
 
 import static com.acme.dbo.txlog.message.utils.DecoratingUtils.arrayToString;
 
-public class IntArrayDecoratingMessage extends AbstractDecoratingMessage {
+public class IntArrayDecoratingMessage extends AbstractDecoratingMessage<int[]> {
     private static final String PREFIX = "primitives array: ";
 
     public IntArrayDecoratingMessage(final int[] body) {

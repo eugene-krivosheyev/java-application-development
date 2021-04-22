@@ -2,7 +2,7 @@ package com.acme.dbo.txlog.message;
 
 import static com.acme.dbo.txlog.message.utils.DecoratingUtils.multiMatrixToString;
 
-public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage {
+public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage<int[][][][]> {
     private static final String PREFIX = "primitives multimatrix: ";
 
     public IntMultimatrixDecoratingMessage(final int[][][][] body) {

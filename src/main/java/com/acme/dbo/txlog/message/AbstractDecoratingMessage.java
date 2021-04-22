@@ -2,10 +2,10 @@ package com.acme.dbo.txlog.message;
 
 import java.util.function.Function;
 
-public abstract class AbstractDecoratingMessage implements DecoratingMessage {
+public abstract class AbstractDecoratingMessage<T> implements DecoratingMessage {
     protected String prefix;
-    protected Object body;
-    protected Function<Object, String> decoratingFunction;
+    protected T body;
+    protected Function<T, String> decoratingFunction;
 
     @Override
     public DecoratingMessage accumulate(DecoratingMessage message) {

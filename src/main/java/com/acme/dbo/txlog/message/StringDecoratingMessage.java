@@ -1,8 +1,7 @@
 package com.acme.dbo.txlog.message;
 
-public class StringDecoratingMessage extends AbstractDecoratingMessage {
+public class StringDecoratingMessage extends AbstractDecoratingMessage<String> {
     private static final String PREFIX = "string: ";
-    private final String body;
     private final int repeated;
 
     public StringDecoratingMessage(final String body) {
