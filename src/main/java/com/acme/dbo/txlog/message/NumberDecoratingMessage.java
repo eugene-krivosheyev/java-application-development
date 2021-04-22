@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-public class NumberDecoratingMessage extends AbstractDecoratingMessage {
+public class NumberDecoratingMessage implements DecoratingMessage {
     private static final String PREFIX = "primitive: ";
     private final int overflowMaxValue;
     protected Long body;
@@ -8,7 +8,6 @@ public class NumberDecoratingMessage extends AbstractDecoratingMessage {
     public NumberDecoratingMessage(final long body, final int overflowMaxValue) {
         this.body = body;
         this.overflowMaxValue = overflowMaxValue;
-        this.prefix = PREFIX;
     }
 
     @Override
@@ -19,7 +18,7 @@ public class NumberDecoratingMessage extends AbstractDecoratingMessage {
 
     @Override
     public String getDecoratedMessage() {
-        return this.prefix + this.body;
+        return PREFIX + this.body;
     }
 
     @Override

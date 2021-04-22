@@ -6,8 +6,9 @@ public class IntMatrixDecoratingMessage extends AbstractDecoratingMessage {
     private static final String PREFIX = "primitives matrix: ";
 
     public IntMatrixDecoratingMessage(final int[][] body) {
-        this.body = matrixToString(body);
+        this.body = body;
         this.prefix = PREFIX;
+        this.decoratingFunction = (p) -> matrixToString((int[][]) p);
     }
 
     @Override

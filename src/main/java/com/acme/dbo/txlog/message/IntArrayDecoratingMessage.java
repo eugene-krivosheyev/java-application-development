@@ -6,8 +6,9 @@ public class IntArrayDecoratingMessage extends AbstractDecoratingMessage {
     private static final String PREFIX = "primitives array: ";
 
     public IntArrayDecoratingMessage(final int[] body) {
-        this.body = arrayToString(body);
+        this.body = body;
         this.prefix = PREFIX;
+        this.decoratingFunction = (p) -> arrayToString((int[]) p);
     }
 
     @Override

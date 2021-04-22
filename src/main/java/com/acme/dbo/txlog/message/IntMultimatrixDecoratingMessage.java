@@ -6,8 +6,9 @@ public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage {
     private static final String PREFIX = "primitives multimatrix: ";
 
     public IntMultimatrixDecoratingMessage(final int[][][][] body) {
-        this.body = multiMatrixToString(body);
+        this.body = body;
         this.prefix = PREFIX;
+        this.decoratingFunction = (p) -> multiMatrixToString((int[][][][]) p);
     }
 
     @Override
