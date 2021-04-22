@@ -49,7 +49,7 @@ class Controller {
             printer.print(m);
             conn.commit();
             //...
-        } catch (PrintException e) {
+        } catch (PrintException | RuntimeException e) {
             throw new LogException("", e);
         } catch (SQLException e) {
             e.printStackTrace();
