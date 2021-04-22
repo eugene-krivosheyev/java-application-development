@@ -4,22 +4,8 @@ Java Application Development
 _2. Java Application as a White Box: designing, coding, debugging and using._ 51hrs.
 
 # Recordings
-- [25.02](https://us02web.zoom.us/rec/share/gGCYwGMkiVbxse0RRQCdQioacna880vWEywb52Rpuk-my1sAoa5XhdIzrcGRIucN.icrDiEvIak0gUTUT)
-- [02.03](https://us02web.zoom.us/rec/share/vLjSe665N9hAkVosrEt-Z-dpZlSmSJg6ESrlgdTgIn9CFuSto3Wvbail5jA8g0KY._pRYjSPd41mY7C6L)
-- [04.03](https://us02web.zoom.us/rec/share/aq1xwp-XHvLMGSweCbl3SWDu0FeGXnHcaOwipmEouB4yKnEho06hX_DS07CZe9YG.OlF1ewq-WabhQv0k)
-- [09.03](https://us02web.zoom.us/rec/share/fU1AoDhKItkcAR3L4MNSNjflbFGK9yqydB2l9N4NBgkRjxRIq-2qk7CK2JXZ-VXE.j07pnQxVdOAh48Fh)
-- [11.03](https://us02web.zoom.us/rec/share/31e5gnpTJhuWMw3ejaCGOZbDxKoG2y6FZwxp_SK_PUqsZZt-M8Mcil6kSIogVRbf.-wW1QilP9_jUcKmB)
-- [16.03](https://us02web.zoom.us/rec/share/A2wk5hsq8FSUS6rN_nt3NdasOrtK_YKuC7Fk-e4Ht0IIg7JCGQL_0o8PCyfE-UpX.oLYzq758GHevnwIe)
-- [18.03](https://us02web.zoom.us/rec/share/SN-p9lZ8QdIaMomsQCoAL3AlGU-G2_w8oI2VJ09j0GszZXOPo_KpxDneM0N1pl6j.aTew3EKqtf4hK6XL) (ошибка записи, поэтому запись от второй группы)
-- [23.03](https://us02web.zoom.us/rec/share/Y1DTLrXzYjWqbi_3wC2Q6GngkBbzJVVct7PVxV4VWKtOQKClkN2FLHsjNUl4qFuo.eb1CaqPP82cFJGJV)
-- [25.03](https://us02web.zoom.us/rec/share/POWmAwrr6tWEJolJ6T_h09Q0DVnw8QGGYB_IpiIVlvG_pj3kAM_2cDk896W8-zll.KOJCpvmc6q_miXJh)
-- [30.03](https://us02web.zoom.us/rec/share/CR9lTaHdMBBpM8CTvo9dWOdPjyPQMUyh7Natz531fBYQJt1QTKZa0WFw0aAfXC_m.jiwmUUYJVrRRcKeI)
-- [01.04](https://us02web.zoom.us/rec/share/q793jZIQk428Lf1g62nzUXxtSw99uGVN-FeEcugi4lQyxGcNt8i9l66EaBd0_lP8.OW0ObJOnmdKooiob)
-- [06.04](https://us02web.zoom.us/rec/share/sCeWEe-G3gOIgr4IArZ0FejuYMbv0pWR3dIYqbNLkh1jZEbdGzGNg3nBkiTNL4lA.d-qcVREkr7cTd0Mi)
-- [08.04](https://us02web.zoom.us/rec/share/sqxE8i0bkIOOYHSFv_vdHdU1GkvlweCRkQyFK9KwYLJpincifXXfEiHkN561ZNbf.H5KjLbp5d444PSjZ)
-- [13.04](https://us02web.zoom.us/rec/share/KojAHTSE3aPTVsBpeM9DkqTo5iUQT5ZJ_TsXwdun-1dv4Wxr0WXlBGLHcPEazsyy.bYrkU1ZgTyQr_H85)
-- [15.04](https://us02web.zoom.us/rec/share/c2MPlvson5YYVAytkeAWw9wPpbgU0yXE6ksD0CKRQvuFn--ClR9YRUFut5ZYJo3H.Mg0qofc_ys5_Mnzo)
 - [20.04](https://us02web.zoom.us/rec/share/sewKdUWPTV1YjxJaqRhIutWKz3REsueOa-j5cd6TzPYr5fhcBh8-q5zCZ38JpIDz.F7Nad68-OV8zb97z)
+- [22.04](https://us02web.zoom.us/rec/share/87zvIp7Rn-BSC9lr2GTGmjWwS-WUrIbpQdemhxvpixyGOUtLvHFgx6L03T3BqYeZ.wak9gp6epCy53-QA)
 
 # Attendee prerequisites
 - [ ] Training «1. Java Application Building» completion
