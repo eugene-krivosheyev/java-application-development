@@ -42,11 +42,11 @@ class Controller {
 class Printer {
     public void print(String message) {
         //....
-        try (Connection conn = new ????) {
+        try (Connection conn = null) {
             //...
             systemLibWrite();
             // -
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | SQLException e) {
             //log(e)
             throw new RuntimeException(message + " didn't print", e);
             // -
