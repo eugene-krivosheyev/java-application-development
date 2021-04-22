@@ -8,6 +8,8 @@ import ooaddemo.printer.ConsolePrinter;
 import ooaddemo.printer.Printer;
 
 import java.io.IOException;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 
 /**
  * Code reuse := responsibility delegation | inheritance | frameworks | generic progr | HOF
@@ -15,13 +17,13 @@ import java.io.IOException;
  *  Inheritance = polymorphism + state and behavior reuse
  */
 public final class LoggerController extends ValidatingController {
-    private final Printer printer;
-    private final MessageFilter filter;
+    private final Consumer<String> printer;
+    private final BiPredicate<DecoratingMessage, SeverityLevel> filter;
 
     /**
      * Constructor DI
      */
-    public LoggerController(Printer printer, MessageFilter filter) {
+    public LoggerController(Consumer<String> printer, BiPredicate<DecoratingMessage, SeverityLevel> filter) {
         super(0);
         this.printer = printer;
         this.filter = filter;
@@ -36,14 +38,10 @@ public final class LoggerController extends ValidatingController {
         super.log(message, severity);
 
         Printer.commonMethod();
-        printer.instMethod();
+//        printer.instMethod();
 
-        if (filter.filter(message, severity)) {
-            try {
-                printer.print(message.getDecoratedMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (filter.test(message, severity)) {
+            printer.accept(message.getDecoratedMessage());
         }
 
         return null;
