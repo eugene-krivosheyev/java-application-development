@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import static com.acme.dbo.txlog.message.utils.DecoratingUtils.arrayToString;
+import com.acme.dbo.txlog.message.utils.DecoratingUtils;
 
 public class IntArrayDecoratingMessage extends AbstractDecoratingMessage<int[]> {
     private static final String PREFIX = "primitives array: ";
@@ -8,7 +8,7 @@ public class IntArrayDecoratingMessage extends AbstractDecoratingMessage<int[]> 
     public IntArrayDecoratingMessage(final int[] body) {
         this.body = body;
         this.prefix = PREFIX;
-        this.decoratingFunction = (p) -> arrayToString((int[]) p);
+        this.decoratingFunction = DecoratingUtils::arrayToString;
     }
 
     @Override

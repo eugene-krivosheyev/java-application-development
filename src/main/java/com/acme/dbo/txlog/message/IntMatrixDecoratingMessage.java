@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import static com.acme.dbo.txlog.message.utils.DecoratingUtils.matrixToString;
+import com.acme.dbo.txlog.message.utils.DecoratingUtils;
 
 public class IntMatrixDecoratingMessage extends AbstractDecoratingMessage<int[][]> {
     private static final String PREFIX = "primitives matrix: ";
@@ -8,7 +8,7 @@ public class IntMatrixDecoratingMessage extends AbstractDecoratingMessage<int[][
     public IntMatrixDecoratingMessage(final int[][] body) {
         this.body = body;
         this.prefix = PREFIX;
-        this.decoratingFunction = (p) -> matrixToString((int[][]) p);
+        this.decoratingFunction = DecoratingUtils::matrixToString;
     }
 
     @Override

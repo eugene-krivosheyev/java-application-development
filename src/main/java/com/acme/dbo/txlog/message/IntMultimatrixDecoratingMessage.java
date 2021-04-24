@@ -1,6 +1,6 @@
 package com.acme.dbo.txlog.message;
 
-import static com.acme.dbo.txlog.message.utils.DecoratingUtils.multiMatrixToString;
+import com.acme.dbo.txlog.message.utils.DecoratingUtils;
 
 public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage<int[][][][]> {
     private static final String PREFIX = "primitives multimatrix: ";
@@ -8,7 +8,7 @@ public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage<i
     public IntMultimatrixDecoratingMessage(final int[][][][] body) {
         this.body = body;
         this.prefix = PREFIX;
-        this.decoratingFunction = (p) -> multiMatrixToString((int[][][][]) p);
+        this.decoratingFunction = DecoratingUtils::multiMatrixToString;
     }
 
     @Override
