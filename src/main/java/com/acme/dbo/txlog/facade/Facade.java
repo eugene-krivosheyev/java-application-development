@@ -2,11 +2,12 @@ package com.acme.dbo.txlog.facade;
 
 import com.acme.dbo.txlog.controller.LoggerController;
 import com.acme.dbo.txlog.message.BooleanDecoratingMessage;
+import com.acme.dbo.txlog.message.ByteDecoratingMessage;
 import com.acme.dbo.txlog.message.CharDecoratingMessage;
 import com.acme.dbo.txlog.message.IntArrayDecoratingMessage;
+import com.acme.dbo.txlog.message.IntDecoratingMessage;
 import com.acme.dbo.txlog.message.IntMatrixDecoratingMessage;
 import com.acme.dbo.txlog.message.IntMultimatrixDecoratingMessage;
-import com.acme.dbo.txlog.message.NumberDecoratingMessage;
 import com.acme.dbo.txlog.message.ReferenceDecoratingMessage;
 import com.acme.dbo.txlog.message.StringDecoratingMessage;
 import com.acme.dbo.txlog.printer.ConsolePrinter;
@@ -16,11 +17,11 @@ public class Facade {
     private static final LoggerController loggerController = new LoggerController(new ConsolePrinter());
 
     public static void log(int message) {
-        loggerController.log(new NumberDecoratingMessage(message, Integer.MAX_VALUE));
+        loggerController.log(new IntDecoratingMessage(message));
     }
 
     public static void log(byte message) {
-        loggerController.log(new NumberDecoratingMessage(message, Byte.MAX_VALUE));
+        loggerController.log(new ByteDecoratingMessage(message));
     }
 
     public static void log(int... message) {
