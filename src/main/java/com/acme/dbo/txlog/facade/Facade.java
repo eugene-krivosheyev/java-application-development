@@ -2,15 +2,17 @@ package com.acme.dbo.txlog.facade;
 
 import com.acme.dbo.txlog.controller.LoggerController;
 import com.acme.dbo.txlog.message.BooleanDecoratingMessage;
-import com.acme.dbo.txlog.message.ByteDecoratingMessage;
 import com.acme.dbo.txlog.message.CharDecoratingMessage;
 import com.acme.dbo.txlog.message.IntArrayDecoratingMessage;
-import com.acme.dbo.txlog.message.IntDecoratingMessage;
 import com.acme.dbo.txlog.message.IntMatrixDecoratingMessage;
 import com.acme.dbo.txlog.message.IntMultimatrixDecoratingMessage;
 import com.acme.dbo.txlog.message.ReferenceDecoratingMessage;
-import com.acme.dbo.txlog.message.StringDecoratingMessage;
+import com.acme.dbo.txlog.message.accumulating.ByteDecoratingMessage;
+import com.acme.dbo.txlog.message.accumulating.IntDecoratingMessage;
+import com.acme.dbo.txlog.message.accumulating.StringDecoratingMessage;
 import com.acme.dbo.txlog.printer.ConsolePrinter;
+
+import java.util.stream.Stream;
 
 public class Facade {
 
@@ -45,9 +47,7 @@ public class Facade {
     }
 
     public static void log(String... message) {
-        for (String m : message) {
-            log(m);
-        }
+        Stream.of(message).forEach(Facade::log);
     }
 
     public static void log(String message) {

@@ -7,9 +7,4 @@ public class CharDecoratingMessage extends AbstractDecoratingMessage<Character> 
         this.body = body;
         this.prefix = PREFIX;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof CharDecoratingMessage;
-    }
 }

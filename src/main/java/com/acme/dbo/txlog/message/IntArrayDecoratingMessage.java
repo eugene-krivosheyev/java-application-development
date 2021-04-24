@@ -10,9 +10,4 @@ public class IntArrayDecoratingMessage extends AbstractDecoratingMessage<int[]> 
         this.prefix = PREFIX;
         this.decoratingFunction = DecoratingUtils::arrayToString;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof IntArrayDecoratingMessage;
-    }
 }

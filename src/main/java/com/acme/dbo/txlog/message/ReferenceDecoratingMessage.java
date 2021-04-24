@@ -7,9 +7,4 @@ public class ReferenceDecoratingMessage extends AbstractDecoratingMessage<Object
         this.body = body;
         this.prefix = PREFIX;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof ReferenceDecoratingMessage;
-    }
 }

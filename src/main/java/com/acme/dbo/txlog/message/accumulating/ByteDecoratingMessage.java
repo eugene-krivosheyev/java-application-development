@@ -1,4 +1,7 @@
-package com.acme.dbo.txlog.message;
+package com.acme.dbo.txlog.message.accumulating;
+
+import com.acme.dbo.txlog.message.AbstractDecoratingMessage;
+import com.acme.dbo.txlog.message.DecoratingMessage;
 
 public class ByteDecoratingMessage extends AbstractDecoratingMessage<Integer> {
     private static final String PREFIX = "primitive: ";
@@ -11,14 +14,9 @@ public class ByteDecoratingMessage extends AbstractDecoratingMessage<Integer> {
     }
 
     @Override
-    public boolean isEqualType(final DecoratingMessage message) {
-        return message instanceof ByteDecoratingMessage;
-    }
-
-    @Override
     public DecoratingMessage accumulate(final DecoratingMessage message) {
         if (!(message instanceof ByteDecoratingMessage)) {
-            throw new IllegalArgumentException("Parameter 'message' is not of type " + this.getClass().getTypeName());
+            return message;
         }
         final ByteDecoratingMessage addingMessage = (ByteDecoratingMessage) message;
         if (this.body + addingMessage.body > this.overflowMaxValue) {

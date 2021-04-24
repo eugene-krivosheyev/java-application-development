@@ -10,9 +10,4 @@ public class IntMultimatrixDecoratingMessage extends AbstractDecoratingMessage<i
         this.prefix = PREFIX;
         this.decoratingFunction = DecoratingUtils::multiMatrixToString;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof IntMultimatrixDecoratingMessage;
-    }
 }

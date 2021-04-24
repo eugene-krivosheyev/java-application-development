@@ -18,15 +18,10 @@ public class LoggerController {
             lastMessage = message;
             return;
         }
-        if (!message.isEqualType(lastMessage)) {
-            printer.print(lastMessage.getDecoratedMessage());
-            lastMessage = message;
-            return;
-        }
 
         DecoratingMessage accumulatedMessage = lastMessage.accumulate(message);
         if (accumulatedMessage.equals(message)) {
-            this.flush();
+            printer.print(lastMessage.getDecoratedMessage());
         }
 
         lastMessage = accumulatedMessage;

@@ -10,9 +10,4 @@ public class IntMatrixDecoratingMessage extends AbstractDecoratingMessage<int[][
         this.prefix = PREFIX;
         this.decoratingFunction = DecoratingUtils::matrixToString;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof IntMatrixDecoratingMessage;
-    }
 }

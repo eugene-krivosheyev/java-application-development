@@ -7,9 +7,4 @@ public class BooleanDecoratingMessage extends AbstractDecoratingMessage<Boolean>
         this.body = body;
         this.prefix = PREFIX;
     }
-
-    @Override
-    public boolean isEqualType(DecoratingMessage message) {
-        return message instanceof BooleanDecoratingMessage;
-    }
 }
