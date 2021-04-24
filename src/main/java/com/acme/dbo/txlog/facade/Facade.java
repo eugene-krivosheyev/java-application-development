@@ -18,43 +18,43 @@ public class Facade {
 
     private static final LoggerController loggerController = new LoggerController(new ConsolePrinter());
 
-    public static void log(int message) {
+    public static void log(final int message) {
         loggerController.log(new IntDecoratingMessage(message));
     }
 
-    public static void log(byte message) {
+    public static void log(final byte message) {
         loggerController.log(new ByteDecoratingMessage(message));
     }
 
-    public static void log(int... message) {
+    public static void log(final int... message) {
         loggerController.log(new IntArrayDecoratingMessage(message));
     }
 
-    public static void log(int[][] message) {
+    public static void log(final int[][] message) {
         loggerController.log(new IntMatrixDecoratingMessage(message));
     }
 
-    public static void log(int[][][][] message) {
+    public static void log(final int[][][][] message) {
         loggerController.log(new IntMultimatrixDecoratingMessage(message));
     }
 
-    public static void log(boolean message) {
+    public static void log(final boolean message) {
         loggerController.log(new BooleanDecoratingMessage(message));
     }
 
-    public static void log(char message) {
+    public static void log(final char message) {
         loggerController.log(new CharDecoratingMessage(message));
     }
 
-    public static void log(String... message) {
+    public static void log(final String... message) {
         Stream.of(message).forEach(Facade::log);
     }
 
-    public static void log(String message) {
+    public static void log(final String message) {
         loggerController.log(new StringDecoratingMessage(message));
     }
 
-    public static void log(Object message) {
+    public static void log(final Object message) {
         loggerController.log(new ReferenceDecoratingMessage(message));
     }
 

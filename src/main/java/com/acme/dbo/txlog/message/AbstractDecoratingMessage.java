@@ -8,7 +8,7 @@ public abstract class AbstractDecoratingMessage<T> implements DecoratingMessage 
     protected Function<T, String> decoratingFunction;
 
     @Override
-    public DecoratingMessage accumulate(DecoratingMessage message) {
+    public DecoratingMessage accumulate(final DecoratingMessage message) {
         return message;
     }
 

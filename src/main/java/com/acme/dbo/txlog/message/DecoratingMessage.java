@@ -8,5 +8,5 @@ public interface DecoratingMessage {
      * @param message a message to be accumulated
      * @return an accumulated message or the passed <b>message</b> if nothing to accumulate
      */
-    DecoratingMessage accumulate(DecoratingMessage message);
+    DecoratingMessage accumulate(final DecoratingMessage message);
 }

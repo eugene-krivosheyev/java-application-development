@@ -27,7 +27,7 @@ public class StringDecoratingMessage extends AbstractDecoratingMessage<String> {
     }
 
     @Override
-    public DecoratingMessage accumulate(DecoratingMessage message) {
+    public DecoratingMessage accumulate(final DecoratingMessage message) {
         if (!(message instanceof StringDecoratingMessage)) {
             return message;
         }
