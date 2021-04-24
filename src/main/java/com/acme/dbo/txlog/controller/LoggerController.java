@@ -20,7 +20,7 @@ public class LoggerController {
         }
 
         DecoratingMessage accumulatedMessage = lastMessage.accumulate(message);
-        if (accumulatedMessage.equals(message)) {
+        if (accumulatedMessage == message) {
             printer.print(lastMessage.getDecoratedMessage());
         }
 
