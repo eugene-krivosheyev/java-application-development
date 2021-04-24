@@ -35,7 +35,7 @@ public class LoggerController {
     public void flush() {
         if (lastMessage != null) {
             printer.print(lastMessage.getDecoratedMessage());
+            lastMessage = null;
         }
-        lastMessage = null;
     }
 }
