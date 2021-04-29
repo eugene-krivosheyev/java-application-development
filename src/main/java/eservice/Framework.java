@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 public class Framework {
@@ -15,14 +18,15 @@ public class Framework {
         //endregion
 
         //region Main Loop:
+        final ExecutorService pool = Executors.newFixedThreadPool(100);
         while (waitForIncomingConnection()) {
             while (true) { //requests loop
                 Request request = waitForIncomingRequest(); //servlet container: tomcat, jetty
-                switch (request.getOperation()) {
-                    case "GET /account/{id}" : sendResponse(controller.findAccountById(request.getId()));
-                }
+
+                pool.execute( () -> sendResponse(controller.findAccountById(request.getId())));
             }
         }
+        pool.shutdown();
         //endregion
     }
 
