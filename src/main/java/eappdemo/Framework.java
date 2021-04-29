@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 public class Framework {
@@ -28,9 +31,17 @@ public class Framework {
         while (true) {
             // net + treading + HTTP -> servlet container (tomcat, jetty)
             //HTTP request -> custom application class: Spring MVC
-            FindRequest request = getHttpRequest();
-            controller.findAccountById(request);
-            sendHttpResponse();
+
+            //waitForNetworkConnection()
+            final ExecutorService pool = Executors.newFixedThreadPool(10);
+            pool.execute(() -> {
+                    while(true) {
+                        FindRequest request = getHttpRequest();
+                        controller.findAccountById(request);
+                        sendHttpResponse();
+                    }
+            });
+            pool.shutdown();
         }
         //endregion
     }
