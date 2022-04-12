@@ -1,28 +1,10 @@
 package com.acme.dbo.txlog;
 
-import com.acme.dbo.txlog.printer.ConsolePrinter;
-
 import static com.acme.dbo.txlog.decorator.MessageDecorator.decorate;
-import static com.acme.dbo.txlog.printer.ConsolePrinter.*;
+import static com.acme.dbo.txlog.printer.ConsolePrinter.print;
 
-public class Facade {
-    public static void log(int message) {
-        print(decorate(message));
-    }
-
-    public static void log(char message) {
-        print(decorate(message));
-    }
-
-    public static void log(String message) {
-        print(decorate(message));
-    }
-
-    public static void log(boolean message) {
-        print(decorate(message));
-    }
-
-    public static void log(Object message) {
+public class Facade<T> {
+    public static <T> void log(T message) {
         print(decorate(message));
     }
 }
