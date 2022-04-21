@@ -1,11 +1,13 @@
 package com.acme.dbo.txlog;
 
-public class Facade {
-    public static void log(int message) {
-        System.out.println("primitive: " + message);
-    }
+import static com.acme.dbo.txlog.decorator.MessageDecorator.appendLogValue;
+import static com.acme.dbo.txlog.decorator.MessageDecorator.getLoggerContent;
+import static com.acme.dbo.txlog.printer.ConsolePrinter.print;
 
-    public static void log(byte message) {
-        System.out.println("primitive: " + message);
+public class Facade {
+    public static void log(Object obj) {
+        appendLogValue(obj);
+    }
+    public static void flush() { print(getLoggerContent());
     }
 }
