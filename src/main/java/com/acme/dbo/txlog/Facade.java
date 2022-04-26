@@ -16,9 +16,7 @@ public class Facade<T> {
     private static int stringAccumulator;
 
     public static void log (int message) {
-        if (lastMessageDataType != MessageTypes.INT ||
-                (Integer.signum(intAccumulator) == Integer.signum(message) &&
-                 Integer.signum(intAccumulator) != Integer.signum(intAccumulator + message))) {
+        if (lastMessageDataType != MessageTypes.INT || doesSumOverflowsRange(intAccumulator, message)) {
             flush();
         }
         intAccumulator += message;
@@ -26,9 +24,7 @@ public class Facade<T> {
     }
 
     public static void log (byte message) {
-        if (lastMessageDataType != MessageTypes.BYTE ||
-                (Integer.signum(byteAccumulator) == Integer.signum(message) &&
-                 Integer.signum(byteAccumulator) != Integer.signum((byte)(byteAccumulator + message)))) {
+        if (lastMessageDataType != MessageTypes.BYTE || doesSumOverflowsRange(byteAccumulator, message)) {
             flush();
         }
         byteAccumulator += message;
@@ -52,6 +48,16 @@ public class Facade<T> {
     public static void log (Object message) {
         lastMessageDataType = MessageTypes.OBJECT;
         push(message);
+    }
+
+    private static boolean doesSumOverflowsRange(int a, int b) {
+        return Integer.signum(a) == Integer.signum(b) &&
+                Integer.signum(a) != Integer.signum(a + b);
+    }
+
+    private static boolean doesSumOverflowsRange(byte a, byte b) {
+        return Integer.signum(a) == Integer.signum(b) &&
+                Integer.signum(a) != Integer.signum((byte)(a + b));
     }
 
     public static void flush () {
