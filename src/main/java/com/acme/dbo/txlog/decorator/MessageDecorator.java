@@ -12,6 +12,9 @@ public class MessageDecorator<T> {
     }
 
     private static <T> String getPrefix (T message) {
+        if (message == null) {
+            return "";
+        }
         switch (message.getClass().getSimpleName()) {
             case "Character": return CHAR_PREFIX;
             case "String"   : return STRING_PREFIX;
