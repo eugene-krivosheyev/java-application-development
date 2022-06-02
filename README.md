@@ -17,6 +17,7 @@ _2. Java Application as a White Box: designing, coding, debugging and using._ 51
 - [24.05](https://us02web.zoom.us/rec/share/SAztMy1KGQngrQ82XWOhf8Ug80hcishZt1a0nOh0aGC_fviSICHfJPg1XeE8r7U.7h1vnSamyeV1hxI0)
 - [26.05](https://us02web.zoom.us/rec/share/3sUnuvMz04a-igbG3zGVQiAsTVhH6lfYSbV1QBPfPxz5rgk1tUxRLpwP_h4JB8T2._1zdS3O1AvsQkfb8)
 - [31.05](https://us02web.zoom.us/rec/share/bQ_ZQTuVDZsZMrreDiInOYfSxpw1tApavmnU49txRIq_SHPq3T5bSjnerfG2rM9w.RxqG3A0ejnLWJLLo)
+- [02.06](https://us02web.zoom.us/rec/share/h4FUUG7tl0f3F8iYokTtvWcoPZbenALOnke8KZmxjBUAawHarQ499RArMd6afsXT.-Z7TIXWH0K4XsPsu)
 
 # Attendee prerequisites
 - [ ] Training «1. Java Application Building» completion
